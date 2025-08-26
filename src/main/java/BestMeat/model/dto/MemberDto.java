@@ -4,7 +4,7 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter@Setter@ToString
+@Data
 public class MemberDto {
     private int mno; // 회원번호
     private String mname; // 회원명
@@ -16,6 +16,4 @@ public class MemberDto {
     private String mdate; // 요일
     private String mcheck; // 활성/비활성 쳌
     private String mimg; // img
-
-
 }
