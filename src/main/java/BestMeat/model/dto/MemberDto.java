@@ -4,18 +4,20 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter@Setter@ToString
+@Data
 public class MemberDto {
-    private int mno; // 회원번호
-    private String mname; // 회원명
-    private String mid; // id
-    private String mpwd; // password
-    private String mphone; // 휴대번호
-    private String memail; // 메일
-    private String maddress; // 주소
-    private String mdate; // 요일
-    private String mcheck; // 활성/비활성 쳌
-    private String mimg; // img
+    // 기본 테이블 정보
+    private int mno;            // 회원번호
+    private String mname;       // 회원명
+    private String mid;         // 회원아이디
+    private String mpwd;        // 회원비밀번호
+    private String mphone;      // 회원전화번호
+    private String memail;      // 회원이메일
+    private String maddress;    // 회원주소
+    private String mdate;       // 회원 등록일
+    private String mcheck;      // 활성/비활성 쳌
+    private String mimg;        // 회원프로필 이미지명
 
+    // 부가적인 정보
 
-}
+} // class end
