@@ -1,4 +1,4 @@
 package model.dao;
 
-public class ReviewDao {
+public class ReviewDao extends Dao  {
 }
