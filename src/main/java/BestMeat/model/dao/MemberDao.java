@@ -1,4 +1,7 @@
 package BestMeat.model.dao;
 
-public class MemberDao {
-}
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class MemberDao extends Dao {
+} // class end
