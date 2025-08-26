@@ -1,9 +1,17 @@
 plugins {
-    id 'java'
+    id 'java' // 자바
+    id 'org.springframework.boot' version '3.5.4' // 스프링부트 버전
+    id 'io.spring.dependency-management' version '1.1.7'  // 스프링 의존성 버전
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
@@ -18,6 +26,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
 }
