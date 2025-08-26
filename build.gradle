@@ -1,19 +1,31 @@
 plugins {
-    id 'java'
+    id 'java' // 자바
+    id 'org.springframework.boot' version '3.5.4' // 스프링부트 버전
+    id 'io.spring.dependency-management' version '1.1.7'  // 스프링 의존성 버전
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.springframework.boot:spring-boot-starter-web' // 스프링부트 웹 설치
+    runtimeOnly 'com.mysql:mysql-connector-j' // MYSQL JDBC 라이브러리 설치
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper" // JSP 라이브러리 설치
+    // 롬복 라이브러리 설치
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
 }
