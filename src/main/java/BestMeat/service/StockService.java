@@ -13,19 +13,18 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class StockService {
     private final StockDao stockDao;
+    private final CompanyService companyService;
 
     // [stock01] 재고등록 - addStock()
     // 기능설명 : [ 정육점번호(세션), 가격, 제품번호(select) ]를 받아, Stock DB에 저장한다.
     // 매개변수 : StockDto
     // 반환타입 : int
     public int addStock( StockDto stockDto, HttpSession session ){
-        // 1. 세션 가져오기
-        Object loginCno = session.getAttribute("loginCno");
-        // 2. 세션정보에서 정육점번호 가져오기
-        int cno = loginCno == null ? 0 : (int) loginCno;
-        // 3. 정육점번호를 Dto에 넣기
+        // 1. 세션정보에서 정육점번호 가져오기 -> companyService에 메소드화
+        int cno = companyService.getLoginCno( session );
+        // 2. 정육점번호를 Dto에 넣기
         stockDto.setCno( cno );
-        // 4. Dao에게 전달 후 결과 반환하기
+        // 3. Dao에게 전달 후 결과 반환하기
         return stockDao.addStock( stockDto );
     } // func end
 
@@ -34,16 +33,14 @@ public class StockService {
     // 매개변수 : StockDto, session
     // 반환타입 : boolean -> 성공 : true / 실패 : false
     public boolean updateStock( StockDto stockDto, HttpSession session ){
-        // 1. 세션 가져오기
-        Object loginCno = session.getAttribute("loginCno");
-        // 2. 세션정보에서 정육점번호 가져오기
-        int cno = loginCno == null ? 0 : (int) loginCno;
-        // 3. 정육점번호를 Dto에 넣기
+        // 1. 세션정보에서 정육점번호 가져오기 -> companyService에 메소드화
+        int cno = companyService.getLoginCno( session );
+        // 2. 정육점번호를 Dto에 넣기
         stockDto.setCno( cno );
-        // 4. 현재날짜를 Dto에 넣기
+        // 3. 현재날짜를 Dto에 넣기
         String today = LocalDateTime.now().toString();
         stockDto.setSdate( today );
-        // 5. Dao에게 전달 후 결과 반환하기
+        // 4. Dao에게 전달 후 결과 반환하기
         return stockDao.updateStock( stockDto );
     } // func end
 
