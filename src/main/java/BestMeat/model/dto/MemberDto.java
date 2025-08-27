@@ -17,6 +17,7 @@ public class MemberDto {
     private String mdate;       // 회원 등록일
     private String mcheck;      // 활성/비활성 쳌
     private String mimg;        // 회원프로필 이미지명
+    private int cno;    // 정육저 번호
 
     // 부가적인 정보
 
