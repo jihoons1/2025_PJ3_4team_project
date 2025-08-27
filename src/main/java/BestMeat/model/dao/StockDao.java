@@ -36,13 +36,37 @@ public class StockDao extends Dao {
     } // func end
 
     // [stock02] 재고수정 - updateStock()
-    // 기능설명 : [ 정육점번호(세션), 가격 ]을 입력받아, [ 가격, 등록일 ]을 수정한다.
-    // 매개변수 : int sprice
+    // 기능설명 : [ 정육점번호(세션), 재고번호, 가격 ]을 입력받아, [ 가격, 등록일 ]을 수정한다.
+    // 매개변수 : StockDto
     // 반환타입 : boolean -> 성공 : true / 실패 : false
+    public boolean updateStock( StockDto stockDto ){
+        try {
+            String SQL = "update stock set sprice = ?, sdate = ? where sno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, stockDto.getSprice() );
+            ps.setString( 2, stockDto.getSdate() );
+            ps.setInt( 3, stockDto.getSno() );
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ){
+            System.out.println("[stock02] SQL 기재 실패");
+        } // try-catch end
+        return false;
+    } // func end
 
     // [stock03] 재고삭제 - deleteStock()
-    // 기능설명 : [ 정육점번호(세션) ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
-    // 매개변수 : int cno
+    // 기능설명 : [ 정육점번호(세션+입력), 재고번호 ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
+    // 매개변수 : StockDto
     // 반환타입 : boolean -> 성공 : true / 실패 : false
-
+    public boolean deleteStock( StockDto stockDto ){
+        try {
+            String SQL = "delete from stock where sno = ? and cno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, stockDto.getSno() );
+            ps.setInt( 2, stockDto.getCno() );
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ){
+            System.out.println("[stock03] SQL 기재 실패");
+        } // try-catch end
+        return false;
+    } // func end
 } // class end
