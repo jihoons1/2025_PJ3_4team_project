@@ -3,5 +3,5 @@ package BestMeat.model.dao;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class NoticeDao extends Dao  {
-}
+public class NoticeDao extends Dao {
+} // class end

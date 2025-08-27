@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberDao memberDao;
-}
+
+
+} // class end
