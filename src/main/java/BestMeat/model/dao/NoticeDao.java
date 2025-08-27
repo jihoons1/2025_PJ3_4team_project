@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class NoticeDao extends Dao {
@@ -36,7 +38,29 @@ public class NoticeDao extends Dao {
     } // func end
 
     // [notice02] 문자전송여부 값 반환
-    // 기능설명 :
-    // 매개변수 : nno
-    // 반환타입 : int
+    // 기능설명 : [ 제품번호 ]를 받아, 해당하는 문자전송여부를 반환한다.
+    // 매개변수 : int pno
+    // 반환타입 : List<NoticeDto>
+    public List<NoticeDto> getNoticeList( int pno ){
+        List<NoticeDto> noticeDtoList = new ArrayList<NoticeDto>();
+        try {
+            String SQL = "select * from notice where pno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, pno );
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                NoticeDto noticeDto = new NoticeDto();
+                noticeDto.setNno( rs.getInt( "nno" ) );
+                noticeDto.setMno( rs.getInt( "mno" ) );
+                noticeDto.setPno( rs.getInt( "pno" ) );
+                noticeDto.setNprice( rs.getInt( "nprice" ) );
+                noticeDto.setNcheck( rs.getInt( "ncheck" ) );
+                noticeDto.setNdate( rs.getString( "ndate" ) );
+                noticeDtoList.add( noticeDto );
+            } // while end
+        } catch ( SQLException e ){
+            System.out.println("[notice02] SQL 기재 실패");
+        } // try-catch end
+        return noticeDtoList;
+    } // func end
 } // class end
