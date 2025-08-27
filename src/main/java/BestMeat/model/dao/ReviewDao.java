@@ -41,8 +41,32 @@ public class ReviewDao extends Dao  {
         return false;
     }// func end
 
+    // 리뷰 수정 기능
+    public boolean updateReview(ReviewDto dto){
+        try{
+            String sql = "update review set rontent = ? , rrank = ? where rno = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,dto.getRcontent());
+            ps.setInt(2,dto.getRrank());
+            ps.setInt(3,dto.getRno());
+            return ps.executeUpdate() == 1;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }// func end
+
+    // 리뷰 이미지 수정기능
+    public boolean updateReviewImg(int rno , String filename , String oldname){
+        try{
+            String sql = "update review set rimg = ? where rno = ? and rimg = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,filename);
+            ps.setInt(2,rno);
+            ps.setString(3,oldname);
+            return ps.executeUpdate() == 1;
+        } catch (Exception e) { System.out.println(e); }
+        return false;
+    }// func end
 
 
 
-
-}
+}// class end
