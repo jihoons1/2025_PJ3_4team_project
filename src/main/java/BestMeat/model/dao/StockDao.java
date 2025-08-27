@@ -54,8 +54,19 @@ public class StockDao extends Dao {
     } // func end
 
     // [stock03] 재고삭제 - deleteStock()
-    // 기능설명 : [ 정육점번호(세션), 재고번호 ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
-    // 매개변수 : int sno
+    // 기능설명 : [ 정육점번호(세션+입력), 재고번호 ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
+    // 매개변수 : StockDto
     // 반환타입 : boolean -> 성공 : true / 실패 : false
-
+    public boolean deleteStock( StockDto stockDto ){
+        try {
+            String SQL = "delete from stock where sno = ? and cno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, stockDto.getSno() );
+            ps.setInt( 2, stockDto.getCno() );
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ){
+            System.out.println("[stock03] SQL 기재 실패");
+        } // try-catch end
+        return false;
+    } // func end
 } // class end

@@ -45,8 +45,19 @@ public class StockService {
     } // func end
 
     // [stock03] 재고삭제 - deleteStock()
-    // 기능설명 : [ 정육점번호(세션), 재고번호 ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
-    // 매개변수 : int sno, session
+    // 기능설명 : [ 정육점번호(세션+입력), 재고번호 ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
+    // 매개변수 : StockDto, session
     // 반환타입 : boolean -> 성공 : true / 실패 : false
-
+    public boolean deleteStock( StockDto stockDto, HttpSession session ){
+        // 1. 세션정보에서 정육점번호 가져오기
+        int loginCno = companyService.getLoginCno( session );
+        // 2. 정육점번호(세션 = 입력)를 비교하기
+        if ( loginCno == stockDto.getCno() ){
+            // 3-1. 정육점번호가 같으면, Dao에게 전달 후 결과 반환하기
+            return stockDao.deleteStock( stockDto );
+        } else {
+            // 3-2. 정육점번호가 다르면, DB처리 안하고 false 반환하기
+            return false;
+        } // if end
+    } // func end
 } // class end

@@ -39,9 +39,19 @@ public class StockController {
     } // func end
 
     // [stock03] 재고삭제 - deleteStock()
-    // 기능설명 : [ 정육점번호(세션), 재고번호 ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
+    // 기능설명 : [ 정육점번호(세션+입력), 재고번호 ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
     // method : DELETE, URL : /stock/delete
-    // 매개변수 : int sno, session
+    // 매개변수 : StockDto, session
     // 반환타입 : boolean -> 성공 : true / 실패 : false
-
+    @DeleteMapping("/delete")
+    public boolean deleteStock( @RequestParam int cno, @RequestParam int sno, HttpSession session ){
+        System.out.println("StockController.deleteStock");
+        // 1. Service에게 전달할 Dto 만들기
+        StockDto stockDto = new StockDto();
+        // 2. Dto에 값 넣기
+        stockDto.setCno( cno );
+        stockDto.setSno( sno );
+        // 3. Service에게 전달하고 결과 반환하기
+        return stockService.deleteStock( stockDto, session );
+    } // func end
 } // class end
