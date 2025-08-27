@@ -10,7 +10,7 @@ import java.util.UUID;
 public class FileService {
     // [*] 업로드 경로
     private String baseDir = System.getProperty("user.dir");
-    private String uploadPath = baseDir + "/build/resource/main/static/upload/";
+    private String uploadPath = baseDir + "/build/resources/main/static/upload/";
 
     // 파일 업로드 기능
     public String fileUpload(MultipartFile multipartFile){
