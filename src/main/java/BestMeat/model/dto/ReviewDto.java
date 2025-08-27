@@ -15,6 +15,7 @@ public class ReviewDto {
     private String rdate;
     private int cno;
     private int mno;
+    private boolean check;
     private List<MultipartFile> uploads;
     private List<String> images;
 }
