@@ -66,7 +66,7 @@ public class ReviewDao extends Dao  {
             return ps.executeUpdate() == 1;
         } catch (Exception e) { System.out.println(e); }
         return false;
-    }// func end
+    }// func end1
 
 
 
