@@ -5,10 +5,9 @@ import BestMeat.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,27 +15,39 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberService memberService;
 
-    // 회원
+    // [1] 회원가입
     @PostMapping("/signup")
-    public int signup(@RequestBody MemberDto dto ) {
+    public int signup(@RequestBody MemberDto dto) {
         System.out.println("MemberController.signup");
         return memberService.signup(dto);
     }
 
-    // 로그인
+    // [2] 로그인
     @PostMapping("/login")
-    public int login(@RequestBody MemberDto dto , HttpServletRequest request){
+    public int login(@RequestBody MemberDto dto, HttpServletRequest request) {
         System.out.println("MemberController.login");
         // 세션 정보
         HttpSession session = request.getSession();
         // 로그인 성공 정보
         dto = memberService.login(dto);
-        if (dto != null){
-            session.setAttribute("loginMno" ,dto.getMno() );
-            session.setAttribute("loginCno" ,dto.getCno() );
+        if (dto != null) {
+            session.setAttribute("loginMno", dto.getMno());
+            session.setAttribute("loginCno", dto.getCno());
         }
         return dto.getMno();
-
     }
 
+    // [3] 아이디찾기
+    @GetMapping("/findId")
+    public Map<String , String > findId(@RequestParam Map<String , String>map){
+        System.out.println("MemberController.findId");
+        return memberService.findId(map);
+    }
+
+    // [4] 비밀번호찾기
+    @PostMapping("/findPwd")
+    public boolean findPwd(@RequestParam Map<String , String> map){
+        System.out.println("MemberController.findPwd");
+        return memberService.findPwd(map);
+    }
 }

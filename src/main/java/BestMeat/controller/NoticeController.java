@@ -10,4 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/notice")
 public class NoticeController {
     private final NoticeService noticeService;
-}
+
+
+} // class end

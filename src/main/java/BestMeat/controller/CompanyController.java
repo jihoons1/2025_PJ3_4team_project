@@ -10,4 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/company")
 public class CompanyController {
     private final CompanyService companyService;
-}
+
+
+} // class end
