@@ -34,4 +34,9 @@ public class NoticeDao extends Dao {
         } // try-catch end
         return 0;
     } // func end
+
+    // [notice02] 문자전송여부 값 반환
+    // 기능설명 :
+    // 매개변수 : nno
+    // 반환타입 : int
 } // class end

@@ -24,8 +24,18 @@ public class StockService {
         int cno = companyService.getLoginCno( session );
         // 2. 정육점번호를 Dto에 넣기
         stockDto.setCno( cno );
+        // 3. 재고등록하고
+        int sno = stockDao.addStock( stockDto );
+        // 4. 문자전송여부가 0이라면, 문자전송하기
+
+        // 5. 0이 아니라면, 문자전송여부 값과 재고가격을 비교하여
+        // 재고가격이 낮으면, 문자전송하기
+        // 재고가격이 높으면, 문자전송 안하기
+
+
+
         // 3. Dao에게 전달 후 결과 반환하기
-        return stockDao.addStock( stockDto );
+        return sno;
     } // func end
 
     // [stock02] 재고수정 - updateStock()
