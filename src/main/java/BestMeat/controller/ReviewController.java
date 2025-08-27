@@ -27,9 +27,12 @@ public class ReviewController {
         if (result > 0 && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){
                 String filename = fileservice.fileUpload(file);
-            }
-        }
-
-    }
+                if (filename == null){ return false; }
+                boolean result2 = reviewService.addReviewImg(dto.getRno(),filename);
+                if (result2 == false){return result2; }
+            }// for end
+        }// if end
+        return true;
+    }// func end
 
 }
