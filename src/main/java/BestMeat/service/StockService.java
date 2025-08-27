@@ -1,6 +1,8 @@
 package BestMeat.service;
 
+import BestMeat.model.dao.NoticeDao;
 import BestMeat.model.dao.StockDao;
+import BestMeat.model.dto.NoticeDto;
 import BestMeat.model.dto.StockDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -8,33 +10,50 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class StockService {
     private final StockDao stockDao;
     private final SessionService sessionService;
+    private final NoticeDao noticeDao;
 
     // [stock01] 재고등록 - addStock()
     // 기능설명 : [ 정육점번호(세션), 가격, 제품번호(select) ]를 받아, Stock DB에 저장한다.
     // 매개변수 : StockDto
     // 반환타입 : int
     public int addStock( StockDto stockDto, HttpSession session ){
-        // 1. 세션정보에서 정육점번호 가져오기 -> SessionService 메소드화
+        // 1-1. 세션정보에서 정육점번호 가져오기 -> SessionService 메소드화
         int cno = sessionService.getSessionNo( "loginCno", session );
+        // 1-2. 세션정보가 없으면, 메소드 종료
+        if ( cno == 0 ) return 0;
         // 2. 정육점번호를 Dto에 넣기
         stockDto.setCno( cno );
-        // 3. 재고등록하고
+        // 3-1. 재고등록하고
         int sno = stockDao.addStock( stockDto );
-        // 4. 문자전송여부가 0이라면, 문자전송하기
+        // 3-2. 재고등록에 실패했다면, 메소드 종료
+        if ( sno == 0 ) return 0;
+        // 4-1. 제품번호에 해당하는 알림목록 가져오기
+        List<NoticeDto> noticeList = noticeDao.getNoticeList( stockDto.getPno() );
+        // 4-2. 제품번호에 해당하는 알림목록이 null이라면, 메소드 종료
+        if ( noticeList.isEmpty() ) return sno;
+        // 5. 알림목록에서 문자전송여부 확인하기
+        for ( NoticeDto noticeDto : noticeList ){
+            int ncheck = noticeDto.getNcheck();
+            // 6-1. 문자전송여부가 0이라면
+            if ( ncheck == 0 ){
+                // 6-2. 문자전송하기  // todo 문자전송 API 구현 필요
 
-        // 5. 0이 아니라면, 문자전송여부 값과 재고가격을 비교하여
-        // 재고가격이 낮으면, 문자전송하기
-        // 재고가격이 높으면, 문자전송 안하기
+            } else {    // 7. 문자전송여부가 0이 아니라면, 문자전송여부와 등록재고가격(sprice)을 비교하여
+                // 8-1. 등록재고가격이 낮으면
+                if ( ncheck > stockDto.getSprice() ){
+                    // 8-2. 문자전송하기  // todo 문자전송 API 구현 필요
 
-
-
-        // 3. Dao에게 전달 후 결과 반환하기
+                } // if end
+            } // if end
+        } // for end
+        // 9. Dao에게 전달 후 결과 반환하기
         return sno;
     } // func end
 
