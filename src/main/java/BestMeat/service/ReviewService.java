@@ -5,6 +5,8 @@ import BestMeat.model.dto.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -26,9 +28,13 @@ public class ReviewService {
     }// func end
 
     // 리뷰 이미지 수정기능
-    public boolean updateReviewImg(int rno , String filename , String oldname){
-        return reviewDao.updateReviewImg(rno, filename, oldname);
+    public boolean updateReviewImg(int rno , String filename , List<Integer> nolist){
+        for (int rimgno : nolist){
+            boolean result = reviewDao.updateReviewImg(rno, filename, rimgno);
+            if (result) return true;
+        }// for end
+        return false;
     }// func end
 
 
-}
+}// class end
