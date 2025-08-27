@@ -6,6 +6,9 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class StockService {
@@ -16,10 +19,10 @@ public class StockService {
     // 매개변수 : StockDto
     // 반환타입 : int
     public int addStock( StockDto stockDto, HttpSession session ){
-        // 1. 세션에서 가져오기
-        Object loginObject = session.getAttribute("loginCno");
+        // 1. 세션 가져오기
+        Object loginCno = session.getAttribute("loginCno");
         // 2. 세션정보에서 정육점번호 가져오기
-        int cno = loginObject == null ? 0 : (int) loginObject;
+        int cno = loginCno == null ? 0 : (int) loginCno;
         // 3. 정육점번호를 Dto에 넣기
         stockDto.setCno( cno );
         // 4. Dao에게 전달 후 결과 반환하기
@@ -27,13 +30,26 @@ public class StockService {
     } // func end
 
     // [stock02] 재고수정 - updateStock()
-    // 기능설명 : [ 정육점번호(세션), 가격 ]을 입력받아, [ 가격, 등록일 ]을 수정한다.
-    // 매개변수 : int sprice
+    // 기능설명 : [ 정육점번호(세션), 재고번호, 가격 ]을 입력받아, [ 가격, 등록일 ]을 수정한다.
+    // 매개변수 : StockDto, session
     // 반환타입 : boolean -> 성공 : true / 실패 : false
+    public boolean updateStock( StockDto stockDto, HttpSession session ){
+        // 1. 세션 가져오기
+        Object loginCno = session.getAttribute("loginCno");
+        // 2. 세션정보에서 정육점번호 가져오기
+        int cno = loginCno == null ? 0 : (int) loginCno;
+        // 3. 정육점번호를 Dto에 넣기
+        stockDto.setCno( cno );
+        // 4. 현재날짜를 Dto에 넣기
+        String today = LocalDateTime.now().toString();
+        stockDto.setSdate( today );
+        // 5. Dao에게 전달 후 결과 반환하기
+        return stockDao.updateStock( stockDto );
+    } // func end
 
     // [stock03] 재고삭제 - deleteStock()
-    // 기능설명 : [ 정육점번호(세션) ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
-    // 매개변수 : int cno
+    // 기능설명 : [ 정육점번호(세션), 재고번호 ]을 받아, 해당하는 회사가 등록한 재고라면, 삭제한다.
+    // 매개변수 : int sno, session
     // 반환타입 : boolean -> 성공 : true / 실패 : false
 
 } // class end
