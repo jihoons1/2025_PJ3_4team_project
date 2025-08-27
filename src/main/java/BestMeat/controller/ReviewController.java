@@ -1,6 +1,7 @@
 package BestMeat.controller;
 
 import BestMeat.model.dto.ReviewDto;
+import BestMeat.service.FileService;
 import BestMeat.service.ReviewService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/review")
 public class ReviewController {
     private final ReviewService reviewService;
+    private final FileService fileService;
 
     // 리뷰 등록 기능
     @PostMapping("/add")
@@ -26,7 +28,7 @@ public class ReviewController {
         int result = reviewService.addReview(dto);
         if (result > 0 && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){
-                String filename = fileservice.fileUpload(file);
+                String filename = fileService.fileUpload(file);
                 if (filename == null){ return false; }
                 boolean result2 = reviewService.addReviewImg(dto.getRno(),filename);
                 if (result2 == false){return result2; }
