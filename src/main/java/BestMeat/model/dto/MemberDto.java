@@ -16,4 +16,5 @@ public class MemberDto {
     private String mdate; // 요일
     private String mcheck; // 활성/비활성 쳌
     private String mimg; // img
+    private int cno; // 정육점 번호
 }

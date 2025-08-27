@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class Dao {
     // * DB 연동에 필요한 정보
-    private String DB_URL = "jdbc:mysql://localhost:3306/springweb";
+    private String DB_URL = "jdbc:mysql://localhost:3306/project3";
     private String DB_USER = "root";
     private String DB_PASSWORD = "1234";
     public Connection conn;         // 하위클래스에서 사용할 수 있게 public으로 선언
