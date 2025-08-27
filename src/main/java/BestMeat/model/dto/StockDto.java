@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class StockDto {
     // 기본 테이블 정보
     private int sno;        // 재고번호
-    private String sprice;  // 등록가격
+    private int sprice;     // 등록가격
     private String sdate;   // 등록일
     private int cno;        // 정육점번호
     private int pno;        // 제품번호

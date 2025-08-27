@@ -1,7 +1,11 @@
 package BestMeat.controller;
 
+import BestMeat.model.dto.StockDto;
 import BestMeat.service.StockService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +20,13 @@ public class StockController {
     // method : POST, URL : /stock/add
     // 매개변수 : StockDto
     // 반환타입 : int
+    @PostMapping("/add")
+    public int addStock( @RequestBody StockDto stockDto, HttpSession session ){
+        System.out.println("StockController.addStock");
+        System.out.println("stockDto = " + stockDto);
+
+        return stockService.addStock( stockDto, session );
+    } // func end
 
     // [stock02] 재고수정 - updateStock()
     // 기능설명 : [ 정육점번호(세션), 가격 ]을 입력받아, [ 가격, 등록일 ]을 수정한다.
