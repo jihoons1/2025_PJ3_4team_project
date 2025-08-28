@@ -15,7 +15,7 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
 
-    private String tableName = "member/";       // 파일 업로드 경로
+//    private String tableName = "member/";       // 파일 업로드 경로
 
     // [1] 회원가입
     @PostMapping("/signup")
@@ -48,7 +48,7 @@ public class MemberController {
 
     // [4] 비밀번호찾기
     @PostMapping("/findPwd")
-    public boolean findPwd(@RequestParam Map<String , String> map){
+    public boolean findPwd(@RequestBody Map<String , String> map){
         System.out.println("MemberController.findPwd");
         return memberService.findPwd(map);
     }
