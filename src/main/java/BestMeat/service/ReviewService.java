@@ -58,4 +58,9 @@ public class ReviewService {
         // 5. 페이징처리된 pageDto 반환하기
         return pageService.paging( page, new ArrayList<>(reviewDtoList), totalCount );
     } // func end
+
+    // [review04] 회원별 리뷰조회 - getMnoReview()
+    public List<ReviewDto> getMnoReview( int mno ){
+        return reviewDao.getMnoReview( mno );
+    } // func end
 }// class end

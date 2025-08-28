@@ -2,11 +2,13 @@ package BestMeat.service;
 
 import BestMeat.model.dao.MemberDao;
 import BestMeat.model.dto.MemberDto;
+import BestMeat.model.dto.ReviewDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -14,6 +16,7 @@ import java.util.Map;
 public class MemberService {
     private final MemberDao memberDao;
     private final SessionService sessionService;
+    private final ReviewService reviewService;
 
 
     // [1] 회원가입
@@ -63,8 +66,13 @@ public class MemberService {
         int mno = sessionService.getSessionNo( "loginMno", session );
         // 2. 회원번호가 0이면, 비로그인상태이므로 메소드 종료
         if ( mno == 0 ) return null;
-
-        return memberDao.getMember( mno );
+        // 3. ReviewService에서 회원별 리뷰목록 받아오기
+        List<ReviewDto> reviewDtoList = reviewService.getMnoReview( mno );
+        // 4. 리뷰목럭 MemberDto에 넣기
+        MemberDto memberDto = memberDao.getMember( mno );
+        memberDto.setReviewDtoList( reviewDtoList );
+        // 5. 최종적으로 반환
+        return memberDto;
     } // func end
 
     // [member08] 회원 탈퇴 - resignMember()

@@ -110,7 +110,7 @@ public class ReviewDao extends Dao  {
                 reviewDto.setCno( rs.getInt("cno") );
                 reviewDto.setMname( rs.getString("mname") );
                 reviewDto.setMno( rs.getInt("mno") );
-                list.add(reviewDto);
+                list.add( reviewDto );
             } // while end
         } catch ( SQLException e ){
             System.out.println("[review03] SQL 기재 실패");
@@ -132,5 +132,29 @@ public class ReviewDao extends Dao  {
             System.out.println("[review04] SQL 기재 실패");
         } // try-catch end
         return 0;
+    } // func end
+
+    // [review05] 회원별 리뷰조회 - getMnoReview()
+    public List<ReviewDto> getMnoReview( int mno ){
+        List<ReviewDto> list = new ArrayList<>();
+        try {
+            String SQL = "select * from review where mno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, mno );
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){    // todo 중복코드 일원화 생각해보기
+                ReviewDto reviewDto = new ReviewDto();
+                reviewDto.setRno( rs.getInt("rno") );
+                reviewDto.setRcontent( rs.getString("rcontent") );
+                reviewDto.setRrank( rs.getInt("rrank") );
+                reviewDto.setRdate( rs.getString("rdate") );
+                reviewDto.setCno( rs.getInt("cno") );
+                reviewDto.setMno( rs.getInt("mno") );
+                list.add( reviewDto );
+            } // while end
+        } catch ( SQLException e ){
+            System.out.println("[review05] SQL 기재 실패");
+        } // try-catch end
+        return list;
     } // func end
 }// class end
