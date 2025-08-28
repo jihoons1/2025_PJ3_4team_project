@@ -2,6 +2,7 @@ package BestMeat.controller;
 
 import BestMeat.model.dto.MemberDto;
 import BestMeat.service.MemberService;
+import BestMeat.service.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.Map;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
+    private final SessionService sessionService;
 
     private String tableName = "member/";       // 파일 업로드 경로
 
@@ -82,5 +84,21 @@ public class MemberController {
         if ( result ) session.invalidate();
         // 3. 최종 반환하기
         return result;
+    } // func end
+
+    // [member09] 로그아웃 - logout()
+    // 기능설명 : 로그인 세션을 초기화한다.
+    // method : GET, URL : /member/logout
+    // 매개변수 : X
+    // 반환타입 : boolean -> 성공 : true, 실패 : false
+    @GetMapping("/logout")
+    public boolean logout( HttpSession session ){
+        System.out.println("MemberController.logout");
+        // 1. 세션정보 유효성검사하여, 비로그인상태면 실패
+        if ( sessionService.getSessionNo( "loginMno", session) == 0 || sessionService.getSessionNo( "loginCno", session ) == 0 ) return false;
+        // 2. 로그인상태라면, 세션 초기화 진행
+        session.invalidate();
+        // 3. 결과 반환
+        return true;
     } // func end
 } // class end
