@@ -42,4 +42,10 @@ public class CompanyService {
         dto.setData(list);              // 페이징한 자료
         return dto;
     }// func end
+
+    // 정육점 개별조회
+    public CompanyDto findCompany(int cno){
+        return companyDao.findCompany(cno);
+    }// func end
+
 } // class end
