@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductService productService;
 
+    private String tableName = "product/";       // 파일 업로드 경로
+
     /**
      * 제품 전체조회(페이징)
      * @param page

@@ -15,6 +15,8 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
 
+    private String tableName = "member/";       // 파일 업로드 경로
+
     // [1] 회원가입
     @PostMapping("/signup")
     public int signup(@RequestBody MemberDto dto) {
