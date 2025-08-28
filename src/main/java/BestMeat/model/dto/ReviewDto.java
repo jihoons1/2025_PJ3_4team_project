@@ -19,4 +19,7 @@ public class ReviewDto {
     private List<MultipartFile> uploads;
     private List<String> images;
     private double distance;
-}
+
+    // 부가적인 정보
+    private String mname;
+} // class end

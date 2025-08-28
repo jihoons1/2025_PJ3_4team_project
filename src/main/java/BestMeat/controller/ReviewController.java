@@ -2,18 +2,13 @@ package BestMeat.controller;
 
 import BestMeat.model.dto.CompanyDto;
 import BestMeat.model.dto.MemberDto;
+import BestMeat.model.dto.PageDto;
 import BestMeat.model.dto.ReviewDto;
 import BestMeat.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Arrays;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -86,4 +81,17 @@ public class ReviewController {
         return true;
     }// func end
 
+    // [review03] 리뷰 상세조회 - getReview()
+    // 기능설명 : 정육점별 리뷰를 조회한다.
+    // method : GET, URL : /review/get
+    // 매개변수 : startRow, perCount, cno
+    // 반환타입 : PageDto
+    @GetMapping("/get")
+    public PageDto getReview ( @RequestParam int cno,
+                               // defaultValue : 만약 쿼리스트링 매개변수가 없으면, 기본값을 대입
+                               @RequestParam( defaultValue = "1" ) int page ){
+        System.out.println("ReviewController.getReview");
+
+        return reviewService.getReview( cno, page );
+    } // func end
 }// class end
