@@ -13,10 +13,10 @@ public class FileService {
     private String uploadPath = baseDir + "/build/resources/main/static/upload/";
 
     // 파일 업로드 기능
-    public String fileUpload(MultipartFile multipartFile){
+    public String fileUpload(MultipartFile multipartFile, String tableName ){
         String uuid = UUID.randomUUID().toString();
         String fileName = uuid + "_" + multipartFile.getOriginalFilename().replaceAll("_","-");
-        String uploadfilePath = uploadPath + fileName;
+        String uploadfilePath = uploadPath + tableName + fileName;
         File pathFile = new File(uploadPath);
         if (!pathFile.exists()){
             pathFile.mkdir();

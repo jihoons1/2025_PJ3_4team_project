@@ -21,6 +21,8 @@ public class ReviewController {
     private final FileService fileService;
     private final SessionService service;
 
+    private String tableName = "review/";       // 파일 업로드 경로
+
 
     /** method : post 리뷰 등록 기능
      * @param dto
@@ -41,7 +43,7 @@ public class ReviewController {
         int result = reviewService.addReview(dto);
         if (result > 0 && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){
-                String filename = fileService.fileUpload(file);
+                String filename = fileService.fileUpload(file, tableName );
                 if (filename == null){ return false; }
                 boolean result2 = reviewService.addReviewImg(dto.getRno(),filename);
                 if (result2 == false){return result2; }
@@ -66,7 +68,7 @@ public class ReviewController {
         boolean result = reviewService.updateReview(dto);
         if (result  && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){
-                String filename = fileService.fileUpload(file);
+                String filename = fileService.fileUpload(file, tableName );
                 if (filename == null){ return false; }
                 boolean result2 = reviewService.updateReviewImg(dto.getRno(),filename);
                 if (result2 == false){return result2; }

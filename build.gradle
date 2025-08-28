@@ -18,12 +18,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web' // 스프링부트 웹 설치
-    runtimeOnly 'com.mysql:mysql-connector-j' // MYSQL JDBC 라이브러리 설치
-    implementation "org.apache.tomcat.embed:tomcat-embed-jasper" // JSP 라이브러리 설치
+    implementation 'org.springframework.boot:spring-boot-starter-web'   // 스프링부트 웹 설치
+    runtimeOnly 'com.mysql:mysql-connector-j'                           // MYSQL JDBC 라이브러리 설치
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"        // JSP 라이브러리 설치
     // 롬복 라이브러리 설치
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    implementation 'net.nurigo:sdk:4.3.2'                               // 문자전송 라이브러리 설치
 }
 
 tasks.named('test') {
