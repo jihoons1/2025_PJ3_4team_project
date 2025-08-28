@@ -118,18 +118,19 @@ public class MemberDao extends Dao  {
                 // 회원 존재시 임시 비밀번호 발급
                 String random_password = getPwd();
 
-                String sql2 = "update member set mpwd = ? where mid = ? ";
+                String sql2 = "update member set mpwd = ? where mid = ? and mphone = ? ";
                 PreparedStatement ps2 = conn.prepareStatement(sql2);
                 ps2.setString(1, random_password);
                 ps2.setString(2,map.get("mid"));
+                ps2.setString(3, map.get("mphone"));
                 ps2.executeUpdate();
 
                 System.out.println("임시 비밀번호 = " + random_password);
 
                 // 이메일 전송
                 String a = rs.getString("memail"); // 회원메일
-                String b = "임시 비밀번호 안내";
-                String c = "임시로 받으신 번호는 " + random_password + " 입니다. \n";
+                String b = "2025_PJ3_4조_BestMeat 임시 비밀번호";
+                String c = "회원님의 임시 비밀번호는 " + random_password + " 입니다. \n";
 
                 messageService.mailMessage(a,b,c);
                 return true;
