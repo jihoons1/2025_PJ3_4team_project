@@ -658,7 +658,7 @@ insert into notice(mno , pno , nprice , ncheck , ndate) values
     ( 10004, 40004 , 2000 , 0 , '2025-08-25 16:22:00');
 
 
-/*
+
 select * from member;
 select * from category;
 select * from company;
@@ -667,4 +667,3 @@ select * from stock;
 select * from review;
 select * from reviewimg;
 select * from notice;
-/*

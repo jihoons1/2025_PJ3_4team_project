@@ -46,7 +46,7 @@ public class ReviewDao extends Dao  {
     // [2-1] 리뷰 수정 기능
     public boolean updateReview(ReviewDto dto){
         try{
-            String sql = "update review set rontent = ? , rrank = ? where rno = ? ";
+            String sql = "update review set rcontent = ? , rrank = ? where rno = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,dto.getRcontent());
             ps.setInt(2,dto.getRrank());
@@ -73,8 +73,9 @@ public class ReviewDao extends Dao  {
     public List<Integer> getReviewImgNo(int rno){
         List<Integer> list = new ArrayList<>();
         try{
-            String sql = "select * from reviewimg";
+            String sql = "select * from reviewimg where rno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,rno);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 int rimgno = rs.getInt("rimgno");

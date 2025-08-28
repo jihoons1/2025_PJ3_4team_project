@@ -32,7 +32,7 @@ public class ReviewService {
         List<Integer> nolist = reviewDao.getReviewImgNo(rno);
         for (int rimgno : nolist){
             boolean result = reviewDao.updateReviewImg(rno, filename, rimgno);
-            if (result) return true;
+            return result;
         }// for end
         return false;
     }// func end
