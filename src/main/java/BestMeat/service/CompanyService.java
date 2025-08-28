@@ -15,14 +15,14 @@ public class CompanyService {
     private final CompanyDao companyDao;
 
     // 정육점 전체조회(페이징)
-    public PageDto getCompany(int page , String key , String keyword){
+    public PageDto getCompany(int page , String key , String keyword,String order){
         int count = 10;
         int startRow = (page-1)*count;
         int totalCount;
         List<CompanyDto> list;
         if (key != null && !key.isEmpty() && keyword != null && !keyword.isEmpty()){ // 검색일때
             totalCount = companyDao.getTotalCompanySearch(key,keyword);
-            list = companyDao.getCompanySearch(startRow,count,key,keyword);
+            list = companyDao.getCompanySearch(startRow,count,key,keyword,order);
         }else { // 검색 아닐때
             totalCount = companyDao.getTotalCompany();
             list = companyDao.getCompany(startRow,count);

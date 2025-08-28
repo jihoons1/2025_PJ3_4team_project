@@ -15,4 +15,5 @@ public class CompanyDto {
     private MultipartFile uploads;
     private int sprice;
     private String pname;
+    private double rrank;
 }

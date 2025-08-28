@@ -45,16 +45,23 @@ public class CompanyDao extends Dao {
     }// func end
 
     // 정육점 전체조회(키워드검색)
-    public List<CompanyDto> getCompanySearch(int startRow , int count , String key , String keyword){
+    public List<CompanyDto> getCompanySearch(int startRow , int count , String key , String keyword , String order){
         List<CompanyDto> list = new ArrayList<>();
         try{
-            String sql = "select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno";
+            String sql = "select c.cno , c.mno , c.cname , c.caddress , c.cimg ,p.pname , s.sprice ,  round(avg(r.rrank), 1) as rrank " +
+                    " from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno";
             if (key.equals("pname")){
                 sql += " where pname like ? ";
             }else if (key.equals("cname")){
                 sql += " where cname like ? ";
             }// if end
-            sql += " order by cno desc limit ? , ?";
+            if ("rank".equals(order)){
+                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by rrank asc limit ? , ?";
+            }else if ("sprice".equals(order)){
+                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by sprice asc limit ? , ?";
+            }else{
+                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by cno desc limit ? , ?";
+            }// if end
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,"%"+keyword+"%");
             ps.setInt(2,startRow);
@@ -69,6 +76,7 @@ public class CompanyDao extends Dao {
                 dto.setCname(rs.getString("cname"));
                 dto.setCaddress(rs.getString("caddress"));
                 dto.setCimg(rs.getString("cimg"));
+                dto.setRrank(rs.getDouble("rrank"));
                 list.add(dto);
             }// while end
         } catch (Exception e) { System.out.println(e); }
@@ -111,5 +119,7 @@ public class CompanyDao extends Dao {
         } catch (Exception e) { System.out.println(e); }
         return null;
     }// func end
+
+    //
 
 } // class end

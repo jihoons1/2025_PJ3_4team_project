@@ -18,8 +18,9 @@ public class CompanyController {
     @GetMapping("/get")
     public PageDto getCompany(@RequestParam(defaultValue = "1") int page ,
                               @RequestParam(required = false) String key ,
-                              @RequestParam(required = false) String keyword){
-        return companyService.getCompany(page,key,keyword);
+                              @RequestParam(required = false) String keyword ,
+                              @RequestParam(required = false) String order){
+        return companyService.getCompany(page,key,keyword,order);
     }// func end
 
     // 정육점 개별조회

@@ -1,9 +1,7 @@
 package BestMeat.controller;
 
 import BestMeat.model.dto.ReviewDto;
-import BestMeat.service.FileService;
-import BestMeat.service.ReviewService;
-import BestMeat.service.SessionService;
+import BestMeat.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +18,8 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final FileService fileService;
     private final SessionService sessionService;
+    private final MapService mapService;
+    private final MemberService memberService;
 
     private String tableName = "review/";       // 파일 업로드 경로
 
