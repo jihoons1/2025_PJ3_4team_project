@@ -10,7 +10,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
     <!-- CSS 불러오기 : static 이하 경로부터 작성 -->
-
+    <link rel="stylesheet" href="/css/common.css">
 
 </head>
 
@@ -21,6 +21,7 @@
     </div>
 
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
+    <script src="/js/header.js"></script>
 
 </body>
 
