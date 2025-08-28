@@ -1,5 +1,7 @@
 package BestMeat.controller;
 
+import BestMeat.model.dto.CompanyDto;
+import BestMeat.model.dto.MemberDto;
 import BestMeat.model.dto.ReviewDto;
 import BestMeat.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Arrays;
 
 
 @RestController
@@ -20,6 +24,7 @@ public class ReviewController {
     private final SessionService sessionService;
     private final MapService mapService;
     private final MemberService memberService;
+    private final CompanyService companyService;
 
     private String tableName = "review/";       // 파일 업로드 경로
 
@@ -37,6 +42,16 @@ public class ReviewController {
     public boolean addReview(ReviewDto dto , HttpSession session){
         int mno = sessionService.getSessionNo("loginMno" , session);
         dto.setMno(mno);
+        MemberDto mdto = memberService.getMember(session);
+        String[] str = mdto.getMaddress().split(",");
+        CompanyDto cdto = companyService.findCompany(dto.getCno());
+        String[] str1 = cdto.getCaddress().split(",");
+        double[] start = mapService.getLatLng(str[0]);
+        System.out.println(start);
+        double[] end = mapService.getLatLng(str1[0]);
+        System.out.println(end);
+        dto.setDistance(mapService.distance(start,end));
+        System.out.println(dto.getDistance());
         int result = reviewService.addReview(dto);
         if (result > 0 && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){

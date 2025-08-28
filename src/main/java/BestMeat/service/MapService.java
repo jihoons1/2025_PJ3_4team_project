@@ -1,44 +1,53 @@
 package BestMeat.service;
 
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
+
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+
 
 @Service
 public class MapService {
     // 발급받은 apiKey
     private String apiKey = "A97BA8AB-2612-3296-91F3-FC3944875F00";
-    // HTTP 요청을 위한 Spring의 RestTemplate
-    private final RestTemplate restTemplate = new RestTemplate();
-    // JSON 파싱을 위한 Jackson의 ObjectMapper
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     /** 매개변수로 위도경도 반환해주는 기능
      * @param address
      * @return double[경도,위도]
      */
-    public double[] getLatLng(String address){
-        String url = UriComponentsBuilder.fromHttpUrl("http://api.vworld.kr/req/address")
-                .queryParam("service" , "address")
-                .queryParam("request" , "getCoord")
-                .queryParam("version" , "2.0")
-                .queryParam("crs" , "EPSG:4326")
-                .queryParam("address" , address)
-                .queryParam("type" , "ROAD") // ROAD : 도로명 , PARCEL : 지번
-                .queryParam("key" , apiKey)
-                .queryParam("format" , "json")
-                .toUriString();
-        try{
-            String response = restTemplate.getForObject(url,String.class);
-            JsonNode root = objectMapper.readTree(response);
-            JsonNode result = root.path("response").path("result").path(0).path("point");
-            double lng = result.get("x").asDouble();
-            double lat = result.get("y").asDouble();
-            return new double[]{ lng , lat };
-        }catch (Exception e){ System.out.println(e); }
-        return null;
+    public double[] getLatLng(String address) {
+        try {
+            String url = "https://api.vworld.kr/req/address?service=address&request=getCoord"
+                    + "&format=json&crs=epsg:4326&type=road&key=" + apiKey
+                    + "&address=" + URLEncoder.encode(address, StandardCharsets.UTF_8);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream(), StandardCharsets.UTF_8));
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(reader);
+
+            JsonNode resultArray = root.path("response").path("result");
+            if (!resultArray.isArray() || resultArray.size() == 0) return null;
+
+            JsonNode point = resultArray.get(0).path("point");
+            if (point.isMissingNode()) return null;
+
+            double lng = point.path("x").asDouble(0.0);
+            double lat = point.path("y").asDouble(0.0);
+
+            return new double[]{lng, lat};
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }// func end
 
     /**

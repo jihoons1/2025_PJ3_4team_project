@@ -2,6 +2,7 @@ package BestMeat.service;
 
 import BestMeat.model.dao.MemberDao;
 import BestMeat.model.dto.MemberDto;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberDao memberDao;
+    private final SessionService sessionService;
 
 
     // [1] 회원가입
@@ -48,4 +50,18 @@ public class MemberService {
         boolean result = memberDao.findPwd(map);
         return result;
     }
-}
+
+    // [7] 회원정보 상세조회 - getMember()
+    // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 회원정보를 조회한다.
+    // 매개변수 : HttpSession
+    // 반환타입 : MemberDto
+    public MemberDto getMember( HttpSession session ){
+        // 1. 세션정보에서 회원번호 가져오기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 회원번호가 0이면, 비로그인상태이므로 메소드 종료
+        if ( mno == 0 ) return null;
+
+        return memberDao.getMember( mno );
+    } // func end
+
+}// class end

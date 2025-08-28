@@ -18,4 +18,5 @@ public class ReviewDto {
     private boolean check;
     private List<MultipartFile> uploads;
     private List<String> images;
+    private double distance;
 }
