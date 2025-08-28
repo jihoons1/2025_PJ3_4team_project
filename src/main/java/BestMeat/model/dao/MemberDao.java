@@ -1,6 +1,6 @@
 package BestMeat.model.dao;
 
-import BestMeat.emailmessage.MessageService;
+import BestMeat.service.MessageService;
 import BestMeat.model.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -143,7 +143,22 @@ public class MemberDao extends Dao  {
     }
 
     // [5] 회원정보 수정
+    public boolean updateMember(MemberDto dto){
+        System.out.println("MemberDao.updateMember");
+        try{
+            String sql = "update member set mphone = ? , maddress = ? , mimg = ? where mno = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, dto.getMphone());
+            ps.setString(2, dto.getMaddress());
+            ps.setInt(3, dto.getMno());
+            int count = ps.executeUpdate();
+            if (count == 1) { return true; }
 
+        }catch (Exception e){
+            System.out.println("회원정보 수저 오류 발생" + e );
+        }
+        return false;
+    }
     // [6] 비밀번호 수정
 
 
