@@ -12,22 +12,22 @@ import java.util.List;
 public class ReviewService {
     private final ReviewDao reviewDao;
 
-    // 리뷰 등록 기능
+    // [1-1] 리뷰 등록 기능
     public int addReview(ReviewDto dto ){
         return reviewDao.addReview(dto);
     }// func end
 
-    // 리뷰 이미지 등록 기능
+    // [1-2] 리뷰 이미지 등록 기능
     public boolean addReviewImg(int rno , String filename){
         return reviewDao.addReviewImg(rno, filename);
     }// func end
 
-    // 리뷰 수정 기능
+    // [2-1]리뷰 수정 기능
     public boolean updateReview(ReviewDto dto){
          return reviewDao.updateReview(dto);
     }// func end
 
-    // 리뷰 이미지 수정기능
+    // [2-2]리뷰 이미지 수정기능
     public boolean updateReviewImg(int rno , String filename ){
         List<Integer> nolist = reviewDao.getReviewImgNo(rno);
         for (int rimgno : nolist){

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public class ReviewDao extends Dao  {
-    // 리뷰 등록 기능
+    // [1-1] 리뷰 등록 기능
     public int addReview(ReviewDto dto ){
         try{
             String sql = "insert into review(rcontent,rrank,cno) values(? , ? ,?)";
@@ -31,7 +31,7 @@ public class ReviewDao extends Dao  {
         return 0;
     }// func end
 
-    // 리뷰 이미지 등록 기능
+    // [1-2] 리뷰 이미지 등록 기능
     public boolean addReviewImg(int rno , String filename){
         try{
             String sql = "insert into reviewimg(rimg , rno) values( ? , ? )";
@@ -43,7 +43,7 @@ public class ReviewDao extends Dao  {
         return false;
     }// func end
 
-    // 리뷰 수정 기능
+    // [2-1] 리뷰 수정 기능
     public boolean updateReview(ReviewDto dto){
         try{
             String sql = "update review set rontent = ? , rrank = ? where rno = ? ";
@@ -56,7 +56,7 @@ public class ReviewDao extends Dao  {
         return false;
     }// func end
 
-    // 리뷰 이미지 수정기능
+    // [2-2] 리뷰 이미지 수정기능
     public boolean updateReviewImg(int rno , String filename , int rimgno){
         try{
             String sql = "update review set rimg = ? where rno = ? and rimgno = ?";
@@ -69,7 +69,7 @@ public class ReviewDao extends Dao  {
         return false;
     }// func end
 
-    // 리뷰 이미지 식별번호 조회
+    // [2-3] 리뷰 이미지 식별번호 조회
     public List<Integer> getReviewImgNo(int rno){
         List<Integer> list = new ArrayList<>();
         try{
