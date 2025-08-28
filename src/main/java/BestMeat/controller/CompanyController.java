@@ -1,6 +1,5 @@
 package BestMeat.controller;
 
-import BestMeat.model.dto.CompanyDto;
 import BestMeat.model.dto.PageDto;
 import BestMeat.service.CompanyService;
 import lombok.RequiredArgsConstructor;
