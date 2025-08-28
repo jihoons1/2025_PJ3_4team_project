@@ -23,7 +23,7 @@ public class NoticeService {
     private final String ApiSecret = "PZKC2JWNOSTUCN4PDXRK93XXJSQRZA06";
     private final String domain = "https://api.solapi.com";
 
-    @PostConstruct  // 의존성이 주입된 후, messageService를 초기화
+    @PostConstruct  // 의존성이 주입된 후, messageService를 초기화, 의존성이 주입되기 전이면 ApiKey, ApiSecret, domain이 null이기에 초기화를 할 수 없음
     public void init(){
         this.messageService = NurigoApp.INSTANCE.initialize( ApiKey, ApiSecret, domain );
     } // func end
