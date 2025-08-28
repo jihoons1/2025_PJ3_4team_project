@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ReviewController {
     private final ReviewService reviewService;
     private final FileService fileService;
-    private final SessionService service;
+    private final SessionService sessionService;
 
     private String tableName = "review/";       // 파일 업로드 경로
 
@@ -35,10 +35,7 @@ public class ReviewController {
      */
     @PostMapping("/add")
     public boolean addReview(ReviewDto dto , HttpSession session){
-        if (session == null || session.getAttribute("loginMno") == null){
-            return false;
-        }// if end
-        int mno = (int) session.getAttribute("loginMno");
+        int mno = sessionService.getSessionNo("loginMno" , session);
         dto.setMno(mno);
         int result = reviewService.addReview(dto);
         if (result > 0 && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
@@ -60,10 +57,7 @@ public class ReviewController {
      */
     @PutMapping("/update")
     public boolean updateReview(ReviewDto dto ,  HttpSession session){
-        if (session == null || session.getAttribute("loginMno") == null){
-            return false;
-        }// if end
-        int mno = (int) session.getAttribute("loginMno");
+        int mno = sessionService.getSessionNo("loginMno" , session);
         dto.setMno(mno);
         boolean result = reviewService.updateReview(dto);
         if (result  && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
