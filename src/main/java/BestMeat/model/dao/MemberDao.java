@@ -1,6 +1,6 @@
 package BestMeat.model.dao;
 
-import BestMeat.emailmessage.MessageService;
+import BestMeat.service.MessageService;
 import BestMeat.model.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

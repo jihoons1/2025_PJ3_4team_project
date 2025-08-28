@@ -1,4 +1,4 @@
-package BestMeat.emailmessage;
+package BestMeat.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
