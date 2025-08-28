@@ -48,8 +48,8 @@ public class MapService {
             JSONObject jsrs = (JSONObject) jsob.get("response");
             JSONObject jsResult = (JSONObject) jsrs.get("result");
             JSONObject jspoitn = (JSONObject) jsResult.get("point");
-            double d1 = (double)jspoitn.get("y");
-            double d2 = (double)jspoitn.get("x");
+            double d1 = Double.parseDouble(jspoitn.get("y").toString());
+            double d2 = Double.parseDouble(jspoitn.get("x").toString());
             return new double[]{ d2 , d1 };
 
         } catch (IOException | ParseException e) {
