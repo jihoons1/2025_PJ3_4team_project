@@ -122,7 +122,7 @@ public class MemberDao extends Dao  {
     // [6] 비밀번호 수정
 
 
-    // [7] 회원정보 상세조회 - getMember()
+    // [member07] 회원정보 상세조회 - getMember()
     // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 회원정보를 조회한다.
     // 매개변수 : int mno
     // 반환타입 : MemberDto
@@ -149,5 +149,22 @@ public class MemberDao extends Dao  {
             System.out.println("[member07] SQL 기재 실패");
         } // try-catch end
         return null;
+    } // func end
+
+    // [member08] 회원 탈퇴 - resignMember()
+    // 기능설명 : [ 회원번호(세션), 비밀번호 ]를 받아,  일치하면 회원활성화를 false로 변경한다.
+    // 매개변수 : Map< String, Object >
+    // 반환타입 : boolean -> 성공 : true, 실패 : false
+    public boolean resignMember( Map<String , Object> map ){
+        try {
+            String SQL = "update member set mcheck = false where mno = ? and mpwd = ? and mcheck = true";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, (Integer) map.get("mno") );
+            ps.setString( 2, (String) map.get("mpwd"));
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ){
+            System.out.println("[member08] SQL 기재 실패");
+        } // try-catch end
+        return false;
     } // func end
 } // class end
