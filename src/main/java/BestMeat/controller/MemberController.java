@@ -52,4 +52,19 @@ public class MemberController {
         System.out.println("MemberController.findPwd");
         return memberService.findPwd(map);
     }
-}
+
+
+
+
+    // [7] 회원정보 상세조회 - getMember()
+    // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 회원정보를 조회한다.
+    // method : GET, URL : /member/get
+    // 매개변수 : HttpSession
+    // 반환타입 : MemberDto
+    @GetMapping("/get")
+    public MemberDto getMember( HttpSession session ){
+        System.out.println("MemberController.getMember");
+
+        return memberService.getMember( session );
+    } // func end
+} // class end

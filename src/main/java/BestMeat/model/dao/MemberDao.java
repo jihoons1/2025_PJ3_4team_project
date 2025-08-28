@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
 import java.util.Random;
@@ -121,6 +122,32 @@ public class MemberDao extends Dao  {
     // [6] 비밀번호 수정
 
 
-
-
+    // [7] 회원정보 상세조회 - getMember()
+    // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 회원정보를 조회한다.
+    // 매개변수 : int mno
+    // 반환타입 : MemberDto
+    public MemberDto getMember( int mno ){
+        try {
+            String SQL = "select * from member where mno = ? and mcheck = true";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, mno );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ){
+                MemberDto memberDto = new MemberDto();
+                memberDto.setMno( rs.getInt("mno") );
+                memberDto.setMname( rs.getString("mname") );
+                memberDto.setMid( rs.getString("mid") );
+                memberDto.setMphone( rs.getString("mphone") );
+                memberDto.setMemail( rs.getString("memail") );
+                memberDto.setMaddress( rs.getString("maddress") );
+                memberDto.setMdate( rs.getString("mdate") );
+                memberDto.setMimg( rs.getString("mimg") );
+                memberDto.setMcheck( rs.getString("mcheck") );
+                return memberDto;
+            } // if end
+        } catch ( SQLException e ){
+            System.out.println("[member07] SQL 기재 실패");
+        } // try-catch end
+        return null;
+    } // func end
 } // class end

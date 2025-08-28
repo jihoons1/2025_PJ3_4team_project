@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class CompanyController {
     private final CompanyService companyService;
 
-    @GetMapping("/get")
-    public PageDto getCompany(@RequestParam(defaultValue = "1") int page){
-        return companyService.getCompany(page);
-    }// func end
+//    @GetMapping("/get")
+//    public PageDto getCompany(@RequestParam(defaultValue = "1") int page){
+//        return companyService.getCompany(page);
+//    }// func end
 
 
 } // class end
