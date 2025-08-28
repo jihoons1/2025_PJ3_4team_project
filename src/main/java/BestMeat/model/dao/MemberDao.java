@@ -116,6 +116,10 @@ public class MemberDao extends Dao  {
         return false;
     }
 
+    // [5] 회원정보 수정
+
+    // [6] 비밀번호 수정
+
 
 
 
