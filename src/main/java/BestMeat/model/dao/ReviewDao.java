@@ -86,5 +86,9 @@ public class ReviewDao extends Dao  {
     }// func end
 
 
-
+    // [review03] 리뷰 상세조회 - getReview()
+    // 기능설명 : 키워드별 리뷰를 조회한다.
+    // method : GET, URL : /review/get
+    // 매개변수 : Map< String, Object > -> int mno ? int cno
+    // 반환타입 : List<ReviewDto>
 }// class end
