@@ -17,5 +17,6 @@ public class NoticeDto {
     private String ndate;   // 알림등록일
 
     // 부가적인 정보
-
+    private String mphone;  // 회원전화번호
+    private String pname;   // 제품명
 } // class end

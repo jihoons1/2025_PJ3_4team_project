@@ -18,6 +18,7 @@ public class StockService {
     private final StockDao stockDao;
     private final SessionService sessionService;
     private final NoticeDao noticeDao;
+    private final NoticeService noticeService;
 
     // [stock01] 재고등록 - addStock()
     // 기능설명 : [ 정육점번호(세션), 가격, 제품번호(select) ]를 받아, Stock DB에 저장한다.
@@ -41,15 +42,21 @@ public class StockService {
         // 5. 알림목록에서 문자전송여부 확인하기
         for ( NoticeDto noticeDto : noticeList ){
             int ncheck = noticeDto.getNcheck();
+            String mphone = noticeDto.getMphone().replaceAll( "-", "" );
+            String pname = noticeDto.getPname();
+            int nprice = noticeDto.getNprice();
             // 6-1. 문자전송여부가 0이라면
             if ( ncheck == 0 ){
-                // 6-2. 문자전송하기  // todo 문자전송 API 구현 필요
-
+                // 6-2. 문자전송하기, 발신번호와 문자내용 필요
+                // todo 문자전송 API 구현 필요
+                String content = pname + "이 " + nprice + "원 이하로 등록되었습니다.";
+                noticeService.sendSms( mphone, content );
             } else {    // 7. 문자전송여부가 0이 아니라면, 문자전송여부와 등록재고가격(sprice)을 비교하여
                 // 8-1. 등록재고가격이 낮으면
                 if ( ncheck > stockDto.getSprice() ){
                     // 8-2. 문자전송하기  // todo 문자전송 API 구현 필요
-
+                    String content = pname + "이 " + ncheck + "원 이하로 등록되었습니다.";
+                    noticeService.sendSms( mphone, content );
                 } // if end
             } // if end
         } // for end
