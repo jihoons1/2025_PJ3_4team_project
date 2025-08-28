@@ -26,12 +26,21 @@ public class CompanyService {
         // 3. 정육점번호 반환하기
         return cno;
     } // func end
+
+
     // 정육점 전체조회(페이징)
-    public PageDto getCompany(int page){
+    public PageDto getCompany(int page , String key , String keyword){
         int count = 10;
         int startRow = (page-1)*count;
-        int totalCount = companyDao.getTotalCompany();
-        List<CompanyDto> list = companyDao.getCompany(startRow,count);
+        int totalCount;
+        List<CompanyDto> list;
+        if (key != null && !key.isEmpty() && keyword != null && !keyword.isEmpty()){ // 검색일때
+            totalCount = companyDao.getTotalCompanySearch(key,keyword);
+            list = companyDao.getCompanySearch(startRow,count,key,keyword);
+        }else { // 검색 아닐때
+            totalCount = companyDao.getTotalCompany();
+            list = companyDao.getCompany(startRow,count);
+        }
         int totalPage = totalCount%count == 0 ? totalCount/count : totalCount/count+1;
         int btnCount = 10;
         int startBtn = ((page-1)/btnCount)*btnCount+1;

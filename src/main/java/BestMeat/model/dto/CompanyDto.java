@@ -13,4 +13,6 @@ public class CompanyDto {
     private String caddress;
     private int mno;
     private MultipartFile uploads;
+    private int sprice;
+    private String pname;
 }
