@@ -52,13 +52,11 @@ public class ReviewController {
     /**
      * method : PUT 리뷰 수정 기능
      * @param dto
-     * @param nolist
      * @param session
      * @return true : 성공 false : 실패
-     * 리뷰개별조회로 각 이미지파일 이름이 필요함
      */
     @PutMapping("/update")
-    public boolean updateReview(ReviewDto dto , List<Integer> nolist , HttpSession session){
+    public boolean updateReview(ReviewDto dto ,  HttpSession session){
         if (session == null || session.getAttribute("loginMno") == null){
             return false;
         }// if end
@@ -69,7 +67,7 @@ public class ReviewController {
             for (MultipartFile file : dto.getUploads()){
                 String filename = fileService.fileUpload(file);
                 if (filename == null){ return false; }
-                boolean result2 = reviewService.updateReviewImg(dto.getRno(),filename,nolist);
+                boolean result2 = reviewService.updateReviewImg(dto.getRno(),filename);
                 if (result2 == false){return result2; }
             }// for end
         }// if end

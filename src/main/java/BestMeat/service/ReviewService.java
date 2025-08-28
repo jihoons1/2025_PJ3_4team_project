@@ -28,7 +28,8 @@ public class ReviewService {
     }// func end
 
     // 리뷰 이미지 수정기능
-    public boolean updateReviewImg(int rno , String filename , List<Integer> nolist){
+    public boolean updateReviewImg(int rno , String filename ){
+        List<Integer> nolist = reviewDao.getReviewImgNo(rno);
         for (int rimgno : nolist){
             boolean result = reviewDao.updateReviewImg(rno, filename, rimgno);
             if (result) return true;

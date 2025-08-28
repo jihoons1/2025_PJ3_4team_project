@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -58,7 +59,7 @@ public class ReviewDao extends Dao  {
     // 리뷰 이미지 수정기능
     public boolean updateReviewImg(int rno , String filename , int rimgno){
         try{
-            String sql = "update review set rimg = ? where rno = ? and rimg = ?";
+            String sql = "update review set rimg = ? where rno = ? and rimgno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,filename);
             ps.setInt(2,rno);
@@ -66,7 +67,22 @@ public class ReviewDao extends Dao  {
             return ps.executeUpdate() == 1;
         } catch (Exception e) { System.out.println(e); }
         return false;
-    }// func end1
+    }// func end
+
+    // 리뷰 이미지 식별번호 조회
+    public List<Integer> getReviewImgNo(int rno){
+        List<Integer> list = new ArrayList<>();
+        try{
+            String sql = "select * from reviewimg";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                int rimgno = rs.getInt("rimgno");
+                list.add(rimgno);
+            }// while end
+        } catch (Exception e) { System.out.println(e); }
+        return list;
+    }// func end
 
 
 
