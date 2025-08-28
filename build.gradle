@@ -24,7 +24,7 @@ dependencies {
     // 롬복 라이브러리 설치
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    implementation 'net.nurigo:sdk:4.3.0'                               // 문자전송 라이브러리 설치
+    implementation 'net.nurigo:sdk:4.3.2'                               // 문자전송 라이브러리 설치
 }
 
 tasks.named('test') {
