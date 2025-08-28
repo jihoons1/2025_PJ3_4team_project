@@ -50,5 +50,4 @@ public class NoticeService {
         // 3. Dao에게 값 전달 후 결과 반환
         return noticeDao.addNotice( noticeDto );
     } // func end
-    // todo 알림설정가격과 문자전송여부에 따른 문자 전송 API 구현 필요
 } // class end

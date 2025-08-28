@@ -1,7 +1,6 @@
 package BestMeat.service;
 
 import BestMeat.model.dao.CompanyDao;
-import jakarta.servlet.http.HttpSession;
 import BestMeat.model.dto.CompanyDto;
 import BestMeat.model.dto.PageDto;
 import lombok.RequiredArgsConstructor;
@@ -51,5 +50,4 @@ public class CompanyService {
     public CompanyDto findCompany(int cno){
         return companyDao.findCompany(cno);
     }// func end
-
 } // class end

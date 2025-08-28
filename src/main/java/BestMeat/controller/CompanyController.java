@@ -29,5 +29,4 @@ public class CompanyController {
         return companyService.findCompany(cno);
     }// func end
 
-
 } // class end

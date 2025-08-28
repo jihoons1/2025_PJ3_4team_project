@@ -74,5 +74,4 @@ public class MapService {
         double r = 6371; // 지구의 평균 반지름
         return r * c; // 두 지점의 직선거리
     }// func end
-
 }// class end
