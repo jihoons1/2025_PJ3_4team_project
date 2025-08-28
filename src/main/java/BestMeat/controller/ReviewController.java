@@ -46,6 +46,7 @@ public class ReviewController {
         String[] str = mdto.getMaddress().split(",");
         CompanyDto cdto = companyService.findCompany(dto.getCno());
         String[] str1 = cdto.getCaddress().split(",");
+        System.out.println(str[0]);
         double[] start = mapService.getLatLng(str[0]);
         System.out.println(start);
         double[] end = mapService.getLatLng(str1[0]);

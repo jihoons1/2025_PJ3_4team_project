@@ -17,8 +17,7 @@ import java.nio.charset.StandardCharsets;
 
 @Service
 public class MapService {
-    // 발급받은 apiKey
-    private String apiKey = "A97BA8AB-2612-3296-91F3-FC3944875F00";
+
 
     /** 매개변수로 위도경도 반환해주는 기능
      * @param address
@@ -26,11 +25,21 @@ public class MapService {
      */
     public double[] getLatLng(String address) {
         try {
-            String url = "https://api.vworld.kr/req/address?service=address&request=getCoord"
-                    + "&format=json&crs=epsg:4326&type=road&key=" + apiKey
-                    + "&address=" + URLEncoder.encode(address, StandardCharsets.UTF_8);
+            String apikey = "A97BA8AB-2612-3296-91F3-FC3944875F00";
+            String searchType = "road";
+            String searchAddr = address;
+            String epsg = "epsg:4326";
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream(), StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder("https://api.vworld.kr/req/address");
+            sb.append("?service=address");
+            sb.append("&request=getCoord");
+            sb.append("&format=json");
+            sb.append("&crs=" + epsg);
+            sb.append("&key=" + apikey);
+            sb.append("&type=" + searchType);
+            sb.append("&address=" + URLEncoder.encode(searchAddr, StandardCharsets.UTF_8));
+            URL url = new URL(sb.toString());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(reader);
 
