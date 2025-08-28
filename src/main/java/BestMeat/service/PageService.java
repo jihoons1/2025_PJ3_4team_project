@@ -18,18 +18,11 @@ public class PageService {
     private final ReviewDao reviewDao;
 
     // [page01] 페이징처리
-    public PageDto paging( String tableName, int page , String key , String keyword ){
+    // list와 totalCount를 매개변수로 미리 처리하여 받아와서 처리한다.
+    public PageDto paging( int page , String key , String keyword, List<Object> list, int totalCount ){
         int count = 10;
         int startRow = (page-1)*count;
-        int totalCount;
-        List<CompanyDto> list;
-        if (key != null && !key.isEmpty() && keyword != null && !keyword.isEmpty()){ // 검색일때
-            totalCount = companyDao.getTotalCompanySearch(key,keyword);
-            list = companyDao.getCompanySearch(startRow,count,key,keyword);
-        }else { // 검색 아닐때
-            totalCount = companyDao.getTotalCompany();
-            list = companyDao.getCompany(startRow,count);
-        }
+
         int totalPage = totalCount%count == 0 ? totalCount/count : totalCount/count+1;
         int btnCount = 10;
         int startBtn = ((page-1)/btnCount)*btnCount+1;
