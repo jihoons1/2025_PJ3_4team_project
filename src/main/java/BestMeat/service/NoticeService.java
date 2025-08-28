@@ -19,9 +19,9 @@ public class NoticeService {
     private final SessionService sessionService;
     private DefaultMessageService messageService;
 
-    private final String ApiKey = "";
-    private final String ApiSecret = "";
-    private final String domain = "";
+    private final String ApiKey = "NCSQQGPH8BYXIF1S";
+    private final String ApiSecret = "PZKC2JWNOSTUCN4PDXRK93XXJSQRZA06";
+    private final String domain = "https://api.solapi.com";
 
     @PostConstruct  // 의존성이 주입된 후, messageService를 초기화
     public void init(){
