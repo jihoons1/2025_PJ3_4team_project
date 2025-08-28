@@ -15,8 +15,10 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @GetMapping("/get")
-    public PageDto getCompany(@RequestParam(defaultValue = "1") int page){
-        return companyService.getCompany(page);
+    public PageDto getCompany(@RequestParam(defaultValue = "1") int page ,
+                              @RequestParam(required = false) String key ,
+                              @RequestParam(required = false) String keyword){
+        return companyService.getCompany(page,key,keyword);
     }// func end
 
 

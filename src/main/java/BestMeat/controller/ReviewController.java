@@ -3,6 +3,7 @@ package BestMeat.controller;
 import BestMeat.model.dto.ReviewDto;
 import BestMeat.service.FileService;
 import BestMeat.service.ReviewService;
+import BestMeat.service.SessionService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ReviewController {
     private final ReviewService reviewService;
     private final FileService fileService;
+    private final SessionService service;
 
 
     /** method : post 리뷰 등록 기능
