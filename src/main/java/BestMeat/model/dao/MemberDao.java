@@ -1,6 +1,8 @@
 package BestMeat.model.dao;
 
+import BestMeat.emailmessage.MessageService;
 import BestMeat.model.dto.MemberDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
@@ -12,6 +14,8 @@ import java.util.Random;
 
 @Repository
 public class MemberDao extends Dao  {
+    @Autowired
+    MessageService messageService;
 
     // [1] 회원가입
     public int signup(MemberDto dto){
@@ -95,8 +99,8 @@ public class MemberDao extends Dao  {
         String chart = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789"; // 난수 설정 대문자 , 소문자 다적어야함
         String code = ""; // 난수 값 넣을 빈공간
 
-        for (int i = 0 ; i < 5; i++){
-            code += chart.charAt(random.nextInt(chart.length())); // chars 문자열에서 랜덤한 문자 하나를 뽑아 code 끝에 이어붙인다.
+        for (int i = 0 ; i < 6; i++){
+            code += chart.charAt(random.nextInt(chart.length())); // chars 문자열에서 랜덤한 문자 하나를 뽑아 code 끝에 이어붙임.
         }
         System.out.println(code);
         return code;
@@ -106,11 +110,32 @@ public class MemberDao extends Dao  {
     public boolean findPwd(Map<String , String > map){
         try {
             String sql = "select * from member where mid = ? and mphone = ? ";
+
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, map.get("mid"));
             ps.setString(2, map.get("mphone"));
-            int count = ps.executeUpdate();
-            return count == 1;
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // 회원 존재시 임시 비밀번호 발급
+                String random_password = getPwd();
+
+                String sql2 = "update member set mpwd = ? where mid = ? and mphone = ? ";
+                PreparedStatement ps2 = conn.prepareStatement(sql2);
+                ps2.setString(1, random_password);
+                ps2.setString(2,map.get("mid"));
+                ps2.setString(3, map.get("mphone"));
+                ps2.executeUpdate();
+
+                System.out.println("임시 비밀번호 = " + random_password);
+
+                // 이메일 전송
+                String a = rs.getString("memail"); // 회원메일
+                String b = "2025_PJ3_4조_BestMeat 임시 비밀번호";
+                String c = "회원님의 임시 비밀번호는 " + random_password + " 입니다. \n";
+
+                messageService.mailMessage(a,b,c);
+                return true;
+            }
         }catch (Exception e){
             System.out.println("비밀번호 찾기 오류 발생 "+ e );
         }
