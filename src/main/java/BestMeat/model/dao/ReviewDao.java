@@ -59,7 +59,7 @@ public class ReviewDao extends Dao  {
     // [2-2] 리뷰 이미지 수정기능
     public boolean updateReviewImg(int rno , String filename , int rimgno){
         try{
-            String sql = "update review set rimg = ? where rno = ? and rimgno = ?";
+            String sql = "update reviewimg set rimg = ? where rno = ? and rimgno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,filename);
             ps.setInt(2,rno);
