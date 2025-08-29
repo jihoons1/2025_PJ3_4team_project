@@ -12,6 +12,8 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class NoticeService {
@@ -49,5 +51,18 @@ public class NoticeService {
         noticeDto.setMno( mno );
         // 3. Dao에게 값 전달 후 결과 반환
         return noticeDao.addNotice( noticeDto );
+    } // func end
+
+    // [notice03] 회원별 알림조회 - getMnoNotice()
+    // 기능설명 : [ 회원번호(세션) ]을 받아, 해당하는 알림을 조회한다.
+    // 매개변수 : session
+    // 반환타입 : List<NoticeDto>
+    public List<NoticeDto> getMnoNotice( HttpSession session ){
+        // 1. 세션정보에서 회원번호 가져오기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 비로그인 상태면 메소드 종료
+        if ( mno == 0 ) return null;
+        // 3. Dao에게 전달후 결과 반환
+        return noticeDao.getMnoNotice( mno );
     } // func end
 } // class end
