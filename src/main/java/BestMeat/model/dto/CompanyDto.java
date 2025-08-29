@@ -16,4 +16,5 @@ public class CompanyDto {
     private int sprice;
     private String pname;
     private double rrank;
+    private double distance;
 }
