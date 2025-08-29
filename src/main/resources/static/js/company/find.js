@@ -61,3 +61,17 @@ const addReview = async() => {
         }// if end
     }catch(e){ console.log(e); }
 }// func end
+
+// 회사별 리뷰 목록 조회
+const getReview = async() => {
+    const reviewtbody = document.querySelector('.reviewTbody');
+    let html = "";
+    try{
+        const response = await fetch(`/review/get?cno=${cno}`);
+        const data = await response.json();
+        data.data.forEach((re) => {
+            let rimgUrl = re.images;
+        })
+    }catch(e){ console.log(e); }
+}// func end
+getReview();

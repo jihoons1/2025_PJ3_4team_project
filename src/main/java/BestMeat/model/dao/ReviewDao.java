@@ -119,6 +119,22 @@ public class ReviewDao extends Dao  {
         return  list;
     } // func end
 
+    // [review03-2] 리뷰별 이미지 조회
+    public List<String> getReviewImg(int rno){
+        List<String> list = new ArrayList<>();
+        try{
+            String sql = "select * from reviewimg where rno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,rno);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                String rimgname = rs.getString("rimg");
+                list.add(rimgname);
+            }// while end
+        } catch (Exception e) { System.out.println(e); }
+        return list;
+    }// func end
+
     // [review04] 정육점별 리뷰개수 반환
     public int getReviewCount( int cno ){
         try {
