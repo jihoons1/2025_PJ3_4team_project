@@ -200,7 +200,7 @@ public class MemberDao extends Dao  {
     // 반환타입 : MemberDto
     public MemberDto getMember( int mno ){
         try {
-            String SQL = "select * from member where mno = ? and mcheck = true";
+            String SQL = "select * from member m inner join company c using ( mno )where m.mno = ? and mcheck = true";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, mno );
             ResultSet rs = ps.executeQuery();
@@ -215,6 +215,7 @@ public class MemberDao extends Dao  {
                 memberDto.setMdate( rs.getString("mdate") );
                 memberDto.setMimg( rs.getString("mimg") );
                 memberDto.setMcheck( rs.getString("mcheck") );
+                memberDto.setCno( rs.getInt("cno") );
                 return memberDto;
             } // if end
         } catch ( SQLException e ){

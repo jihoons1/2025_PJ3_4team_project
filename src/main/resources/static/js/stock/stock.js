@@ -1,5 +1,9 @@
 console.log('stock.js open');
 
+// 쿼리스트링에서 정보 가져오기
+const queryString = new URL( location.href ).searchParams;
+const cno = queryString.get("cno");
+
 // [1] 카테고리별 상품 출력
 const getCnoProduct = async ( ) => {
     console.log('getCnoProduct func exe');
@@ -39,6 +43,7 @@ const addStock = async ( ) => {
     // 4. result
     if ( data > 0 ){
         alert('재고등록 성공!');
+        location.reload();
     } else {
         alert('재고등록 실패!\n다시 입력해주세요.');
     }
@@ -51,6 +56,7 @@ const getStock = async ( ) => {
     const option = { method : "GET" };
     const response = await fetch( "/stock/get", option );
     const data = await response.json();         console.log( data );
+    companyData = data;
     // 2. where
     const stockTbody = document.querySelector('.stockTbody');
     // 3. what
@@ -62,8 +68,8 @@ const getStock = async ( ) => {
                     <td>${stock.sprice}</td>
                     <td>${stock.sdate}</td>
                     <td>
-                        <button type="button" onclick="updateStock()"> 수정 </button>
-                        <button type="button" onclick="deleteStock()"> 삭제 </button>
+                        <button type="button" onclick="updateStock((${stock.sno})"> 수정 </button>
+                        <button type="button" onclick="deleteStock(${stock.sno})"> 삭제 </button>
                     </td>
                  </tr>`
     })
@@ -74,11 +80,22 @@ const getStock = async ( ) => {
 getStock();
 
 // [4] 재고수정
-const updateStock = async ( ) => {
+const updateStock = async ( sno ) => {
     console.log('updateStock func exe');
 } // func end
 
 // [5] 재고삭제
-const deleteStock = async ( ) => {
+const deleteStock = async ( sno ) => {
     console.log('deleteStock func exe');
+    // 1. fetch
+    const option = { method : "DELETE" };
+    const response = await fetch( `/stock/delete?cno=${cno}&sno=${sno}`, option );
+    const data = await response.json();
+    // 2. result
+    if ( data == true ){
+        alert('재고삭제 성공!');
+        location.reload();
+    } else {
+        alert('재고삭제 실패!');
+    } // if end
 } // func end

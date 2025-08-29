@@ -12,10 +12,10 @@ const myinfo = async() => {
         //fetch 실행
         const op = { method : "GET" }
         const response = await fetch(`/member/get` , op)
-        const data = await response.json();
+        const data = await response.json();         console.log( data );
         menuHtml += `<li><a href="/product/product.jsp" class="nav-link px-2">제품 목록</a></li>
                      <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>
-                     <li><a href="/stock/stock.jsp" class="nav-link px-2">재고 관리</a></li>`
+                     <li><a href="/stock/stock.jsp?cno=${data.cno}" class="nav-link px-2">재고 관리</a></li>`
 
         logHtml +=`    <button type="button" class="btn btn-outline-primary me-2">${data.mname}</button>
                     <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">내정보</button>
