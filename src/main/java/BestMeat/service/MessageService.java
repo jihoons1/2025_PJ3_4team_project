@@ -1,4 +1,4 @@
-package BestMeat.emailmessage;
+package BestMeat.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +21,4 @@ public class MessageService {
         mailSender.send(mailMessage); // 위 내용 지정 후 메일 전송
         System.out.println("[성공] 이메일 발송");
     }
-}
+} // class end

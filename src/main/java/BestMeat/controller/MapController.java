@@ -10,4 +10,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/map")
 public class MapController {
     private final MapService mapService;
-}
+} // class end

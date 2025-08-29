@@ -17,7 +17,7 @@ public class MemberController {
     private final MemberService memberService;
     private final SessionService sessionService;
 
-//    private String tableName = "member/";       // 파일 업로드 경로
+    private String tableName = "member/";       // 파일 업로드 경로
 
     // [1] 회원가입
     @PostMapping("/signup")

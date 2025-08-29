@@ -119,7 +119,4 @@ public class CompanyDao extends Dao {
         } catch (Exception e) { System.out.println(e); }
         return null;
     }// func end
-
-    //
-
 } // class end

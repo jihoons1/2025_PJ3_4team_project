@@ -1,16 +1,19 @@
 package BestMeat.service;
 
 import BestMeat.model.dao.ReviewDao;
+import BestMeat.model.dto.PageDto;
 import BestMeat.model.dto.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewDao reviewDao;
+    private final PageService pageService;
 
 
     // [1-1] 리뷰 등록 기능
@@ -38,5 +41,26 @@ public class ReviewService {
         return false;
     }// func end
 
+    // [review03] 리뷰 상세조회 - getReview()
+    // 기능설명 : 정육점별 리뷰를 조회한다.
+    // 매개변수 : startRow, perCount, cno
+    // 반환타입 : PageDto
+    // cno : 정육점번호, startRow : 조회를 시작할 인덱스번호, perCount :  페이지당 자료 개수
+    public PageDto getReview( int cno, int page ){
+        // 1. 페이지당 자료개수 선언하기
+        int perCount = 10;
+        // 2. 페이지당 자료개수에 따른 조회시작 인덱스번호 만들기
+        int startRow = ( page - 1 ) * perCount;
+        // 3. 정육점별 리뷰 개수 반환받기
+        int totalCount = reviewDao.getReviewCount(cno);
+        // 4. 정육점별 리뷰 반환받기
+        List<ReviewDto> reviewDtoList = reviewDao.getReview( cno, startRow, totalCount );
+        // 5. 페이징처리된 pageDto 반환하기
+        return pageService.paging( page, new ArrayList<>(reviewDtoList), totalCount );
+    } // func end
 
+    // [review04] 회원별 리뷰조회 - getMnoReview()
+    public List<ReviewDto> getMnoReview( int mno ){
+        return reviewDao.getMnoReview( mno );
+    } // func end
 }// class end

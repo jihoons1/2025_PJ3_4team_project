@@ -1,5 +1,6 @@
 package BestMeat.controller;
 
+import BestMeat.model.dto.CompanyDto;
 import BestMeat.model.dto.PageDto;
 import BestMeat.service.CompanyService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,5 @@ public class CompanyController {
     public CompanyDto findCompany(@RequestParam int cno){
         return companyService.findCompany(cno);
     }// func end
-
 
 } // class end

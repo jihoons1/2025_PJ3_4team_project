@@ -12,4 +12,4 @@ public class ProductDto {
     private int cno;
     private String pimg;
     private MultipartFile uploads;
-}
+} // class end
