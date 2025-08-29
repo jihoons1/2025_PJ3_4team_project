@@ -27,7 +27,7 @@
             <option value="@daum.net">@daum.net</option>
         </select>
         프로필 : <input type="file" name="upload"/>
-        <button class="newmember" onclick="signupbtn()">회원가입 </button>
+        <button type="button" class="newmember" onclick="signupbtn()">회원가입 </button>
         </form>
     </div>
     </div>
