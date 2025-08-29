@@ -96,7 +96,7 @@ alter table notice auto_increment = 80001;
 -- ---------------------------- Insert -------------------
 insert into Category ( cname ) values ( '돼지' ), ( '소' ), ( '양' ), ( '오리' );
 INSERT INTO member (mname, mid, mpwd, mphone, memail, maddress) VALUES
-    ('안정훈', 'qwe123', 'qwe123', '010-1234-5678', 'jeonghoonahn0510@gamil.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
+    ('안정훈', 'qwe123', 'qwe123', '010-5109-1342', 'jeonghoonahn0510@gamil.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
     ('민성호', 'asd123', 'asd123', '010-5456-0036', 'mrwoolf1@gmail.com', '인천광역시 부평구 동암남로 34, A동 101호 (십정동)'),
     ('송지훈', 'zxc123', 'zxc123', '010-8537-1882', 'ghoon1210@gmail.com', '인천광역시 부평구 길주로 623, 105동 2004호 (삼산동)'),
     ('정하은', 'haeun_jeong', 'pass1234', '010-3333-4444', 'haeun.jeong@naver.com', '인천광역시 부평구 청천마차로 55, 201동 804호 (청천동)'),
