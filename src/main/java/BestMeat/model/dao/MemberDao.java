@@ -142,12 +142,26 @@ public class MemberDao extends Dao  {
         return false;
     }
 
+    // 파일 등록
+    public boolean fileuploads(int mno , String filename ){
+        try{
+            String sql = "update member set mimg = ? where mno = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, filename);
+            ps.setInt(2, mno);
+            return ps.executeUpdate() == 1;
+        }catch (Exception e){
+            System.out.println("파일등록 오류 발생" + e);
+        }
+        return false;
+    }
+
     // [5] 회원정보 수정
     public boolean updateMember(MemberDto dto){
         System.out.println("MemberDao.updateMember");
         try{
-            String sql = "update member set mphone = ? , maddress = ? , mimg = ? where mno = ? ";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            String sql = "update member set mphone = ? , maddress = ? where mno = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dto.getMphone());
             ps.setString(2, dto.getMaddress());
             ps.setInt(3, dto.getMno());
@@ -159,6 +173,8 @@ public class MemberDao extends Dao  {
         }
         return false;
     }
+
+
     // [6] 비밀번호 수정
 
 

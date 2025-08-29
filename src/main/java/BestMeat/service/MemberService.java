@@ -54,11 +54,20 @@ public class MemberService {
         return result;
     }
 
+    // 파일 이미지
+    public boolean fileuploads(int mno , String filename){
+        return memberDao.fileuploads(mno,filename); // db 이미지 저장
+    }
+
     // [5] 회원정보 수정
-    public boolean updateMember(MemberDto dto){
+    public int updateMember(MemberDto dto , HttpSession session){
         System.out.println("MemberService.updateMember");
-        boolean result = memberDao.updateMember(dto);
-        return result;
+        int mno = sessionService.getSessionNo("loginMno" , session);
+        dto.setMno(mno);
+        if ( memberDao.updateMember(dto)){return mno;
+        }
+        return 0;
+
     }
 
 

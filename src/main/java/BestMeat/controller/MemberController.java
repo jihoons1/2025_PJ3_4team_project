@@ -1,11 +1,13 @@
 package BestMeat.controller;
 
 import BestMeat.model.dto.MemberDto;
+import BestMeat.service.FileService;
 import BestMeat.service.MemberService;
 import BestMeat.service.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,8 +19,9 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
     private final SessionService sessionService;
+    private final FileService fileService;
 
-    private String tableName = "member/";       // 파일 업로드 경로
+    private String tableName = "member/";       // 파일 업로드 경로 fileservice 에 업로드 주소(폴더위치) 있음
 
     // [1] 회원가입
     @PostMapping("/signup")
@@ -58,8 +61,18 @@ public class MemberController {
 
     // [5] 회원정보수정
     @PutMapping("/updateMember")
-    public boolean updateMember(MemberDto dto , MultipartFile multipartFile){
+    public int updateMember(MemberDto dto , HttpSession session){
         System.out.println("MemberController.updateMember");
+        int mno = memberService.updateMember(dto , session);
+        if (!dto.getUpload().isEmpty()){
+            MultipartFile multipartFile = dto.getUpload();
+            String filename =fileService.fileUpload(multipartFile ,tableName);
+            if (filename == null)return 0;
+            boolean result = memberService.fileuploads( mno ,  filename);
+            if (result==false){ return 0; }
+            }
+        return mno;
+
 
     }
 
