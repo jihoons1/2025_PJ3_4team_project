@@ -54,7 +54,7 @@ public class MemberController {
 
     // [4] 비밀번호찾기
     @PostMapping("/findPwd")
-    public boolean findPwd(@RequestBody Map<String , String> map){
+    public boolean findPwd( @RequestBody Map<String , String> map){
         System.out.println("MemberController.findPwd");
         return memberService.findPwd(map);
     }
@@ -62,7 +62,7 @@ public class MemberController {
     // [5] 회원정보수정
     // http://localhost:8080/member/update/Pwd
     @PutMapping("/updateMember")
-    public int updateMember(MemberDto dto , HttpSession session){
+    public int updateMember( @RequestBody MemberDto dto , HttpSession session){
         System.out.println("MemberController.updateMember");
         int mno = memberService.updateMember(dto , session);
         if (!dto.getUpload().isEmpty()){
@@ -79,7 +79,7 @@ public class MemberController {
 
     // [6] 비밀번호 수정
     @PutMapping("/update/Pwd")
-    public boolean updatePwd(@RequestBody Map<String , String>map , HttpServletRequest request){
+    public boolean updatePwd( @RequestBody Map<String , String>map , HttpServletRequest request){
         System.out.println("MemberController.updatePwd");
         HttpSession session = request.getSession(false);
         if ( session == null || session.getAttribute("loginMno")==null) return false;
@@ -111,7 +111,7 @@ public class MemberController {
     // 매개변수 : Map< String, String >
     // 반환타입 : boolean -> 성공 : true, 실패 : false
     @PostMapping("/resign")
-    public boolean resignMember( Map<String , String> map, HttpSession session ){
+    public boolean resignMember( @RequestBody Map<String , String> map, HttpSession session ){
         System.out.println("MemberController.resignMember");
         // 1. Service에게 전달 후, 결과 받기
         boolean result = memberService.resignMember( map, session );
