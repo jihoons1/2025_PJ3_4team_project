@@ -102,16 +102,15 @@ public class MemberService {
 
     // [member08] 회원 탈퇴 - resignMember()
     // 기능설명 : [ 회원번호(세션), 비밀번호 ]를 받아,  일치하면 회원활성화를 false로 변경한다.
-    // 매개변수 : Map< String, Object >, session
+    // 매개변수 : Map< String, String >, session
     // 반환타입 : boolean -> 성공 : true, 실패 : false
-    public boolean resignMember( Map<String , Object> map, HttpSession session ){
-        // 1. 세션정봉에서 회원번호 가져오기
+    public boolean resignMember( Map<String , String> map, HttpSession session ){
+        // 1. 세션정보에서 회원번호 가져오기
         int mno = sessionService.getSessionNo( "loginMno", session );
         // 2. 회원번호가 0이면, 비로그인상태이므로 메소드 종료
         if ( mno == 0 ) return false;
         // 3. Dao에게 전달할 map에 회원번호 추가하기
-        map.put( "mno", mno );
-        map.put( "mpwd", "qwe123" );
+        map.put( "mno", mno + "" );
         // 4. Dao에게 매개변수 전달 후, 결과 반환하기
         return memberDao.resignMember( map );
     } // func end

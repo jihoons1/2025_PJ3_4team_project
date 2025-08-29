@@ -18,6 +18,47 @@
     <!-- header JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/header.jsp"></jsp:include>
 
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">회원탈퇴</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span>정말로 탈퇴하시겠습니까? <br> 동의하신다면, [탈퇴 진행]을 클릭해주세요.</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                <button type="button" class="btn btn-primary"  data-bs-target="#staticBackdrop2" data-bs-toggle="modal">회원탈퇴</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">회원탈퇴</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="message-text" class="col-form-label">탈퇴에 동의하신다면, 현재 비밀번호를 입력해주세요.</label>
+                    <input type="password" class="mpwdInput">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                <button type="button" class="btn btn-primary" onclick="resignMember()" >회원탈퇴</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <div id="container">
         <div>                           <!-- 기본정보 조회 -->
             <div class="mInfoTop">      <!-- 프로필사진, 이름, 아이디 -->
@@ -78,6 +119,10 @@
                 </tbody>
             </table>
         </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+            회원탈퇴
+        </button>
     </div>
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->

@@ -26,3 +26,32 @@ const getMember = async ( ) => {
 
 } // func end
 getMember();
+
+// [2] 회원탈퇴 기능
+const resignMember = async ( ) => {
+    console.log('resignMember func exe');
+    try {
+        // 1. Input value
+        const mpwd = document.querySelector('.mpwdInput').value;
+        console.log( mpwd );
+        // 2. obj
+        const obj = { mpwd };
+        // 3. fetch
+        const option = {
+            method : "POST",
+            headers : { "Content-Type" : "application/json" },
+            body : JSON.stringify( obj )
+        } // option end
+        const response = await fetch( "/member/resign", option );
+        const data = await response.json();
+        // 4. result 
+        if ( data == true ){
+            alert('회원탈퇴 성공!');
+            location.href = `/index.jsp`;
+        } else {
+            alert('회원탈퇴 실패! 다시 입력해주세요.');
+        } // if end
+    } catch ( error ) {
+        console.log( error );
+    } // try-catch end
+} // func end

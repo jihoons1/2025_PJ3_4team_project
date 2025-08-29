@@ -36,8 +36,9 @@
                 <li><a href="#" class="nav-link px-2">재고 관리</a></li>
             </ul>
             <div class="col-md-3 text-end">
-                <button type="button" onclick="location.href='/member/login.jsp'" class="btn btn-outline-primary me-2">로그인</button>
-                <button type="button" onclick="location.href='/member/signup.jsp'" class="btn btn-primary">회원가입</button>
+                <div class="log">
+
+                </div>
             </div>
         </header>
     </div>
