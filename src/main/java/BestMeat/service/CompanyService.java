@@ -6,7 +6,6 @@ import BestMeat.model.dto.PageDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +29,7 @@ public class CompanyService {
         } // if end
         //PageDto dto = pageService.paging( page, new ArrayList<>(list), totalCount );    // 페이징처리 메소드화
 
-        int totalPage = totalCount%count == 0 ? totalCount/count : totalCount/count+1;
+        int totalPage = totalCount % count == 0 ? totalCount / count : totalCount / count + 1;
         int btnCount = 10;
         int startBtn = ((page-1)/btnCount)*btnCount+1;
         int endBtn = startBtn + btnCount -1;

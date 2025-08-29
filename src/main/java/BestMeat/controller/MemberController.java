@@ -7,7 +7,6 @@ import BestMeat.service.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +27,7 @@ public class MemberController {
     public int signup(MemberDto dto) {
 
         System.out.println("MemberController.signup");
-            MultipartFile file = dto.getUpload();
+        MultipartFile file = dto.getUpload();
         if (file != null && !file.isEmpty()){
             String new_upload = fileService.fileUpload(file , tableName);
             if (new_upload == null) return 0;

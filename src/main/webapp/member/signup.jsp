@@ -12,7 +12,7 @@
     <jsp:include page="/header.jsp"></jsp:include>
     <div>
         <h3> 회원가입 </h3>
-    <div>
+    <div id="container">
         <form id="mig">
         회원명 : <input type="text" name="mname" placeholder="홍길동" />
         아이디 : <input type="text" name="mid" placeholder="test123" />
@@ -22,8 +22,8 @@
         주소 : <input type="text" name="maddress" placeholder="홍길동" />
         이메일 : <input type="text" class="emailname"/> 
         <select id="emailselect"> <!-- naver , gmail , daum  3개만 있음 -->
-            <option value="@naver.com">@.naver.com</option>
-            <option value="@gmail.com">@.gmail.com</option>
+            <option value="@naver.com">@naver.com</option>
+            <option value="@gmail.com">@gmail.com</option>
             <option value="@daum.net">@daum.net</option>
         </select>
         프로필 : <input type="file" name="upload"/>
@@ -32,6 +32,7 @@
     </div>
     </div>
 
+    <jsp:include page="/footer.jsp"></jsp:include>
     <script src='/js/member/signup.js'></script>
 </body>
 </html>
