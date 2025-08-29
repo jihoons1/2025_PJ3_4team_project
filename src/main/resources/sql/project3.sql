@@ -96,9 +96,9 @@ alter table notice auto_increment = 80001;
 -- ---------------------------- Insert -------------------
 insert into Category ( cname ) values ( '돼지' ), ( '소' ), ( '양' ), ( '오리' );
 INSERT INTO member (mname, mid, mpwd, mphone, memail, maddress) VALUES
-    ('김민준', 'qwe123', 'pass1234', '010-1234-5678', 'minjun.kim@naver.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
-    ('이서윤', 'asd123', 'pass1234', '010-9876-5432', 'seoyun.lee@gmail.com', '인천광역시 부평구 동암남로 34, A동 101호 (십정동)'),
-    ('박도현', 'dohyeon_park', 'pass1234', '010-1111-2222', 'dohyeon.park@daum.net', '인천광역시 부평구 길주로 623, 105동 2004호 (삼산동)'),
+    ('김민준', 'qwe123', 'qwe123', '010-1234-5678', 'minjun.kim@naver.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
+    ('이서윤', 'asd123', 'asd123', '010-9876-5432', 'seoyun.lee@gmail.com', '인천광역시 부평구 동암남로 34, A동 101호 (십정동)'),
+    ('박도현', 'zxc123', 'zxc123', '010-1111-2222', 'dohyeon.park@daum.net', '인천광역시 부평구 길주로 623, 105동 2004호 (삼산동)'),
     ('정하은', 'haeun_jeong', 'pass1234', '010-3333-4444', 'haeun.jeong@naver.com', '인천광역시 부평구 청천마차로 55, 201동 804호 (청천동)'),
     ('최준서', 'junseo_choi', 'pass1234', '010-5555-6666', 'junseo.choi@gmail.com', '인천광역시 부평구 경인로858번길 21, 302호 (십정동)'),
     ('고은지', 'eunji_go', 'pass1234', '010-7777-8888', 'eunji.go@daum.net', '인천광역시 부평구 부개로 80, 503호 (부개동)'),
