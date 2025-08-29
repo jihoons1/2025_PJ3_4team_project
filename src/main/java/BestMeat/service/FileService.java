@@ -17,7 +17,7 @@ public class FileService {
         String uuid = UUID.randomUUID().toString();
         String fileName = uuid + "_" + multipartFile.getOriginalFilename().replaceAll("_","-");
         String uploadfilePath = uploadPath + tableName + fileName;
-        File pathFile = new File(uploadPath);
+        File pathFile = new File(uploadPath+ tableName);
         if (!pathFile.exists()){
             pathFile.mkdir();
         }// if end

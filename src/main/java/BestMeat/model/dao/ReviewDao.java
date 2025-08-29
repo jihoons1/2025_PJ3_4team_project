@@ -14,11 +14,12 @@ public class ReviewDao extends Dao  {
     // [1-1] 리뷰 등록 기능
     public int addReview(ReviewDto dto ){
         try{
-            String sql = "insert into review(rcontent,rrank,cno) values(? , ? ,?)";
+            String sql = "insert into review(rcontent,rrank,cno,mno) values(? , ? ,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,dto.getRcontent());
             ps.setInt(2,dto.getRrank());
             ps.setInt(3,dto.getCno());
+            ps.setInt(4,dto.getMno());
             int count = ps.executeUpdate();
             if (count == 1) {
                 ResultSet rs = ps.getGeneratedKeys();
