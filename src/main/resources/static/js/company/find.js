@@ -44,5 +44,20 @@ const addReviewBox = async() => {
 
 // 리뷰 등록 기능
 const addReview = async() => {
-
+    const reviewAddBox = document.querySelector('.reviewAddBox');
+    const productForm = new FormData(reviewAddBox);
+    productForm.append('cno' , cno);
+    const option = {
+        method : "POST" , 
+        body : productForm
+    }// option end
+    try{
+        const response = await fetch('/review/add',option);
+        const data = await response.json();
+        if(data == true){
+            alert("리뷰가 등록되었습니다.");
+        }else{
+            alert('리뷰 등록 실패!');
+        }// if end
+    }catch(e){ console.log(e); }
 }// func end
