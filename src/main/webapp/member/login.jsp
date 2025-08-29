@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +19,7 @@
 
     <div id="container">
         아이디 : <input type="text" class="mid" placeholder="asd123"> </br>
-        비밀번호 : <input type="password" class="mpwd" placeholder="asd2135"> </br>
+        비밀번호 : <input type="password" class="mpwd" placeholder="asd213"> </br>
         <button type="button" onclick="loginbtn()"> 로그인 </button> </br>
     </div>
 

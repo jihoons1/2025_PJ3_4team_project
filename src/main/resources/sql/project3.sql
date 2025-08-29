@@ -20,13 +20,13 @@ create table member (
     maddress varchar(50) not null ,  			                -- 주소
     mdate datetime default now(),				                -- 등록일
     mcheck boolean default true ,  				                -- 회원 활성화
-    mimg varchar(50),    										-- 프로필 이미지
+    mimg varchar(50) ,    -- 프로필 이미지
     constraint primary key(mno)
 );
 -- ---------------------------- Company -------------------
 create table Company (
     cno int auto_increment,			                            -- 정육점번호
-    cimg varchar(50),											-- 정육점이미지명
+    cimg varchar(50) ,                                      	-- 정육점이미지명
     cname varchar(30) ,                                         -- 정육점명
     caddress varchar(100)  ,                                    -- 정육점 주소
     mno int not null,                                           -- 회원번호
@@ -38,7 +38,7 @@ create table Product (
     pno int auto_increment,			                            -- 제품번호
     pname varchar(10) not null,		                            -- 부위명
     cno int,						                            -- 카테고리번호
-    pimg varchar(50),											-- 제품이미지명
+    pimg varchar(50) ,	-- 제품이미지명
     constraint primary key( pno ),
     constraint foreign key( cno ) references category ( cno ) on update cascade on delete cascade
 );
@@ -68,7 +68,7 @@ create table review(
 -- ---------------------------- ReviewImg -------------------
 create table reviewimg(
     rimgno int auto_increment primary key,	                    -- 리뷰이미지번호
-    rimg varchar(50), 											-- 리뷰이미지명
+    rimg varchar(50)                                        , 	-- 리뷰이미지명
     rno int not null default 0 ,			                    -- 리뷰번호
     constraint foreign key(rno) references review(rno) on delete cascade on update cascade
 );
@@ -96,9 +96,9 @@ alter table notice auto_increment = 80001;
 -- ---------------------------- Insert -------------------
 insert into Category ( cname ) values ( '돼지' ), ( '소' ), ( '양' ), ( '오리' );
 INSERT INTO member (mname, mid, mpwd, mphone, memail, maddress) VALUES
-    ('안정훈', 'qwe123', 'qwe123', '010-5109-1342', 'jeonghoonahn0510@gmail.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
-    ('송지훈', 'asd123', 'asd123', '010-9876-5432', 'seoyun.lee@gmail.com', '인천광역시 부평구 동암남로 34, A동 101호 (십정동)'),
-    ('민성호', 'zxc123', 'zxc123', '010-1111-2222', 'dohyeon.park@daum.net', '인천광역시 부평구 길주로 623, 105동 2004호 (삼산동)'),
+    ('김민준', 'qwe123', 'pass1234', '010-1234-5678', 'minjun.kim@naver.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
+    ('이서윤', 'asd123', 'pass1234', '010-9876-5432', 'seoyun.lee@gmail.com', '인천광역시 부평구 동암남로 34, A동 101호 (십정동)'),
+    ('박도현', 'dohyeon_park', 'pass1234', '010-1111-2222', 'dohyeon.park@daum.net', '인천광역시 부평구 길주로 623, 105동 2004호 (삼산동)'),
     ('정하은', 'haeun_jeong', 'pass1234', '010-3333-4444', 'haeun.jeong@naver.com', '인천광역시 부평구 청천마차로 55, 201동 804호 (청천동)'),
     ('최준서', 'junseo_choi', 'pass1234', '010-5555-6666', 'junseo.choi@gmail.com', '인천광역시 부평구 경인로858번길 21, 302호 (십정동)'),
     ('고은지', 'eunji_go', 'pass1234', '010-7777-8888', 'eunji.go@daum.net', '인천광역시 부평구 부개로 80, 503호 (부개동)'),
@@ -658,11 +658,19 @@ insert into notice(mno , pno , nprice , ncheck , ndate) values
     ( 10003 , 40003 , 1300 , 1200 , '2025-08-24 16:22:00'),
     ( 10004, 40004 , 2000 , 0 , '2025-08-25 16:22:00');
 
--- select * from member;
--- select * from category;
--- select * from company;
--- select * from product;
--- select * from stock;
--- select * from review;
--- select * from reviewimg;
--- select * from notice;
+select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
+select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
+from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
+join review r on c.cno = r.cno  where p.pname like '%삼겹살%'
+group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice 
+order by rrank desc limit 0 , 10;
+
+
+select * from member;
+select * from category;
+select * from company;
+select * from product;
+select * from stock;
+select * from review;
+select * from reviewimg;
+select * from notice;
