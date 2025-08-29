@@ -24,3 +24,25 @@ const findCompany = async() => {
     }catch(e){ console.log(e); }
 }// func end
 findCompany();
+
+// 리뷰 등록html 불러오기
+const addReviewBox = async() => {
+    const reviewAddBox = document.querySelector('.reviewAddBox');
+    let html = `<textarea name="rcontent"></textarea>
+                <select name="rrank">
+                    <option value="0">평점</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+                <input type="file" multiple name="uploads"/>
+                <button type="button" onclick="addReview()">등록</button>`;
+    reviewAddBox.innerHTML = html;
+}// func end
+
+// 리뷰 등록 기능
+const addReview = async() => {
+
+}// func end

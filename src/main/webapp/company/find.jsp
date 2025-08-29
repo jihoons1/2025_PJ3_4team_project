@@ -31,12 +31,31 @@
                 </tbody>
             </table>            
         </div>
+        <div>
+            <div><h4>리뷰 목록</h4></div> <div><button type="button" onclick="addReviewBox()">리뷰작성</button></div>
+            <form class="reviewAddBox">                
+            </form>
+            <div class="rImgBox">
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th> 작성자 </th> <th> 리뷰내용 </th> <th> 작성일 </th> <th> 평점 </th> <th> 비고 </th> 
+                        </tr>
+                    </thead>
+                    <tbody class="reviewTbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/footer.jsp"></jsp:include>
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
     <script src="/js/company/find.js"></script>
+    
 </body>
 
 </html>
