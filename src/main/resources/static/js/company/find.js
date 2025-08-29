@@ -5,13 +5,17 @@ const cno = params.get('cno');
 
 // 정육점 개별조회
 const findCompany = async() => {
-    const findTbody = document.querySelector('.findTbody');
+    const findTbody = document.querySelector('#findTbody');
     let html = "";
     try{
         const response = await fetch(`/company/find?cno=${cno}`);
         const data = await response.json(); console.log(data);
+        let imgUrl = '/upload/'+data.cimg;
+        if(data.cimg == null){
+            imgUrl = 'https://placehold.co/50x50';
+        }// if end
         html += `<tr>
-                    <td><img src=${data.cimg}/></td>
+                    <td><img src=${imgUrl}/></td>
                     <td>${data.cname}</td>
                     <td>${data.caddress}</td>
                     <td>${data.rrank}</td>

@@ -13,43 +13,33 @@
     <link rel="stylesheet" href="/css/common.css">
 
 </head>
-
 <body>
     <!-- header JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
-        <h3> 정육점 전체 조회 페이지 </h3>
-        <div>
-            <select class="order" onclick="getAllCompany()">
-                <option value="order">정렬방법</option>
-                <option value="rank">평점순</option>
-            </select>
+        <h3> 제품 전체 조회 페이지 </h3>
+        <div>            
             <table>
                 <thead>
                     <tr>
-                        <th>사진</th> <th>가게명</th> <th>가게주소</th> <th>평점</th> 
+                        <th>사진</th> <th>카테고리</th> <th>부위명</th> 
                     </tr>
                 </thead>
-                <tbody id="listTbody">                    
+                <tbody id="productTbody">                    
                 </tbody>
-            </table>
+            </table>  
             <div style="width: 380px;">
-                <ul class="pageBtnBox" style="display: flex; justify-content: space-between;">
-                    <li><a href="list.jsp?page=1"> 1 </a></li>
-                    <li><a href="list.jsp?page=2"> 2 </a></li>
-                    <li><a href="list.jsp?page=3"> 3 </a></li>
-                    <li><a href="list.jsp?page=4"> 4 </a></li>
-                    <li><a href="list.jsp?page=5"> 5 </a></li>
+                <ul class="pageBtnBox" style="display: flex; justify-content: space-between;">                    
                 </ul>
-            </div>
+            </div>          
         </div>
     </div>
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/footer.jsp"></jsp:include>
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
-    <script src="/js/company/list.js"></script>
+    <script src="/js/product/product.js"></script>
 </body>
 
 </html>

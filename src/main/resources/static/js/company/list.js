@@ -2,8 +2,6 @@ console.log('list.js check');
 
 const params = new URL(location.href).searchParams;
 const page = params.get('page') || 1; console.log(page); // 조건 || false , 만약에 page가 존재하지않으면 1
-const key = params.get('key') || ''; // 만약에 key가 존재하지않으면 공백
-const keyword = params.get('keyword') || '';
 
 
 // 정육점 전체조회
@@ -12,15 +10,19 @@ const getAllCompany = async() => {
     const order = document.querySelector('.order').value;
     let html = "";
     try{
-    const response = await fetch(`/company/get?page=${page}&order=${order}`);
-    const data = await response.json();     console.log(data);
-    data.data.forEach((com) => {
-        html += `<tr>
-                    <td><img src=${com.cimg}/></td>
-                    <td><a href="/company/find.jsp?cno=${com.cno}">${com.cname}</a></td>
-                    <td>${com.caddress}</td>
-                    <td>${com.rrank}</td>
-                </tr>`;
+        const response = await fetch(`/company/get?page=${page}&order=${order}`);
+        const data = await response.json();     console.log(data);
+        data.data.forEach((com) => {
+            let imgUrl = '/upload/company/'+com.cimg;
+            if(data.cimg == null){
+                imgUrl = 'https://placehold.co/50x50';
+            }// if end
+            html += `<tr>
+                        <td><img src=${imgUrl}/></td>
+                        <td><a href="/company/find.jsp?cno=${com.cno}">${com.cname}</a></td>
+                        <td>${com.caddress}</td>
+                        <td>${com.rrank}</td>
+                    </tr>`;
     })// for end        
     console.log(html);
     listTbody.innerHTML = html;
