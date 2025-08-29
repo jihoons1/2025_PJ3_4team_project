@@ -21,6 +21,8 @@
         아이디 : <input type="text" class="mid" placeholder="asd123"> </br>
         비밀번호 : <input type="password" class="mpwd" placeholder="asd213"> </br>
         <button type="button" onclick="loginbtn()"> 로그인 </button> </br>
+        <a href="/member/findid.jsp"> 아이디찾기 </a>
+        <a href="/member/findPwd.jsp"> 비밀번호찾기 </a>
     </div>
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
