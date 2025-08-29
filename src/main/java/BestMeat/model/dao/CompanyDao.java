@@ -11,22 +11,29 @@ import java.util.List;
 @Repository
 public class CompanyDao extends Dao {
 
-    // 정육점 전체조회
-    public List<CompanyDto> getCompany(int startRow , int count){
+    // 정육점 전체조회(정렬추가)
+    public List<CompanyDto> getCompany(int startRow , int count , String order){
         List<CompanyDto> list = new ArrayList<>();
         try{
-            String sql = "select * from company limit ? , ? ";
+            String sql = "select c.cno, c.mno , c.cname, c.caddress, c.cimg, ifnull(round(avg(r.rrank),1),0) as rrank " +
+                    " from company c left outer join review r on c.cno = r.cno ";
+            if ("rank".equals(order)){
+                sql += " group by c.cno order by rrank desc , cno limit ? , ?";
+            }else{
+                sql += " group by c.cno order by cno desc limit ? , ?";
+            }// if end
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,startRow);
             ps.setInt(2,count);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 CompanyDto dto = new CompanyDto();
-                dto.setCno(rs.getInt("cno"));
                 dto.setMno(rs.getInt("mno"));
+                dto.setCno(rs.getInt("cno"));
                 dto.setCname(rs.getString("cname"));
                 dto.setCaddress(rs.getString("caddress"));
                 dto.setCimg(rs.getString("cimg"));
+                dto.setRrank(rs.getDouble("rrank"));
                 list.add(dto);
             }// while end
         } catch (Exception e) { System.out.println(e); }

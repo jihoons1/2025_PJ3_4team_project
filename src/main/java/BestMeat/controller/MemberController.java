@@ -60,8 +60,8 @@ public class MemberController {
     @PutMapping("/updateMember")
     public boolean updateMember(MemberDto dto , MultipartFile multipartFile){
         System.out.println("MemberController.updateMember");
-
-    }
+        return false;
+    }// func end
 
     // [6] 비밀번호 수정
 

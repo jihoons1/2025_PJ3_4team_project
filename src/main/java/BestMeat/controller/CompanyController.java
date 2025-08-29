@@ -40,10 +40,10 @@ public class CompanyController {
                               @RequestParam(required = false) String keyword ,
                               @RequestParam(required = false) String order ,
                               HttpSession session){
+        PageDto pdto = companyService.getCompany(page,key,keyword,order);
         int mno = sessionService.getSessionNo("loginMno",session);
         if (mno > 0){ // 로그인한 회원이 검색할시
             MemberDto mdto = memberService.getMember(session);
-            PageDto pdto = companyService.getCompany(page,key,keyword,order);
             List<CompanyDto> clist = (List<CompanyDto>) pdto.getData();
             String[] str = mdto.getMaddress().split(",");
             double[] start = mapService.getLatLng(str[0]);
@@ -56,9 +56,8 @@ public class CompanyController {
             if ("distance".equals(order)){ // 거리가까운순
                 clist.sort(Comparator.comparingDouble(CompanyDto::getDistance));
             }// if end
-            return pdto;
         }// if end
-        return companyService.getCompany(page,key,keyword,order);
+        return pdto;
     }// func end
 
 //    // 정육점 개별조회
