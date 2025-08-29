@@ -34,9 +34,7 @@
         <div>
             <div><h4>리뷰 목록</h4></div> <div><button type="button" onclick="addReviewBox()">리뷰작성</button></div>
             <form class="reviewAddBox">                
-            </form>
-            <div class="rImgBox">
-            </div>
+            </form>            
             <div>
                 <table>
                     <thead>
@@ -47,6 +45,10 @@
                     <tbody class="reviewTbody">
                     </tbody>
                 </table>
+            </div>
+            <div style="width: 380px;">
+                <ul class="pageBtnBox" style="display: flex; justify-content: space-between;">                    
+                </ul>
             </div>
         </div>
     </div>
