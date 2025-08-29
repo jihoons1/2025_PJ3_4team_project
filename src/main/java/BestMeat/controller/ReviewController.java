@@ -47,11 +47,11 @@ public class ReviewController {
         CompanyDto cdto = companyService.findCompany(dto.getCno());
         String[] str1 = cdto.getCaddress().split(",");
         double[] start = mapService.getLatLng(str[0]);
-        System.out.println(start);
         double[] end = mapService.getLatLng(str1[0]);
-        System.out.println(end);
         dto.setDistance(mapService.distance(start,end));
-        System.out.println(dto.getDistance());
+        if (dto.getDistance() > 3.0){
+            return false;
+        }// if end
         int result = reviewService.addReview(dto);
         if (result > 0 && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){

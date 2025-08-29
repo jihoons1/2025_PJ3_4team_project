@@ -3,11 +3,14 @@ package BestMeat.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -17,8 +20,7 @@ import java.nio.charset.StandardCharsets;
 
 @Service
 public class MapService {
-    // 발급받은 apiKey
-    private String apiKey = "A97BA8AB-2612-3296-91F3-FC3944875F00";
+
 
     /** 매개변수로 위도경도 반환해주는 기능
      * @param address
@@ -26,27 +28,32 @@ public class MapService {
      */
     public double[] getLatLng(String address) {
         try {
-            String url = "https://api.vworld.kr/req/address?service=address&request=getCoord"
-                    + "&format=json&crs=epsg:4326&type=road&key=" + apiKey
-                    + "&address=" + URLEncoder.encode(address, StandardCharsets.UTF_8);
+            String apikey = "A97BA8AB-2612-3296-91F3-FC3944875F00";
+            String searchType = "road";
+            String searchAddr = address;
+            String epsg = "epsg:4326";
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(url).openStream(), StandardCharsets.UTF_8));
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(reader);
+            StringBuilder sb = new StringBuilder("https://api.vworld.kr/req/address");
+            sb.append("?service=address");
+            sb.append("&request=getCoord");
+            sb.append("&format=json");
+            sb.append("&crs=" + epsg);
+            sb.append("&key=" + apikey);
+            sb.append("&type=" + searchType);
+            sb.append("&address=" + URLEncoder.encode(searchAddr, StandardCharsets.UTF_8));
+            URL url = new URL(sb.toString());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
+            JSONParser jspa = new JSONParser();
+            JSONObject jsob = (JSONObject) jspa.parse(reader);
+            JSONObject jsrs = (JSONObject) jsob.get("response");
+            JSONObject jsResult = (JSONObject) jsrs.get("result");
+            JSONObject jspoitn = (JSONObject) jsResult.get("point");
+            double d1 = Double.parseDouble(jspoitn.get("y").toString());
+            double d2 = Double.parseDouble(jspoitn.get("x").toString());
+            return new double[]{ d2 , d1 };
 
-            JsonNode resultArray = root.path("response").path("result");
-            if (!resultArray.isArray() || resultArray.size() == 0) return null;
-
-            JsonNode point = resultArray.get(0).path("point");
-            if (point.isMissingNode()) return null;
-
-            double lng = point.path("x").asDouble(0.0);
-            double lat = point.path("y").asDouble(0.0);
-
-            return new double[]{lng, lat};
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException(e);
         }
     }// func end
 
