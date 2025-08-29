@@ -19,6 +19,8 @@ public class StockService {
     private final NoticeDao noticeDao;
     private final NoticeService noticeService;
 
+    // todo 알림 전송할 때, 등록일비교 추가 필요
+    // todo 재고수정시, 문자전송 API 추가 필요
     // [stock01] 재고등록 - addStock()
     // 기능설명 : [ 정육점번호(세션), 가격, 제품번호(select) ]를 받아, Stock DB에 저장한다.
     // 매개변수 : StockDto
