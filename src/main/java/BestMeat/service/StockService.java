@@ -19,8 +19,6 @@ public class StockService {
     private final NoticeDao noticeDao;
     private final NoticeService noticeService;
 
-    // todo 알림 전송할 때, 등록일비교 추가 필요
-    // todo 재고수정시, 문자전송 API 추가 필요
     // [stock01] 재고등록 - addStock()
     // 기능설명 : [ 정육점번호(세션), 가격, 제품번호(select) ]를 받아, Stock DB에 저장한다.
     // 매개변수 : StockDto
@@ -76,8 +74,35 @@ public class StockService {
         // 3. 현재날짜를 Dto에 넣기
         String today = LocalDateTime.now().toString();
         stockDto.setSdate( today );
-        // 4. Dao에게 전달 후 결과 반환하기
-        return stockDao.updateStock( stockDto );
+        // 4. Dao에게 전달 후 결과받기
+        boolean result = stockDao.updateStock( stockDto );
+        // 5. 수정실패했으면, 함수 종료
+        if ( !result ) return false;
+        // 4-1. 제품번호에 해당하는 알림목록 가져오기
+        List<NoticeDto> noticeList = noticeDao.getNoticeList( stockDto.getPno() );
+        // 4-2. 제품번호에 해당하는 알림목록이 null이라면, 메소드 종료
+        if ( noticeList.isEmpty() ) return false;
+        // 5. 알림목록에서 문자전송여부 확인하기
+        for ( NoticeDto noticeDto : noticeList ){
+            int ncheck = noticeDto.getNcheck();
+            String mphone = noticeDto.getMphone().replaceAll( "-", "" );
+            String pname = noticeDto.getPname();
+            int nprice = noticeDto.getNprice();
+            // 6-1. 문자전송여부가 0이라면
+            if ( ncheck == 0 ){
+                // 6-2. 문자전송하기, 발신번호와 문자내용 필요
+                String content = pname + "이 " + nprice + "원 이하로 등록되었습니다.";      // 정육점명, 정육점링크(jsp 생성후 포함) 포함
+                noticeService.sendSms( mphone, content );
+            } else {    // 7. 문자전송여부가 0이 아니라면, 문자전송여부와 등록재고가격(sprice)을 비교하여
+                // 8-1. 등록재고가격이 낮으면
+                if ( ncheck > stockDto.getSprice() ){
+                    // 8-2. 문자전송하기
+                    String content = pname + "이 " + ncheck + "원 이하로 등록되었습니다.";
+                    noticeService.sendSms( mphone, content );
+                } // if end
+            } // if end
+        } // for end
+        return result;
     } // func end
 
     // [stock03] 재고삭제 - deleteStock()

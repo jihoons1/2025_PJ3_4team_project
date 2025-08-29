@@ -89,12 +89,14 @@ const updateButton = async ( sno ) => {
     const sprice = document.querySelector(`.sprice${sno}`);
     // 2. what
     let oldPrice;
+    let pno;
     StockData.forEach( (stock) => {
         if ( stock.sno == sno ){
             oldPrice = stock.sprice;
+            pno = stock.pno;
         } // if end
     }) // for end
-    let button = `<button type="button" onclick="updateStock(${sno})"> 수정완료 </button>`;
+    let button = `<button type="button" onclick="updateStock(${sno}, ${pno})"> 수정완료 </button>`;
     let input = `<input type="text" value="${oldPrice}" class="spriceInput${sno}">`;
     // 3. print
     buttons.innerHTML = button;
@@ -103,12 +105,13 @@ const updateButton = async ( sno ) => {
 
 
 // [5] 재고수정
-const updateStock = async ( sno ) => {
+const updateStock = async ( sno, pno ) => {
     console.log('updateStock func exe');
+    console.log( pno )
     // 1. Input value
     const sprice = document.querySelector(`.spriceInput${sno}`).value;
     // 2. obj
-    const obj = { sno, sprice };
+    const obj = { sno, sprice, pno };
     // 3. fetch
     const option = {
         method : "PUT",

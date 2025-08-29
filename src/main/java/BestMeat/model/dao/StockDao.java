@@ -90,6 +90,7 @@ public class StockDao extends Dao {
                 stockDto.setSdate( rs.getString( "sdate" ) );
                 stockDto.setCno( rs.getInt( "cno" ) );
                 stockDto.setPname( rs.getString( "pname" ) );
+                stockDto.setPno( rs.getInt( "pno" ) );
                 stockDtoList.add( stockDto );
             } // while end
         } catch ( SQLException e ){
