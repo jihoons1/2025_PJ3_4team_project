@@ -33,7 +33,6 @@ const resignMember = async ( ) => {
     try {
         // 1. Input value
         const mpwd = document.querySelector('.mpwdInput').value;
-        console.log( mpwd );
         // 2. obj
         const obj = { mpwd };
         // 3. fetch
