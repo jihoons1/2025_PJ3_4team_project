@@ -110,7 +110,8 @@ public class CompanyDao extends Dao {
     // 정육점 개별조회
     public CompanyDto findCompany(int cno){
         try{
-            String sql = "select * from company where cno = ?";
+            String sql = "select c.cno, c.mno , c.cname, c.caddress, c.cimg, ifnull(round(avg(r.rrank),1),0) as rrank"+
+                    " from company c left outer join review r on c.cno = r.cno  where c.cno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,cno);
             ResultSet rs = ps.executeQuery();
@@ -121,6 +122,7 @@ public class CompanyDao extends Dao {
                 dto.setCname(rs.getString("cname"));
                 dto.setCaddress(rs.getString("caddress"));
                 dto.setCimg(rs.getString("cimg"));
+                dto.setRrank(rs.getDouble("rrank"));
                 return dto;
             }// if end
         } catch (Exception e) { System.out.println(e); }

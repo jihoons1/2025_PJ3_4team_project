@@ -32,7 +32,7 @@
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <!-- 샘플 리스트 -->
                 <li><a href="#" class="nav-link px-2">제품 목록</a></li>
-                <li><a href="#" class="nav-link px-2">정육점 목록</a></li>
+                <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>
                 <li><a href="#" class="nav-link px-2">재고 관리</a></li>
             </ul>
             <div class="col-md-3 text-end">

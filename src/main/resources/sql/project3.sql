@@ -399,7 +399,7 @@ INSERT INTO Company ( mno, cname, caddress ) VALUES
     (10003, '(주)독산지코 자연안에', '인천광역시 부평구 배곶로 63, 1층 (십정동)'),
     (10004, '(주)에스제이유통', '인천광역시 부평구 이규보로 28, 1층 (십정동)'),
     (10005, '(주)우리동네축산', '인천광역시 부평구 부평북로 408, 1층 108호 (삼산동, 주영빌딩)'),
-    (10006, '(주)윈플러스마트남부 부개점', '인천광역시 부평구 수변로57번길 9 (부개동)'),
+    (10006, '(주)윈플러스마트남부 부개점', '인천광역시 부평구 마장로264번길 33, 104동 (산곡동)'), -- 주소오류
     (10007, '(주)으뜸축산', '인천광역시 부평구 부흥로316번길 33, 미래씨티 지하1층 (부평동)'),
     (10008, '(주)이마트에브리데이 청천동점', '인천광역시 부평구 원길로21번길 7 (청천동)'),
     (10009, '(주)제일식자재마트', '인천광역시 부평구 동수로 153 (부개동)'),
@@ -659,11 +659,10 @@ insert into notice(mno , pno , nprice , ncheck , ndate) values
     ( 10004, 40004 , 2000 , 0 , '2025-08-25 16:22:00');
 
 select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
-select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
-from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
-join review r on c.cno = r.cno  where p.pname like '%삼겹살%'
-group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice 
-order by rrank desc limit 0 , 10;
+select c.cno, c.mno , c.cname, c.caddress, c.cimg, ifnull(round(avg(r.rrank),1),0) as rrank 
+from company c left outer join review r on c.cno = r.cno  
+group by c.cno
+order by rrank desc , cno limit 0 , 10;
 
 
 select * from member;
