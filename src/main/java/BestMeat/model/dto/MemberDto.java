@@ -1,6 +1,7 @@
 package BestMeat.model.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,5 +21,7 @@ public class MemberDto {
     private int cno;    // 정육저 번호
 
     // 부가적인 정보
+    private MultipartFile upload; // 파일 받기
+
 
 } // class end
