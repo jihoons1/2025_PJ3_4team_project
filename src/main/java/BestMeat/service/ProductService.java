@@ -40,5 +40,11 @@ public class ProductService {
         return dto;
     }// func end
 
-
+    // [product03] 카테고리별 제품조회 - getCnoProduct()
+    // 기능설명 : [ 카테고리번호 ]를 받아, 해당하는 제품을 조회한다.
+    // 매개변수 : int cno
+    // 반환타입 : List<ProductDto>
+    public List<ProductDto> getCnoProduct( int cno ){
+        return productDao.getCnoProduct( cno );
+    } // func end
 } // class end

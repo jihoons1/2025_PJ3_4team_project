@@ -1,12 +1,15 @@
 package BestMeat.controller;
 
 import BestMeat.model.dto.PageDto;
+import BestMeat.model.dto.ProductDto;
 import BestMeat.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,4 +29,15 @@ public class ProductController {
         return productService.getProduct(page);
     }// func end
 
+    // [product03] 카테고리별 제품조회 - getCnoProduct()
+    // 기능설명 : [ 카테고리번호 ]를 받아, 해당하는 제품을 조회한다.
+    // method : GET, URL : /product/getCno
+    // 매개변수 : int cno
+    // 반환타입 : List<ProductDto>
+    @GetMapping("/getCno")
+    public List<ProductDto> getCnoProduct( @RequestParam int cno ){
+        System.out.println("ProductController.getCnoProduct");
+
+        return productService.getCnoProduct( cno );
+    } // func end
 } // class end
