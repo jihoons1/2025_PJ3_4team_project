@@ -60,6 +60,7 @@ public class MemberController {
     }
 
     // [5] 회원정보수정
+    // http://localhost:8080/member/update/Pwd
     @PutMapping("/updateMember")
     public int updateMember(MemberDto dto , HttpSession session){
         System.out.println("MemberController.updateMember");
@@ -77,6 +78,18 @@ public class MemberController {
     }
 
     // [6] 비밀번호 수정
+    @PutMapping("/update/Pwd")
+    public boolean updatePwd(@RequestBody Map<String , String>map , HttpServletRequest request){
+        System.out.println("MemberController.updatePwd");
+        HttpSession session = request.getSession(false);
+        if ( session == null || session.getAttribute("loginMno")==null) return false;
+        Object obj = session.getAttribute("loginMno");
+        int loginMno = (int)obj;
+        boolean result = memberService.updatePwd( loginMno , map);
+
+        if (result == true) session.removeAttribute("loginMno");
+        return result;
+    }
 
 
 

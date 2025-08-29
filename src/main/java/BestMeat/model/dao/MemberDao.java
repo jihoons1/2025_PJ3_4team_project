@@ -176,6 +176,21 @@ public class MemberDao extends Dao  {
 
 
     // [6] 비밀번호 수정
+    public boolean updatePwd(int mno, Map<String , String>map ){
+        System.out.println("MemberDao.updatePwd");
+        try{
+            String sql = "update member set mpwd = ? where mno = ? and mpwd = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1 ,map.get("newmpwd")); // 신규 비번
+            ps.setInt(2, mno);
+            ps.setString(3, map.get("oldmpwd")); // 기존 비번
+            int count = ps.executeUpdate();
+            return count == 1 ;
+        }catch (Exception e){
+            System.out.println("비밀번호 수정 오류 발생 "+e);
+        }
+        return false;
+    }
 
 
     // [member07] 회원정보 상세조회 - getMember()
