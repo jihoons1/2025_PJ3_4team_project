@@ -69,22 +69,25 @@ const getReview = async() => {
     let html = "";    
     try{
         const response = await fetch(`/review/get?cno=${cno}`);
-        const data = await response.json();
-        data.data.forEach((re) => {
-            let rimgUrl = re.images;
+        const data = await response.json(); console.log(data);
+        data.data.forEach((re) => { console.log(re.images);
+            let rimgUrl = '/upload/review/'+re.images;
             if(re.images == null){
                 rimgUrl = 'https://placehold.co/50x50';
-            }// if end            
-            html += `<tr>
-                        <div class="rImgBox">
-                            <div><img src=${rimgUrl}/></div>
+            }// if end
+            console.log(rimgUrl);
+            re.images.forEach((img) => {
+                html += `<div class="rImgBox" style="display: flex;">
+                                <div><img src=${rimgUrl}/></div>
                         </div>
-                        <td>${re.mname}</td>
-                        <td>${re.rcontent}</td>
-                        <td>${re.rdate}</td>
-                        <td>${re.rrank}</td>
-                        <td><button>수정</button></td>
-                    </tr>`
+                        <tr>                            
+                            <td>${re.mname}</td>
+                            <td>${re.rcontent}</td>
+                            <td>${re.rdate}</td>
+                            <td>${re.rrank}</td>
+                            <td><button>수정</button></td>
+                        </tr>`
+            })// for end
         })// for end        
         reviewtbody.innerHTML = html;
         viewPageButton(data);
@@ -94,24 +97,22 @@ getReview();
 
 // 페이징 버튼 출력 함수 
 const viewPageButton = async ( data ) => {
-
-    // 백엔드로 부터 받은 pageDto{} <--->  data{}
-    let currentPage = parseInt( data.currentPage ); // parseInt(자료) : 자료를 int 타입으로 변환
+    let currentPage = parseInt( data.currentPage ); 
     let totalPage = data.totalPage;
     let startBtn = data.startBtn;
     let endBtn = data.endBtn;    
 
     const pageBtnBox = document.querySelector('.pageBtnBox');
     let html = "";
-    // ***************************** 이전버튼 : 현재페이지가 1이하이면 1고정 *********************************** //
+    //  이전버튼  //
     if(currentPage > 1){
         html += `<li><a href="find.jsp?cno=${cno}&page=${currentPage <= 1 ? 1 : currentPage-1}"> 이전 </a></li>`
     }// if end    
-    // ***************************** 페이지버튼 : startBtn 부터 endBtn까지 1씩 증가 *********************************** //
+    //  페이지버튼 //
     for(let i = startBtn; i <= endBtn; i++){
         html += `<li> <a href="find.jsp?cno=${cno}&page=${i}" style="${ i == currentPage ? 'color:red' : '' }"> ${i} </a> </li>`
     }// for end
-    // ***************************** 다음버튼 : 만약에 다음페이지가 전체페이지수보다 커지면 전체페이지수로 고정 *********************************** //
+    //  다음버튼 //
     if(currentPage < totalPage){
         html += `<li><a href="find.jsp?cno=${cno}&page=${currentPage+1 >= totalPage ? totalPage : currentPage+1}"> 다음 </a></li>`
     }// if end    
