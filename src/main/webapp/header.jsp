@@ -14,26 +14,24 @@
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- CSS 불러오기 : static 이하 경로부터 작성 -->
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/header.css">
 
 </head>
 
 <body>
 
     <div id="header">
-        <header
-            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <div class="col-md-3 mb-2 mb-md-0">
-                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
+                <a href="/index.jsp" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <img src="/img/logo.png" alt="">
                 </a>
             </div>
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                 <!-- 샘플 리스트 -->
-                <li><a href="/product/product.jsp" class="nav-link px-2">제품 목록</a></li>
-                <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>
-                <li><a href="#" class="nav-link px-2">재고 관리</a></li>
+                <div class="menu">
+
+                </div>
             </ul>
             <div class="col-md-3 text-end">
                 <div class="log"> <!-- 로그인/로그아웃 쪽 js-->

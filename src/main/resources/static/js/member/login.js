@@ -40,7 +40,7 @@ const loginbtn = async() => {
     const data = await response.json();
 
     if(data > 0 ){
-        alert(' 로그인 성공' + `어서오세요`);
+        alert(' 로그인 성공\n' + `어서오세요`);
         location.href="/index.jsp";
     }else{
         alert(' 로그인 실패 ');

@@ -27,7 +27,7 @@
                         </use>
                     </svg>
                 </a>
-                <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2025 Company, Inc</span>
+                <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2025 BestMeat, Inc</span>
             </div>
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
                 <li class="ms-3">
