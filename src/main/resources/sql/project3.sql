@@ -20,13 +20,13 @@ create table member (
     maddress varchar(50) not null ,  			                -- 주소
     mdate datetime default now(),				                -- 등록일
     mcheck boolean default true ,  				                -- 회원 활성화
-    mimg varchar(50) default 'https://placehold.co/600x400',    -- 프로필 이미지
+    mimg varchar(50) ,    -- 프로필 이미지
     constraint primary key(mno)
 );
 -- ---------------------------- Company -------------------
 create table Company (
     cno int auto_increment,			                            -- 정육점번호
-    cimg varchar(50) default 'https://placehold.co/600x400',	-- 정육점이미지명
+    cimg varchar(50) ,                                      	-- 정육점이미지명
     cname varchar(30) ,                                         -- 정육점명
     caddress varchar(100)  ,                                    -- 정육점 주소
     mno int not null,                                           -- 회원번호
@@ -38,7 +38,7 @@ create table Product (
     pno int auto_increment,			                            -- 제품번호
     pname varchar(10) not null,		                            -- 부위명
     cno int,						                            -- 카테고리번호
-    pimg varchar(50) default 'https://placehold.co/600x400',	-- 제품이미지명
+    pimg varchar(50) ,	-- 제품이미지명
     constraint primary key( pno ),
     constraint foreign key( cno ) references category ( cno ) on update cascade on delete cascade
 );
@@ -68,7 +68,7 @@ create table review(
 -- ---------------------------- ReviewImg -------------------
 create table reviewimg(
     rimgno int auto_increment primary key,	                    -- 리뷰이미지번호
-    rimg varchar(50) default 'https://placehold.co/600x400', 	-- 리뷰이미지명
+    rimg varchar(50)                                        , 	-- 리뷰이미지명
     rno int not null default 0 ,			                    -- 리뷰번호
     constraint foreign key(rno) references review(rno) on delete cascade on update cascade
 );
