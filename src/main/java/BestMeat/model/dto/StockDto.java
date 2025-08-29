@@ -16,5 +16,5 @@ public class StockDto {
     private int pno;        // 제품번호
 
     // 부가적인 정보
-
+    private String pname;   // 제품명
 } // class end

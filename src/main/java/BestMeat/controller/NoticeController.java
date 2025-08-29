@@ -4,10 +4,9 @@ import BestMeat.model.dto.NoticeDto;
 import BestMeat.service.NoticeService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,5 +25,17 @@ public class NoticeController {
         System.out.println("noticeDto = " + noticeDto);
 
         return noticeService.addNotice( noticeDto, session );
+    } // func end
+
+    // [notice03] 회원별 알림조회 - getMnoNotice()
+    // 기능설명 : [ 회원번호(세션) ]을 받아, 해당하는 알림을 조회한다.
+    // method : GET, URL : /notice/get
+    // 매개변수 : session
+    // 반환타입 : List<NoticeDto>
+    @GetMapping("/get")
+    public List<NoticeDto> getMnoNotice( HttpSession session ){
+        System.out.println("NoticeController.getMnoNotice");
+
+        return noticeService.getMnoNotice( session );
     } // func end
 } // class end

@@ -96,4 +96,18 @@ public class StockService {
             return false;
         } // if end
     } // func end
+
+    // [stock04] 정육점별 재고조회 - getStock()
+    // 기능설명 : [ 정육점번호 ]를 받아, 해당하는 재고를 조회한다.
+    // 매개변수 : session
+    // 반환타입 : List<StockDto>
+    public List<StockDto> getStock( HttpSession session ){
+        // 1. 세션정보에서 정육점번호 가져오기
+        int loginCno = sessionService.getSessionNo( "loginCno", session );
+        // 2. 정육점번호가 없으면 메소드 종료
+        if ( loginCno == 0 ) return null;
+        System.out.println("loginCno = " + loginCno);
+        // 3. 재고조회하기
+        return stockDao.getStock( loginCno );
+    } // func end
 } // class end

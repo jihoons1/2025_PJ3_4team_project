@@ -65,4 +65,31 @@ public class NoticeDao extends Dao {
         } // try-catch end
         return noticeDtoList;
     } // func end
+
+    // [notice03] 회원별 알림조회 - getMnoNotice()
+    // 기능설명 : [ 회원번호(세션) ]을 받아, 해당하는 알림을 조회한다.
+    // 매개변수 : int mno
+    // 반환타입 : List<NoticeDto>
+    public List<NoticeDto> getMnoNotice( int mno ){
+        List<NoticeDto> noticeDtoList = new ArrayList<>();
+        try {
+            String SQL = "select * from notice inner join product using ( pno ) where mno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, mno );
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                NoticeDto noticeDto = new NoticeDto();
+                noticeDto.setNno( rs.getInt( "nno" ) );
+                noticeDto.setMno( rs.getInt( "mno" ) );
+                noticeDto.setPname( rs.getString( "pname" ) );
+                noticeDto.setNprice( rs.getInt( "nprice" ) );
+                noticeDto.setNcheck( rs.getInt( "ncheck" ) );
+                noticeDto.setNdate( rs.getString( "ndate" ) );
+                noticeDtoList.add( noticeDto );
+            } // while end
+        } catch ( SQLException e ){
+            System.out.println("[notice03] SQL 기재 실패" + e );
+        } // try-catch end
+        return noticeDtoList;
+    } // func end
 } // class end

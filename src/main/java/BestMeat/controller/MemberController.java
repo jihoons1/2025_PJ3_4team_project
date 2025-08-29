@@ -115,10 +115,10 @@ public class MemberController {
     // [member08] 회원 탈퇴 - resignMember()
     // 기능설명 : [ 회원번호(세션), 비밀번호 ]를 받아,  일치하면 회원활성화를 false로 변경한다.
     // method : POST, URL : /member/resign
-    // 매개변수 : Map< String, Object >
+    // 매개변수 : Map< String, String >
     // 반환타입 : boolean -> 성공 : true, 실패 : false
     @PostMapping("/resign")
-    public boolean resignMember( Map<String , Object> map, HttpSession session ){
+    public boolean resignMember( Map<String , String> map, HttpSession session ){
         System.out.println("MemberController.resignMember");
         // 1. Service에게 전달 후, 결과 받기
         boolean result = memberService.resignMember( map, session );
