@@ -25,8 +25,15 @@ public class MemberController {
 
     // [1] 회원가입
     @PostMapping("/signup")
-    public int signup(@RequestBody MemberDto dto) {
+    public int signup(MemberDto dto) {
+
         System.out.println("MemberController.signup");
+            MultipartFile file = dto.getUpload();
+        if (file != null && !file.isEmpty()){
+            String new_upload = fileService.fileUpload(file , tableName);
+            if (new_upload == null) return 0;
+            dto.setMimg(new_upload);
+        }
         return memberService.signup(dto);
     }
 
