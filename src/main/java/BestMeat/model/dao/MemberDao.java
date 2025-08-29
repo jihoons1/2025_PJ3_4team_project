@@ -22,9 +22,9 @@ public class MemberDao extends Dao  {
         System.out.println("MemberDao.signup");
         try{
             String sql = "INSERT INTO member " +
-                    "(mname, mid, mpwd, mphone, memail, maddress )" + // name , id , password , phone , email , address
+                    "(mname, mid, mpwd, mphone, memail, maddress , mimg  )" + // name , id , password , phone , email , address
                     " VALUES " + // 적은
-                    "( ? , ? , ? , ? , ? , ? )"; // 값을 db 저장
+                    "( ? , ? , ? , ? , ? , ? , ? )"; // 값을 db 저장
             PreparedStatement ps = conn.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dto.getMname());
             ps.setString(2, dto.getMid());
@@ -32,6 +32,7 @@ public class MemberDao extends Dao  {
             ps.setString(4, dto.getMphone());
             ps.setString(5, dto.getMemail());
             ps.setString(6, dto.getMaddress());
+            ps.setString(7 , dto.getMimg());
             int count = ps.executeUpdate();
             if (count == 1 ){
                 ResultSet rs = ps.getGeneratedKeys();
