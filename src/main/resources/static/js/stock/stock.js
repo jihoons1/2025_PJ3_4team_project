@@ -28,4 +28,20 @@ const addStock = async ( ) => {
     const cno = document.querySelector('.cno').value;
     const pno = document.querySelector('.product').value;
     const sprice = document.querySelector('.sprice').value;
+    // 2. obj
+    const obj = { cno, pno, sprice };
+    // 3. fetch
+    const option = {
+        method : "POST",
+        headers : { "Content-Type" : "application/json" },
+        body : JSON.stringify( obj )
+    } // option end
+    const response = await fetch( "/stock/add", option );
+    const data = await response.json();
+    // 4. result
+    if ( data > 0 ){
+        alert('재고등록 성공!');
+    } else {
+        alert('재고등록 실패!\n다시 입력해주세요.');
+    }
 } // func end
