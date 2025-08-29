@@ -44,7 +44,9 @@ public class NoticeDao extends Dao {
     public List<NoticeDto> getNoticeList( int pno ){
         List<NoticeDto> noticeDtoList = new ArrayList<NoticeDto>();
         try {
-            String SQL = "select * from notice n inner join member using ( mno ) inner join product p using ( pno ) where pno = ?";
+            String SQL = "select * from notice n inner join member using ( mno ) inner join product p using ( pno ) where pno = ? and ndate >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+            // where ndate >= DATE_SUB(NOW(), INTERVAL 7 DAY) : 현재 날짜로부터 7일 전까지의 데이터만 뽑는다.
+            // date_sub( A, interval B ) : 과거 <--> data_add( A, interval B ) : 미래
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, pno );
             ResultSet rs = ps.executeQuery();
@@ -85,6 +87,7 @@ public class NoticeDao extends Dao {
                 noticeDto.setNprice( rs.getInt( "nprice" ) );
                 noticeDto.setNcheck( rs.getInt( "ncheck" ) );
                 noticeDto.setNdate( rs.getString( "ndate" ) );
+                noticeDto.setPno( rs.getInt( "pno" ) );
                 noticeDtoList.add( noticeDto );
             } // while end
         } catch ( SQLException e ){
