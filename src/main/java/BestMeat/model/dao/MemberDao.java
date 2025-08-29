@@ -224,13 +224,13 @@ public class MemberDao extends Dao  {
 
     // [member08] 회원 탈퇴 - resignMember()
     // 기능설명 : [ 회원번호(세션), 비밀번호 ]를 받아,  일치하면 회원활성화를 false로 변경한다.
-    // 매개변수 : Map< String, Object >
+    // 매개변수 : Map< String, String >
     // 반환타입 : boolean -> 성공 : true, 실패 : false
-    public boolean resignMember( Map<String , Object> map ){
+    public boolean resignMember( Map<String , String> map ){
         try {
             String SQL = "update member set mcheck = false where mno = ? and mpwd = ? and mcheck = true";
             PreparedStatement ps = conn.prepareStatement( SQL );
-            ps.setInt( 1, (Integer) map.get("mno") );
+            ps.setInt( 1, Integer.parseInt( map.get("mno") ) );
             ps.setString( 2, (String) map.get("mpwd"));
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){

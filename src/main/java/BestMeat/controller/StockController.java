@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/stock")
@@ -53,5 +55,17 @@ public class StockController {
         stockDto.setSno( sno );
         // 3. Service에게 전달하고 결과 반환하기
         return stockService.deleteStock( stockDto, session );
+    } // func end
+
+    // [stock04] 정육점별 재고조회 - getStock()
+    // 기능설명 : [ 정육점번호 ]를 받아, 해당하는 재고를 조회한다.
+    // method : GET, URL : /stock/get
+    // 매개변수 : session
+    // 반환타입 : List<StockDto>
+    @GetMapping("/get")
+    public List<StockDto> getStock( HttpSession session ){
+        System.out.println("StockController.getStock");
+
+        return stockService.getStock( session );
     } // func end
 } // class end

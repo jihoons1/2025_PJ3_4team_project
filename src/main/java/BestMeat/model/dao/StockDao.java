@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class StockDao extends Dao {
@@ -68,5 +70,31 @@ public class StockDao extends Dao {
             System.out.println("[stock03] SQL 기재 실패");
         } // try-catch end
         return false;
+    } // func end
+
+    // [stock04] 정육점별 재고조회 - getStock()
+    // 기능설명 : [ 정육점번호 ]를 받아, 해당하는 재고를 조회한다.
+    // 매개변수 : int cno
+    // 반환타입 : List<StockDto>
+    public List<StockDto> getStock( int cno ){
+        List<StockDto> stockDtoList = new ArrayList<>();
+        try {
+            String SQL = "select * from stock s inner join product p using ( pno ) where s.cno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, cno );
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                StockDto stockDto = new StockDto();
+                stockDto.setSno( rs.getInt( "sno" ) );
+                stockDto.setSprice( rs.getInt( "sprice" ) );
+                stockDto.setSdate( rs.getString( "sdate" ) );
+                stockDto.setCno( rs.getInt( "cno" ) );
+                stockDto.setPname( rs.getString( "pname" ) );
+                stockDtoList.add( stockDto );
+            } // while end
+        } catch ( SQLException e ){
+            System.out.println("[stock04] SQL 기재 실패");
+        } // try-catch end
+        return stockDtoList;
     } // func end
 } // class end
