@@ -3,6 +3,7 @@ console.log('stock.js open');
 // 쿼리스트링에서 정보 가져오기
 const queryString = new URL( location.href ).searchParams;
 const cno = queryString.get("cno");
+let StockData;
 
 // [1] 카테고리별 상품 출력
 const getCnoProduct = async ( ) => {
@@ -56,35 +57,76 @@ const getStock = async ( ) => {
     const option = { method : "GET" };
     const response = await fetch( "/stock/get", option );
     const data = await response.json();         console.log( data );
-    companyData = data;
+    StockData = data;
     // 2. where
     const stockTbody = document.querySelector('.stockTbody');
     // 3. what
     let html = ``;
     data.forEach( (stock) => {
+        // td class를 부여한 이유 : 수정버튼을 누르면, 해당 마크업에 값을 넣기 위해서
+        // 함수에 매개변수를 넣은 이유 : sno를 활용하여, 연쇄적으로 함수에서 사용하기 위해서
         html += `<tr>
                     <td>${stock.sno}</td>
                     <td>${stock.pname}</td>
-                    <td>${stock.sprice}</td>
+                    <td class="sprice${stock.sno}">${stock.sprice}</td>
                     <td>${stock.sdate}</td>
-                    <td>
-                        <button type="button" onclick="updateStock((${stock.sno})"> 수정 </button>
+                    <td class="buttons${stock.sno}">
+                        <button type="button" onclick="updateButton(${stock.sno})"> 수정 </button>
                         <button type="button" onclick="deleteStock(${stock.sno})"> 삭제 </button>
                     </td>
                  </tr>`
     })
     // 4. print
     stockTbody.innerHTML = html;
-
 } // func end
 getStock();
 
-// [4] 재고수정
-const updateStock = async ( sno ) => {
-    console.log('updateStock func exe');
+// [4] 재고수정 버튼
+const updateButton = async ( sno ) => {
+    console.log('updateButton func exe');
+    // 1. where
+    const buttons = document.querySelector(`.buttons${sno}`);
+    const sprice = document.querySelector(`.sprice${sno}`);
+    // 2. what
+    let oldPrice;
+    StockData.forEach( (stock) => {
+        if ( stock.sno == sno ){
+            oldPrice = stock.sprice;
+        } // if end
+    }) // for end
+    let button = `<button type="button" onclick="updateStock(${sno})"> 수정완료 </button>`;
+    let input = `<input type="text" value="${oldPrice}" class="spriceInput${sno}">`;
+    // 3. print
+    buttons.innerHTML = button;
+    sprice.innerHTML = input;
 } // func end
 
-// [5] 재고삭제
+
+// [5] 재고수정
+const updateStock = async ( sno ) => {
+    console.log('updateStock func exe');
+    // 1. Input value
+    const sprice = document.querySelector(`.spriceInput${sno}`).value;
+    // 2. obj
+    const obj = { sno, sprice };
+    // 3. fetch
+    const option = {
+        method : "PUT",
+        headers : { "Content-Type" : "application/json" },
+        body : JSON.stringify( obj )
+    } // option end
+    const response = await fetch( "/stock/update", option );
+    const data = await response.json();
+    // 4. result
+    if ( data == true ){
+        alert('재고수정 성공!');
+        location.reload();
+    } else {
+        alert('재고수정 실패!\n다시 입력해주세요.');
+    } // if end
+} // func end
+
+// [6] 재고삭제
 const deleteStock = async ( sno ) => {
     console.log('deleteStock func exe');
     // 1. fetch
