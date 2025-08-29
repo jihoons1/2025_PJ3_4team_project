@@ -68,6 +68,15 @@ public class MemberService {
     }
 
 
+    // [6] 비밀번호 수정
+    public boolean updatePwd(int mno , Map<String , String> map){
+        System.out.println("MemberService.updatePwd");
+        boolean result =  memberDao.updatePwd(mno,map);
+        return result;
+
+    }
+
+
 
 
     // [member07] 회원정보 상세조회 - getMember()
