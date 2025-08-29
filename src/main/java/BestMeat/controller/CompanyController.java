@@ -23,10 +23,10 @@ public class CompanyController {
         return companyService.getCompany(page,key,keyword,order);
     }// func end
 
-    // 정육점 개별조회
-    @GetMapping("/find")
-    public CompanyDto findCompany(@RequestParam int cno){
-        return companyService.findCompany(cno);
-    }// func end
+//    // 정육점 개별조회
+//    @GetMapping("/find")
+//    public CompanyDto findCompany(@RequestParam int cno){
+//        return companyService.findCompany(cno);
+//    }// func end
 
 } // class end

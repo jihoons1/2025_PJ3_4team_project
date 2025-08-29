@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 
@@ -55,6 +56,14 @@ public class MemberController {
         return memberService.findPwd(map);
     }
 
+    // [5] 회원정보수정
+    @PutMapping("/updateMember")
+    public boolean updateMember(MemberDto dto , MultipartFile multipartFile){
+        System.out.println("MemberController.updateMember");
+
+    }
+
+    // [6] 비밀번호 수정
 
 
 

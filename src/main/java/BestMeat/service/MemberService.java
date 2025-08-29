@@ -54,6 +54,13 @@ public class MemberService {
         return result;
     }
 
+    // [5] 회원정보 수정
+    public boolean updateMember(MemberDto dto){
+        System.out.println("MemberService.updateMember");
+        boolean result = memberDao.updateMember(dto);
+        return result;
+    }
+
 
 
 
