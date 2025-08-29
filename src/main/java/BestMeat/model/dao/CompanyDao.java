@@ -59,8 +59,6 @@ public class CompanyDao extends Dao {
                     " from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno";
             if (key.equals("pname")){
                 sql += " where pname like ? ";
-            }else if (key.equals("cname")){
-                sql += " where cname like ? ";
             }// if end
             if ("rank".equals(order)){
                 sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by rrank asc limit ? , ?";
@@ -96,8 +94,6 @@ public class CompanyDao extends Dao {
             String sql = "select count(*) from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno";
             if (key.equals("pname")){
                 sql += " where pname like ? ";
-            }else if (key.equals("cname")){
-                sql += " where cname like ? ";
             }// if end
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,"%"+keyword+"%");

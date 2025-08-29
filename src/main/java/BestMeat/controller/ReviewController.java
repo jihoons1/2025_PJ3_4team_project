@@ -91,7 +91,7 @@ public class ReviewController {
                                // defaultValue : 만약 쿼리스트링 매개변수가 없으면, 기본값을 대입
                                @RequestParam( defaultValue = "1" ) int page ){
         System.out.println("ReviewController.getReview");
-
-        return reviewService.getReview( cno, page );
+        PageDto pageDto =  reviewService.getReview( cno, page );
+        return pageDto;
     } // func end
 }// class end

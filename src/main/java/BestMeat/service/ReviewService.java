@@ -55,6 +55,10 @@ public class ReviewService {
         int totalCount = reviewDao.getReviewCount(cno);
         // 4. 정육점별 리뷰 반환받기
         List<ReviewDto> reviewDtoList = reviewDao.getReview( cno, startRow, totalCount );
+        for (ReviewDto rdto : reviewDtoList){
+            List<String> images = reviewDao.getReviewImg(rdto.getRno());
+            rdto.setImages(images);
+        }// for end
         // 5. 페이징처리된 pageDto 반환하기
         return pageService.paging( page, new ArrayList<>(reviewDtoList), totalCount );
     } // func end

@@ -2,6 +2,7 @@ console.log('find.js check');
 
 const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
+const page = params.get('page') || 1;
 
 // 정육점 개별조회
 const findCompany = async() => {
@@ -44,5 +45,76 @@ const addReviewBox = async() => {
 
 // 리뷰 등록 기능
 const addReview = async() => {
-
+    const reviewAddBox = document.querySelector('.reviewAddBox');
+    const productForm = new FormData(reviewAddBox);
+    productForm.append('cno' , cno);
+    const option = {
+        method : "POST" , 
+        body : productForm
+    }// option end
+    try{
+        const response = await fetch('/review/add',option);
+        const data = await response.json();
+        if(data == true){
+            alert("리뷰가 등록되었습니다.");
+        }else{
+            alert('리뷰 등록 실패!');
+        }// if end
+    }catch(e){ console.log(e); }
 }// func end
+
+// 회사별 리뷰 목록 조회
+const getReview = async() => {
+    const reviewtbody = document.querySelector('.reviewTbody');    
+    let html = "";    
+    try{
+        const response = await fetch(`/review/get?cno=${cno}`);
+        const data = await response.json(); console.log(data);
+        data.data.forEach((re) => { console.log(re.images);
+            let rimgUrl = '/upload/review/'+re.images;
+            if(re.images == null){
+                rimgUrl = 'https://placehold.co/50x50';
+            }// if end
+            console.log(rimgUrl);
+            re.images.forEach((img) => {
+                html += `<div class="rImgBox" style="display: flex;">
+                                <div><img src=${rimgUrl}/></div>
+                        </div>
+                        <tr>                            
+                            <td>${re.mname}</td>
+                            <td>${re.rcontent}</td>
+                            <td>${re.rdate}</td>
+                            <td>${re.rrank}</td>
+                            <td><button>수정</button></td>
+                        </tr>`
+            })// for end
+        })// for end        
+        reviewtbody.innerHTML = html;
+        viewPageButton(data);
+    }catch(e){ console.log(e); }
+}// func end
+getReview();
+
+// 페이징 버튼 출력 함수 
+const viewPageButton = async ( data ) => {
+    let currentPage = parseInt( data.currentPage ); 
+    let totalPage = data.totalPage;
+    let startBtn = data.startBtn;
+    let endBtn = data.endBtn;    
+
+    const pageBtnBox = document.querySelector('.pageBtnBox');
+    let html = "";
+    //  이전버튼  //
+    if(currentPage > 1){
+        html += `<li><a href="find.jsp?cno=${cno}&page=${currentPage <= 1 ? 1 : currentPage-1}"> 이전 </a></li>`
+    }// if end    
+    //  페이지버튼 //
+    for(let i = startBtn; i <= endBtn; i++){
+        html += `<li> <a href="find.jsp?cno=${cno}&page=${i}" style="${ i == currentPage ? 'color:red' : '' }"> ${i} </a> </li>`
+    }// for end
+    //  다음버튼 //
+    if(currentPage < totalPage){
+        html += `<li><a href="find.jsp?cno=${cno}&page=${currentPage+1 >= totalPage ? totalPage : currentPage+1}"> 다음 </a></li>`
+    }// if end    
+    pageBtnBox.innerHTML = html;
+} // func end
