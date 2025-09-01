@@ -53,7 +53,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                <button type="button" class="btn btn-primary" onclick="resignMember()" >회원탈퇴</button>
+                <button type="button" class="btn btn-primary" onclick="addNotice()" >회원탈퇴</button>
             </div>
             </div>
         </div>
@@ -102,6 +102,10 @@
                 </tbody>
             </table>
         </div>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+            알림등록
+        </button>
         <div>   <!-- 회원별 알림조회 -->
             <table>
                 <thead>
@@ -119,8 +123,7 @@
                 </tbody>
             </table>
         </div>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+        <button type="button" onclick="resignMember()">
             회원탈퇴
         </button>
     </div>
