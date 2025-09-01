@@ -65,7 +65,7 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
             알림등록
         </button>
-        <!-- Modal -->
+        <!-- 알림등록 Modal -->
         <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -104,10 +104,29 @@
                 </tbody>
             </table>
         </div>
+        <!-- 알림수정 Modal -->
+        <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">알림수정</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span>알림수정할 제품의 가격을 입력해주세요.</span> <br>
+                    <span class="oldPname"></span>
+                    <input type="text" class="NewNprice" placeholder="가격을 입력하세요.">
+                </div>
+                <div class="modal-footer" id="updateInput">
+
+                </div>
+                </div>
+            </div>
+        </div>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
             회원탈퇴
         </button>
-        <!-- Modal -->
+        <!-- 회원탈퇴 1차 Modal -->
         <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -125,8 +144,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modal -->
+        <!-- 회원탈퇴 2차 Modal -->
         <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

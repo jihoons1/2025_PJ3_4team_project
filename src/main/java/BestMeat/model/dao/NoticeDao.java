@@ -97,12 +97,38 @@ public class NoticeDao extends Dao {
     } // func end
 
     // [notice04] 알림수정 - updateNotice
-    // 기능설명 : [ 회원번호(세션), 알림번호, 제품번호, 알림설정가격 ]을 받아, 해당하는 알림을 수정한다.
+    // 기능설명 : [ 회원번호(세션), 알림번호, 알림설정가격 ]을 받아, 해당하는 알림을 수정한다.
     // 매개변수 : NoticeDto
     // 반환타입 : boolean
+    public boolean updateNotice( NoticeDto noticeDto ){
+        try {
+            String SQL = "update notice set nprice = ?, ndate = ? where nno = ? and mno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, noticeDto.getNprice() );
+            ps.setString( 2, noticeDto.getNdate() );
+            ps.setInt( 3, noticeDto.getNno() );
+            ps.setInt( 4, noticeDto.getMno() );
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ){
+            System.out.println("[notice04] SQL 기재 실패");
+        } // try-catch end
+        return false;
+    } // func end
 
     // [notice05] 알림삭제 - deleteNotice
     // 기능설명 : [ 회원번호(세션), 알림번호 ]를 받아, 해당하는 알림을 삭제한다.
-    // 매개변수 : int mno
+    // 매개변수 : int mno, int nno
     // 반환타입 : boolean
+    public boolean deleteNotice( int mno, int nno ){
+        try {
+            String SQL = "delete from notice where nno = ? and mno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, nno );
+            ps.setInt( 2, mno );
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ){
+            System.out.println("[notice05] SQL 기재 실패");
+        } // try-catch end
+        return false;
+    } // func end
 } // class end
