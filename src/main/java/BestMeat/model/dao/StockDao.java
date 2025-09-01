@@ -32,7 +32,7 @@ public class StockDao extends Dao {
                 } // if end
             } // if end
         } catch ( SQLException e ){
-            System.out.println("[stock01] SQL 기재 실패");
+            System.out.println("[stock01] SQL 기재 실패" + e );
         } // try-catch end
         return 0;
     } // func end
@@ -50,7 +50,7 @@ public class StockDao extends Dao {
             ps.setInt( 3, stockDto.getSno() );
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){
-            System.out.println("[stock02] SQL 기재 실패");
+            System.out.println("[stock02] SQL 기재 실패" + e );
         } // try-catch end
         return false;
     } // func end
@@ -67,7 +67,7 @@ public class StockDao extends Dao {
             ps.setInt( 2, stockDto.getCno() );
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){
-            System.out.println("[stock03] SQL 기재 실패");
+            System.out.println("[stock03] SQL 기재 실패" + e );
         } // try-catch end
         return false;
     } // func end
@@ -94,7 +94,7 @@ public class StockDao extends Dao {
                 stockDtoList.add( stockDto );
             } // while end
         } catch ( SQLException e ){
-            System.out.println("[stock04] SQL 기재 실패");
+            System.out.println("[stock04] SQL 기재 실패" + e );
         } // try-catch end
         return stockDtoList;
     } // func end

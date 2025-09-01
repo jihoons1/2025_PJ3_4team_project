@@ -114,7 +114,7 @@ public class ReviewDao extends Dao  {
                 list.add( reviewDto );
             } // while end
         } catch ( SQLException e ){
-            System.out.println("[review03] SQL 기재 실패");
+            System.out.println("[review03] SQL 기재 실패" + e );
         } // try-catch end
         return  list;
     } // func end
@@ -171,7 +171,7 @@ public class ReviewDao extends Dao  {
                 list.add( reviewDto );
             } // while end
         } catch ( SQLException e ){
-            System.out.println("[review05] SQL 기재 실패");
+            System.out.println("[review05] SQL 기재 실패" + e );
         } // try-catch end
         return list;
     } // func end
@@ -198,7 +198,7 @@ public class ReviewDao extends Dao  {
                 return reviewDto;
             } // if end
         } catch ( SQLException e ){
-            System.out.println("[review05] SQL 기재 실패");
+            System.out.println("[review05] SQL 기재 실패" + e );
         } // try-catch end
         return null;
     } // func end

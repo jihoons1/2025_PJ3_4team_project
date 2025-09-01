@@ -32,7 +32,7 @@ public class NoticeDao extends Dao {
                 } // if end
             } // if end
         } catch ( SQLException e ){
-            System.out.println("[notice01] SQL 기재 실패");
+            System.out.println("[notice01] SQL 기재 실패" + e );
         } // try-catch end
         return 0;
     } // func end
@@ -63,7 +63,7 @@ public class NoticeDao extends Dao {
                 noticeDtoList.add( noticeDto );
             } // while end
         } catch ( SQLException e ){
-            System.out.println("[notice02] SQL 기재 실패");
+            System.out.println("[notice02] SQL 기재 실패" + e );
         } // try-catch end
         return noticeDtoList;
     } // func end
@@ -111,7 +111,7 @@ public class NoticeDao extends Dao {
             ps.setInt( 4, noticeDto.getMno() );
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){
-            System.out.println("[notice04] SQL 기재 실패");
+            System.out.println("[notice04] SQL 기재 실패" + e );
         } // try-catch end
         return false;
     } // func end
@@ -128,7 +128,7 @@ public class NoticeDao extends Dao {
             ps.setInt( 2, mno );
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){
-            System.out.println("[notice05] SQL 기재 실패");
+            System.out.println("[notice05] SQL 기재 실패" + e );
         } // try-catch end
         return false;
     } // func end

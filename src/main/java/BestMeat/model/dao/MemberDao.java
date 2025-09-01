@@ -219,7 +219,7 @@ public class MemberDao extends Dao  {
                 return memberDto;
             } // if end
         } catch ( SQLException e ){
-            System.out.println("[member07] SQL 기재 실패");
+            System.out.println("[member07] SQL 기재 실패" + e );
         } // try-catch end
         return null;
     } // func end
@@ -236,7 +236,7 @@ public class MemberDao extends Dao  {
             ps.setString( 2, (String) map.get("mpwd"));
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){
-            System.out.println("[member08] SQL 기재 실패");
+            System.out.println("[member08] SQL 기재 실패" + e );
         } // try-catch end
         return false;
     } // func end
