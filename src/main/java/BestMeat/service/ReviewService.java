@@ -71,8 +71,13 @@ public class ReviewService {
         int mno = sessionService.getSessionNo( "loginMno", session );
         // 2. 회원번호가 0이면 메소드 종료
         if ( mno == 0 ) return null;
+        List<ReviewDto> dtolist = reviewDao.getMnoReview(mno);
+        for (ReviewDto dto : dtolist){
+            List<String> img = reviewDao.getReviewImg(dto.getRno());
+            dto.setImages(img);
+        }// for end
         // 3. Dao에게 전달 후, 결과 반환하기
-        return reviewDao.getMnoReview( mno );
+        return dtolist;
     } // func end
 
     // [review05] 리뷰번호 리뷰조회 - getRnoReview()

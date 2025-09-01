@@ -205,8 +205,9 @@ const getMnoReview = async ( ) => {
     // 2. where
     const reviewTbody = document.querySelector('.reviewTbody');
     // 3. what
-    let html = ``;
-    data.forEach( (review) => {
+    let html = ``;   
+    data.forEach( (review) => {        
+        let reimg = '/upload/review'+review.images;
         if(review.images == null || review.images == ""){
             let reimg = 'https://placehold.co/50x50';
             html += `<div class="rImgBox" style="display: flex;">
@@ -228,7 +229,7 @@ const getMnoReview = async ( ) => {
                     <td>${review.rrank}</td>
                     <td>${review.rdate}</td>
                     <td>
-                        <button type="button" onclic="getUpdateBtn()"> 수정 </button>
+                        <button type="button" onclick="getUpdateBtn()"> 수정 </button>
                         <button type="button"> 삭제 </button>
                     </td>
                  </tr>`
@@ -289,19 +290,19 @@ const addUpdate = async(btn) => {
 
  // [12] 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
 const update = async() => {
-    
+
     const mig = document.querySelector('#mig');
     const mphone = document.querySelector('.mphone2').value;
     const maddress = document.querySelector('.maddress2').value;
-    
+
     const mimg = new FormData(mig);
     mimg.append("mphone2" , mphone);
     mimg.append("maddress2", maddress);
-    
+
     console.log(mimg);
     try{
         const op = { method : "PUT" ,
-        body : mimg } 
+        body : mimg }
 
         const response = await fetch(`/member/updateMember` , op);
         const data = await response.json();
