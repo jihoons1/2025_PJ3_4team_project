@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/review")
@@ -89,9 +91,16 @@ public class ReviewController {
     @GetMapping("/get")
     public PageDto getReview ( @RequestParam int cno,
                                // defaultValue : 만약 쿼리스트링 매개변수가 없으면, 기본값을 대입
-                               @RequestParam( defaultValue = "1" ) int page ){
-        System.out.println("ReviewController.getReview");
+                               @RequestParam( defaultValue = "1" ) int page ,
+                               HttpSession session){
+        int mno = sessionService.getSessionNo("loginMno", session );
         PageDto pageDto =  reviewService.getReview( cno, page );
+        List<ReviewDto> list = (List<ReviewDto>) pageDto.getData();
+        for (ReviewDto dto : list){
+            if (mno == dto.getMno()){
+                dto.setCheck(true);
+            }// if end
+        }// for end
         return pageDto;
     } // func end
 }// class end
