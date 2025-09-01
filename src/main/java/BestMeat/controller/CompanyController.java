@@ -40,23 +40,7 @@ public class CompanyController {
                               @RequestParam(required = false) String keyword ,
                               @RequestParam(required = false) String order ,
                               HttpSession session){
-        PageDto pdto = companyService.getCompany(page,key,keyword,order);
-        int mno = sessionService.getSessionNo("loginMno",session);
-        if (mno > 0){ // 로그인한 회원이 검색할시
-            MemberDto mdto = memberService.getMember(session);
-            List<CompanyDto> clist = (List<CompanyDto>) pdto.getData();
-            String[] str = mdto.getMaddress().split(",");
-            double[] start = mapService.getLatLng(str[0]);
-            for (CompanyDto cdto : clist){ // 거리계산 후 dto distance 멤버변수에 저장
-                String[] str1 = cdto.getCaddress().split(",");
-                double[] end = mapService.getLatLng(str1[0]);
-                double result = mapService.distance(start,end);
-                cdto.setDistance(result);
-            }// for end
-            if ("distance".equals(order)){ // 거리가까운순
-                clist.sort(Comparator.comparingDouble(CompanyDto::getDistance));
-            }// if end
-        }// if end
+        PageDto pdto = companyService.getCompany(page,key,keyword,order,session);
         return pdto;
     }// func end
 
