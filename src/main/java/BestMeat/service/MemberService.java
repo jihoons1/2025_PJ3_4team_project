@@ -41,9 +41,9 @@ public class MemberService {
         String result = memberDao.findId(map);
         Map<String , String > maps = new HashMap<>();
         if (result == null) { // 만약에 result 가 null이면
-            maps.put("false", null); // 아이디 찾기 실패
+            maps.put("mid", ""); // 아이디 찾기 실패
         }else { // 아니면
-            maps.put("true", result); // 아이디 찾기 성공
+            maps.put("mid", result); // 아이디 찾기 성공
         }
         return maps; // 반환
     }
