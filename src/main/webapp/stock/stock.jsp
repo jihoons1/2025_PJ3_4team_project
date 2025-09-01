@@ -11,6 +11,7 @@
 
     <!-- CSS 불러오기 : static 이하 경로부터 작성 -->
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/stock/stock.css">
 
 </head>
 
