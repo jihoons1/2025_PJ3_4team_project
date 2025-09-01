@@ -68,7 +68,7 @@ public class MemberController {
     // [5] 회원정보수정
     // http://localhost:8080/member/update/Pwd
     @PutMapping("/updateMember")
-    public int updateMember( @RequestBody MemberDto dto , HttpSession session){
+    public int updateMember( @ModelAttribute MemberDto dto , HttpSession session){
         System.out.println("MemberController.updateMember");
         int mno = memberService.updateMember(dto , session);
         if (!dto.getUpload().isEmpty()){

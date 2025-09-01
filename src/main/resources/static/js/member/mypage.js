@@ -164,3 +164,8 @@ const getMnoReview = async ( ) => {
     reviewTbody.innerHTML = html;
 } // func end
 getMnoReview();
+
+const dd= async() => {
+    
+    location.href="/member/updateMember.jsp";
+}
