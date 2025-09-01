@@ -155,7 +155,7 @@ public class ReviewDao extends Dao  {
     public List<ReviewDto> getMnoReview( int mno ){
         List<ReviewDto> list = new ArrayList<>();
         try {
-            String SQL = "select * from review where mno = ?";
+            String SQL = "select * from review r inner join company c using (cno) where r.mno = ?";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, mno );
             ResultSet rs = ps.executeQuery();
@@ -167,6 +167,7 @@ public class ReviewDao extends Dao  {
                 reviewDto.setRdate( rs.getString("rdate") );
                 reviewDto.setCno( rs.getInt("cno") );
                 reviewDto.setMno( rs.getInt("mno") );
+                reviewDto.setCname( rs.getString("cname") );
                 list.add( reviewDto );
             } // while end
         } catch ( SQLException e ){

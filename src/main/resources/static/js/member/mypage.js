@@ -135,3 +135,32 @@ const addNotice = async ( ) => {
         alert('알림등록 실패!')
     } // if end
 } // func end
+
+// [6] 회원별 리뷰조회
+const getMnoReview = async ( ) => {
+    console.log('getMnoReview func exe');
+    // 1. fetch
+    const option = { method : "GET" };
+    const response = await fetch( "/review/getMno", option );
+    const data = await response.json();     console.log( data );
+    // 2. where
+    const reviewTbody = document.querySelector('.reviewTbody');
+    // 3. what
+    let html = ``;
+    data.forEach( (review) => {
+        html += `<tr>
+                    <td>${review.rno}</td>
+                    <td>${review.cname}</td>
+                    <td>${review.rcontent}</td>
+                    <td>${review.rrank}</td>
+                    <td>${review.rdate}</td>
+                    <td>
+                        <button type="button"> 수정 </button>
+                        <button type="button"> 삭제 </button>
+                    </td>
+                 </tr>`
+    })
+    // 4. print
+    reviewTbody.innerHTML = html;
+} // func end
+getMnoReview();

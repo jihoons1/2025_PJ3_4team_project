@@ -22,4 +22,5 @@ public class ReviewDto {
 
     // 부가적인 정보
     private String mname;
+    private String cname;       // 정육점명
 } // class end
