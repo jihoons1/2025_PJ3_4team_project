@@ -9,10 +9,10 @@ const getMember = async ( ) => {
     const data = await response.json();         console.log( data );
     // * ming URL 만들기
     let mimgURL = `/upload/member/${data.mimg}`
+    // 이미지를 등록하지 않은 회원이면, placehold로 변경
     if ( data.mimg == null ){
         mimgURL = 'https://placehold.co/100x100';
     } // if end
-
 
     // 2. where + print
     document.querySelector('.mimg').innerHTML = `<img src="${mimgURL}">`;
@@ -22,8 +22,6 @@ const getMember = async ( ) => {
     document.querySelector('.memail').innerHTML = `${data.memail}`;
     document.querySelector('.maddress').innerHTML = `${data.maddress}`;
     document.querySelector('.mdate').innerHTML = `${data.mdate}`;
-
-
 } // func end
 getMember();
 
@@ -55,6 +53,7 @@ const resignMember = async ( ) => {
     } // try-catch end
 } // func end
 
+// 다른 함수에서도 사용하기 위해, 전역변수로 선언
 let noticeData;
 // [3] 회원별 알림조회
 const getNotice = async ( ) => {
@@ -63,6 +62,7 @@ const getNotice = async ( ) => {
     const option = { method : "GET" };
     const response = await fetch( "/notice/get", option );
     const data = await response.json();
+    // 회원별 알림조회 결과를 전역변수에 대입하기
     noticeData = await data;
     // 2. where
     const noticeTbody = document.querySelector('.noticeTbody');
@@ -97,7 +97,7 @@ getNotice();
 const updatePrint = async ( nno ) => {
     console.log( nno )
     console.log( noticeData[1].length );
-    // 1. noticeData를 통해 기본 출력
+    // 1. 전역변수로 선언된 noticeData를 통해 기본 출력
     for ( let i = 0; i < noticeData.length; i++ ){
         if ( noticeData[i].nno == nno ){
             document.querySelector('.oldPname').innerHTML = `${noticeData[i].pname}`;
