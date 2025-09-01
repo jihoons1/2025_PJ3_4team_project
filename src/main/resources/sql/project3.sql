@@ -9,6 +9,7 @@ create table Category (
     cname varchar(5) not null unique,	-- 고기명
     constraint primary key( cno )
 );
+select * from category;
 -- ---------------------------- Member -------------------
 create table member (
     mno INT auto_increment, 					                -- 회원번호
@@ -23,6 +24,7 @@ create table member (
     mimg varchar(50) ,    -- 프로필 이미지
     constraint primary key(mno)
 );
+select * from member;
 -- ---------------------------- Company -------------------
 create table Company (
     cno int auto_increment,			                            -- 정육점번호
@@ -33,6 +35,7 @@ create table Company (
     constraint primary key( cno ),
     constraint foreign key( mno ) references member( mno ) on update cascade on delete cascade
 );
+select * from company;
 -- ---------------------------- Product -------------------
 create table Product (
     pno int auto_increment,			                            -- 제품번호
@@ -42,6 +45,7 @@ create table Product (
     constraint primary key( pno ),
     constraint foreign key( cno ) references category ( cno ) on update cascade on delete cascade
 );
+select * from product;
 -- ---------------------------- Stock -------------------
 create table Stock (
     sno int auto_increment,			-- 재고번호
@@ -53,7 +57,7 @@ create table Stock (
     constraint foreign key( pno ) references Product( pno ) on delete cascade on update cascade,
     constraint foreign key( cno ) references Company( cno ) on delete cascade on update cascade
 );
-
+select * from stock;
 -- ---------------------------- Review -------------------
 create table review(
     rno int auto_increment primary key,	-- 리뷰번호
@@ -65,6 +69,7 @@ create table review(
     constraint foreign key(mno) references member(mno) on delete cascade on update cascade,
     constraint foreign key(cno) references company(cno) on delete cascade on update cascade
 );
+select * from review;
 -- ---------------------------- ReviewImg -------------------
 create table reviewimg(
     rimgno int auto_increment primary key,	                    -- 리뷰이미지번호
@@ -72,6 +77,7 @@ create table reviewimg(
     rno int not null default 0 ,			                    -- 리뷰번호
     constraint foreign key(rno) references review(rno) on delete cascade on update cascade
 );
+select * from reviewimg;
 -- ---------------------------- Notice -------------------
 create table notice(
     nno int auto_increment primary key,	-- 알림번호
@@ -83,6 +89,7 @@ create table notice(
     constraint foreign key(mno) references member(mno) on delete cascade on update cascade,
     constraint foreign key(pno) references product(pno) on delete cascade on update cascade
 );
+select * from notice;
 -- ---------------------------- Alter -------------------
 alter table member auto_increment = 10001;
 alter table Category auto_increment = 20001;
@@ -657,20 +664,3 @@ insert into notice(mno , pno , nprice , ncheck , ndate) values
     ( 10002 , 40002 , 2000 , 0 , '2025-08-25 16:22:00'),
     ( 10003 , 40003 , 1300 , 1200 , '2025-08-24 16:22:00'),
     ( 10004, 40004 , 2000 , 0 , '2025-08-25 16:22:00');
-
-select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
-select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
-from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
-join review r on c.cno = r.cno  where p.pname like '%삼겹살%'
-group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice 
-order by rrank desc limit 0 , 10;
-
-
-select * from member;
-select * from category;
-select * from company;
-select * from product;
-select * from stock;
-select * from review;
-select * from reviewimg;
-select * from notice;
