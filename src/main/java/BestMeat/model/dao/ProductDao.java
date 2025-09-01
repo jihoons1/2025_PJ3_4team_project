@@ -16,7 +16,7 @@ public class ProductDao extends Dao {
     public List<ProductDto> getProduct(int startRow , int count){
         List<ProductDto> list = new ArrayList<>();
         try{
-            String sql = "select * from product limit ? , ? ";
+            String sql = "select * from product p inner join category c using ( cno ) limit ? , ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,startRow);
             ps.setInt(2,count);
@@ -27,6 +27,7 @@ public class ProductDao extends Dao {
                 dto.setPno(rs.getInt("pno"));
                 dto.setPname(rs.getString("pname"));
                 dto.setPimg(rs.getString("pimg"));
+                dto.setCname( rs.getString("cname") );
                 list.add(dto);
             }// while end
         } catch (Exception e) { System.out.println(e); }
