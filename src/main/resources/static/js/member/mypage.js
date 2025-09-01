@@ -30,32 +30,65 @@ getMember();
 // [2] 회원탈퇴 기능
 const resignMember = async ( ) => {
     console.log('resignMember func exe');
-    let con = confirm('정말로 탈퇴하시겠습니까?');
-    if ( con == true ){
-        try {
-            // 1. Input value
-            const mpwd = prompt('탈퇴를 원하신다면, 현재 비밀번호를 입력해주세요.');
-            // 2. obj
-            const obj = { mpwd };
-            // 3. fetch
-            const option = {
-                method : "POST",
-                headers : { "Content-Type" : "application/json" },
-                body : JSON.stringify( obj )
-            } // option end
-            const response = await fetch( "/member/resign", option );
-            const data = await response.json();
-            // 4. result 
-            if ( data == true ){
-                alert('회원탈퇴 성공!');
-                location.href = `/index.jsp`;
-            } else {
-                alert('회원탈퇴 실패! 다시 입력해주세요.');
-            } // if end
-        } catch ( error ) {
-            console.log( error );
-        } // try-catch end
-    } else {
-        alert('탈퇴가 취소되었습니다.');
-    } // if end
+    try {
+        // 1. Input value
+        const mpwd = document.querySelector('.mpwdInput').value;
+        // 2. obj
+        const obj = { mpwd };
+        // 3. fetch
+        const option = {
+            method : "POST",
+            headers : { "Content-Type" : "application/json" },
+            body : JSON.stringify( obj )
+        } // option end
+        const response = await fetch( "/member/resign", option );
+        const data = await response.json();
+        // 4. result 
+        if ( data == true ){
+            alert('회원탈퇴 성공!');
+            location.href = `/index.jsp`;
+        } else {
+            alert('회원탈퇴 실패! 다시 입력해주세요.');
+        } // if end
+    } catch ( error ) {
+        console.log( error );
+    } // try-catch end
 } // func end
+
+// [3] 회원별 알림조회
+const getNotice = async ( ) => {
+    console.log('getNotice func exe');
+    // 1. fetch
+    const option = { method : "GET" };
+    const response = await fetch( "/notice/get", option );
+    const data = await response.json();
+    // 2. where
+    const noticeTbody = document.querySelector('.noticeTbody');
+    // 3. what
+    let html = ``;
+    data.forEach( (notice) => {
+        let ncheck = notice.ncheck;
+        if ( ncheck == 0 ){
+            ncheck = '미전송'
+        } else {
+            ncheck = ncheck + '원에 전송완료'
+        } // if end
+        html += `<tr>
+                    <td>${notice.nno}</td>
+                    <td>${notice.pname}</td>
+                    <td>${notice.nprice}</td>
+                    <td>${notice.ndate}</td>
+                    <td>${ncheck}</td>
+                    <td>
+                        <button type="button" onclick="updateNotice"> 수정 </button>
+                        <button type="button" onclick="deleteNotice"> 삭제 </button>
+                    </td>
+                 </tr>`
+    });
+    // 4. print
+    noticeTbody.innerHTML = html;
+} // func end
+getNotice();
+
+
+// 제품 불러와서 pBox에 넣기
