@@ -146,8 +146,22 @@ const getMnoReview = async ( ) => {
     // 2. where
     const reviewTbody = document.querySelector('.reviewTbody');
     // 3. what
-    let html = ``;
-    data.forEach( (review) => {
+    let html = ``;   
+    data.forEach( (review) => {        
+        if(review.images == null || review.images == ""){  
+            let reimg = 'https://placehold.co/50x50';
+            html += `<div class="rImgBox" style="display: flex;">
+                                <div><img src=${reimg}/></div>
+                        </div>`
+        }// if end
+        console.log(reimg);
+        review.images.forEach((img) => {
+            imgUrl = '/upload/review'+img;
+            html += `<div class="rImgBox" style="display: flex;">
+                                <div><img src=${imgUrl}/></div>
+                        </div>`
+        })// for end
+        console.log(imgUrl);
         html += `<tr>
                     <td>${review.rno}</td>
                     <td>${review.cname}</td>
@@ -155,7 +169,7 @@ const getMnoReview = async ( ) => {
                     <td>${review.rrank}</td>
                     <td>${review.rdate}</td>
                     <td>
-                        <button type="button"> 수정 </button>
+                        <button type="button" onclic="getUpdateBtn()"> 수정 </button>
                         <button type="button"> 삭제 </button>
                     </td>
                  </tr>`
@@ -164,3 +178,52 @@ const getMnoReview = async ( ) => {
     reviewTbody.innerHTML = html;
 } // func end
 getMnoReview();
+
+// [7] 수정html불러오기
+const getUpdateBtn = async() => {
+    const thisTr = updateBtn.closest("tr");
+    const rno = thisTr.querySelector("td:nth-child(1)").innerText;
+    const rcontent = thisTr.querySelector("td:nth-child(3)").innerText
+    thisTr.innerHTML = `<td>${rno}<input type="hidden" name="rno" value="${rno}"></td>
+                        <td><textarea name="rcontent">${rcontent}</textarea></td>
+                        <td><select name="rrank">
+                            <option value="0">평점</option>
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select></td>
+                        <td><input type="file" multiple name="uploads"/></td>
+                        <td><button type="button" onclick="addUpdate(this)">수정</button>
+                            <button type="button" onclick="getMnoReview()">취소</button></td>`
+}// func end
+
+// [8] 리뷰 수정 기능
+const addUpdate = async(btn) => {
+    const thistr = btn.closest("tr");
+    const rno = thistr.querySelector("input[name='rno']").value;
+    const rcontent = thistr.querySelector("textarea[name='rcontent']").value;
+    const rrank = thistr.querySelector("select[name='rrank']").value;
+    let uploads = thistr.querySelector("input[name='uploads']").files;
+    const formData = new FormData();
+    formData.append('rno',rno);
+    formData.append('rcnotent',rcontent);
+    formData.append('rrank',rrank);
+    if(uploads.length > 0){
+        for(let i = 0; i < uploads.length; i++){
+            formData.append('uploads',uploads[i]);
+        }// for end
+    }// if end
+    const option = { method : "PUT" , body : formData }
+    try{
+        const response = await fetch(`/ewview/update`,option);
+        const data = await response.json();
+        if(data == true){
+            alert('수정 성공!');
+            getMnoReview();
+        }else{
+            alert('수정 실패!');
+        }// if end
+    }catch(e){ console.log(e); }
+}// func end
