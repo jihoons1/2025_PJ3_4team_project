@@ -48,3 +48,9 @@ const logout= async() => {
         }
     }catch(error){console.log(error) ; }
 }
+
+// 검색 함수
+const search = async (  ) => {
+    console.log('search func exe');
+
+} // func end

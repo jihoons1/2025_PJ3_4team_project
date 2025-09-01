@@ -33,6 +33,10 @@
 
                 </div>
             </ul>
+            <div>
+                <input type="text" class="searchBox" placeholder="검색어를 입력하세요." onkeyup="if( event.keyCode==13 ){search();}">
+                <button type="button" onclick="search(event)"> 검색 </button>
+            </div>
             <div class="col-md-3 text-end">
                 <div class="log"> <!-- 로그인/로그아웃 쪽 js-->
                     
