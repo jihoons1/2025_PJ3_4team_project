@@ -52,5 +52,7 @@ const logout= async() => {
 // 검색 함수
 const search = async (  ) => {
     console.log('search func exe');
+    const keyword = document.querySelector('.searchBox').value;
+    location.href=`/search/search.jsp?key=pname&keyword=${keyword}`;
 
 } // func end

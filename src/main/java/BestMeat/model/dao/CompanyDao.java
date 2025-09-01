@@ -52,7 +52,7 @@ public class CompanyDao extends Dao {
     }// func end
 
     // 정육점 전체조회(키워드검색)
-    public List<CompanyDto> getCompanySearch(int startRow , int count , String key , String keyword , String order){
+    public List<CompanyDto> getCompanySearch( String key , String keyword , String order){
         List<CompanyDto> list = new ArrayList<>();
         try{
             String sql = "select c.cno , c.mno , c.cname , c.caddress , c.cimg ,p.pname , s.sprice ,  round(avg(r.rrank), 1) as rrank " +
@@ -61,16 +61,14 @@ public class CompanyDao extends Dao {
                 sql += " where pname like ? ";
             }// if end
             if ("rank".equals(order)){
-                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by rrank asc limit ? , ?";
+                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by rrank desc ";
             }else if ("sprice".equals(order)){
-                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by sprice asc limit ? , ?";
+                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by sprice asc ";
             }else{
-                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by cno desc limit ? , ?";
+                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by cno desc ";
             }// if end
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,"%"+keyword+"%");
-            ps.setInt(2,startRow);
-            ps.setInt(3,count);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 CompanyDto dto = new CompanyDto();
