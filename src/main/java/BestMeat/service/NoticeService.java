@@ -83,6 +83,14 @@ public class NoticeService {
 
     // [notice05] 알림삭제 - deleteNotice
     // 기능설명 : [ 회원번호(세션), 알림번호 ]를 받아, 해당하는 알림을 삭제한다.
-    // 매개변수 : session
+    // 매개변수 : session, int nno
     // 반환타입 : boolean
+    public boolean deleteNotice( int nno, HttpSession session ){
+        // 1. 세션정보에서 회원번호 가져오기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 비로그인 상태라면, 메소드 종료
+        if ( mno == 0 ) return false;
+        // 3. Dao에게 전달 후, 결과 반환하기
+        return noticeDao.deleteNotice( mno, nno );
+    } // func end
 } // class end

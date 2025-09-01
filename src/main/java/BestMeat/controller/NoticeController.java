@@ -54,6 +54,12 @@ public class NoticeController {
     // [notice05] 알림삭제 - deleteNotice
     // 기능설명 : [ 회원번호(세션), 알림번호 ]를 받아, 해당하는 알림을 삭제한다.
     // method : DELETE, URL : /notice/delete
-    // 매개변수 : session
+    // 매개변수 : session, int nno
     // 반환타입 : boolean
+    @DeleteMapping("/delete")
+    public boolean deleteNotice( @RequestParam int nno, HttpSession session ){
+        System.out.println("NoticeController.deleteNotice");
+
+        return noticeService.deleteNotice( nno, session );
+    } // func end
 } // class end
