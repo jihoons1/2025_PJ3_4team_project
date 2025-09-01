@@ -41,9 +41,35 @@
             </div>
         </div>
         <div>   <!-- 수정 버튼 -->
-            <button type="button" onclick="test()">회원정보 수정</button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                회원정보 수정
+            </button>
             <button type="button" onclick="">비밀번호 수정</button>
         </div>
+        <!-- 회원정보 수정 staticBackdrop5 -->
+        <div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">회원정보 수정</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="mig">
+                        전화번호 : <input type="text" class="mphone2" name="mphone" placeholder="전화번호를 입력해주세요." />   <br>
+                        주소 : <input type="text" class="maddress2" name="maddress" placeholder="주소를 입력해주세요." />      <br>
+                        프로필 : <input type="file" name="upload"/>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                    <button type="button" class="btn btn-primary"  onclick="update()">회원정보 수정</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
         <div>   <!-- 회원별 리뷰조회 -->
             <table>
                 <thead>
@@ -65,7 +91,7 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
             알림등록
         </button>
-        <!-- 알림등록 Modal -->
+        <!-- 알림등록 staticBackdrop1 -->
         <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -104,7 +130,7 @@
                 </tbody>
             </table>
         </div>
-        <!-- 알림수정 Modal -->
+        <!-- 알림수정 staticBackdrop4 -->
         <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -126,7 +152,7 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
             회원탈퇴
         </button>
-        <!-- 회원탈퇴 1차 Modal -->
+        <!-- 회원탈퇴 1차 staticBackdrop2 -->
         <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -144,7 +170,7 @@
                 </div>
             </div>
         </div>
-        <!-- 회원탈퇴 2차 Modal -->
+        <!-- 회원탈퇴 2차 staticBackdrop3 -->
         <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
