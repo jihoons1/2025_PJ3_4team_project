@@ -80,8 +80,8 @@ const getNotice = async ( ) => {
                     <td>${notice.ndate}</td>
                     <td>${ncheck}</td>
                     <td>
-                        <button type="button" onclick="updateNotice"> 수정 </button>
-                        <button type="button" onclick="deleteNotice"> 삭제 </button>
+                        <button type="button" onclick="updateNotice(${notice.nno})"> 수정 </button>
+                        <button type="button" onclick="deleteNotice(${notice.nno})"> 삭제 </button>
                     </td>
                  </tr>`
     });
@@ -164,3 +164,24 @@ const getMnoReview = async ( ) => {
     reviewTbody.innerHTML = html;
 } // func end
 getMnoReview();
+
+// [7] 알림 수정
+const updateNotice = async ( nno ) => {
+    console.log('updateNotice func exe');
+} // func end
+
+// [8] 알림 삭제
+const deleteNotice = async ( nno ) => {
+    console.log('deleteNotice func exe');
+    // 1. fetch
+    const option = { method : "DELETE" };
+    const response = await fetch( `/notice/delete?nno=${nno}`, option );
+    const data = await response.json();
+    // 2. result
+    if ( data == true ){
+        alert('알림삭제 성공!');
+        location.reload();
+    } else {
+        alert('알림삭제 실패!')
+    } // if end
+} // func end
