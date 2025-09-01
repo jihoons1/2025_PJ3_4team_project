@@ -21,7 +21,7 @@
     <div id="container">
         <div class="loginBox">
             아이디<input type="text" class="mid" placeholder="아이디를 입력하세요."> </br>
-            비밀번호<input type="password" class="mpwd" placeholder="비밀번호를 입력하세요."> </br>
+            비밀번호<input type="password" class="mpwd" placeholder="비밀번호를 입력하세요." onkeyup="if( event.keyCode == 13 ){ loginbtn() }"> </br>
             <a href="/member/find.jsp"> 아이디 | 비밀번호 찾기 </a></br>
             <button type="button" onclick="loginbtn()"> 로그인 </button>
         </div>
