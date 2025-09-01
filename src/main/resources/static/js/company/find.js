@@ -70,24 +70,32 @@ const getReview = async() => {
     try{
         const response = await fetch(`/review/get?cno=${cno}`);
         const data = await response.json(); console.log(data);
-        data.data.forEach((re) => { console.log(re.images);
+        data.data.forEach((re) => { 
             let rimgUrl = '/upload/review/'+re.images;
-            if(re.images == null){
+            if(re.images == null || re.images == ""){
                 rimgUrl = 'https://placehold.co/50x50';
             }// if end
-            console.log(rimgUrl);
-            re.images.forEach((img) => {
+            re.images.forEach((img) => {                
                 html += `<div class="rImgBox" style="display: flex;">
                                 <div><img src=${rimgUrl}/></div>
-                        </div>
-                        <tr>                            
+                        </div>`                     
+            })// for end            
+            if(re.check == true){
+                html += `<tr>                            
                             <td>${re.mname}</td>
                             <td>${re.rcontent}</td>
                             <td>${re.rdate}</td>
                             <td>${re.rrank}</td>
-                            <td><button>수정</button></td>
+                            <td><button onclick="updateBtn()">수정</button></td>
                         </tr>`
-            })// for end
+            }else{
+                html += `<tr>                            
+                            <td>${re.mname}</td>
+                            <td>${re.rcontent}</td>
+                            <td>${re.rdate}</td>
+                            <td>${re.rrank}</td>                            
+                        </tr>`
+            }// if end
         })// for end        
         reviewtbody.innerHTML = html;
         viewPageButton(data);
@@ -118,3 +126,10 @@ const viewPageButton = async ( data ) => {
     }// if end    
     pageBtnBox.innerHTML = html;
 } // func end
+
+// 리뷰 수정 버튼 클릭시 이벤트
+const updateBtn = async() => {
+    
+}
+
+// 리뷰 수정 기능
