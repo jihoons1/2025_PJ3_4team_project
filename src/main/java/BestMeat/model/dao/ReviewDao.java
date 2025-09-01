@@ -88,7 +88,7 @@ public class ReviewDao extends Dao  {
     }// func end
 
 
-    // [review03] 리뷰 상세조회 - getReview()
+    // [review03] 정육점별 리뷰조회 - getReview()
     // 기능설명 : 정육점별 리뷰를 조회한다.
     // 매개변수 : startRow, perCount, cno
     // 반환타입 : List<ReviewDto>
@@ -135,7 +135,7 @@ public class ReviewDao extends Dao  {
         return list;
     }// func end
 
-    // [review04] 정육점별 리뷰개수 반환
+    // [review03-3] 정육점별 리뷰개수 반환
     public int getReviewCount( int cno ){
         try {
             String SQL = "select count(*) from review where cno = ?";
@@ -151,7 +151,7 @@ public class ReviewDao extends Dao  {
         return 0;
     } // func end
 
-    // [review05] 회원별 리뷰조회 - getMnoReview()
+    // [review04] 회원별 리뷰조회 - getMnoReview()
     public List<ReviewDto> getMnoReview( int mno ){
         List<ReviewDto> list = new ArrayList<>();
         try {

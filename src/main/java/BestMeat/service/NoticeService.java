@@ -65,4 +65,14 @@ public class NoticeService {
         // 3. Dao에게 전달후 결과 반환
         return noticeDao.getMnoNotice( mno );
     } // func end
+
+    // [notice04] 알림수정 - updateNotice
+    // 기능설명 : [ 회원번호(세션), 알림번호, 제품번호, 알림설정가격 ]을 받아, 해당하는 알림을 수정한다.
+    // 매개변수 : NoticeDto, session
+    // 반환타입 : boolean
+
+    // [notice05] 알림삭제 - deleteNotice
+    // 기능설명 : [ 회원번호(세션), 알림번호 ]를 받아, 해당하는 알림을 삭제한다.
+    // 매개변수 : session
+    // 반환타입 : boolean
 } // class end

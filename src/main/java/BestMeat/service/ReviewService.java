@@ -43,7 +43,7 @@ public class ReviewService {
         return false;
     }// func end
 
-    // [review03] 리뷰 상세조회 - getReview()
+    // [review03] 정육점별 리뷰조회 - getReview()
     // 기능설명 : 정육점별 리뷰를 조회한다.
     // 매개변수 : startRow, perCount, cno
     // 반환타입 : PageDto
