@@ -41,7 +41,7 @@
             </div>
         </div>
         <div>   <!-- 수정 버튼 -->
-            <button type="button" onclick="dd()">회원정보 수정</button>
+            <button type="button" onclick="test()">회원정보 수정</button>
             <button type="button" onclick="">비밀번호 수정</button>
         </div>
         <div>   <!-- 회원별 리뷰조회 -->

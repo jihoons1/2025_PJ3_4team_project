@@ -286,7 +286,8 @@ const addUpdate = async(btn) => {
     }catch(e){ console.log(e); }
 }// func end
 
-const dd= async() => {
+// 회원정보 수정 페이지 이동 임시
+const test = async() => {
 
     location.href="/member/updateMember.jsp";
 }
