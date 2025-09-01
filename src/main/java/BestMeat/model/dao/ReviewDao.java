@@ -175,4 +175,31 @@ public class ReviewDao extends Dao  {
         } // try-catch end
         return list;
     } // func end
+
+    // [review05] 리뷰번호 리뷰조회 - getRnoReview()
+    // 기능설명 : 리뷰번호에 해당하는 리뷰를 조회한다.
+    // 매개변수 : int rno
+    // 반환타입 : ReviewDto
+    public ReviewDto getRnoReview( int rno ){
+        try {
+            String SQL = "select * from review inner join member using ( mno ) where rno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, rno );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ){
+                ReviewDto reviewDto = new ReviewDto();
+                reviewDto.setRno( rs.getInt("rno") );
+                reviewDto.setRcontent( rs.getString("rcontent") );
+                reviewDto.setRrank( rs.getInt("rrank") );
+                reviewDto.setRdate( rs.getString("rdate") );
+                reviewDto.setCno( rs.getInt("cno") );
+                reviewDto.setMno( rs.getInt("mno") );
+                reviewDto.setMname( rs.getString("mname") );
+                return reviewDto;
+            } // if end
+        } catch ( SQLException e ){
+            System.out.println("[review05] SQL 기재 실패");
+        } // try-catch end
+        return null;
+    } // func end
 }// class end

@@ -115,4 +115,16 @@ public class ReviewController {
 
         return reviewService.getMnoReview( session );
     } // func end
+
+    // [review05] 리뷰번호 리뷰조회 - getRnoReview()
+    // 기능설명 : 리뷰번호에 해당하는 리뷰를 조회한다.
+    // method : GET, URL : /review/getRno
+    // 매개변수 : int rno
+    // 반환타입 : ReviewDto
+    @GetMapping("/getRno")
+    public ReviewDto getRnoReview( @RequestParam int rno ){
+        System.out.println("ReviewController.getRnoReview");
+
+        return reviewService.getRnoReview( rno );
+    } // func end
 }// class end
