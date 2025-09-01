@@ -77,6 +77,7 @@ const getNotice = async ( ) => {
         } // if end
         html += `<tr>
                     <td>${notice.nno}</td>
+                    <td>${notice.cname}</td>
                     <td>${notice.pname}</td>
                     <td>${notice.nprice}</td>
                     <td>${notice.ndate}</td>
@@ -92,7 +93,7 @@ const getNotice = async ( ) => {
 } // func end
 getNotice();
 
-// [] 수정 기본 출력
+// [4] 수정 기본 출력
 const updatePrint = async ( nno ) => {
     console.log( nno )
     console.log( noticeData[1].length );
@@ -108,7 +109,7 @@ const updatePrint = async ( nno ) => {
     } // for end
 } // func end
 
-// [7] 알림 수정
+// [5] 알림 수정
 const updateNotice = async ( nno ) => {
     console.log('updateNotice func exe');
     // 1. Input value
@@ -132,7 +133,7 @@ const updateNotice = async ( nno ) => {
     } // if end
 } // func end
 
-// [8] 알림 삭제
+// [6] 알림 삭제
 const deleteNotice = async ( nno ) => {
     console.log('deleteNotice func exe');
     // 1. fetch
@@ -148,7 +149,7 @@ const deleteNotice = async ( nno ) => {
     } // if end
 } // func end
 
-// [4] 제품 전체조회
+// [7] 제품 전체조회
 const getProduct = async ( ) => {
     console.log('getProduct func exe');
     // 1. fetch
@@ -169,7 +170,7 @@ const getProduct = async ( ) => {
 } // func end
 getProduct();
 
-// [5] 알림 등록기능
+// [8] 알림 등록기능
 const addNotice = async ( ) => {
     console.log('addNotice func exe');
     // 1. Input value
@@ -194,7 +195,7 @@ const addNotice = async ( ) => {
     } // if end
 } // func end
 
-// [6] 회원별 리뷰조회
+// [9] 회원별 리뷰조회
 const getMnoReview = async ( ) => {
     console.log('getMnoReview func exe');
     // 1. fetch
@@ -237,7 +238,7 @@ const getMnoReview = async ( ) => {
 } // func end
 getMnoReview();
 
-// [7] 수정html불러오기
+// [10] 수정html불러오기
 const getUpdateBtn = async() => {
     const thisTr = updateBtn.closest("tr");
     const rno = thisTr.querySelector("td:nth-child(1)").innerText;
@@ -257,7 +258,7 @@ const getUpdateBtn = async() => {
                             <button type="button" onclick="getMnoReview()">취소</button></td>`
 }// func end
 
-// [8] 리뷰 수정 기능
+// [11] 리뷰 수정 기능
 const addUpdate = async(btn) => {
     const thistr = btn.closest("tr");
     const rno = thistr.querySelector("input[name='rno']").value;
@@ -286,7 +287,7 @@ const addUpdate = async(btn) => {
     }catch(e){ console.log(e); }
 }// func end
 
- // 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
+ // [12] 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
 const update = async() => {
     
     const mig = document.querySelector('#mig');

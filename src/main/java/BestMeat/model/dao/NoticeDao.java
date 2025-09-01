@@ -75,7 +75,7 @@ public class NoticeDao extends Dao {
     public List<NoticeDto> getMnoNotice( int mno ){
         List<NoticeDto> noticeDtoList = new ArrayList<>();
         try {
-            String SQL = "select * from notice inner join product using ( pno ) where mno = ?";
+            String SQL = "select * from notice n inner join product p using ( pno ) inner join category c using ( cno ) where n.mno = ?";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, mno );
             ResultSet rs = ps.executeQuery();
@@ -88,6 +88,7 @@ public class NoticeDao extends Dao {
                 noticeDto.setNcheck( rs.getInt( "ncheck" ) );
                 noticeDto.setNdate( rs.getString( "ndate" ) );
                 noticeDto.setPno( rs.getInt( "pno" ) );
+                noticeDto.setCname( rs.getString( "cname" ) );
                 noticeDtoList.add( noticeDto );
             } // while end
         } catch ( SQLException e ){

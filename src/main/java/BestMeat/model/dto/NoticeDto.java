@@ -19,4 +19,5 @@ public class NoticeDto {
     // 부가적인 정보
     private String mphone;  // 회원전화번호
     private String pname;   // 제품명
+    private String cname;   // 카테고리명
 } // class end

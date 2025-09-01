@@ -53,7 +53,7 @@ create table Stock (
     constraint foreign key( pno ) references Product( pno ) on delete cascade on update cascade,
     constraint foreign key( cno ) references Company( cno ) on delete cascade on update cascade
 );
-select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno where pname like '%목살%';
+
 -- ---------------------------- Review -------------------
 create table review(
     rno int auto_increment primary key,	-- 리뷰번호
