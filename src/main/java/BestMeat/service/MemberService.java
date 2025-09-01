@@ -93,10 +93,13 @@ public class MemberService {
         if ( mno == 0 ) return null;
         // 3. ReviewService에서 회원별 리뷰목록 받아오기
         List<ReviewDto> reviewDtoList = reviewService.getMnoReview( session );
-        // 4. 리뷰목럭 MemberDto에 넣기
+        // 4. 리뷰목록을 MemberDto에 넣기
         MemberDto memberDto = memberDao.getMember( mno );
         memberDto.setReviewDtoList( reviewDtoList );
-        // 5. 최종적으로 반환
+        // 5. mno를 통해, cno 반환받기
+        int cno = memberDao.getCno( mno );
+        memberDto.setCno( cno );
+        // 6. 최종적으로 반환
         return memberDto;
     } // func end
 
