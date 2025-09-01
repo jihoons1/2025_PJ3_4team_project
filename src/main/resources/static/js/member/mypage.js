@@ -148,6 +148,7 @@ const getMnoReview = async ( ) => {
     // 3. what
     let html = ``;   
     data.forEach( (review) => {        
+        let reimg = '/upload/review'+review.images;
         if(review.images == null || review.images == ""){  
             let reimg = 'https://placehold.co/50x50';
             html += `<div class="rImgBox" style="display: flex;">
@@ -169,7 +170,7 @@ const getMnoReview = async ( ) => {
                     <td>${review.rrank}</td>
                     <td>${review.rdate}</td>
                     <td>
-                        <button type="button" onclic="getUpdateBtn()"> 수정 </button>
+                        <button type="button" onclick="getUpdateBtn()"> 수정 </button>
                         <button type="button"> 삭제 </button>
                     </td>
                  </tr>`
