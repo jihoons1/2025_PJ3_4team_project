@@ -76,7 +76,7 @@
                 <div class="modal-body">
                     <span>알림등록할 제품과 가격을 입력해주세요.</span> <br>
                     <select class="pBox">
-                        <option selected disabled>제품을 선택하세요.</option>
+                        
                     </select>
                     <input type="text" class="nprice" placeholder="가격을 입력하세요.">
                 </div>
