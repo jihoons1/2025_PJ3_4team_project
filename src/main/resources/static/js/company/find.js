@@ -10,7 +10,7 @@ const findCompany = async() => {
     let html = "";
     try{
         const response = await fetch(`/company/find?cno=${cno}`);
-        const data = await response.json(); console.log(data);
+        const data = await response.json(); 
         let imgUrl = '/upload/'+data.cimg;
         if(data.cimg == null){
             imgUrl = 'https://placehold.co/50x50';
@@ -57,6 +57,7 @@ const addReview = async() => {
         const data = await response.json();
         if(data == true){
             alert("리뷰가 등록되었습니다.");
+            getReview();
         }else{
             alert('리뷰 등록 실패!');
         }// if end
@@ -74,14 +75,19 @@ const getReview = async() => {
             let rimgUrl = '/upload/review/'+re.images;
             if(re.images == null || re.images == ""){
                 rimgUrl = 'https://placehold.co/50x50';
-            }// if end
-            re.images.forEach((img) => {                
                 html += `<div class="rImgBox" style="display: flex;">
                                 <div><img src=${rimgUrl}/></div>
+                        </div>`  
+            }// if end
+            re.images.forEach((img) => {             
+                imgurl = '/upload/review/'+img;                   
+                html += `<div class="rImgBox" style="display: flex;">
+                                <div><img src=${imgurl}/></div>
                         </div>`                     
             })// for end            
             if(re.check == true){
-                html += `<tr>                            
+                html += `<tr>
+                            <td>${re.rno}</td>                            
                             <td>${re.mname}</td>
                             <td>${re.rcontent}</td>
                             <td>${re.rdate}</td>
@@ -89,7 +95,8 @@ const getReview = async() => {
                             <td><button onclick="updateBtn(this)">수정</button></td>
                         </tr>`
             }else{
-                html += `<tr>                            
+                html += `<tr>
+                            <td>${re.rno}</td>
                             <td>${re.mname}</td>
                             <td>${re.rcontent}</td>
                             <td>${re.rdate}</td>
@@ -130,9 +137,10 @@ const viewPageButton = async ( data ) => {
 // 리뷰 수정 버튼 클릭시 입력하는 html로 변경
 const updateBtn = async(btn) => {
     const thisTr = btn.closest("tr");
-    const rcontent = thisTr.querySelector('td:nth-child(2)').innerText;
-    const rrank = thisTr.querySelector('td:nth-child(4)').innerText;    
-    thisTr.innerHTML = `<td><textarea name="rcontent">${rcontent}</textarea></td>
+    const rno = thisTr.querySelector("td:nth-child(1)").innerText;
+    const rcontent = thisTr.querySelector('td:nth-child(3)').innerText;      
+    thisTr.innerHTML = `<td>${rno}<input type="hidden" name="rno" value="${rno}"></td>
+                        <td><textarea name="rcontent">${rcontent}</textarea></td>
                         <td><select name="rrank">
                             <option value="0">평점</option>
                             <option value="5">5</option>
@@ -149,7 +157,30 @@ const updateBtn = async(btn) => {
 // 리뷰 수정 기능
 const saveReview = async(btn) => {
     const thistr = btn.closest("tr");
+    const rno = thistr.querySelector("input[name='rno']").value;
     const rcontent = thistr.querySelector("textarea[name='rcontent']").value;
     const rrank = thistr.querySelector("select[name='rrank']").value;
-    const uploads = thistr.querySelector("input[name='uploads']").file;
+    let uploads = thistr.querySelector("input[name='uploads']").files;   
+    const formData = new FormData();
+    formData.append('rno',rno);
+    formData.append('rcontent',rcontent);
+    formData.append('rrank',rrank);
+    if( uploads.length > 0){
+        for(let i = 0; i < uploads.length; i++){
+            formData.append('uploads',uploads[i]);
+        }// for end
+    }// if end
+    const option = { method : "PUT" , body : formData}  
+    console.log(option);
+    try{
+        const response = await fetch('/review/update',option);
+        const data = await response.json();
+        console.log(data);
+        if(data == true){
+            alert('수정성공!');
+            getReview();
+        }else{
+            alert('수정실패!');
+        }// if end
+    }catch(e){ console.log(e); }
 }// func end

@@ -39,7 +39,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th> 작성자 </th> <th> 리뷰내용 </th> <th> 작성일 </th> <th> 평점 </th> <th> 비고 </th> 
+                            <th> 번호 </th><th> 작성자 </th> <th> 리뷰내용 </th> <th> 작성일 </th> <th> 평점 </th> <th> 비고 </th> 
                         </tr>
                     </thead>
                     <tbody class="reviewTbody" >
