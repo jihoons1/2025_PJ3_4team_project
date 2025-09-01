@@ -102,11 +102,12 @@ public class NoticeDao extends Dao {
     // 반환타입 : boolean
     public boolean updateNotice( NoticeDto noticeDto ){
         try {
-            String SQL = "update notice set nprice = ? where nno = ? and mno = ?";
+            String SQL = "update notice set nprice = ?, ndate = ? where nno = ? and mno = ?";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, noticeDto.getNprice() );
-            ps.setInt( 2, noticeDto.getNno() );
-            ps.setInt( 3, noticeDto.getMno() );
+            ps.setString( 2, noticeDto.getNdate() );
+            ps.setInt( 3, noticeDto.getNno() );
+            ps.setInt( 4, noticeDto.getMno() );
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){
             System.out.println("[notice04] SQL 기재 실패");

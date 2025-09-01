@@ -55,6 +55,7 @@ const resignMember = async ( ) => {
     } // try-catch end
 } // func end
 
+let noticeData;
 // [3] 회원별 알림조회
 const getNotice = async ( ) => {
     console.log('getNotice func exe');
@@ -62,6 +63,7 @@ const getNotice = async ( ) => {
     const option = { method : "GET" };
     const response = await fetch( "/notice/get", option );
     const data = await response.json();
+    noticeData = await data;
     // 2. where
     const noticeTbody = document.querySelector('.noticeTbody');
     // 3. what
@@ -80,7 +82,7 @@ const getNotice = async ( ) => {
                     <td>${notice.ndate}</td>
                     <td>${ncheck}</td>
                     <td>
-                        <button type="button" onclick="updateNotice(${notice.nno})"> 수정 </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop4" onclick="updatePrint(${notice.nno})"> 수정 </button>
                         <button type="button" onclick="deleteNotice(${notice.nno})"> 삭제 </button>
                     </td>
                  </tr>`
@@ -89,6 +91,62 @@ const getNotice = async ( ) => {
     noticeTbody.innerHTML = html;
 } // func end
 getNotice();
+
+// [] 수정 기본 출력
+const updatePrint = async ( nno ) => {
+    console.log( nno )
+    console.log( noticeData[1].length );
+    // 1. noticeData를 통해 기본 출력
+    for ( let i = 0; i < noticeData.length; i++ ){
+        if ( noticeData[i].nno == nno ){
+            document.querySelector('.oldPname').innerHTML = `${noticeData[i].pname}`;
+            document.querySelector('.NewNprice').value = `${noticeData[i].nprice}`;
+            document.querySelector('#updateInput').innerHTML = 
+                                `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                                 <button type="button" class="btn btn-primary"  onclick="updateNotice(${nno})">알림수정</button>`
+        } // if end
+    } // for end
+} // func end
+
+// [7] 알림 수정
+const updateNotice = async ( nno ) => {
+    console.log('updateNotice func exe');
+    // 1. Input value
+    const nprice = document.querySelector('.NewNprice').value;
+    // 2. obj
+    const obj = { nno, nprice };
+    // 3. fetch
+    const option = {
+        method : "PUT",
+        headers : { "Content-Type" : "application/json" },
+        body : JSON.stringify( obj )
+    } // option end
+    const response = await fetch( "/notice/update", option );
+    const data = await response.json();
+    // 4. result
+    if ( data == true ){
+        alert('알림수정 성공!');
+        location.reload();
+    } else {
+        alert('알림수정 실패!');
+    } // if end
+} // func end
+
+// [8] 알림 삭제
+const deleteNotice = async ( nno ) => {
+    console.log('deleteNotice func exe');
+    // 1. fetch
+    const option = { method : "DELETE" };
+    const response = await fetch( `/notice/delete?nno=${nno}`, option );
+    const data = await response.json();
+    // 2. result
+    if ( data == true ){
+        alert('알림삭제 성공!');
+        location.reload();
+    } else {
+        alert('알림삭제 실패!')
+    } // if end
+} // func end
 
 // [4] 제품 전체조회
 const getProduct = async ( ) => {
@@ -164,24 +222,3 @@ const getMnoReview = async ( ) => {
     reviewTbody.innerHTML = html;
 } // func end
 getMnoReview();
-
-// [7] 알림 수정
-const updateNotice = async ( nno ) => {
-    console.log('updateNotice func exe');
-} // func end
-
-// [8] 알림 삭제
-const deleteNotice = async ( nno ) => {
-    console.log('deleteNotice func exe');
-    // 1. fetch
-    const option = { method : "DELETE" };
-    const response = await fetch( `/notice/delete?nno=${nno}`, option );
-    const data = await response.json();
-    // 2. result
-    if ( data == true ){
-        alert('알림삭제 성공!');
-        location.reload();
-    } else {
-        alert('알림삭제 실패!')
-    } // if end
-} // func end

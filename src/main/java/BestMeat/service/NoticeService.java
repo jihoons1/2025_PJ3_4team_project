@@ -12,6 +12,7 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -75,9 +76,12 @@ public class NoticeService {
         int mno = sessionService.getSessionNo( "loginMno", session );
         // 2. 비로그인 상태라면, 메소드 종료
         if ( mno == 0 ) return false;
-        // 3. Dao에게 전달할 dto에 mno 넣기
+        // 3. 현재날짜를 Dto에 넣기
+        String today = LocalDateTime.now().toString();
+        noticeDto.setNdate( today );
+        // 4. Dao에게 전달할 dto에 mno 넣기
         noticeDto.setMno( mno );
-        // 4. Dao에게 전달 후, 결과 반환하기
+        // 5. Dao에게 전달 후, 결과 반환하기
         return noticeDao.updateNotice( noticeDto );
     } // func end
 
