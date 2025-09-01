@@ -86,7 +86,7 @@ const getReview = async() => {
                             <td>${re.rcontent}</td>
                             <td>${re.rdate}</td>
                             <td>${re.rrank}</td>
-                            <td><button onclick="updateBtn()">수정</button></td>
+                            <td><button onclick="updateBtn(this)">수정</button></td>
                         </tr>`
             }else{
                 html += `<tr>                            
@@ -127,9 +127,29 @@ const viewPageButton = async ( data ) => {
     pageBtnBox.innerHTML = html;
 } // func end
 
-// 리뷰 수정 버튼 클릭시 이벤트
-const updateBtn = async() => {
-    
-}
+// 리뷰 수정 버튼 클릭시 입력하는 html로 변경
+const updateBtn = async(btn) => {
+    const thisTr = btn.closest("tr");
+    const rcontent = thisTr.querySelector('td:nth-child(2)').innerText;
+    const rrank = thisTr.querySelector('td:nth-child(4)').innerText;    
+    thisTr.innerHTML = `<td><textarea name="rcontent">${rcontent}</textarea></td>
+                        <td><select name="rrank">
+                            <option value="0">평점</option>
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select></td>
+                        <td><input type="file" multiple name="uploads"/></td>
+            <td><button type="button" onclick="saveReview(this)">저장</button>
+            <button type="button" onclick="getReview()">취소</button></td>`    
+}// func end
 
 // 리뷰 수정 기능
+const saveReview = async(btn) => {
+    const thistr = btn.closest("tr");
+    const rcontent = thistr.querySelector("textarea[name='rcontent']").value;
+    const rrank = thistr.querySelector("select[name='rrank']").value;
+    const uploads = thistr.querySelector("input[name='uploads']").file;
+}// func end
