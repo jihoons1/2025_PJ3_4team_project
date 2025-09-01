@@ -92,7 +92,7 @@ public class MemberService {
         // 2. 회원번호가 0이면, 비로그인상태이므로 메소드 종료
         if ( mno == 0 ) return null;
         // 3. ReviewService에서 회원별 리뷰목록 받아오기
-        List<ReviewDto> reviewDtoList = reviewService.getMnoReview( mno );
+        List<ReviewDto> reviewDtoList = reviewService.getMnoReview( session );
         // 4. 리뷰목럭 MemberDto에 넣기
         MemberDto memberDto = memberDao.getMember( mno );
         memberDto.setReviewDtoList( reviewDtoList );

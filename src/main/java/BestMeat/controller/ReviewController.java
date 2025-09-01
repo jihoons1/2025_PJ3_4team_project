@@ -83,7 +83,7 @@ public class ReviewController {
         return true;
     }// func end
 
-    // [review03] 리뷰 상세조회 - getReview()
+    // [review03] 정육점별 리뷰조회 - getReview()
     // 기능설명 : 정육점별 리뷰를 조회한다.
     // method : GET, URL : /review/get
     // 매개변수 : startRow, perCount, cno
@@ -102,5 +102,17 @@ public class ReviewController {
             }// if end
         }// for end
         return pageDto;
+    } // func end
+
+    // [review04] 회원별 리뷰조회 - getMnoReview()
+    // 기능설명 : 회원별 리뷰를 조회한다.
+    // method : GET, URL : /review/getMno
+    // 매개변수 : session
+    // 반환타입 : PageDto
+    @GetMapping("/getMno")
+    public List<ReviewDto> getMnoReview( HttpSession session ){
+        System.out.println("ReviewController.getMnoReview");
+
+        return reviewService.getMnoReview( session );
     } // func end
 }// class end
