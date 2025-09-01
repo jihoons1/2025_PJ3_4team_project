@@ -72,7 +72,7 @@ public class ReviewController {
         int mno = sessionService.getSessionNo("loginMno" , session);
         dto.setMno(mno);
         boolean result = reviewService.updateReview(dto);
-        if (result  && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
+        if (result  && dto.getUploads() != null && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){
                 String filename = fileService.fileUpload(file, tableName );
                 if (filename == null){ return false; }

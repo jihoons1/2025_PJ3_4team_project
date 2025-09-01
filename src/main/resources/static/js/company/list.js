@@ -11,7 +11,7 @@ const getAllCompany = async() => {
     let html = "";
     try{
         const response = await fetch(`/company/get?page=${page}&order=${order}`);
-        const data = await response.json();     console.log(data);
+        const data = await response.json();    
         data.data.forEach((com) => {
             let imgUrl = '/upload/company/'+com.cimg;
             if(data.cimg == null){
