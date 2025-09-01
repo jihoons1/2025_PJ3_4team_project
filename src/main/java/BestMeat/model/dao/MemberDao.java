@@ -229,7 +229,7 @@ public class MemberDao extends Dao  {
     // 반환타입 : int cno
     public int getCno( int mno ){
         try {
-            String SQL = "select cno from member inner join company using ( cno ) where mno = ?";
+            String SQL = "select cno from member inner join company using ( mno ) where mno = ?";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, mno );
             ResultSet rs = ps.executeQuery();
