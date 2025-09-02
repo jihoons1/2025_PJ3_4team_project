@@ -24,27 +24,27 @@
             <form id="mig">
                 <div class="input-group">
                     <label>회원명</label>
-                    <input type="text" name="mname" placeholder="홍길동" />
+                    <input type="text" name="mname" class="miname2" placeholder="홍길동" />
                 </div>
                 <div class="input-group">
                     <label>아이디</label>
-                    <input type="text" name="mid" placeholder="test123" />
+                    <input type="text" name="mid" class="mid2" placeholder="test123" />
                 </div>
                 <div class="input-group">
                     <label>비밀번호</label>
-                    <input type="password" name="mpwd" placeholder="test123" />
+                    <input type="password" name="mpwd" class="mpwd2" placeholder="test123" />
                 </div>
                 <div class="input-group">
                     <label>비밀번호 확인</label>
-                    <input type="password" name="mpwd2" placeholder="입력하신 패스워드와 같아야 합니다" />
+                    <input type="password" name="mpwd2" class="mpwd22" placeholder="입력하신 패스워드와 같아야 합니다" />
                 </div>
                 <div class="input-group">
                     <label>휴대번호</label>
-                    <input type="text" name="mphone" placeholder="010-1234-5678" />
+                    <input type="text" name="mphone" class="mphone2" placeholder="010-1234-5678" />
                 </div>
                 <div class="input-group">
                     <label>주소</label>
-                    <input type="text" name="maddress" placeholder="주소를 입력해주세요" />
+                    <input type="text" name="maddress" class="maddress2" placeholder="주소를 입력해주세요" />
                 </div>
                 <div class="input-group">
                     <label>이메일</label>

@@ -92,7 +92,6 @@ public class MemberController {
         Object obj = session.getAttribute("loginMno");
         int loginMno = (int)obj;
         boolean result = memberService.updatePwd( loginMno , map);
-
         if (result == true) session.removeAttribute("loginMno");
         return result;
     }

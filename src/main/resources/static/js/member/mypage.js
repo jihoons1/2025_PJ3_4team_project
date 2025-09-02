@@ -244,7 +244,7 @@ const getMnoReview = async ( ) => {
     // 2. where
     const reviewTbody = document.querySelector('.reviewTbody');
     // 3. what
-    let html = "";   
+    let html = "";
     data.forEach( (review) => {        
         let reimg = "";
         if(review.images == null || review.images == ""){
@@ -362,7 +362,7 @@ const passup = async() => {
 
         if(data==true){
             alert('비밀번호 수정완료');
-            location.href="/member/mypage.jsp";
+            location.href="/index.jsp";
         }else{
             alert('비밀번호 수정실패')
         }
