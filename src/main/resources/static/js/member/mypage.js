@@ -170,7 +170,7 @@ const getMnoReview = async ( ) => {
                     <td>${review.rrank}</td>
                     <td>${review.rdate}</td>
                     <td>
-                        <button type="button" onclick="getUpdateBtn()"> 수정 </button>
+                        <button type="button" onclick="getUpdateBtn(this)"> 수정 </button>
                         <button type="button"> 삭제 </button>
                     </td>
                  </tr>`
@@ -181,7 +181,7 @@ const getMnoReview = async ( ) => {
 getMnoReview();
 
 // [7] 수정html불러오기
-const getUpdateBtn = async() => {
+const getUpdateBtn = async(updateBtn) => {
     const thisTr = updateBtn.closest("tr");
     const rno = thisTr.querySelector("td:nth-child(1)").innerText;
     const rcontent = thisTr.querySelector("td:nth-child(3)").innerText
