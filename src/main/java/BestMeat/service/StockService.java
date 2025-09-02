@@ -31,25 +31,30 @@ public class StockService {
         if ( noticeList.isEmpty() ) return sno;
         // 3. 알림목록에서 문자전송여부 확인하기
         for ( NoticeDto noticeDto : noticeList ){
-            int ncheck = noticeDto.getNcheck();
-            String mphone = noticeDto.getMphone().replaceAll( "-", "" );
-            String pname = noticeDto.getPname();
-            int nprice = noticeDto.getNprice();
+            int ncheck = noticeDto.getNcheck();                             // 문자전송여부
+            String mphone = noticeDto.getMphone().replaceAll( "-", "" );    // 문자 전송을 위하여, '-' 제거
+            String pname = noticeDto.getPname();                            // 문자 내용을 위한, 제품명
+            int nprice = noticeDto.getNprice();                             // 알림설정가격
+            noticeDto.setSprice( stockDto.getSprice() );                    // 재고 가격 수정을 위하여, noticeDto에 저장
             // 4-1. 문자전송여부가 0이라면
             if ( ncheck == 0 ){
                 // 4-2. 문자전송하기, 발신번호와 문자내용 필요
                 String content = pname + "이 " + nprice + "원 이하로 등록되었습니다.";      // 정육점명, 정육점링크(jsp 생성후 포함) 포함
                 noticeService.sendSms( mphone, content );
+                // 4-3. 문자를 전송했다면, Notice DB에 업데이트
+                if ( !noticeDao.updateNcheck( noticeDto ) ) return 0;
             } else {    // 5. 문자전송여부가 0이 아니라면, 문자전송여부와 등록재고가격(sprice)을 비교하여
-                // 6-1. 등록재고가격이 낮으면
+                // 5-1. 등록재고가격이 낮으면
                 if ( ncheck > stockDto.getSprice() ){
-                    // 6-2. 문자전송하기
+                    // 5-2. 문자전송하기
                     String content = pname + "이 " + ncheck + "원 이하로 등록되었습니다.";
                     noticeService.sendSms( mphone, content );
+                    // 5-3. 문자를 전송했다면, Notice DB에 업데이트
+                    if ( !noticeDao.updateNcheck( noticeDto ) ) return 0;
                 } // if end
             } // if end
         } // for end
-        // 7. Dao에게 전달 후 결과 반환하기
+        // 6. Dao에게 전달 후 결과 반환하기
         return sno;
     } // func end
 
@@ -72,17 +77,22 @@ public class StockService {
             String mphone = noticeDto.getMphone().replaceAll( "-", "" );
             String pname = noticeDto.getPname();
             int nprice = noticeDto.getNprice();
+            noticeDto.setSprice( stockDto.getSprice() );                    // 재고 가격 수정을 위하여, noticeDto에 저장
             // 5-1. 문자전송여부가 0이라면
             if ( ncheck == 0 ){
                 // 5-2. 문자전송하기, 발신번호와 문자내용 필요
                 String content = pname + "이 " + nprice + "원 이하로 등록되었습니다.";      // 정육점명, 정육점링크(jsp 생성후 포함) 포함
                 noticeService.sendSms( mphone, content );
+                // 5-3. 문자를 전송했다면, Notice DB에 업데이트
+                if ( !noticeDao.updateNcheck( noticeDto ) ) return false;
             } else {    // 6. 문자전송여부가 0이 아니라면, 문자전송여부와 등록재고가격(sprice)을 비교하여
-                // 7-1. 등록재고가격이 낮으면
+                // 6-1. 등록재고가격이 낮으면
                 if ( ncheck > stockDto.getSprice() ){
-                    // 7-2. 문자전송하기
+                    // 6-2. 문자전송하기
                     String content = pname + "이 " + ncheck + "원 이하로 등록되었습니다.";
                     noticeService.sendSms( mphone, content );
+                    // 6-3. 문자를 전송했다면, Notice DB에 업데이트
+                    if ( !noticeDao.updateNcheck( noticeDto ) ) return false;
                 } // if end
             } // if end
         } // for end

@@ -133,4 +133,21 @@ public class NoticeDao extends Dao {
         } // try-catch end
         return false;
     } // func end
+
+    // [notice06] 문자전송여부 수정 - updateNcheck()
+    // 기능설명 : [ 알림PK번호, 재고(등록/수정)가격 ]을 받아, 문자전송여부를 수정한다.
+    // 매개변수 : NoticeDto
+    // 반환타입 : boolean -> 성공 : true, 실패 : false
+    public boolean updateNcheck( NoticeDto noticeDto ){
+        try {
+            String SQL = "update notice set ncheck = ? where nno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, noticeDto.getSprice() );      // 문자전송여부지만, 컨셉 상 문자가 전송됐으면, 등록/수정된 재고가격으로 수정
+            ps.setInt( 2, noticeDto.getNno() );
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ){
+            System.out.println("[notice06] SQL 기재 실패" + e );
+        } // try-catch end
+        return false;
+    } // func end
 } // class end

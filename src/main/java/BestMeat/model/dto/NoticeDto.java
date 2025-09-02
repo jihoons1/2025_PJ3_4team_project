@@ -20,4 +20,5 @@ public class NoticeDto {
     private String mphone;  // 회원전화번호
     private String pname;   // 제품명
     private String cname;   // 카테고리명
+    private int sprice;     // 재고(등록/수정) 가격
 } // class end
