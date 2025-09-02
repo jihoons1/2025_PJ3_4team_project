@@ -69,8 +69,6 @@ public class ReviewController {
      */
     @PutMapping("/update")
     public boolean updateReview(ReviewDto dto ,  HttpSession session){
-        System.out.println("dto = " + dto + ", session = " + session);
-        System.out.println("ReviewController.updateReview");
         int mno = sessionService.getSessionNo("loginMno" , session);
         dto.setMno(mno);
         boolean result = reviewService.updateReview(dto);
@@ -79,7 +77,7 @@ public class ReviewController {
                 String filename = fileService.fileUpload(file, tableName );
                 System.out.println(filename);
                 if (filename == null){ return false; }
-                boolean result2 = reviewService.updateReviewImg(dto.getRno(),filename);
+                boolean result2 = reviewService.updateReviewImg(dto,filename);
                 if (result2 == false){return result2; }
             }// for end
         }// if end
