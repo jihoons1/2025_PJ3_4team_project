@@ -54,7 +54,7 @@ public class ReviewController {
             for (MultipartFile file : dto.getUploads()){
                 String filename = fileService.fileUpload(file, tableName );
                 if (filename == null){ return false; }
-                boolean result2 = reviewService.addReviewImg(dto.getRno(),filename);
+                boolean result2 = reviewService.addReviewImg(result,filename);
                 if (result2 == false){return result2; }
             }// for end
         }// if end
@@ -69,12 +69,15 @@ public class ReviewController {
      */
     @PutMapping("/update")
     public boolean updateReview(ReviewDto dto ,  HttpSession session){
+        System.out.println("dto = " + dto + ", session = " + session);
+        System.out.println("ReviewController.updateReview");
         int mno = sessionService.getSessionNo("loginMno" , session);
         dto.setMno(mno);
         boolean result = reviewService.updateReview(dto);
         if (result  && dto.getUploads() != null && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){
                 String filename = fileService.fileUpload(file, tableName );
+                System.out.println(filename);
                 if (filename == null){ return false; }
                 boolean result2 = reviewService.updateReviewImg(dto.getRno(),filename);
                 if (result2 == false){return result2; }

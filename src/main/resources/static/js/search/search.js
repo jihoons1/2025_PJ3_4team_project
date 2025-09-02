@@ -4,7 +4,7 @@ const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
 const page = params.get('page') || 1;
 const key = "pname";
-const orderr = params.get('order') || 'order';
+const orderr = params.get('order') || "order";
 const keyword = params.get('keyword');
 
 // [1] 검색기능
@@ -15,7 +15,7 @@ const getCompanySearch = async() => {
         const response = await fetch(`/company/get?page=${page}&order=${orderr}&key=${key}&keyword=${keyword}`);
         const data = await response.json();
         data.data.forEach((ser) => {
-            let img = '/upload/company'+ser.cimg;
+            let img = '/upload/company'+encodeURIComponent(ser.cimg);
             if(ser.cimg == null){
                 img = 'https://placehold.co/50x50';
             }// if end
@@ -30,10 +30,9 @@ const getCompanySearch = async() => {
                     </tr>`;
         })// for end
         searchtbody.innerHTML = html;
-        console.log( orderr );
-        if( orderr != null ){
+        if(orderr != null){
             document.querySelector('.order').value = orderr;
-        }
+        }// if end        
         viewPageButton(data);
     }catch(e){ console.log(e); }
 }// func end

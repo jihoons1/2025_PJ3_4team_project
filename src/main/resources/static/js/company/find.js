@@ -11,7 +11,7 @@ const findCompany = async() => {
     try{
         const response = await fetch(`/company/find?cno=${cno}`);
         const data = await response.json(); 
-        let imgUrl = '/upload/'+data.cimg;
+        let imgUrl = '/upload/'+encodeURIComponent(data.cimg);
         if(data.cimg == null){
             imgUrl = 'https://placehold.co/50x50';
         }// if end
@@ -72,19 +72,22 @@ const getReview = async() => {
         const response = await fetch(`/review/get?cno=${cno}`);
         const data = await response.json(); console.log(data);
         data.data.forEach((re) => { 
-            let rimgUrl = '/upload/review/'+re.images;
+            console.log(re.images);
+            let rimgUrl = "";
             if(re.images == null || re.images == ""){
                 rimgUrl = 'https://placehold.co/50x50';
-                html += `<div class="rImgBox" style="display: flex;">
+                html += `<div class="rImgBox" >
                                 <div><img src=${rimgUrl}/></div>
                         </div>`  
             }// if end
-            re.images.forEach((img) => {             
-                let imgurl = '/upload/review/'+img;                   
-                html += `<div class="rImgBox" style="display: flex;">
-                                <div><img src=${imgurl}/></div>
-                        </div>`                     
-            })// for end            
+            console.log(rimgUrl);
+            html += `<div class="rImgBox" style="display: flex;"> `  
+            re.images.forEach((img) => {                           
+                rimgUrl = '/upload/review/'+encodeURIComponent(img);                   
+                html += `<div><img src=${rimgUrl}/></div> `                     
+            })// for end          
+            html += `</div>`  
+            console.log(rimgUrl);
             if(re.check == true){
                 html += `<tr>
                             <td>${re.rno}</td>                            
@@ -167,6 +170,7 @@ const getRnoReview = async ( rno ) => {
         const response = await fetch( `/review/getRno?rno=${rno}`, option );
         const data = await response.json();         console.log( data );
         // 2. print
+        document.querySelector('.oldrno').value = data.rno;
         document.querySelector('.oldrcontent').innerHTML = data.rcontent;
         document.querySelector('.oldrrank').value = data.rrank;
     } catch ( error ){
@@ -175,21 +179,11 @@ const getRnoReview = async ( rno ) => {
 } // func end
 
 // 리뷰 수정 기능
-const saveReview = async(btn) => {
-    const thistr = btn.closest("tr");
-    const rno = thistr.querySelector("input[name='rno']").value;
-    const rcontent = thistr.querySelector("textarea[name='rcontent']").value;
-    const rrank = thistr.querySelector("select[name='rrank']").value;
-    let uploads = thistr.querySelector("input[name='uploads']").files;   
-    const formData = new FormData();
-    formData.append('rno',rno);
-    formData.append('rcontent',rcontent);
-    formData.append('rrank',rrank);
-    if( uploads.length > 0){
-        for(let i = 0; i < uploads.length; i++){
-            formData.append('uploads',uploads[i]);
-        }// for end
-    }// if end
+const saveReview = async() => {    
+    const reviewupdateBox = document.querySelector('.reviewupdateBox'); 
+    const rno = document.querySelector('.oldrno').value;
+    const formData = new FormData(reviewupdateBox);  
+    formData.append("rno",rno);
     const option = { method : "PUT" , body : formData}  
     console.log(option);
     try{
@@ -198,7 +192,7 @@ const saveReview = async(btn) => {
         console.log(data);
         if(data == true){
             alert('수정성공!');
-            getReview();
+            location.href=`/company/find.jsp?cno=${cno}`
         }else{
             alert('수정실패!');
         }// if end

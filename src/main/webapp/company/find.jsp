@@ -79,7 +79,7 @@
                             <th> 번호 </th><th> 작성자 </th> <th> 리뷰내용 </th> <th> 작성일 </th> <th> 평점 </th> <th> 비고 </th> 
                         </tr>
                     </thead>
-                    <tbody class="reviewTbody" >
+                    <tbody class="reviewTbody">
                     </tbody>
                 </table>
             </div>
@@ -97,9 +97,10 @@
                     </div>
                     <div class="modal-body">
                         <form class="reviewupdateBox">
+                            <input type="text" name="rno" class="oldrno" disabled/>
                             <textarea name="rcontent" class="oldrcontent"></textarea>
                             <select name="rrank" class="oldrrank">
-                                <option value="0" selected disabled">평점</option>
+                                <option value="0" selected disabled>평점</option>
                                 <option value="5">5</option>
                                 <option value="4">4</option>
                                 <option value="3">3</option>
