@@ -73,7 +73,7 @@ select * from review;
 -- ---------------------------- ReviewImg -------------------
 create table reviewimg(
     rimgno int auto_increment primary key,	                    -- 리뷰이미지번호
-    rimg varchar(50)                                        , 	-- 리뷰이미지명
+    rimg varchar(100)                                        , 	-- 리뷰이미지명
     rno int not null default 0 ,			                    -- 리뷰번호
     constraint foreign key(rno) references review(rno) on delete cascade on update cascade
 );
