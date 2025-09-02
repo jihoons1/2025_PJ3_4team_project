@@ -101,11 +101,12 @@ const updateButton = async ( sno ) => {
             pname = stock.pname;
         } // if end
     }) // for end
-    let button = `<button type="button" class="btn btn-primary" onclick="updateStock(${sno}, ${pno})"> 수정완료 </button>`;
+    let button = `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                  <button type="button" class="btn btn-primary" onclick="updateStock(${sno}, ${pno})"> 수정완료 </button>`;
     // 3. print
     snoBox.innerHTML = sno;
     pnameBox.innerHTML = pname;
-    buttons.innerHTML += button;
+    buttons.innerHTML = button;
     sprice.value = oldPrice;
 } // func end
 

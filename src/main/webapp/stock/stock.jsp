@@ -66,7 +66,7 @@
                 수정할 가격 : <input type="text" class="spriceBox" placeholder="가격을 입력하세요.">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                
             </div>
             </div>
         </div>
