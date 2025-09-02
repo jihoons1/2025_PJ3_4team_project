@@ -22,7 +22,7 @@
     <div id="container">
         <h3> 정육점 전체 조회 페이지 </h3>
         <div>
-            <select class="order" onclick="getAllCompany()">
+            <select class="order" onchange="searchParams()">
                 <option value="order">정렬방법</option>
                 <option value="rank">평점순</option>
             </select>

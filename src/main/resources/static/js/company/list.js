@@ -2,15 +2,15 @@ console.log('list.js check');
 
 const params = new URL(location.href).searchParams;
 const page = params.get('page') || 1; console.log(page); // 조건 || false , 만약에 page가 존재하지않으면 1
+const orderr = params.get('order') || "order";
 
 
 // 정육점 전체조회
 const getAllCompany = async() => {
-    const listTbody = document.querySelector('#listTbody');
-    const order = document.querySelector('.order').value;
+    const listTbody = document.querySelector('#listTbody');    
     let html = "";
     try{
-        const response = await fetch(`/company/get?page=${page}&order=${order}`);
+        const response = await fetch(`/company/get?page=${page}&order=${orderr}`);
         const data = await response.json();    
         data.data.forEach((com) => {
             let imgUrl = '/upload/company/'+com.cimg;
@@ -26,10 +26,19 @@ const getAllCompany = async() => {
     })// for end        
     console.log(html);
     listTbody.innerHTML = html;
+    document.querySelector('.order').value = orderr;
     viewPageButton(data);
     }catch(e){ console.log(e); }
 }// func end
 getAllCompany();
+
+// 페이지이동
+const searchParams = async() => {
+    const orders = document.querySelector('.order').value;
+    location.href = `/company/list.jsp?page=${page}&order=${orders}`
+    document.querySelector('.order').value = orders;
+    getAllCompany();
+}// func end
 
 // 페이징 버튼 출력 함수 
 const viewPageButton = async ( data ) => {
@@ -38,11 +47,10 @@ const viewPageButton = async ( data ) => {
     let currentPage = parseInt( data.currentPage ); // parseInt(자료) : 자료를 int 타입으로 변환
     let totalPage = data.totalPage;
     let startBtn = data.startBtn;
-    let endBtn = data.endBtn;
-    const order = document.querySelector('.order').value;
+    let endBtn = data.endBtn;    
 
     // *********** 페이징 처리시 검색 유지 **************** // 
-    const searchURL = `&order=${order}`;
+    const searchURL = `&order=${orderr}`;
 
     const pageBtnBox = document.querySelector('.pageBtnBox');
     let html = "";

@@ -6,6 +6,7 @@ import BestMeat.model.dto.ReviewDto;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +35,17 @@ public class ReviewService {
     }// func end
 
     // [2-2]리뷰 이미지 수정기능
-    public boolean updateReviewImg(int rno , String filename ){
-        List<Integer> nolist = reviewDao.getReviewImgNo(rno);
-        System.out.println(nolist);
+    public boolean updateReviewImg(ReviewDto dto , String filename ){
+        List<Integer> nolist = reviewDao.getReviewImgNo(dto.getRno());
+        List<MultipartFile> dtoList = dto.getUploads();
+        int sum = dtoList.size() - nolist.size();
         for (int rimgno : nolist){
-            boolean result = reviewDao.updateReviewImg(rno, filename, rimgno);
-            System.out.println(result);
-            return result;
+            boolean result = reviewDao.updateReviewImg(dto.getRno(), filename, rimgno);
         }// for end
-        return false;
+        if (sum > 0){
+            reviewDao.addReviewImg(dto.getRno(),filename);
+        }// if end
+        return true;
     }// func end
 
     // [review03] 정육점별 리뷰조회 - getReview()
