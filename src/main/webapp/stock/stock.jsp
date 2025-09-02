@@ -51,6 +51,27 @@
             </tbody>
         </table>
     </div>
+    <!-- 재고수정 staticBackdrop1 -->
+    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">재고수정</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span>수정할 재고의 가격을 입력해주세요.</span>   <br>
+                재고번호 : <span class="snoBox"></span>         <br>
+                제품명 :   <span class="pnameBox"></span>       <br>
+                수정할 가격 : <input type="text" class="spriceBox" placeholder="가격을 입력하세요.">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/footer.jsp"></jsp:include>
