@@ -26,6 +26,7 @@ public class ReviewDao extends Dao  {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()){
                     int rno = rs.getInt(1);
+                    dto.setRno(rno);
                     return rno;
                 }// if end
             }// if end

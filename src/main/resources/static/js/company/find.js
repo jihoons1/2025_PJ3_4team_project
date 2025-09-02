@@ -80,9 +80,9 @@ const getReview = async() => {
                         </div>`  
             }// if end
             re.images.forEach((img) => {             
-                let imgurl = '/upload/review/'+img;                   
+                rimgUrl = '/upload/review/'+img;                   
                 html += `<div class="rImgBox" style="display: flex;">
-                                <div><img src=${imgurl}/></div>
+                                <div><img src=${rimgUrl}/></div>
                         </div>`                     
             })// for end            
             if(re.check == true){
