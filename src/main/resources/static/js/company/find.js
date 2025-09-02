@@ -11,7 +11,7 @@ const findCompany = async() => {
     try{
         const response = await fetch(`/company/find?cno=${cno}`);
         const data = await response.json(); 
-        let imgUrl = '/upload/'+data.cimg;
+        let imgUrl = '/upload/'+encodeURIComponent(data.cimg);
         if(data.cimg == null){
             imgUrl = 'https://placehold.co/50x50';
         }// if end
@@ -72,19 +72,22 @@ const getReview = async() => {
         const response = await fetch(`/review/get?cno=${cno}`);
         const data = await response.json(); console.log(data);
         data.data.forEach((re) => { 
-            let rimgUrl = '/upload/review/'+re.images;
+            console.log(re.images);
+            let rimgUrl = "";
             if(re.images == null || re.images == ""){
-                rimgUrl = 'https://placehold.co/50x50';
+                rimgUrl += 'https://placehold.co/50x50';
                 html += `<div class="rImgBox" style="display: flex;">
                                 <div><img src=${rimgUrl}/></div>
                         </div>`  
             }// if end
+            console.log(rimgUrl);
             re.images.forEach((img) => {             
-                rimgUrl = '/upload/review/'+img;                   
+                rimgUrl += '/upload/review/'+encodeURIComponent(img);                   
                 html += `<div class="rImgBox" style="display: flex;">
                                 <div><img src=${rimgUrl}/></div>
                         </div>`                     
             })// for end            
+            console.log(rimgUrl);
             if(re.check == true){
                 html += `<tr>
                             <td>${re.rno}</td>                            

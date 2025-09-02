@@ -54,7 +54,7 @@ public class ReviewController {
             for (MultipartFile file : dto.getUploads()){
                 String filename = fileService.fileUpload(file, tableName );
                 if (filename == null){ return false; }
-                boolean result2 = reviewService.addReviewImg(dto.getRno(),filename);
+                boolean result2 = reviewService.addReviewImg(result,filename);
                 if (result2 == false){return result2; }
             }// for end
         }// if end
