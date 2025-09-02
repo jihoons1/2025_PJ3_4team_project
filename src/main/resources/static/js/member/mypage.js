@@ -325,3 +325,28 @@ const update = async() => {
     }catch(error){console.log(error); }
 
 }
+
+// [13] 비밀번호 수정 [기존 , 임시]
+const passup = async() => {
+    const mpwd = document.querySelector('.mpwd').value;
+    const mpwd2 = document.querySelector('.mpwd2').value;
+    
+    const obj = {oldmpwd : mpwd , newmpwd : mpwd2 }
+    try{
+        const option = { 
+            method : "PUT" ,
+            headers : {"Content-Type" : "application/json" },
+            body : JSON.stringify(obj)
+        };
+        const response = await fetch('/member/update/Pwd' , option);
+        const data = await response.json();
+
+        if(data==true){
+            alert('비밀번호 수정완료');
+            location.href="/member/mypage.jsp";
+        }else{
+            alert('비밀번호 수정실패')
+        }
+    }catch(error){console.log(error) ; }
+    
+}
