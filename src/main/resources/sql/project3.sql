@@ -653,10 +653,10 @@ insert into reviewimg( rimg , rno ) values
     ( 'review3.jpg' , 60003  ),
     ( 'review4.jpg' , 60004  );
 insert into notice(mno , pno , nprice , ncheck , ndate) values
-    ( 10001 , 40001 , 1200 , 0 , '2025-08-25 16:22:00'),
-    ( 10002 , 40002 , 2000 , 0 , '2025-08-25 16:22:00'),
-    ( 10003 , 40003 , 1300 , 1200 , '2025-08-24 16:22:00'),
-    ( 10004, 40004 , 2000 , 0 , '2025-08-25 16:22:00');
+    ( 10001 , 40001 , 1200 , 0 , '2025-09-01 16:22:00'),
+    ( 10002 , 40002 , 2000 , 0 , '2025-09-01 16:22:00'),
+    ( 10003 , 40003 , 1300 , 1200 , '2025-09-01 16:22:00'),
+    ( 10004, 40004 , 2000 , 0 , '2025-09-01 16:22:00');
 
 select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
 select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
