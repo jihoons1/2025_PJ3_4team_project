@@ -9,7 +9,6 @@ create table Category (
     cname varchar(5) not null unique,	-- 고기명
     constraint primary key( cno )
 );
-select * from category;
 -- ---------------------------- Member -------------------
 create table member (
     mno INT auto_increment, 					                -- 회원번호
@@ -24,7 +23,6 @@ create table member (
     mimg varchar(50) ,    -- 프로필 이미지
     constraint primary key(mno)
 );
-select * from member;
 -- ---------------------------- Company -------------------
 create table Company (
     cno int auto_increment,			                            -- 정육점번호
@@ -35,7 +33,6 @@ create table Company (
     constraint primary key( cno ),
     constraint foreign key( mno ) references member( mno ) on update cascade on delete cascade
 );
-select * from company;
 -- ---------------------------- Product -------------------
 create table Product (
     pno int auto_increment,			                            -- 제품번호
@@ -45,7 +42,6 @@ create table Product (
     constraint primary key( pno ),
     constraint foreign key( cno ) references category ( cno ) on update cascade on delete cascade
 );
-select * from product;
 -- ---------------------------- Stock -------------------
 create table Stock (
     sno int auto_increment,			-- 재고번호
@@ -57,7 +53,7 @@ create table Stock (
     constraint foreign key( pno ) references Product( pno ) on delete cascade on update cascade,
     constraint foreign key( cno ) references Company( cno ) on delete cascade on update cascade
 );
-select * from stock;
+select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno where pname like '%목살%';
 -- ---------------------------- Review -------------------
 create table review(
     rno int auto_increment primary key,	-- 리뷰번호
@@ -69,7 +65,6 @@ create table review(
     constraint foreign key(mno) references member(mno) on delete cascade on update cascade,
     constraint foreign key(cno) references company(cno) on delete cascade on update cascade
 );
-select * from review;
 -- ---------------------------- ReviewImg -------------------
 create table reviewimg(
     rimgno int auto_increment primary key,	                    -- 리뷰이미지번호
@@ -77,7 +72,6 @@ create table reviewimg(
     rno int not null default 0 ,			                    -- 리뷰번호
     constraint foreign key(rno) references review(rno) on delete cascade on update cascade
 );
-select * from reviewimg;
 -- ---------------------------- Notice -------------------
 create table notice(
     nno int auto_increment primary key,	-- 알림번호
@@ -89,7 +83,6 @@ create table notice(
     constraint foreign key(mno) references member(mno) on delete cascade on update cascade,
     constraint foreign key(pno) references product(pno) on delete cascade on update cascade
 );
-select * from notice;
 -- ---------------------------- Alter -------------------
 alter table member auto_increment = 10001;
 alter table Category auto_increment = 20001;
@@ -103,7 +96,7 @@ alter table notice auto_increment = 80001;
 -- ---------------------------- Insert -------------------
 insert into Category ( cname ) values ( '돼지' ), ( '소' ), ( '양' ), ( '오리' );
 INSERT INTO member (mname, mid, mpwd, mphone, memail, maddress) VALUES
-    ('안정훈', 'qwe123', 'qwe123', '010-5109-1342', 'jeonghoonahn0510@gmail.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
+    ('안정훈', 'qwe123', 'qwe123', '010-1234-5678', 'jeonghoonahn0510@gamil.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
     ('민성호', 'asd123', 'asd123', '010-5456-0036', 'mrwoolf1@gmail.com', '인천광역시 부평구 동암남로 34, A동 101호 (십정동)'),
     ('송지훈', 'zxc123', 'zxc123', '010-8537-1882', 'ghoon1210@gmail.com', '인천광역시 부평구 길주로 623, 105동 2004호 (삼산동)'),
     ('정하은', 'haeun_jeong', 'pass1234', '010-3333-4444', 'haeun.jeong@naver.com', '인천광역시 부평구 청천마차로 55, 201동 804호 (청천동)'),
@@ -650,10 +643,10 @@ insert into Stock ( sprice, sdate, cno, pno ) values
     ( 2500, '2025-08-23 16:22:00', 30002, 40002 ),
     ( 2300, '2025-08-25 16:22:00', 30002, 40004 );
 insert into review( rcontent , rrank , rdate , cno , mno ) values
-    ('사장님이 친절해요' , 4 , '2025-08-21 16:22:00' , 30001 , 10001 ),
+    ('사장님이 친절해요' , 5 , '2025-08-21 16:22:00' , 30001 , 10001 ),
     ('고기 질이 좋아요' , 5 , '2025-08-22 16:22:00' , 30002 , 10003 ),
     ('고기가 별로에요' , 1 , '2025-08-23 16:22:00' , 30001 , 10002 ),
-    ('청결해요' , 2 , '2025-08-25 16:22:00' , 30002 , 10004 );
+    ('청결해요' , 5 , '2025-08-25 16:22:00' , 30002 , 10004 );
 insert into reviewimg( rimg , rno ) values
     ( 'review1.jpg' , 60001  ),
     ( 'review2.jpg' , 60002  ),
@@ -664,3 +657,20 @@ insert into notice(mno , pno , nprice , ncheck , ndate) values
     ( 10002 , 40002 , 2000 , 0 , '2025-08-25 16:22:00'),
     ( 10003 , 40003 , 1300 , 1200 , '2025-08-24 16:22:00'),
     ( 10004, 40004 , 2000 , 0 , '2025-08-25 16:22:00');
+
+select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
+select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
+from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
+join review r on c.cno = r.cno  where p.pname like '%삼겹살%'
+group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice 
+order by rrank desc limit 0 , 10;
+
+
+select * from member;
+select * from category;
+select * from company;
+select * from product;
+select * from stock;
+select * from review;
+select * from reviewimg;
+select * from notice;
