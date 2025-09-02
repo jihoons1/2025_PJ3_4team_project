@@ -88,6 +88,36 @@
                 </tbody>
             </table>
         </div>
+        <!-- 리뷰 수정 staticBackdrop2 -->
+            <div class="modal fade" id="staticBackdrop6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">리뷰 수정</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="reviewupdateBox">
+                            <input type="text" name="rno" class="oldrno"/>
+                            <textarea name="rcontent" class="oldrcontent"></textarea>
+                            <select name="rrank" class="oldrrank">
+                                <option value="0" selected disabled>평점</option>
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                            <input type="file" multiple name="uploads"/>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                        <button type="button" class="btn btn-primary"  onclick="addUpdate()">리뷰 수정</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
             알림등록
