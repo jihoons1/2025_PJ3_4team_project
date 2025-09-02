@@ -80,7 +80,7 @@ const getReview = async() => {
                         </div>`  
             }// if end
             re.images.forEach((img) => {             
-                imgurl = '/upload/review/'+img;                   
+                let imgurl = '/upload/review/'+img;                   
                 html += `<div class="rImgBox" style="display: flex;">
                                 <div><img src=${imgurl}/></div>
                         </div>`                     
