@@ -9,10 +9,10 @@ const getMember = async ( ) => {
     const data = await response.json();         console.log( data );
     // * ming URL 만들기
     let mimgURL = `/upload/member/${data.mimg}`
+    // 이미지를 등록하지 않은 회원이면, placehold로 변경
     if ( data.mimg == null ){
         mimgURL = 'https://placehold.co/100x100';
     } // if end
-
 
     // 2. where + print
     document.querySelector('.mimg').innerHTML = `<img src="${mimgURL}">`;
@@ -22,8 +22,6 @@ const getMember = async ( ) => {
     document.querySelector('.memail').innerHTML = `${data.memail}`;
     document.querySelector('.maddress').innerHTML = `${data.maddress}`;
     document.querySelector('.mdate').innerHTML = `${data.mdate}`;
-
-
 } // func end
 getMember();
 
@@ -55,6 +53,8 @@ const resignMember = async ( ) => {
     } // try-catch end
 } // func end
 
+// 다른 함수에서도 사용하기 위해, 전역변수로 선언
+let noticeData;
 // [3] 회원별 알림조회
 const getNotice = async ( ) => {
     console.log('getNotice func exe');
@@ -62,6 +62,8 @@ const getNotice = async ( ) => {
     const option = { method : "GET" };
     const response = await fetch( "/notice/get", option );
     const data = await response.json();
+    // 회원별 알림조회 결과를 전역변수에 대입하기
+    noticeData = await data;
     // 2. where
     const noticeTbody = document.querySelector('.noticeTbody');
     // 3. what
@@ -75,13 +77,14 @@ const getNotice = async ( ) => {
         } // if end
         html += `<tr>
                     <td>${notice.nno}</td>
+                    <td>${notice.cname}</td>
                     <td>${notice.pname}</td>
                     <td>${notice.nprice}</td>
                     <td>${notice.ndate}</td>
                     <td>${ncheck}</td>
                     <td>
-                        <button type="button" onclick="updateNotice"> 수정 </button>
-                        <button type="button" onclick="deleteNotice"> 삭제 </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop4" onclick="updatePrint(${notice.nno})"> 수정 </button>
+                        <button type="button" onclick="deleteNotice(${notice.nno})"> 삭제 </button>
                     </td>
                  </tr>`
     });
@@ -90,7 +93,63 @@ const getNotice = async ( ) => {
 } // func end
 getNotice();
 
-// [4] 제품 전체조회
+// [4] 수정 기본 출력
+const updatePrint = async ( nno ) => {
+    console.log( nno )
+    console.log( noticeData[1].length );
+    // 1. 전역변수로 선언된 noticeData를 통해 기본 출력
+    for ( let i = 0; i < noticeData.length; i++ ){
+        if ( noticeData[i].nno == nno ){
+            document.querySelector('.oldPname').innerHTML = `${noticeData[i].pname}`;
+            document.querySelector('.NewNprice').value = `${noticeData[i].nprice}`;
+            document.querySelector('#updateInput').innerHTML =
+                                `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                                 <button type="button" class="btn btn-primary"  onclick="updateNotice(${nno})">알림수정</button>`
+        } // if end
+    } // for end
+} // func end
+
+// [5] 알림 수정
+const updateNotice = async ( nno ) => {
+    console.log('updateNotice func exe');
+    // 1. Input value
+    const nprice = document.querySelector('.NewNprice').value;
+    // 2. obj
+    const obj = { nno, nprice };
+    // 3. fetch
+    const option = {
+        method : "PUT",
+        headers : { "Content-Type" : "application/json" },
+        body : JSON.stringify( obj )
+    } // option end
+    const response = await fetch( "/notice/update", option );
+    const data = await response.json();
+    // 4. result
+    if ( data == true ){
+        alert('알림수정 성공!');
+        location.reload();
+    } else {
+        alert('알림수정 실패!');
+    } // if end
+} // func end
+
+// [6] 알림 삭제
+const deleteNotice = async ( nno ) => {
+    console.log('deleteNotice func exe');
+    // 1. fetch
+    const option = { method : "DELETE" };
+    const response = await fetch( `/notice/delete?nno=${nno}`, option );
+    const data = await response.json();
+    // 2. result
+    if ( data == true ){
+        alert('알림삭제 성공!');
+        location.reload();
+    } else {
+        alert('알림삭제 실패!')
+    } // if end
+} // func end
+
+// [7] 제품 전체조회
 const getProduct = async ( ) => {
     console.log('getProduct func exe');
     // 1. fetch
@@ -111,7 +170,7 @@ const getProduct = async ( ) => {
 } // func end
 getProduct();
 
-// [5] 알림 등록기능
+// [8] 알림 등록기능
 const addNotice = async ( ) => {
     console.log('addNotice func exe');
     // 1. Input value
@@ -136,7 +195,7 @@ const addNotice = async ( ) => {
     } // if end
 } // func end
 
-// [6] 회원별 리뷰조회
+// [9] 회원별 리뷰조회
 const getMnoReview = async ( ) => {
     console.log('getMnoReview func exe');
     // 1. fetch
@@ -149,7 +208,7 @@ const getMnoReview = async ( ) => {
     let html = ``;   
     data.forEach( (review) => {        
         let reimg = '/upload/review'+review.images;
-        if(review.images == null || review.images == ""){  
+        if(review.images == null || review.images == ""){
             let reimg = 'https://placehold.co/50x50';
             html += `<div class="rImgBox" style="display: flex;">
                                 <div><img src=${reimg}/></div>
@@ -200,7 +259,7 @@ const getUpdateBtn = async(updateBtn) => {
                             <button type="button" onclick="getMnoReview()">취소</button></td>`
 }// func end
 
-// [8] 리뷰 수정 기능
+// [11] 리뷰 수정 기능
 const addUpdate = async(btn) => {
     const thistr = btn.closest("tr");
     const rno = thistr.querySelector("input[name='rno']").value;
@@ -228,3 +287,33 @@ const addUpdate = async(btn) => {
         }// if end
     }catch(e){ console.log(e); }
 }// func end
+
+ // [12] 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
+const update = async() => {
+
+    const mig = document.querySelector('#mig');
+    const mphone = document.querySelector('.mphone2').value;
+    const maddress = document.querySelector('.maddress2').value;
+
+    const mimg = new FormData(mig);
+    mimg.append("mphone2" , mphone);
+    mimg.append("maddress2", maddress);
+
+    console.log(mimg);
+    try{
+        const op = { method : "PUT" ,
+        body : mimg }
+
+        const response = await fetch(`/member/updateMember` , op);
+        const data = await response.json();
+
+        if(data == 0){
+            alert(' 수정실패');
+        }else{
+            alert('수정 성공');
+            location.href="/member/mypage.jsp";
+        }
+
+    }catch(error){console.log(error); }
+
+}

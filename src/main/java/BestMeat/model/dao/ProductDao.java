@@ -65,7 +65,7 @@ public class ProductDao extends Dao {
                 productDtoList.add( productDto );
             } // while end
         } catch ( SQLException e ){
-            System.out.println("[product03] SQL 기재 실패");
+            System.out.println("[product03] SQL 기재 실패" + e );
         } // try-catch end
         return productDtoList;
     } // func end

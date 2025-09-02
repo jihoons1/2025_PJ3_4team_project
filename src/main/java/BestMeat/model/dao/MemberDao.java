@@ -194,13 +194,13 @@ public class MemberDao extends Dao  {
     }
 
 
-    // [member07] 회원정보 상세조회 - getMember()
+    // [member07-1] 회원정보 상세조회 - getMember()
     // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 회원정보를 조회한다.
     // 매개변수 : int mno
     // 반환타입 : MemberDto
     public MemberDto getMember( int mno ){
         try {
-            String SQL = "select * from member m inner join company c using ( mno )where m.mno = ? and mcheck = true";
+            String SQL = "select * from member where mno = ? and mcheck = true";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, mno );
             ResultSet rs = ps.executeQuery();
@@ -215,13 +215,31 @@ public class MemberDao extends Dao  {
                 memberDto.setMdate( rs.getString("mdate") );
                 memberDto.setMimg( rs.getString("mimg") );
                 memberDto.setMcheck( rs.getString("mcheck") );
-                memberDto.setCno( rs.getInt("cno") );
                 return memberDto;
             } // if end
         } catch ( SQLException e ){
-            System.out.println("[member07] SQL 기재 실패");
+            System.out.println("[member07-1] SQL 기재 실패" + e );
         } // try-catch end
         return null;
+    } // func end
+
+    // [member07-2] 회원정보 상세조회 - getCno()
+    // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 정육점번호를 조회한다.
+    // 매개변수 : int mno
+    // 반환타입 : int cno
+    public int getCno( int mno ){
+        try {
+            String SQL = "select cno from member inner join company using ( cno ) where mno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, mno );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ){
+                return rs.getInt("cno");
+            } // if end
+        } catch ( SQLException e ){
+            System.out.println("[member07-2] SQL 기재 실패" + e );
+        } // try-catch end
+        return 0;
     } // func end
 
     // [member08] 회원 탈퇴 - resignMember()
@@ -236,7 +254,7 @@ public class MemberDao extends Dao  {
             ps.setString( 2, (String) map.get("mpwd"));
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){
-            System.out.println("[member08] SQL 기재 실패");
+            System.out.println("[member08] SQL 기재 실패" + e );
         } // try-catch end
         return false;
     } // func end

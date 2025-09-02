@@ -26,22 +26,22 @@ const findCompany = async() => {
 }// func end
 findCompany();
 
-// 리뷰 등록html 불러오기
-const addReviewBox = async() => {
-    const reviewAddBox = document.querySelector('.reviewAddBox');
-    let html = `<textarea name="rcontent"></textarea>
-                <select name="rrank">
-                    <option value="0">평점</option>
-                    <option value="5">5</option>
-                    <option value="4">4</option>
-                    <option value="3">3</option>
-                    <option value="2">2</option>
-                    <option value="1">1</option>
-                </select>
-                <input type="file" multiple name="uploads"/>
-                <button type="button" onclick="addReview()">등록</button>`;
-    reviewAddBox.innerHTML = html;
-}// func end
+// // 리뷰 등록html 불러오기
+// const addReviewBox = async() => {
+//     const reviewAddBox = document.querySelector('.reviewAddBox');
+//     let html = `<textarea name="rcontent"></textarea>
+//                 <select name="rrank">
+//                     <option value="0">평점</option>
+//                     <option value="5">5</option>
+//                     <option value="4">4</option>
+//                     <option value="3">3</option>
+//                     <option value="2">2</option>
+//                     <option value="1">1</option>
+//                 </select>
+//                 <input type="file" multiple name="uploads"/>
+//                 <button type="button" onclick="addReview()">등록</button>`;
+//     reviewAddBox.innerHTML = html;
+// }// func end
 
 // 리뷰 등록 기능
 const addReview = async() => {
@@ -92,7 +92,11 @@ const getReview = async() => {
                             <td>${re.rcontent}</td>
                             <td>${re.rdate}</td>
                             <td>${re.rrank}</td>
-                            <td><button onclick="updateBtn(this)">수정</button></td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onclick="getRnoReview(${re.rno})">
+                                    수정
+                                </button>
+                            </td>
                         </tr>`
             }else{
                 html += `<tr>
@@ -134,25 +138,41 @@ const viewPageButton = async ( data ) => {
     pageBtnBox.innerHTML = html;
 } // func end
 
-// 리뷰 수정 버튼 클릭시 입력하는 html로 변경
-const updateBtn = async(btn) => {
-    const thisTr = btn.closest("tr");
-    const rno = thisTr.querySelector("td:nth-child(1)").innerText;
-    const rcontent = thisTr.querySelector('td:nth-child(3)').innerText;      
-    thisTr.innerHTML = `<td>${rno}<input type="hidden" name="rno" value="${rno}"></td>
-                        <td><textarea name="rcontent">${rcontent}</textarea></td>
-                        <td><select name="rrank">
-                            <option value="0">평점</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select></td>
-                        <td><input type="file" multiple name="uploads"/></td>
-            <td><button type="button" onclick="saveReview(this)">저장</button>
-            <button type="button" onclick="getReview()">취소</button></td>`    
-}// func end
+// // 리뷰 수정 버튼 클릭시 입력하는 html로 변경
+// const updateBtn = async(btn) => {
+//     const thisTr = btn.closest("tr");
+//     const rno = thisTr.querySelector("td:nth-child(1)").innerText;
+//     const rcontent = thisTr.querySelector('td:nth-child(3)').innerText;      
+//     thisTr.innerHTML = `<td>${rno}<input type="hidden" name="rno" value="${rno}"></td>
+//                         <td><textarea name="rcontent">${rcontent}</textarea></td>
+//                         <td><select name="rrank">
+//                             <option value="0">평점</option>
+//                             <option value="5">5</option>
+//                             <option value="4">4</option>
+//                             <option value="3">3</option>
+//                             <option value="2">2</option>
+//                             <option value="1">1</option>
+//                         </select></td>
+//                         <td><input type="file" multiple name="uploads"/></td>
+//             <td><button type="button" onclick="saveReview(this)">저장</button>
+//             <button type="button" onclick="getReview()">취소</button></td>`    
+// }// func end
+
+// 리뷰번호 리뷰 내용 조회
+const getRnoReview = async ( rno ) => {
+    console.log('getRnoReview func exe');
+    try {
+        // 1. fetch
+        const option = { method : "GET" };
+        const response = await fetch( `/review/getRno?rno=${rno}`, option );
+        const data = await response.json();         console.log( data );
+        // 2. print
+        document.querySelector('.oldrcontent').innerHTML = data.rcontent;
+        document.querySelector('.oldrrank').value = data.rrank;
+    } catch ( error ){
+        console.log( error );
+    } // try-catch end
+} // func end
 
 // 리뷰 수정 기능
 const saveReview = async(btn) => {

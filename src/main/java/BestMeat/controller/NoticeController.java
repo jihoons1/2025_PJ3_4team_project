@@ -40,14 +40,26 @@ public class NoticeController {
     } // func end
 
     // [notice04] 알림수정 - updateNotice
-    // 기능설명 : [ 회원번호(세션), 알림번호, 제품번호, 알림설정가격 ]을 받아, 해당하는 알림을 수정한다.
+    // 기능설명 : [ 회원번호(세션), 알림번호, 알림설정가격 ]을 받아, 해당하는 알림을 수정한다.
     // method : PUT, URL : /notice/update
     // 매개변수 : NoticeDto, session
     // 반환타입 : boolean
+    @PutMapping("/update")
+    public boolean updateNotice( @RequestBody NoticeDto noticeDto, HttpSession session ){
+        System.out.println("NoticeController.updateNotice");
+
+        return noticeService.updateNotice( noticeDto, session );
+    } // func end
 
     // [notice05] 알림삭제 - deleteNotice
     // 기능설명 : [ 회원번호(세션), 알림번호 ]를 받아, 해당하는 알림을 삭제한다.
     // method : DELETE, URL : /notice/delete
-    // 매개변수 : session
+    // 매개변수 : session, int nno
     // 반환타입 : boolean
+    @DeleteMapping("/delete")
+    public boolean deleteNotice( @RequestParam int nno, HttpSession session ){
+        System.out.println("NoticeController.deleteNotice");
+
+        return noticeService.deleteNotice( nno, session );
+    } // func end
 } // class end

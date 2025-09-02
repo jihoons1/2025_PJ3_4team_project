@@ -79,4 +79,12 @@ public class ReviewService {
         // 3. Dao에게 전달 후, 결과 반환하기
         return dtolist;
     } // func end
+
+    // [review05] 리뷰번호 리뷰조회 - getRnoReview()
+    // 기능설명 : 리뷰번호에 해당하는 리뷰를 조회한다.
+    // 매개변수 : int rno
+    // 반환타입 : ReviewDto
+    public ReviewDto getRnoReview( int rno ){
+        return reviewDao.getRnoReview( rno );
+    } // func end
 }// class end
