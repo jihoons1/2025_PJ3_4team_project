@@ -1,5 +1,35 @@
 console.log('mypage.js open');
 
+// [*] 입력값 유효성 검사
+const numCheckList = [ false ];
+// 숫자만 유효성 검사 - 알림등록
+const noticeAddCheck = (  ) => {
+    console.log('noticeAddCheck func exe');
+    const nprice = document.querySelector('.nprice').value;
+    const regExp = /^[0-9]+$/;
+    console.log( regExp.test( nprice ) );
+    if ( !regExp.test( nprice ) ){
+        document.querySelector('.noticeAddCheck').innerHTML = '숫자만 입력해주세요.'
+    } else {
+        document.querySelector('.noticeAddCheck').innerHTML = ''
+        numCheckList[0] = true;
+    } // if end
+} // func end
+// 숫자만 유효성 검사 - 알림수정
+const noticeupdateCheck = (  ) => {
+    console.log('noticeupdateCheck func exe');
+    const NewNprice = document.querySelector('.NewNprice').value;
+    const regExp = /^[0-9]+$/;
+    console.log( regExp.test( NewNprice ) );
+    if ( !regExp.test( NewNprice ) ){
+        document.querySelector('.noticeUpdateCheck').innerHTML = '숫자만 입력해주세요.'
+    } else {
+        document.querySelector('.noticeUpdateCheck').innerHTML = ''
+        numCheckList[0] = true;
+    } // if end
+} // func end
+
+
 // [1] 회원정보 상세조회
 const getMember = async ( ) => {
     console.log('getMember func exe');
@@ -96,15 +126,14 @@ getNotice();
 // [4] 수정 기본 출력
 const updatePrint = async ( nno ) => {
     console.log( nno )
-    console.log( noticeData[1].length );
+    console.log( noticeData.length );
     // 1. 전역변수로 선언된 noticeData를 통해 기본 출력
     for ( let i = 0; i < noticeData.length; i++ ){
         if ( noticeData[i].nno == nno ){
             document.querySelector('.oldPname').innerHTML = `${noticeData[i].pname}`;
             document.querySelector('.NewNprice').value = `${noticeData[i].nprice}`;
-            document.querySelector('#updateInput').innerHTML =
-                                `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                                 <button type="button" class="btn btn-primary"  onclick="updateNotice(${nno})">알림수정</button>`
+            document.querySelector('#updateInput').innerHTML = `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                                                                <button type="button" class="btn btn-primary"  onclick="updateNotice(${nno})">알림수정</button>`
         } // if end
     } // for end
 } // func end
@@ -112,6 +141,11 @@ const updatePrint = async ( nno ) => {
 // [5] 알림 수정
 const updateNotice = async ( nno ) => {
     console.log('updateNotice func exe');
+    // 숫자 유효성 체크
+    if ( numCheckList.includes(false) ){
+        alert('올바른 정보를 입력해주세요.');
+        return;
+    } // if end
     // 1. Input value
     const nprice = document.querySelector('.NewNprice').value;
     // 2. obj
@@ -173,6 +207,11 @@ getProduct();
 // [8] 알림 등록기능
 const addNotice = async ( ) => {
     console.log('addNotice func exe');
+    // 숫자 유효성 체크
+    if ( numCheckList.includes(false) ){
+        alert('올바른 정보를 입력해주세요.');
+        return;
+    } // if end
     // 1. Input value
     const pno = document.querySelector('.pBox').value;
     const nprice = document.querySelector('.nprice').value;

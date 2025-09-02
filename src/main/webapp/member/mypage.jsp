@@ -157,7 +157,8 @@
                     <select class="pBox">
                         
                     </select>
-                    <input type="text" class="nprice" placeholder="가격을 입력하세요.">
+                    <input type="text" class="nprice" placeholder="가격을 입력하세요." onkeyup="noticeAddCheck()"> <br>
+                    <span class="noticeAddCheck" style="color: red;"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
@@ -195,7 +196,8 @@
                 <div class="modal-body">
                     <span>알림수정할 제품의 가격을 입력해주세요.</span> <br>
                     <span class="oldPname"></span>
-                    <input type="text" class="NewNprice" placeholder="가격을 입력하세요.">
+                    <input type="text" class="NewNprice" placeholder="가격을 입력하세요." onkeyup="noticeupdateCheck()"> <br>
+                    <span class="noticeUpdateCheck" style="color: red;"></span>
                 </div>
                 <div class="modal-footer" id="updateInput">
 
