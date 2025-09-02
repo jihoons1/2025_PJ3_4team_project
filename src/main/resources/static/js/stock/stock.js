@@ -5,6 +5,36 @@ const queryString = new URL( location.href ).searchParams;
 const cno = queryString.get("cno");
 let StockData;
 
+// [*] 입력값 유효성 검사
+const checkList = [ false ];
+// 숫자만 유효성 검사 - 재고등록
+const numCheck = (  ) => {
+    console.log('numCheck func exe');
+    const sprice = document.querySelector('.sprice').value;
+    const regExp = /^[0-9]+$/;
+    console.log( regExp.test( sprice ) );
+    if ( !regExp.test( sprice ) ){
+        document.querySelector('.numCheck').innerHTML = '숫자만 입력해주세요.'
+    } else {
+        document.querySelector('.numCheck').innerHTML = ''
+        checkList[0] = true;
+    } // if end
+} // func end
+// 숫자만 유효성 검사 - 재고수정
+const updateCheck = (  ) => {
+    console.log('updateCheck func exe');
+    const sprice = document.querySelector('.spriceBox').value;
+    const regExp = /^[0-9]+$/;
+    console.log( regExp.test( sprice ) );
+    if ( !regExp.test( sprice ) ){
+        document.querySelector('.updateSprice').innerHTML = '숫자만 입력해주세요.'
+    } else {
+        document.querySelector('.updateSprice').innerHTML = ''
+        checkList[0] = true;
+    } // if end
+} // func end
+
+
 // [1] 카테고리별 상품 출력
 const getCnoProduct = async ( ) => {
     console.log('getCnoProduct func exe');
@@ -27,6 +57,10 @@ const getCnoProduct = async ( ) => {
 // [2] 재고등록 기능
 const addStock = async ( ) => {
     console.log('addStock func exe');
+    if ( checkList.includes(false) ){
+        alert('올바른 정보를 입력해주세요.');
+        return;
+    } // if end
     // 1. Input value
     const cno = document.querySelector('.cno').value;
     const pno = document.querySelector('.product').value;
@@ -110,11 +144,15 @@ const updateButton = async ( sno ) => {
     sprice.value = oldPrice;
 } // func end
 
-
 // [5] 재고수정
 const updateStock = async ( sno, pno ) => {
     console.log('updateStock func exe');
     console.log( pno )
+    // 입력값 체크
+    if ( checkList.includes(false) ){
+        alert('올바른 정보를 입력해주세요.');
+        return;
+    } // if end
     // 1. Input value
     const sprice = document.querySelector(`.spriceBox`).value;
     // 2. obj

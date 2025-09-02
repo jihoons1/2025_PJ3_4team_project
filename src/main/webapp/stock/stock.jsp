@@ -33,7 +33,8 @@
                 <!-- 카테고리에 따른 고기 option 추가 -->
                 
             </select>
-            <input type="text" placeholder="가격 입력" class="sprice">
+            <input type="text" placeholder="가격 입력" class="sprice" onkeyup="numCheck()">
+            <span class="numCheck" style="color: red;"></span>
             <button type="button" onclick="addStock()"> 재고 등록 </button>
         </div>
         <table>         <!-- 재고목록 테이블 -->
@@ -63,7 +64,8 @@
                 <span>수정할 재고의 가격을 입력해주세요.</span>   <br>
                 재고번호 : <span class="snoBox"></span>         <br>
                 제품명 :   <span class="pnameBox"></span>       <br>
-                수정할 가격 : <input type="text" class="spriceBox" placeholder="가격을 입력하세요.">
+                수정할 가격 : <input type="text" class="spriceBox" placeholder="가격을 입력하세요." onkeyup="updateCheck()"> <br>
+                <span class="updateSprice" style="color: red;"></span>
             </div>
             <div class="modal-footer">
                 
