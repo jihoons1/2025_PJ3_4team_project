@@ -20,13 +20,13 @@ create table member (
     maddress varchar(50) not null ,  			                -- 주소
     mdate datetime default now(),				                -- 등록일
     mcheck boolean default true ,  				                -- 회원 활성화
-    mimg varchar(50) ,    -- 프로필 이미지
+    mimg varchar(100) ,    -- 프로필 이미지
     constraint primary key(mno)
 );
 -- ---------------------------- Company -------------------
 create table Company (
     cno int auto_increment,			                            -- 정육점번호
-    cimg varchar(50) ,                                      	-- 정육점이미지명
+    cimg varchar(100) ,                                      	-- 정육점이미지명
     cname varchar(30) ,                                         -- 정육점명
     caddress varchar(100)  ,                                    -- 정육점 주소
     mno int not null,                                           -- 회원번호
@@ -38,7 +38,7 @@ create table Product (
     pno int auto_increment,			                            -- 제품번호
     pname varchar(10) not null,		                            -- 부위명
     cno int,						                            -- 카테고리번호
-    pimg varchar(50) ,	-- 제품이미지명
+    pimg varchar(100) ,	-- 제품이미지명
     constraint primary key( pno ),
     constraint foreign key( cno ) references category ( cno ) on update cascade on delete cascade
 );
@@ -96,7 +96,7 @@ alter table notice auto_increment = 80001;
 -- ---------------------------- Insert -------------------
 insert into Category ( cname ) values ( '돼지' ), ( '소' ), ( '양' ), ( '오리' );
 INSERT INTO member (mname, mid, mpwd, mphone, memail, maddress) VALUES
-    ('안정훈', 'qwe123', 'qwe123', '010-1234-5678', 'jeonghoonahn0510@gamil.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
+    ('안정훈', 'qwe123', 'qwe123', '010-5109-1342', 'jeonghoonahn0510@gamil.com', '인천광역시 부평구 안남로 261, 119호 (산곡동)'),
     ('민성호', 'asd123', 'asd123', '010-5456-0036', 'mrwoolf1@gmail.com', '인천광역시 부평구 동암남로 34, A동 101호 (십정동)'),
     ('송지훈', 'zxc123', 'zxc123', '010-8537-1882', 'ghoon1210@gmail.com', '인천광역시 부평구 길주로 623, 105동 2004호 (삼산동)'),
     ('정하은', 'haeun_jeong', 'pass1234', '010-3333-4444', 'haeun.jeong@naver.com', '인천광역시 부평구 청천마차로 55, 201동 804호 (청천동)'),
