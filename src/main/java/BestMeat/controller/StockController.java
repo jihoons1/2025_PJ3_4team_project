@@ -71,7 +71,7 @@ public class StockController {
         // 2. Service에게 전달할 Dto 만들기
         StockDto stockDto = new StockDto();
         // 3. 정육점번호(세션 = 입력)를 비교하기
-        if ( loginCno == stockDto.getCno() ){
+        if ( loginCno == cno ){
             // 4-1. 정육점번호가 같으면, Dao에게 전달 후 결과 반환하기
             // 5. Dto에 값 넣기
             stockDto.setCno( cno );
