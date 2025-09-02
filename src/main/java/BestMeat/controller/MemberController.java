@@ -136,7 +136,7 @@ public class MemberController {
     public boolean logout( HttpSession session ){
         System.out.println("MemberController.logout");
         // 1. 세션정보 유효성검사하여, 비로그인상태면 실패
-        if ( sessionService.getSessionNo( "loginMno", session) == 0 || sessionService.getSessionNo( "loginCno", session ) == 0 ) return false;
+        if ( sessionService.getSessionNo( "loginMno", session) == 0 ) return false;
         // 2. 로그인상태라면, 세션 초기화 진행
         session.invalidate();
         // 3. 결과 반환
