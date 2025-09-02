@@ -70,7 +70,10 @@ public class MemberController {
     @PutMapping("/updateMember")
     public int updateMember( @ModelAttribute MemberDto dto , HttpSession session){
         System.out.println("MemberController.updateMember");
-        int mno = memberService.updateMember(dto , session);
+        // session에서 mno을 꺼내서 dto에 넣기
+        int loginMno = sessionService.getSessionNo( "loginMno" , session );
+        dto.setMno( loginMno );
+        int mno = memberService.updateMember( dto );
         if (!dto.getUpload().isEmpty()){
             MultipartFile multipartFile = dto.getUpload();
             String filename =fileService.fileUpload(multipartFile ,tableName);
@@ -79,8 +82,6 @@ public class MemberController {
             if (result==false){ return 0; }
             }
         return mno;
-
-
     }
 
     // [6] 비밀번호 수정
@@ -96,8 +97,6 @@ public class MemberController {
         return result;
     }
 
-
-
     // [member07] 회원정보 상세조회 - getMember()
     // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 회원정보를 조회한다.
     // method : GET, URL : /member/get
@@ -106,8 +105,12 @@ public class MemberController {
     @GetMapping("/get")
     public MemberDto getMember( HttpSession session ){
         System.out.println("MemberController.getMember");
-
-        return memberService.getMember( session );
+        // 1. 세션정보에서 회원번호 가져오기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 회원번호가 0이면, 비로그인상태이므로 메소드 종료
+        if ( mno == 0 ) return null;
+        // 3. MemberService에게 전달 후 결과 반환
+        return memberService.getMember( mno );
     } // func end
 
     // [member08] 회원 탈퇴 - resignMember()
@@ -118,11 +121,17 @@ public class MemberController {
     @PostMapping("/resign")
     public boolean resignMember( @RequestBody Map<String , String> map, HttpSession session ){
         System.out.println("MemberController.resignMember");
-        // 1. Service에게 전달 후, 결과 받기
-        boolean result = memberService.resignMember( map, session );
-        // 2. 탈퇴에 성공했다면, 세션 초기화
+        // 1. 세션정보에서 회원번호 가져오기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 회원번호가 0이면, 비로그인상태이므로 메소드 종료
+        if ( mno == 0 ) return false;
+        // 3. Dao에게 전달할 map에 회원번호 추가하기
+        map.put( "mno", mno + "" );
+        // 4. Service에게 전달 후, 결과 받기
+        boolean result = memberService.resignMember( map );
+        // 5. 탈퇴에 성공했다면, 세션 초기화
         if ( result ) session.invalidate();
-        // 3. 최종 반환하기
+        // 6. 최종 반환하기
         return result;
     } // func end
 

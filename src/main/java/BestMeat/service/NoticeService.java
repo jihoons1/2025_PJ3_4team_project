@@ -3,7 +3,6 @@ package BestMeat.service;
 import BestMeat.model.dao.NoticeDao;
 import BestMeat.model.dto.NoticeDto;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
@@ -12,14 +11,13 @@ import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class NoticeService {
     private final NoticeDao noticeDao;
-    private final SessionService sessionService;
     private DefaultMessageService messageService;
 
     private final String ApiKey = "NCSQQGPH8BYXIF1S";
@@ -45,11 +43,8 @@ public class NoticeService {
     // 기능설명 : [ 회원번호(세션), 제품번호, 알림설정가격 ]을 받아, Notice DB에 저장한다. 저장된 조건 만족 시, 문자 API를 통해 알림 전송한다.
     // 매개변수 : NoticeDto, session
     // 반환타입 : int -> 성공 : 자동생성된 PK값, 실패 : 0
-    public int addNotice( NoticeDto noticeDto, HttpSession session ){
-        // 1. 세선정보에서 회원번호 가져오기
-        int mno = sessionService.getSessionNo( "loginMno", session );
-        // 2. Dto에 값 넣기
-        noticeDto.setMno( mno );
+    public int addNotice( NoticeDto noticeDto ){
+
         // 3. Dao에게 값 전달 후 결과 반환
         return noticeDao.addNotice( noticeDto );
     } // func end
@@ -58,12 +53,8 @@ public class NoticeService {
     // 기능설명 : [ 회원번호(세션) ]을 받아, 해당하는 알림을 조회한다.
     // 매개변수 : session
     // 반환타입 : List<NoticeDto>
-    public List<NoticeDto> getMnoNotice( HttpSession session ){
-        // 1. 세션정보에서 회원번호 가져오기
-        int mno = sessionService.getSessionNo( "loginMno", session );
-        // 2. 비로그인 상태면 메소드 종료
-        if ( mno == 0 ) return null;
-        // 3. Dao에게 전달후 결과 반환
+    public List<NoticeDto> getMnoNotice( int mno ){
+        // 1. Dao에게 전달후 결과 반환
         return noticeDao.getMnoNotice( mno );
     } // func end
 
@@ -71,30 +62,17 @@ public class NoticeService {
     // 기능설명 : [ 회원번호(세션), 알림번호, 알림설정가격 ]을 받아, 해당하는 알림을 수정한다.
     // 매개변수 : NoticeDto, session
     // 반환타입 : boolean
-    public boolean updateNotice( NoticeDto noticeDto, HttpSession session ){
-        // 1. 세션정보에서 회원번호 가져오기
-        int mno = sessionService.getSessionNo( "loginMno", session );
-        // 2. 비로그인 상태라면, 메소드 종료
-        if ( mno == 0 ) return false;
-        // 3. 현재날짜를 Dto에 넣기
-        String today = LocalDateTime.now().toString();
-        noticeDto.setNdate( today );
-        // 4. Dao에게 전달할 dto에 mno 넣기
-        noticeDto.setMno( mno );
-        // 5. Dao에게 전달 후, 결과 반환하기
+    public boolean updateNotice( NoticeDto noticeDto ){
+        // 1. Dao에게 전달 후, 결과 반환하기
         return noticeDao.updateNotice( noticeDto );
     } // func end
 
     // [notice05] 알림삭제 - deleteNotice
     // 기능설명 : [ 회원번호(세션), 알림번호 ]를 받아, 해당하는 알림을 삭제한다.
-    // 매개변수 : session, int nno
+    // 매개변수 : Map< String, Integer > map
     // 반환타입 : boolean
-    public boolean deleteNotice( int nno, HttpSession session ){
-        // 1. 세션정보에서 회원번호 가져오기
-        int mno = sessionService.getSessionNo( "loginMno", session );
-        // 2. 비로그인 상태라면, 메소드 종료
-        if ( mno == 0 ) return false;
-        // 3. Dao에게 전달 후, 결과 반환하기
-        return noticeDao.deleteNotice( mno, nno );
+    public boolean deleteNotice( Map< String, Integer > map ){
+        // 1. Dao에게 전달 후, 결과 반환하기
+        return noticeDao.deleteNotice( map );
     } // func end
 } // class end

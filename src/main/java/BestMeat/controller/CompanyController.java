@@ -22,9 +22,6 @@ import java.util.List;
 @RequestMapping("/company")
 public class CompanyController {
     private final CompanyService companyService;
-    private final SessionService sessionService;
-    private final MemberService memberService;
-    private final MapService mapService;
 
 
     /** 정육점 전체조회 기능(검색,정렬)

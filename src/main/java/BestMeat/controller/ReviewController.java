@@ -39,7 +39,7 @@ public class ReviewController {
     public boolean addReview(ReviewDto dto , HttpSession session){
         int mno = sessionService.getSessionNo("loginMno" , session);
         dto.setMno(mno);
-        MemberDto mdto = memberService.getMember(session);
+        MemberDto mdto = memberService.getMember( mno );
         String[] str = mdto.getMaddress().split(",");
         CompanyDto cdto = companyService.findCompany(dto.getCno());
         String[] str1 = cdto.getCaddress().split(",");
@@ -113,8 +113,12 @@ public class ReviewController {
     @GetMapping("/getMno")
     public List<ReviewDto> getMnoReview( HttpSession session ){
         System.out.println("ReviewController.getMnoReview");
-
-        return reviewService.getMnoReview( session );
+        // 1. 세션정보에서 회원번호 가져오기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 회원번호가 0이면 메소드 종료
+        if ( mno == 0 ) return null;
+        // 3. Service에게 전달 후 결과 반환
+        return reviewService.getMnoReview( mno );
     } // func end
 
     // [review05] 리뷰번호 리뷰조회 - getRnoReview()

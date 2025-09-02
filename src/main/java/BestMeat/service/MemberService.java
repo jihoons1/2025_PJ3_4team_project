@@ -3,7 +3,6 @@ package BestMeat.service;
 import BestMeat.model.dao.MemberDao;
 import BestMeat.model.dto.MemberDto;
 import BestMeat.model.dto.ReviewDto;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberDao memberDao;
-    private final SessionService sessionService;
     private final ReviewService reviewService;
 
 
@@ -67,16 +65,13 @@ public class MemberService {
     }
 
     // [5] 회원정보 수정
-    public int updateMember(MemberDto dto , HttpSession session){
+    public int updateMember(MemberDto dto){
         System.out.println("MemberService.updateMember");
-        int mno = sessionService.getSessionNo("loginMno" , session);
-        dto.setMno(mno);
-        if ( memberDao.updateMember(dto)){return mno;
+        if ( memberDao.updateMember(dto)){
+            return dto.getMno();
         }
         return 0;
-
     }
-
 
     // [6] 비밀번호 수정
     public boolean updatePwd(int mno , Map<String , String> map){
@@ -86,20 +81,13 @@ public class MemberService {
 
     }
 
-
-
-
     // [member07] 회원정보 상세조회 - getMember()
     // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 회원정보를 조회한다.
     // 매개변수 : HttpSession
     // 반환타입 : MemberDto
-    public MemberDto getMember( HttpSession session ){
-        // 1. 세션정보에서 회원번호 가져오기
-        int mno = sessionService.getSessionNo( "loginMno", session );
-        // 2. 회원번호가 0이면, 비로그인상태이므로 메소드 종료
-        if ( mno == 0 ) return null;
-        // 3. ReviewService에서 회원별 리뷰목록 받아오기
-        List<ReviewDto> reviewDtoList = reviewService.getMnoReview( session );
+    public MemberDto getMember( int mno ){
+        // 1. ReviewService에서 회원별 리뷰목록 받아오기
+        List<ReviewDto> reviewDtoList = reviewService.getMnoReview( mno );
         // 4. 리뷰목록을 MemberDto에 넣기
         MemberDto memberDto = memberDao.getMember( mno );
         memberDto.setReviewDtoList( reviewDtoList );
@@ -114,14 +102,8 @@ public class MemberService {
     // 기능설명 : [ 회원번호(세션), 비밀번호 ]를 받아,  일치하면 회원활성화를 false로 변경한다.
     // 매개변수 : Map< String, String >, session
     // 반환타입 : boolean -> 성공 : true, 실패 : false
-    public boolean resignMember( Map<String , String> map, HttpSession session ){
-        // 1. 세션정보에서 회원번호 가져오기
-        int mno = sessionService.getSessionNo( "loginMno", session );
-        // 2. 회원번호가 0이면, 비로그인상태이므로 메소드 종료
-        if ( mno == 0 ) return false;
-        // 3. Dao에게 전달할 map에 회원번호 추가하기
-        map.put( "mno", mno + "" );
-        // 4. Dao에게 매개변수 전달 후, 결과 반환하기
+    public boolean resignMember( Map<String , String> map ){
+        // 1. Dao에게 매개변수 전달 후, 결과 반환하기
         return memberDao.resignMember( map );
     } // func end
 } // class end

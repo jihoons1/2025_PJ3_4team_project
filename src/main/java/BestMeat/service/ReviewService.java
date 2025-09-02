@@ -3,7 +3,6 @@ package BestMeat.service;
 import BestMeat.model.dao.ReviewDao;
 import BestMeat.model.dto.PageDto;
 import BestMeat.model.dto.ReviewDto;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +15,6 @@ import java.util.List;
 public class ReviewService {
     private final ReviewDao reviewDao;
     private final PageService pageService;
-    private final SessionService sessionService;
 
 
     // [1-1] 리뷰 등록 기능
@@ -71,17 +69,14 @@ public class ReviewService {
     } // func end
 
     // [review04] 회원별 리뷰조회 - getMnoReview()
-    public List<ReviewDto> getMnoReview( HttpSession session ){
-        // 1. 세션정보에서 회원번호 가져오기
-        int mno = sessionService.getSessionNo( "loginMno", session );
-        // 2. 회원번호가 0이면 메소드 종료
-        if ( mno == 0 ) return null;
-        List<ReviewDto> dtolist = reviewDao.getMnoReview(mno);
-        for (ReviewDto dto : dtolist){
-            List<String> img = reviewDao.getReviewImg(dto.getRno());
-            dto.setImages(img);
+    public List<ReviewDto> getMnoReview( int mno ){
+        // 1. Dao로부터 mno의 리뷰 목록 받기
+        List<ReviewDto> dtolist = reviewDao.getMnoReview( mno );
+        for ( ReviewDto dto : dtolist ){
+            List<String> img = reviewDao.getReviewImg( dto.getRno() );
+            dto.setImages( img );
         }// for end
-        // 3. Dao에게 전달 후, 결과 반환하기
+        // 2. Dao에게 전달 후, 결과 반환하기
         return dtolist;
     } // func end
 
