@@ -47,6 +47,26 @@ public class MemberDao extends Dao  {
         return 0;
     } // func end
 
+    // 중복값 여부 확인
+    public boolean check(String type , String data) {
+            try {
+                if (!(type.equals("mid") || type.equals("mphone") || type.equals("memail") || type.equals("mpwd") || type.equals("mname"))){
+                    return false;
+                }
+                String sql = "select * from member where " + type + " = ? "; // type : 입력한 값
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, data);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return true;
+                }
+            } catch (Exception e) {
+                System.out.println("중복 오류" + e);
+            }
+        return false;
+
+    }
+
     public int getCno(MemberDto dto){
         try{
             String sql = "select * from member as m join Company c on m.mno = c.mno where mid = ? and mpwd = ? ";

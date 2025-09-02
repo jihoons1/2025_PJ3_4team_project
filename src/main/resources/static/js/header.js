@@ -35,6 +35,7 @@ myinfo();
 
 const logout= async() => {
     console.log('로그아웃 확인');
+    
     try{
         const op = { method : "GET" }
         const response = await fetch('/member/logout' , op)

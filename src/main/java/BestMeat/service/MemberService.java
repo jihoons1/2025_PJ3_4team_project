@@ -26,6 +26,13 @@ public class MemberService {
         return result; //반환
     }
 
+    // [1-2] 중복값 여부
+    public boolean check(String type , String data){
+        System.out.println("MemberService.check");
+        boolean result = memberDao.check(type,data);
+        return result;
+    }
+
     // [2] 로그인
     public MemberDto login(MemberDto dto){
         System.out.println("MemberService.login");
