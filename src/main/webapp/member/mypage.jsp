@@ -46,7 +46,8 @@
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
                 회원정보 수정
             </button>
-            <button type="button" onclick="">비밀번호 수정</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop20">
+                비밀번호 수정</button>
         </div>
         <!-- 회원정보 수정 staticBackdrop5 -->
         <div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -69,6 +70,27 @@
                 </div>
                 </div>
             </div>
+        </div>
+
+        <!-- 비밀번호 수정 -->
+        <div class="modal fade" id="staticBackdrop20" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">비밀번호 수정</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <!-- 기능-->
+                 기존 비밀번호 : <input type="text" class="mpwd"/> <br>
+                 변경하실 비밀번호 : <input type="text" class="mpwd2"/> <br>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" onclick="passup()">비밀번호 수정</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div>   <!-- 회원별 리뷰조회 -->
