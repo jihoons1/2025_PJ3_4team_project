@@ -240,26 +240,6 @@ const getMnoReview = async ( ) => {
 } // func end
 getMnoReview();
 
-// // [7] 수정html불러오기
-// const getUpdateBtn = async(updateBtn) => {
-//     const thisTr = updateBtn.closest("tr");
-//     const rno = thisTr.querySelector("td:nth-child(1)").innerText;
-//     const rcontent = thisTr.querySelector("td:nth-child(3)").innerText
-//     thisTr.innerHTML = `<td>${rno}<input type="hidden" name="rno" value="${rno}"></td>
-//                         <td><textarea name="rcontent">${rcontent}</textarea></td>
-//                         <td><select name="rrank">
-//                             <option value="0">평점</option>
-//                             <option value="5">5</option>
-//                             <option value="4">4</option>
-//                             <option value="3">3</option>
-//                             <option value="2">2</option>
-//                             <option value="1">1</option>
-//                         </select></td>
-//                         <td><input type="file" multiple name="uploads"/></td>
-//                         <td><button type="button" onclick="addUpdate(this)">수정</button>
-//                             <button type="button" onclick="getMnoReview()">취소</button></td>`
-// }// func end
-
 // 리뷰번호 리뷰 내용 조회
 const getRnoReview = async ( rno ) => {
     console.log('getRnoReview func exe');
