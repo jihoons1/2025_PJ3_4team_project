@@ -36,8 +36,10 @@ public class ReviewService {
     // [2-2]리뷰 이미지 수정기능
     public boolean updateReviewImg(int rno , String filename ){
         List<Integer> nolist = reviewDao.getReviewImgNo(rno);
+        System.out.println(nolist);
         for (int rimgno : nolist){
             boolean result = reviewDao.updateReviewImg(rno, filename, rimgno);
+            System.out.println(result);
             return result;
         }// for end
         return false;

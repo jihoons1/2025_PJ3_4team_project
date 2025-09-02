@@ -214,7 +214,7 @@ const getMnoReview = async ( ) => {
                                 <div><img src=${reimg}/></div>
                         </div>`
         }// if end
-        html += `<div class="rImgBox style="display: flex;">`
+        html += `<div class="rImgBox" style="display: flex;">`
         review.images.forEach((img) => { console.log(img);
             reimg = '/upload/review/'+encodeURIComponent(img);
             html += `<div><img src=${reimg}/></div>`
@@ -279,8 +279,10 @@ const getRnoReview = async ( rno ) => {
 
 // [11] 리뷰 수정 기능
 const addUpdate = async() => {
-    const reviewupdateBox = document.querySelector('.reviewupdateBox');
-    const formData = new FormData(reviewupdateBox);
+    const reviewupdateBoxs = document.querySelector('.reviewupdateBox');
+    const rno = document.querySelector('.oldrno').value;
+    const formData = new FormData(reviewupdateBoxs);
+    formData.append("rno",rno);
     const option = { method : "PUT" , body : formData }
     try{
         const response = await fetch(`/review/update`,option);

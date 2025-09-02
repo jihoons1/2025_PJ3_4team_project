@@ -81,7 +81,7 @@ const getReview = async() => {
                         </div>`  
             }// if end
             console.log(rimgUrl);
-            html += `<div class="rImgBox style="display: flex;"> `  
+            html += `<div class="rImgBox" style="display: flex;"> `  
             re.images.forEach((img) => {                           
                 rimgUrl = '/upload/review/'+encodeURIComponent(img);                   
                 html += `<div><img src=${rimgUrl}/></div> `                     
@@ -180,8 +180,10 @@ const getRnoReview = async ( rno ) => {
 
 // 리뷰 수정 기능
 const saveReview = async() => {    
-    const reviewupdateBox = document.querySelector('.reviewupdateBox') 
+    const reviewupdateBox = document.querySelector('.reviewupdateBox'); 
+    const rno = document.querySelector('.oldrno').value;
     const formData = new FormData(reviewupdateBox);  
+    formData.append("rno",rno);
     const option = { method : "PUT" , body : formData}  
     console.log(option);
     try{

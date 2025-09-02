@@ -4,7 +4,7 @@ const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
 const page = params.get('page') || 1;
 const key = "pname";
-const orderr = params.get('order');
+const orderr = params.get('order') || "order";
 const keyword = params.get('keyword');
 
 // [1] 검색기능

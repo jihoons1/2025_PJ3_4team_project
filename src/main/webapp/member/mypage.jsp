@@ -98,7 +98,7 @@
                     </div>
                     <div class="modal-body">
                         <form class="reviewupdateBox">
-                            <input type="text" name="rno" class="oldrno"/>
+                            <input type="text" name="rno" class="oldrno" disabled/>
                             <textarea name="rcontent" class="oldrcontent"></textarea>
                             <select name="rrank" class="oldrrank">
                                 <option value="0" selected disabled>평점</option>

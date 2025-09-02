@@ -67,6 +67,7 @@ public class ReviewDao extends Dao  {
             ps.setString(1,filename);
             ps.setInt(2,rno);
             ps.setInt(3,rimgno);
+            System.out.println(ps.executeUpdate());
             return ps.executeUpdate() == 1;
         } catch (Exception e) { System.out.println(e); }
         return false;
