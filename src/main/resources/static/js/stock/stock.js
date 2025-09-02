@@ -63,15 +63,16 @@ const getStock = async ( ) => {
     // 3. what
     let html = ``;
     data.forEach( (stock) => {
-        // td class를 부여한 이유 : 수정버튼을 누르면, 해당 마크업에 값을 넣기 위해서
         // 함수에 매개변수를 넣은 이유 : sno를 활용하여, 연쇄적으로 함수에서 사용하기 위해서
         html += `<tr>
                     <td>${stock.sno}</td>
                     <td>${stock.pname}</td>
-                    <td class="sprice${stock.sno}">${stock.sprice}</td>
+                    <td>${stock.sprice}</td>
                     <td>${stock.sdate}</td>
-                    <td class="buttons${stock.sno}">
-                        <button type="button" onclick="updateButton(${stock.sno})"> 수정 </button>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick="updateButton(${stock.sno})">
+                            재고수정
+                        </button>
                         <button type="button" onclick="deleteStock(${stock.sno})"> 삭제 </button>
                     </td>
                  </tr>`
@@ -85,22 +86,27 @@ getStock();
 const updateButton = async ( sno ) => {
     console.log('updateButton func exe');
     // 1. where
-    const buttons = document.querySelector(`.buttons${sno}`);
-    const sprice = document.querySelector(`.sprice${sno}`);
+    const buttons = document.querySelector(`.modal-footer`);
+    const sprice = document.querySelector(`.spriceBox`);
+    const pnameBox = document.querySelector('.pnameBox');
+    const snoBox = document.querySelector('.snoBox');
     // 2. what
     let oldPrice;
     let pno;
+    let pname;
     StockData.forEach( (stock) => {
         if ( stock.sno == sno ){
             oldPrice = stock.sprice;
             pno = stock.pno;
+            pname = stock.pname;
         } // if end
     }) // for end
-    let button = `<button type="button" onclick="updateStock(${sno}, ${pno})"> 수정완료 </button>`;
-    let input = `<input type="text" value="${oldPrice}" class="spriceInput${sno}">`;
+    let button = `<button type="button" class="btn btn-primary" onclick="updateStock(${sno}, ${pno})"> 수정완료 </button>`;
     // 3. print
-    buttons.innerHTML = button;
-    sprice.innerHTML = input;
+    snoBox.innerHTML = sno;
+    pnameBox.innerHTML = pname;
+    buttons.innerHTML += button;
+    sprice.value = oldPrice;
 } // func end
 
 
@@ -109,7 +115,7 @@ const updateStock = async ( sno, pno ) => {
     console.log('updateStock func exe');
     console.log( pno )
     // 1. Input value
-    const sprice = document.querySelector(`.spriceInput${sno}`).value;
+    const sprice = document.querySelector(`.spriceBox`).value;
     // 2. obj
     const obj = { sno, sprice, pno };
     // 3. fetch
