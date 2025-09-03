@@ -204,4 +204,36 @@ public class ReviewDao extends Dao  {
         } // try-catch end
         return null;
     } // func end
+
+    // [review06-1] 리뷰삭제 - deleteReview()
+    // 기능설명 : 리뷰번호에 해당하는 리뷰를 삭제한다
+    // 매개변수 : int rno , int mno
+    // 반환타입 : boolean
+    public boolean deleteReview(int rno , int mno){
+        try{
+            String sql = "delete from review where rno = ? and mno = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,rno);
+            ps.setInt(2,mno);
+            int count = ps.executeUpdate();
+            return count == 1;
+        } catch (Exception e) { System.out.println("[review06] SQL 기재 실패" + e); }
+        return false;
+    }// func end
+
+    // [review06-2] 리뷰이미지 삭제 - deleteReviewImg()
+    // 기능설명 : 리뷰이미지이름에 해당하는 리뷰이미지를 삭제한다
+    // 매개변수 : String rimg
+    // 반환타입 : boolean
+    public boolean deleteReviewImg(String rimg){
+        try{
+            String sql = "delete from reviewimg where rimg = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,rimg);
+            int count = ps.executeUpdate();
+            return count == 1;
+        } catch (Exception e) { System.out.println("[review06-2] SQL 기재 실패" + e); }
+        return false;
+    }// func end
+
 }// class end

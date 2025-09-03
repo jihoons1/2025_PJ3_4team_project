@@ -27,4 +27,13 @@ public class FileService {
         } catch (Exception e) { System.out.println(e); return null; }
         return fileName;
     }// func end
-}
+
+    // 파일 삭제 기능
+    public boolean fileDelete(String fileName , String tableName){
+        String filePath = uploadPath + tableName + fileName;
+        File file = new File(filePath);
+        if (file.exists()){ file.delete(); return true;}
+        return false;
+    }// func end
+
+}// class end

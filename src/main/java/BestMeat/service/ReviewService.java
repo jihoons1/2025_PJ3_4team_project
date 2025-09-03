@@ -34,15 +34,11 @@ public class ReviewService {
 
     // [2-2]리뷰 이미지 수정기능
     public boolean updateReviewImg(ReviewDto dto , String filename ){
-        List<Integer> nolist = reviewDao.getReviewImgNo(dto.getRno());
-        List<MultipartFile> dtoList = dto.getUploads();
-        int sum = dtoList.size() - nolist.size();
-        for (int rimgno : nolist){
-            boolean result = reviewDao.updateReviewImg(dto.getRno(), filename, rimgno);
+        List<String> fileNameList = reviewDao.getReviewImg(dto.getRno());
+        reviewDao.addReviewImg(dto.getRno(),filename);
+        for (String file : fileNameList){
+            reviewDao.deleteReviewImg(file);
         }// for end
-        if (sum > 0){
-            reviewDao.addReviewImg(dto.getRno(),filename);
-        }// if end
         return true;
     }// func end
 
@@ -87,4 +83,25 @@ public class ReviewService {
     public ReviewDto getRnoReview( int rno ){
         return reviewDao.getRnoReview( rno );
     } // func end
+
+    // [review06-1] 리뷰번호 리뷰삭제 - deleteReview()
+    // 기능설명 : 리뷰번호에 해당하는 리뷰를 삭제한다
+    // 매개변수 : int rno
+    // 반환타입 : boolean
+    public boolean deleteReview(int rno , int mno){
+        return reviewDao.deleteReview(rno,mno);
+    }// func end
+
+    // [review06-2] 리뷰이미지삭제 - deleteReviewImg()
+    // 기능설명 : 리뷰이미지명에 해당하는 리뷰이미지 삭제
+    // 매개변수 : int rno
+    // 반환타입 : boolean
+    public boolean deleteReviewImg(int rno){
+        List<String> rimgList = reviewDao.getReviewImg(rno);
+        for (String rimg : rimgList){
+            reviewDao.deleteReviewImg(rimg);
+        }// for end
+        return true;
+    }// func end
+
 }// class end
