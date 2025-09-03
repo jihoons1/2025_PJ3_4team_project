@@ -24,23 +24,28 @@
             <form id="mig">
                 <div class="input-group">
                     <label>회원명</label>
-                    <input type="text" name="mname" class="miname2" placeholder="홍길동" />
+                    <input type="text" onkeyup="mnamecheck()" name="mname" class="mname2" placeholder="홍길동" />
+                    <div class="mnameCheck"></div>
                 </div>
                 <div class="input-group">
                     <label>아이디</label>
-                    <input type="text" name="mid" class="mid2" placeholder="test123" />
+                    <input type="text" onkeyup="idcheck()" name="mid" class="mid2" placeholder="test123" />
+                    <div class="idchecks"></div>
                 </div>
                 <div class="input-group">
                     <label>비밀번호</label>
-                    <input type="password" name="mpwd" class="mpwd2" placeholder="test123" />
+                    <input type="password" onkeyup="pwdcheck()" name="mpwd" class="mpwd2" placeholder="test123" />
+                    <div class="Pwd"></div>
                 </div>
                 <div class="input-group">
                     <label>비밀번호 확인</label>
-                    <input type="password" name="mpwd2" class="mpwd22" placeholder="입력하신 패스워드와 같아야 합니다" />
+                    <input type="password" onkeyup="pwdcheck2()" name="mpwd2" class="mpwd22" placeholder="입력하신 패스워드와 같아야 합니다" />
+                    <div class="Pwdd"></div>
                 </div>
                 <div class="input-group">
-                    <label>휴대번호</label>
-                    <input type="text" name="mphone" class="mphone2" placeholder="010-1234-5678" />
+                    <label>휴대번호</label> <!-- onkeyup="phonecheck()"-->
+                    <input type="text" onkeyup="phonecheck()"  name="mphone" class="mphone2" placeholder="010-1234-5678" />
+                    <div class="phonechecks"></div>
                 </div>
                 <div class="input-group">
                     <label>주소</label>

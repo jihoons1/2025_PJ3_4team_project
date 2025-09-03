@@ -51,6 +51,12 @@ public class MemberController {
         return dto.getMno();
     }
 
+    @GetMapping("/check")
+    public boolean check(@RequestParam String type , @RequestParam String data ){
+        boolean result = memberService.check(type,data);
+        return result;
+    }
+
     // [3] 아이디찾기
     @GetMapping("/findId")
     public Map<String , String > findId(@RequestParam Map<String , String>map){
