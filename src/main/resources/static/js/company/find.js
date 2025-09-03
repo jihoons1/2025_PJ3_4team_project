@@ -173,10 +173,17 @@ const naverMap = async ( ) => {
     const response = await fetch ( `/map/getLatLng?caddress=${companyData.caddress}`, option );
     const data = await response.json();     console.log( data );
 
+    var latlng = new naver.maps.LatLng( data.lat, data.lng );
 
+    var utmk = naver.maps.TransCoord.fromLatLngToUTMK(latlng);
+    var tm128 = naver.maps.TransCoord.fromUTMKToTM128(utmk);
+    var naverCoord = naver.maps.TransCoord.fromTM128ToNaver(tm128);
+    console.log( utmk );
+    console.log( tm128 );
+    console.log( naverCoord );
 
     // 정육점 위치
-    var company = new naver.maps.LatLng( data.lat, data.lng),
+    var company = new naver.maps.LatLng( data.lat, data.lng ),
         map = new naver.maps.Map('map', {
             center: company.destinationPoint(0, 500),
             zoom: 15

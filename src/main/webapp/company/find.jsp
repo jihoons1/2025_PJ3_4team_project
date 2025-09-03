@@ -127,7 +127,7 @@
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/footer.jsp"></jsp:include>
     <!-- 네이버지도 불러오기 -->
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=7dgspubsn7"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=7dgspubsn7&callback=CALLBACK_FUNCTION&submodules=geocoder"></script>
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
     <script src="/js/company/find.js"></script>
 
