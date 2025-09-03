@@ -42,8 +42,8 @@ public class MapService {
             JSONObject jsrs = (JSONObject) jsob.get("response");
             JSONObject jsResult = (JSONObject) jsrs.get("result");
             JSONObject jspoitn = (JSONObject) jsResult.get("point");
-            double d1 = Double.parseDouble(jspoitn.get("y").toString());
-            double d2 = Double.parseDouble(jspoitn.get("x").toString());
+            double d1 = Double.parseDouble(jspoitn.get("y").toString());    // 위도
+            double d2 = Double.parseDouble(jspoitn.get("x").toString());    // 경도
             return new double[]{ d2 , d1 };
 
         } catch (IOException | ParseException e) {
