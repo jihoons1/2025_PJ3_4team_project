@@ -94,7 +94,7 @@ select * from notice;
 create table Plan(
 	planno int auto_increment,			-- 결제번호
     cno int not null,					-- 정육점번호
-    pdate date not null,				-- 결제일
+    startdate date not null,			-- 결제일
     enddate date not null,				-- 종료일
     constraint primary key( planno ),
     constraint foreign key( cno ) references company( cno ) on delete cascade on update cascade
@@ -102,11 +102,11 @@ create table Plan(
 select * from Plan;
 -- ---------------------------- PointLog -------------------
 create table PointLog(
-	plno int auto_increment,
-    mno int not null,
-    plpoint int not null,
-    plcomment varchar(20) not null,
-    pldate datetime default now(),
+	plno int auto_increment,			-- 지급번호
+    mno int not null,					-- 회원번호
+    plpoint int not null,				-- 포인트
+    plcomment varchar(20) not null,		-- 지급사유
+    pldate datetime default now(),		-- 지급일시
     constraint primary key( plno ),
     constraint foreign key( mno ) references member( mno ) on delete cascade on update cascade
 );
@@ -687,7 +687,18 @@ insert into notice(mno , pno , nprice , ncheck , ndate) values
     ( 10002 , 40002 , 2000 , 0 , '2025-09-01 16:22:00'),
     ( 10003 , 40003 , 1300 , 1200 , '2025-09-01 16:22:00'),
     ( 10004, 40004 , 2000 , 0 , '2025-09-01 16:22:00');
-
+insert into Plan( cno, startdate, enddate ) values
+	( 30001, '2025-09-01', '2025-09-08' ),
+    ( 30002, '2025-09-01', '2025-09-08' ),
+    ( 30003, '2025-09-01', '2025-09-08' ),
+    ( 30004, '2025-09-01', '2025-09-08' );
+insert into PointLog( mno, plpoint, plcomment ) values
+	( 10001, 10, '로그인 지급' ),
+    ( 10002, 500, '회원가입 지급' ),
+    ( 10003, -5000, '멤버십 차감' ),
+    ( 10004, -500, '알림등록 차감' );
+    
+-- ---------------------------- Select Test -------------------
 select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
 select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
 from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
