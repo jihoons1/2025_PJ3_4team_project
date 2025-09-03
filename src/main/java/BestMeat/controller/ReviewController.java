@@ -128,4 +128,20 @@ public class ReviewController {
 
         return reviewService.getRnoReview( rno );
     } // func end
+
+    // [review06-1] 리뷰번호 리뷰삭제 - deleteReview()
+    // 기능설명 : 리뷰번호에 해당하는 리뷰를 삭제한다
+    // 매개변수 : int rno
+    // 반환타입 : boolean
+    @DeleteMapping("/delete")
+    public boolean deleteReview(int rno , HttpSession session){
+        int mno = sessionService.getSessionNo("loginMno",session);
+        boolean result = reviewService.deleteReview(rno,mno);
+        if (result){
+            boolean result2 = reviewService.deleteReviewImg(rno);
+            return result2;
+        }// if end
+        return result;
+    }// func end
+
 }// class end
