@@ -25,27 +25,27 @@
                 <div class="input-group">
                     <label>회원명</label>
                     <input type="text" onkeyup="mnamecheck()" name="mname" class="mname2" placeholder="홍길동" />
-                    <div class="mnameCheck"></div>
+                    <div class="mnameCheck"></div> <!--이름 유효성 [3자리~10자리] -->
                 </div>
                 <div class="input-group">
                     <label>아이디</label>
                     <input type="text" onkeyup="idcheck()" name="mid" class="mid2" placeholder="test123" />
-                    <div class="idchecks"></div>
+                    <div class="idchecks"></div> <!--아이디 유효성 [6글자~10글자]-->
                 </div>
                 <div class="input-group">
                     <label>비밀번호</label>
                     <input type="password" onkeyup="pwdcheck()" name="mpwd" class="mpwd2" placeholder="test123" />
-                    <div class="Pwd"></div>
+                    <div class="Pwd"></div> <!--비밀번호 유효성 [6글자~13글자] -->
                 </div>
                 <div class="input-group">
                     <label>비밀번호 확인</label>
                     <input type="password" onkeyup="pwdcheck2()" name="mpwd2" class="mpwd22" placeholder="입력하신 패스워드와 같아야 합니다" />
-                    <div class="Pwdd"></div>
+                    <div class="Pwdd"></div> <!--비밀번호 재확인 유효성  -->
                 </div>
                 <div class="input-group">
-                    <label>휴대번호</label> <!-- onkeyup="phonecheck()"-->
-                    <input type="text" onkeyup="phonecheck()"  name="mphone" class="mphone2" placeholder="010-1234-5678" />
-                    <div class="phonechecks"></div>
+                    <label>휴대번호</label> 
+                    <input type="text" onkeyup="phonecheck()"  name="mphone" class="mphone2" placeholder="010/~019 이외불가 " />
+                    <div class="phonechecks"></div> <!-- 전화번호 01부터 가능 123-123-123 안됨  -->
                 </div>
                 <div class="input-group">
                     <label>주소</label>
@@ -54,13 +54,14 @@
                 <div class="input-group">
                     <label>이메일</label>
                     <div class="email-input-group">
-                        <input type="text" class="emailname" />
+                        <input type="text" onkeyup="emailcheck()" class="emailname" />
                         <select id="emailselect">
                             <option disabled selected>@이메일 선택</option>
                             <option value="@naver.com">@naver.com</option>
                             <option value="@gmail.com">@gmail.com</option>
                             <option value="@daum.net">@daum.net</option>
                         </select>
+                        <div class="emailCheck"></div> <!--이메일 유효성 -->
                     </div>
                 </div>
                 <div class="input-group">
