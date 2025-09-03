@@ -44,14 +44,14 @@ const addReview = async() => {
         const data = await response.json();
         if(data == true){
             alert("리뷰가 등록되었습니다.");
-            getReview();
+            location.href=`/company/find.jsp?cno=${cno}`;
         }else{
             alert('리뷰 등록 실패!');
         }// if end
     }catch(e){ console.log(e); }
 }// func end
 
-// 회사별 리뷰 목록 조회
+// [3] 회사별 리뷰 목록 조회
 const getReview = async() => {
     const reviewtbody = document.querySelector('.reviewTbody');    
     let html = "";    
@@ -86,6 +86,7 @@ const getReview = async() => {
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onclick="getRnoReview(${re.rno})">
                                     수정
                                 </button>
+                                <button type="button" onclick="deleteReview(${re.rno})"> 삭제 </button>
                             </td>
                         </tr>`
             }else{
@@ -104,7 +105,7 @@ const getReview = async() => {
 }// func end
 getReview();
 
-// 페이징 버튼 출력 함수 
+// [4] 페이징 버튼 출력 함수
 const viewPageButton = async ( data ) => {
     let currentPage = parseInt( data.currentPage ); 
     let totalPage = data.totalPage;
@@ -128,7 +129,8 @@ const viewPageButton = async ( data ) => {
     pageBtnBox.innerHTML = html;
 } // func end
 
-// 리뷰번호 리뷰 내용 조회
+
+// [5] 리뷰번호 리뷰 내용 조회
 const getRnoReview = async ( rno ) => {
     console.log('getRnoReview func exe');
     try {
@@ -145,7 +147,7 @@ const getRnoReview = async ( rno ) => {
     } // try-catch end
 } // func end
 
-// 리뷰 수정 기능
+// [6] 리뷰 수정 기능
 const saveReview = async() => {    
     const reviewupdateBox = document.querySelector('.reviewupdateBox'); 
     const rno = document.querySelector('.oldrno').value;
@@ -166,6 +168,22 @@ const saveReview = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
+// [7] 리뷰 삭제
+const deleteReview = async(rno) => {
+    let result = confirm('삭제 하시겠습니까?');
+    if(result == false){ return; }
+    const option = { method : "DELETE" }
+    try{
+        const response = await fetch(`/review/delete?rno=${rno}`,option);
+        const data = await response.json();
+        if(data == true){
+            alert('리뷰 삭제성공');
+            location.href=`/company/find.jsp?cno=${cno}`;
+        }else{
+            alert('리뷰 삭제실패');
+        }// if end
+    }catch(e){ console.log(e); }
+}// func end
 
 //============================ 네이버지도 API JS ============================\\
 const naverMap = async ( ) => {

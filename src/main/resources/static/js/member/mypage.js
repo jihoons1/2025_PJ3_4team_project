@@ -270,7 +270,7 @@ const getMnoReview = async ( ) => {
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop6" onclick="getRnoReview(${review.rno})">
                                     수정
                                 </button>
-                        <button type="button"> 삭제 </button>
+                        <button type="button" onclick="deleteReview(${review.rno})"> 삭제 </button>
                     </td>
                  </tr>`
     })
@@ -369,3 +369,20 @@ const passup = async() => {
     }catch(error){console.log(error) ; }
     
 }
+
+// [14] 리뷰 삭제 
+const deleteReview = async(rno) => {
+    let result = confirm('삭제 하시겠습니까?');
+    if(result == false){ return; }    
+    const option = { method : "DELETE" }
+    try{
+        const response = await fetch(`/review/delete?rno=${rno}`,option);
+        const data = await response.json();
+        if(data == true){
+            alert('리뷰 삭제성공');
+            location.href="/member/mypage.jsp";
+        }else{
+            alert('리뷰 삭제실패');
+        }// if end
+    }catch(e){ console.log(e); }
+}// func end
