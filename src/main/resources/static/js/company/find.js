@@ -4,7 +4,7 @@ const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
 const page = params.get('page') || 1;
 
-// 정육점 개별조회
+// [1] 정육점 개별조회
 const findCompany = async() => {
     const findTbody = document.querySelector('#findTbody');
     let html = "";
@@ -26,24 +26,7 @@ const findCompany = async() => {
 }// func end
 findCompany();
 
-// // 리뷰 등록html 불러오기
-// const addReviewBox = async() => {
-//     const reviewAddBox = document.querySelector('.reviewAddBox');
-//     let html = `<textarea name="rcontent"></textarea>
-//                 <select name="rrank">
-//                     <option value="0">평점</option>
-//                     <option value="5">5</option>
-//                     <option value="4">4</option>
-//                     <option value="3">3</option>
-//                     <option value="2">2</option>
-//                     <option value="1">1</option>
-//                 </select>
-//                 <input type="file" multiple name="uploads"/>
-//                 <button type="button" onclick="addReview()">등록</button>`;
-//     reviewAddBox.innerHTML = html;
-// }// func end
-
-// 리뷰 등록 기능
+// [2] 리뷰 등록 기능
 const addReview = async() => {
     const reviewAddBox = document.querySelector('.reviewAddBox');
     const productForm = new FormData(reviewAddBox);
@@ -57,14 +40,14 @@ const addReview = async() => {
         const data = await response.json();
         if(data == true){
             alert("리뷰가 등록되었습니다.");
-            getReview();
+            location.href=`/company/find.jsp?cno=${cno}`;
         }else{
             alert('리뷰 등록 실패!');
         }// if end
     }catch(e){ console.log(e); }
 }// func end
 
-// 회사별 리뷰 목록 조회
+// [3] 회사별 리뷰 목록 조회
 const getReview = async() => {
     const reviewtbody = document.querySelector('.reviewTbody');    
     let html = "";    
@@ -99,6 +82,7 @@ const getReview = async() => {
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onclick="getRnoReview(${re.rno})">
                                     수정
                                 </button>
+                                <button type="button" onclick="deleteReview(${re.rno})"> 삭제 </button>
                             </td>
                         </tr>`
             }else{
@@ -117,7 +101,7 @@ const getReview = async() => {
 }// func end
 getReview();
 
-// 페이징 버튼 출력 함수 
+// [4] 페이징 버튼 출력 함수 
 const viewPageButton = async ( data ) => {
     let currentPage = parseInt( data.currentPage ); 
     let totalPage = data.totalPage;
@@ -141,27 +125,8 @@ const viewPageButton = async ( data ) => {
     pageBtnBox.innerHTML = html;
 } // func end
 
-// // 리뷰 수정 버튼 클릭시 입력하는 html로 변경
-// const updateBtn = async(btn) => {
-//     const thisTr = btn.closest("tr");
-//     const rno = thisTr.querySelector("td:nth-child(1)").innerText;
-//     const rcontent = thisTr.querySelector('td:nth-child(3)').innerText;      
-//     thisTr.innerHTML = `<td>${rno}<input type="hidden" name="rno" value="${rno}"></td>
-//                         <td><textarea name="rcontent">${rcontent}</textarea></td>
-//                         <td><select name="rrank">
-//                             <option value="0">평점</option>
-//                             <option value="5">5</option>
-//                             <option value="4">4</option>
-//                             <option value="3">3</option>
-//                             <option value="2">2</option>
-//                             <option value="1">1</option>
-//                         </select></td>
-//                         <td><input type="file" multiple name="uploads"/></td>
-//             <td><button type="button" onclick="saveReview(this)">저장</button>
-//             <button type="button" onclick="getReview()">취소</button></td>`    
-// }// func end
 
-// 리뷰번호 리뷰 내용 조회
+// [5] 리뷰번호 리뷰 내용 조회
 const getRnoReview = async ( rno ) => {
     console.log('getRnoReview func exe');
     try {
@@ -178,7 +143,7 @@ const getRnoReview = async ( rno ) => {
     } // try-catch end
 } // func end
 
-// 리뷰 수정 기능
+// [6] 리뷰 수정 기능
 const saveReview = async() => {    
     const reviewupdateBox = document.querySelector('.reviewupdateBox'); 
     const rno = document.querySelector('.oldrno').value;
@@ -195,6 +160,23 @@ const saveReview = async() => {
             location.href=`/company/find.jsp?cno=${cno}`
         }else{
             alert('수정실패!');
+        }// if end
+    }catch(e){ console.log(e); }
+}// func end
+
+// [7] 리뷰 삭제 
+const deleteReview = async(rno) => {
+    let result = confirm('삭제 하시겠습니까?');
+    if(result == false){ return; }    
+    const option = { method : "DELETE" }
+    try{
+        const response = await fetch(`/review/delete?rno=${rno}`,option);
+        const data = await response.json();
+        if(data == true){
+            alert('리뷰 삭제성공');
+            location.href=`/company/find.jsp?cno=${cno}`;
+        }else{
+            alert('리뷰 삭제실패');
         }// if end
     }catch(e){ console.log(e); }
 }// func end

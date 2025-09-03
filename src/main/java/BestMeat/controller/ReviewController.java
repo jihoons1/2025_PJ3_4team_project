@@ -22,6 +22,7 @@ public class ReviewController {
     private final MapService mapService;
     private final MemberService memberService;
     private final CompanyService companyService;
+    private final QRService qrService;
 
     private String tableName = "review/";       // 파일 업로드 경로
 
@@ -58,6 +59,8 @@ public class ReviewController {
                 if (result2 == false){return result2; }
             }// for end
         }// if end
+        String target = "www/naver/com";
+        qrService.QRMake(target);
         return true;
     }// func end
 
