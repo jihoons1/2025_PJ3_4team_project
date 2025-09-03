@@ -138,7 +138,7 @@ public class ReviewController {
     // 매개변수 : int rno
     // 반환타입 : boolean
     @DeleteMapping("/delete")
-    public boolean deleteReview(int rno , HttpSession session){
+    public boolean deleteReview(@RequestParam int rno , HttpSession session){
         int mno = sessionService.getSessionNo("loginMno",session);
         boolean result = reviewService.deleteReview(rno,mno);
         if (result){
