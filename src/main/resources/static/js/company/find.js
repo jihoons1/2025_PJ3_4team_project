@@ -4,17 +4,21 @@ const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
 const page = params.get('page') || 1;
 
+let companyData;
+
 // 정육점 개별조회
 const findCompany = async() => {
     const findTbody = document.querySelector('#findTbody');
     let html = "";
     try{
         const response = await fetch(`/company/find?cno=${cno}`);
-        const data = await response.json(); 
+        const data = await response.json();     console.log( data );
+        companyData = await data;
+        naverMap();
         let imgUrl = '/upload/'+encodeURIComponent(data.cimg);
-        if(data.cimg == null){
+        if( data.cimg == null ){
             imgUrl = 'https://placehold.co/50x50';
-        }// if end
+        } // if end
         html += `<tr>
                     <td><img src=${imgUrl}/></td>
                     <td>${data.cname}</td>
@@ -25,23 +29,6 @@ const findCompany = async() => {
     }catch(e){ console.log(e); }
 }// func end
 findCompany();
-
-// // 리뷰 등록html 불러오기
-// const addReviewBox = async() => {
-//     const reviewAddBox = document.querySelector('.reviewAddBox');
-//     let html = `<textarea name="rcontent"></textarea>
-//                 <select name="rrank">
-//                     <option value="0">평점</option>
-//                     <option value="5">5</option>
-//                     <option value="4">4</option>
-//                     <option value="3">3</option>
-//                     <option value="2">2</option>
-//                     <option value="1">1</option>
-//                 </select>
-//                 <input type="file" multiple name="uploads"/>
-//                 <button type="button" onclick="addReview()">등록</button>`;
-//     reviewAddBox.innerHTML = html;
-// }// func end
 
 // 리뷰 등록 기능
 const addReview = async() => {
@@ -141,26 +128,6 @@ const viewPageButton = async ( data ) => {
     pageBtnBox.innerHTML = html;
 } // func end
 
-// // 리뷰 수정 버튼 클릭시 입력하는 html로 변경
-// const updateBtn = async(btn) => {
-//     const thisTr = btn.closest("tr");
-//     const rno = thisTr.querySelector("td:nth-child(1)").innerText;
-//     const rcontent = thisTr.querySelector('td:nth-child(3)').innerText;      
-//     thisTr.innerHTML = `<td>${rno}<input type="hidden" name="rno" value="${rno}"></td>
-//                         <td><textarea name="rcontent">${rcontent}</textarea></td>
-//                         <td><select name="rrank">
-//                             <option value="0">평점</option>
-//                             <option value="5">5</option>
-//                             <option value="4">4</option>
-//                             <option value="3">3</option>
-//                             <option value="2">2</option>
-//                             <option value="1">1</option>
-//                         </select></td>
-//                         <td><input type="file" multiple name="uploads"/></td>
-//             <td><button type="button" onclick="saveReview(this)">저장</button>
-//             <button type="button" onclick="getReview()">취소</button></td>`    
-// }// func end
-
 // 리뷰번호 리뷰 내용 조회
 const getRnoReview = async ( rno ) => {
     console.log('getRnoReview func exe');
@@ -198,3 +165,44 @@ const saveReview = async() => {
         }// if end
     }catch(e){ console.log(e); }
 }// func end
+
+
+//============================ 네이버지도 API JS ============================\\
+const naverMap = ( ) => {
+    var company = new naver.maps.LatLng(37.5666805, 126.9784147),
+        map = new naver.maps.Map('map', {
+            center: company.destinationPoint(0, 500),
+            zoom: 15
+        }),
+        marker = new naver.maps.Marker({
+            map: map,
+            position: company
+        });
+
+    let cImgUrl = '/upload/'+encodeURIComponent(companyData.cimg);
+    if( companyData.cimg == null ){
+        cImgUrl = 'https://placehold.co/50x50';
+    } // if end
+
+    var contentString = `<div>
+                            <h3>${companyData.cname}</h3>
+                            <p>
+                                ${companyData.caddress} <br>
+                                <img src="${cImgUrl}">
+                            </p>
+                        </div>`;
+
+    var infowindow = new naver.maps.InfoWindow({
+        content: contentString
+    });
+
+    naver.maps.Event.addListener(marker, "click", function(e) {
+        if (infowindow.getMap()) {
+            infowindow.close();
+        } else {
+            infowindow.open(map, marker);
+        }
+    });
+
+    infowindow.open(map, marker);
+} // func end
