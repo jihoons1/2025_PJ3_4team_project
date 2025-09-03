@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @RestController
@@ -59,8 +60,7 @@ public class ReviewController {
                 if (result2 == false){return result2; }
             }// for end
         }// if end
-        String target = "www/naver/com";
-        qrService.QRMake(target);
+        qrService.QRMake(new File("stoneQR.jpg"),"https://naver.com",300,"jpg");
         return true;
     }// func end
 
