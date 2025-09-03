@@ -168,8 +168,15 @@ const saveReview = async() => {
 
 
 //============================ 네이버지도 API JS ============================\\
-const naverMap = ( ) => {
-    var company = new naver.maps.LatLng(37.5666805, 126.9784147),
+const naverMap = async ( ) => {
+    const option = { method : "GET" };
+    const response = await fetch ( `/map/getLatLng?caddress=${companyData.caddress}`, option );
+    const data = await response.json();     console.log( data );
+
+
+
+    // 정육점 위치
+    var company = new naver.maps.LatLng( data.lat, data.lng),
         map = new naver.maps.Map('map', {
             center: company.destinationPoint(0, 500),
             zoom: 15
