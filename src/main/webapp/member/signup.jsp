@@ -54,8 +54,6 @@
                     <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                     <input type="text" onkeyup="maddresscheck()" name="maddress" id="sample6_address" placeholder="주소를 입력해주세요" />
                     <input type="text" name="mdetailaddress" id="sample6_detailAddress" placeholder="상세주소">
-                    
-                    
                     <div class="maddressCheck"></div>
                 </div>
                 <!-- 우편번호 API -->
