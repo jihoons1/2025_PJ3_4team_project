@@ -2,6 +2,7 @@ package BestMeat.service;
 
 import BestMeat.model.dao.MemberDao;
 import BestMeat.model.dto.MemberDto;
+import BestMeat.model.dto.PointDto;
 import BestMeat.model.dto.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,14 +16,25 @@ import java.util.Map;
 public class MemberService {
     private final MemberDao memberDao;
     private final ReviewService reviewService;
+    private final PointService pointService;
 
 
     // [1] 회원가입
     public int signup(MemberDto dto){
         System.out.println("MemberService.signup");
-        int result = memberDao.signup(dto);
-        return result; //반환
-    }
+
+        int mno = memberDao.signup(dto);
+        // 1. 회원가입에 성공했다면, 해당 회원에게 500 포인트 지급
+        PointDto pointDto = new PointDto();
+        pointDto.setMno( mno );
+        pointDto.setPlpoint( 500 );
+        pointDto.setPlcomment( "회원가입 포인트 지급" );
+        boolean addPoint = pointService.addPointLog( pointDto );
+        // 2. 지급에 실패했으면, 메소드 종료
+        if ( !addPoint ) return 0;
+        // 3. 지급에 성공했다면, 생성된 회원번호 반환
+        return mno;
+    } // func end
 
     // [1-2] 중복값 여부
     public boolean check(String type , String data){
