@@ -60,9 +60,6 @@ public class PlanService {
         String startdate = LocalDate.now().toString();
         planDto.setStartdate(startdate);
         int result = planDao.getCnoEnddate(planDto);
-        if (result < 0 ){
-            return 0;
-        }// if end
         return result;
     }// func end
 

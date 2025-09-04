@@ -259,3 +259,31 @@ const buildQR = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
+// [9] 멤버쉽 신청
+const addPlan = async() => {
+    try{
+        const response = await fetch("/plan/add");
+        const data = await response.json();
+        if(data == 0){
+            alert('신청 실패');
+        }else{
+            alert('신청 완료');
+            getCnoEnddate();
+        }// if end
+    }catch(e){ console.log(e); }
+}// func end
+
+// [10] 멤버쉽 남은일 출력
+const getCnoEnddate = async() => {
+    const endDate = document.querySelector('.endDate');
+    let html = "";
+    try{
+        const response = await fetch("/plan/enddate");
+        const data = await response.json();
+        if(data >= 0){
+            html += `<span>남은일 -<span class="endDate">${data}</span>일</span>`
+        }// if end
+        endDate.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+getCnoEnddate();

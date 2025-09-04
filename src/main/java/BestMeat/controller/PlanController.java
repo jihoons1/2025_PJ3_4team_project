@@ -38,13 +38,15 @@ public class PlanController {
 
     // [plan02] 정육점별 요금제 유/무 조회 - getCnoEnddate()
     // 기능설명 : [ 정육점번호 ]를 받아, 해당 정육점의 요금제 유/무를 조회한다.
+    // method : GET , URL : /plan/enddate
     // 매개변수 : PlanDto
     // 반환타입 : int days
     @GetMapping("/enddate")
-    public int getCnoEnddate( PlanDto planDto , HttpSession session ){
+    public int getCnoEnddate( HttpSession session ){
         int cno = sessionService.getSessionNo("loginCno",session);
+        PlanDto planDto = new PlanDto();
         planDto.setCno(cno);
-        if ( cno == 0) return 0;
+        if ( cno == 0) return -1;
         return planService.getCnoEnddate(planDto);
     }// func end
 
