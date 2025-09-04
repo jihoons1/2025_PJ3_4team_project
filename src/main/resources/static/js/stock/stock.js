@@ -79,9 +79,11 @@ const addStock = async ( ) => {
     if ( data > 0 ){
         alert('재고등록 성공!');
         location.reload();
+    } else if ( data == -1 ){
+        alert('포인트 잔액이 부족합니다.');
     } else {
         alert('재고등록 실패!\n다시 입력해주세요.');
-    }
+    } // if end
 } // func end
 
 // [3] 재고조회 기능
