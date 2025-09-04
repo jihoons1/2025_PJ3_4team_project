@@ -5,6 +5,8 @@ import BestMeat.model.dto.PointDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class PointService {
@@ -16,5 +18,13 @@ public class PointService {
     // 반환타입 : boolean -> true : 성공, false : 실패
     public boolean addPointLog( PointDto pointDto ){
         return pointDao.addPointLog( pointDto );
+    } // func end
+
+    // [point02] UUID 생성 - createUUID()
+    // 기능설명 : UUID를 생성하여 반환한다.
+    // 매개변수 : X
+    // 반환타입 : String
+    public String createUUID(){
+        return UUID.randomUUID().toString();
     } // func end
 } // class end

@@ -32,4 +32,16 @@ public class PointController {
         // 4. Service에게 전달 후, 결과 반환하기
         return pointService.addPointLog( pointDto );
     } // func end
+
+    // [point02] UUID 생성 - createUUID()
+    // 기능설명 : UUID를 생성하여 반환한다.
+    // method : GET, URL : /point/getUUID
+    // 매개변수 : X
+    // 반환타입 : String
+    @GetMapping("/getUUID")
+    public String createUUID(){
+        System.out.println("PointController.createUUID");
+
+        return pointService.createUUID();
+    } // func end
 } // class end
