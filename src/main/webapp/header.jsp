@@ -68,6 +68,8 @@
         </div>
     </div>
 
+    <!-- axios JS 불러오기 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- 포트원 JS 불러오기 -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <!-- 부트스트랩 JS 불러오기 -->

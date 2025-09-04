@@ -16,10 +16,10 @@ public class PointController {
 
     // [point01] 포인트 결제 - pointPayment()
     // 기능설명 : [ 회원번호(세션), 결제액, 결제사유 ]를 입력받아, 포인트 결제를 진행한다.
-    // method : PUT, URL : /point/payment
+    // method : POST, URL : /point/payment
     // 매개변수 : PointDto
     // 반환타입 : boolean -> true : 성공, false : 실패
-    @PutMapping("/payment")
+    @PostMapping("/payment")
     public boolean pointPayment( @RequestBody PointDto pointDto, HttpSession session ){
         System.out.println("PointController.pointPayment");
 

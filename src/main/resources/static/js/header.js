@@ -102,38 +102,24 @@ const payment = async ( ) => {
         if (rsp.success) {
             // axios로 HTTP 요청
             axios({
-                url: "{서버의 결제 정보를 받는 endpoint}",
+                url: "/point/payment",
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 data: {
-                imp_uid: rsp.imp_uid,
-                merchant_uid: rsp.merchant_uid
+                plpoint : point,
+                plcomment : `${pointDot} point 결제`
                 }
             }).then( (data) => {
                 console.log( data );
+                if ( data.data == true ){
+                    alert(`${pointDot} point 결제에 성공하였습니다.`);
+                    location.reload();
+                } // if end
             })
             } else {
                 alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
             }
         }
     );
-
-    // const response = await PortOne.requestPayment({
-    //     // Store ID 설정
-    //     storeId: "store-0bfc00f1-b821-4bba-a568-ed66889fe1a4",
-    //     // 채널 키 설정
-    //     channelKey: "channel-key-f9ecba09-eb53-4bab-98f6-94de05c967b0",
-    //     paymentId: paymentId,
-    //     orderName: `${pointDot} point`,
-    //     totalAmount: point,
-    //     currency: "CURRENCY_KRW",
-    //     payMethod: "CARD",
-    // });
-    // console.log( response );
-
-    // // 오류 발생
-    // if (response.code !== undefined) {
-    //     return alert(response.message);
-    // } // if end
 
 } // func end
