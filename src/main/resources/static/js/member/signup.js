@@ -115,30 +115,90 @@ const idcheck = async () => {
         }
     }
 
-//     const phonecheck = async() =>{
-//         const phonebox =  document.querySelector('.mphone2');
-//         const mphones = phonebox.value;
-//         const phone = /^01[0-9]-\d{3,4}-\d{4}$/.test(phonebox);
-//         const phonechecks = document.querySelector('.phonechecks');
+    const phonecheck = async() =>{
+        const phonebox =  document.querySelector('.mphone2');
+        const phonechecks = document.querySelector('.phonechecks');
 
-//         if(mphones.length == 3){
-//             phonebox.value = mphones +  "-";
-//         }
-//         if(mphones.length == 8){
-//             phonebox.value += "-";
-//             return;
-//         }
-//         try{
-//             const op = {method : "GET"};
-//             const response = await fetch(`/member/check?type=mphone&data=${mphones}` , op );
-//             const data = await response.json();
+            // phonebox에 입력받은값(value) 를 숫자로 추출해서 hiphone 에 넣기
+            let hiphone = phonebox.value.replace(/[^0-9]/g, "");
+
+            // 자동 하이폰 만들기
+            if(hiphone.length <=3) { // 전화번호 입력할때 3자리이면 그냥 출력
+                phonebox.value = hiphone; // ex) 010
+            }else if( hiphone.length <= 7) { // 숫자가 4~7개면 중간에 하이폰 생성
+                phonebox.value = hiphone.replace(/(\d{3})(\d{1,4})/, "$1-$2"); 
+            }else { // 8자리 이상이면 010 < 3자리 - 1234 < 4자리 - 5678 4자리 - 형태로 삽입
+                phonebox.value = hiphone.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3");
+            }
+
+            // 휴대폰 검사
+            const phoneche = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 ^시작 01[0부터9까지]-[3~4자리]-[고정4자리] $끝
+
+            if(phoneche.test(phonebox.value)){
+                phonechecks.innerHTML = "사용가능한 휴대폰 번호";
+                test[4] = true;
+            }else{
+                phonechecks.innerHTML = "사용불가능";
+                test[4] = false;
+            }
+        }
+
+
+
+    const emailcheck = async() => {
+        const emailCheck = document.querySelector('.emailCheck');
+        const emailname = document.querySelector('.emailname').value;
+        const emailselect = document.querySelector('#emailselect');
+        const emailsel = emailselect.value;
+
+        let memail = '';
         
-//         if(phone){
-//             phonechecks.innerHTML = "사용가능한 전화번호입니다.";
-//             test[4] = true;
-//         }else{
-//             phonechecks.innerHTML = "너무 짧거나 깁니다.";
-//             test[4] = false;
-//         }
-//     }catch(error){console.log(error) ; }
-// }
+        // ^ test123 [^\s@] < test 123 xx  , + @ < test123@ [^\s@] test213@naver or gmail \. 
+        const memailtext = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 첫 ^ 문자열받을때 [\s@]공백x,띄어쓰기x 후 + @ 이메일 넣고 + 다시 문자열(도메인)받고 \. [^\s@]+ → 확장자(com, net 등, 1글자 이상, 공백x, @x)  $끝 
+
+        if(emailname.includes("@")){
+            emailselect.disabled = true;
+            memail = emailname;
+        }else{  
+            emailselect.disabled = false;
+            
+            if(emailname == '' ||  emailsel == "이메일 선택"){
+                emailCheck.innerHTML = "이메일 선택해주십시오.";
+                return;
+            }
+            memail = emailname + emailsel;
+        }
+
+        if(memailtext.test(memail) &&
+            (memail.endsWith("@naver.com") || memail.endsWith("@gmail.com") || memail.endsWith("@daum.net") )){
+            emailCheck.innerHTML = "사용 가능.";
+            test[5] = true;
+        }else{
+            emailCheck.innerHTML = "사용 불가능.";
+            test[5] = false;
+        }       
+}
+
+
+
+const adrr= async() => {
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        document.querySelector('.maddress2').value = data.address;
+                        }
+                    }).open();
+}
+
+const maddresscheck = () => {
+    const maddressCheck = document.querySelector('.maddressCheck');
+    const maddress2 = document.querySelector('.maddress2').value;
+
+    let codd = /[!@#$%^&*()+=`~]/;
+                        if(codd.test(maddress2) || codd.test(maddress2)==null){
+                            maddressCheck.innerHTML = "비어있거나 특수문자가 존재합니다.";
+                            test[6] = false;
+                        }else{
+                            maddressCheck.innerHTML = "입력 완료";
+                            test[6] = true;
+                        }
+}
