@@ -28,3 +28,11 @@ button{
     width: 1280px;
     margin: 0 auto;
 }
+/* common.css */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-image: url("your-custom-icon.svg"); /* 원하는 아이콘 */
+}
+.carousel-indicators [data-bs-target] {
+    background-color: white; /* 인디케이터 색상 */
+}
