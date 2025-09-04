@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,11 +43,9 @@ public class PlanService {
         // 7. 해당 정육점이 결제중인지 확인하기
         // days > 0 : 결제중
         int days = planDao.getCnoEnddate( planDto );
-        System.out.println("days = " + days);
         if ( days > 0 ){
             // 8. 결제중이라면, 종료일에 남은 일을 추가한다.
             enddate = LocalDate.now().plusDays( 7 + days ).toString();
-            System.out.println("enddate = " + enddate);
             planDto.setEnddate( enddate );
         } // if end
         // 9. 최종적으로 Dao에게 전달 후, 결과를 반환한다.
@@ -57,4 +56,11 @@ public class PlanService {
     // 기능설명 : 요금제를 구독하고 있는 정육점 번호를 조회한다.
     // 매개변수 : X
     // 반환타입 : List<Integer>
+    public List<Integer> getPlan(){
+        // 1. 오늘 날짜 구하기
+        String today = LocalDate.now().toString();
+        System.out.println("today = " + today);
+        // 2. Dao에게 전달 후 결과 반환하기
+        return planDao.getPlan( today );
+    } // func end
 } // class end

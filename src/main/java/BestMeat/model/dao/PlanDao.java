@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class PlanDao extends Dao {
@@ -57,6 +59,21 @@ public class PlanDao extends Dao {
 
     // [plan03] 요금제 조회 - getPlan()
     // 기능설명 : 요금제를 구독하고 있는 정육점 번호를 조회한다.
-    // 매개변수 : X
+    // 매개변수 : String today
     // 반환타입 : List<Integer>
+    public List<Integer> getPlan( String today ){
+        List<Integer> list = new ArrayList<>();
+        try {
+            String SQL = "select cno from plan where ? between startdate and enddate";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setString( 1, today );
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                list.add( rs.getInt( 1 ) );
+            } // while end
+        } catch ( SQLException e ){
+            System.out.println("[plan03] SQL 기재 실패" + e );
+        } // try-catch end
+        return list;
+    } // func end
 } // class end

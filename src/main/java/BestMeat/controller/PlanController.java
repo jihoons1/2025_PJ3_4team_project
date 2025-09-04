@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/plan")
@@ -38,4 +40,10 @@ public class PlanController {
     // method : GET, URL : /plan/get
     // 매개변수 : X
     // 반환타입 : List<Integer>
+    @GetMapping("/get")
+    public List<Integer> getPlan(){
+        System.out.println("PlanController.getPlan");
+
+        return planService.getPlan();
+    } // func end
 } // class end
