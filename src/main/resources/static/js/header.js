@@ -1,5 +1,6 @@
 console.log('header.js exe');
 
+let MemberData;
 
 const myinfo = async() => {
     console.log('myinfo');
@@ -13,6 +14,7 @@ const myinfo = async() => {
         const response = await fetch(`/member/get` , op)
         const data = await response.json();                     console.log( data );
         let totalPoint = data.totalPoint.toLocaleString();      console.log( totalPoint );
+        MemberData = await data;
 
         // 정육점을 가진 회원이라면
         if ( data.cno > 0 ){
@@ -72,54 +74,65 @@ const search = async (  ) => {
 
 } // func end
 
+//=============================================== 결제 API ===========================================\\
+
 // 포인트 결제 기능
 const payment = async ( ) => {
     console.log('payment func exe');
-
-    const point = document.querySelector('.pointValue').value;
-    const pointDot = point.toLocaleString();
-
-    const paymentId = `payment-${crypto.randomUUID()}`;
-
+    // 포트원 기본 정보 제공
     let IMP = window.IMP;
     IMP.init("imp28011161");
 
+    // 1. Select value
+    const point = document.querySelector('.pointValue').value;
+    const pointDot = point.toLocaleString();    // 천단위 콤마찍기
+
+    // 2. JAVA에서 생성한 UUID 가져오기
+    const response = await fetch ( "/point/getUUID" );
+    let paymentID = await response.text();
+    paymentID = `payment-${paymentID}`;
+
+
+
     IMP.request_pay(
-    {
-        // 파라미터 값 설정 
+    {   // 파라미터 값 설정 
         pg: "kakaopay.TC0ONETIME",
-        pay_method: "card",
-        merchant_uid: paymentId, // 상점 고유 주문번호
-        name: `${pointDot} point`,
-        amount: point,
-        buyer_email: "good@portone.io",
-        buyer_name: "포트원 기술지원팀",
-        buyer_tel: "010-1234-5678",
-        buyer_addr: "서울특별시 강남구 삼성동",
-        buyer_postcode: "123-456",
+        pay_method: "card",                     // 결제방식
+        merchant_uid: paymentID,                // 고객 거래번호
+        name: `${pointDot} point`,              // 상품명
+        amount: point,                          // 결제금액
+        buyer_email: `${MemberData.memail}`,    // 고객 이메일
+        buyer_name: `${MemberData.mname}`,      // 고객 이름
+        buyer_tel: `${MemberData.mphone}`,      // 고객 전화번호
+        buyer_addr: `${MemberData.maddress}`,   // 고객 주소
     },
     rsp = ( rsp ) => {
-        if (rsp.success) {
+        if ( rsp.success ) {
             // axios로 HTTP 요청
             axios({
-                url: "/point/payment",
-                method: "post",
+                url: "/point/payment",          // 매핑할 URL 주소
+                method: "post",                 // 매핑 방식
                 headers: { "Content-Type": "application/json" },
-                data: {
+                data: {                         // JAVA에게 전달할 객체 -> PointDto의 구성요소
                 plpoint : point,
                 plcomment : `${pointDot} point 결제`
                 }
             }).then( (data) => {
                 console.log( data );
+                // 결제에 성공했다면
                 if ( data.data == true ){
-                    alert(`${pointDot} point 결제에 성공하였습니다.`);
-                    location.reload();
+                    // 결제금액이 결제에 성공했다는 알림
+                    if ( confirm(`${pointDot} point 결제에 성공하였습니다.`) ){
+                        // 확인을 눌러야 새로고침됨.
+                        location.reload();
+                    } // if end
                 } // if end
             })
             } else {
+                // 실패했다면, 실패 알림 및 에러 내용 표시
                 alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
             }
-        }
-    );
+        } // func end
+    ); // 결제 프롬프트 end
 
 } // func end
