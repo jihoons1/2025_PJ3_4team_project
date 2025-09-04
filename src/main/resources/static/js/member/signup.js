@@ -126,7 +126,7 @@ const idcheck = async () => {
             if(hiphone.length <=3) { // 전화번호 입력할때 3자리이면 그냥 출력
                 phonebox.value = hiphone; // ex) 010
             }else if( hiphone.length <= 7) { // 숫자가 4~7개면 중간에 하이폰 생성
-                phonebox.value = hiphone.replace(/(\d{3})(\d{1,4})/, "$1-$2"); 
+                phonebox.value = hiphone.replace(/(\d{3})(\d{1,4})/, "$1-$2");
             }else { // 8자리 이상이면 010 < 3자리 - 1234 < 4자리 - 5678 4자리 - 형태로 삽입
                 phonebox.value = hiphone.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3");
             }
@@ -152,16 +152,16 @@ const idcheck = async () => {
         const emailsel = emailselect.value;
 
         let memail = '';
-        
-        // ^ test123 [^\s@] < test 123 xx  , + @ < test123@ [^\s@] test213@naver or gmail \. 
-        const memailtext = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 첫 ^ 문자열받을때 [\s@]공백x,띄어쓰기x 후 + @ 이메일 넣고 + 다시 문자열(도메인)받고 \. [^\s@]+ → 확장자(com, net 등, 1글자 이상, 공백x, @x)  $끝 
+
+        // ^ test123 [^\s@] < test 123 xx  , + @ < test123@ [^\s@] test213@naver or gmail \.
+        const memailtext = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 첫 ^ 문자열받을때 [\s@]공백x,띄어쓰기x 후 + @ 이메일 넣고 + 다시 문자열(도메인)받고 \. [^\s@]+ → 확장자(com, net 등, 1글자 이상, 공백x, @x)  $끝
 
         if(emailname.includes("@")){
             emailselect.disabled = true;
             memail = emailname;
-        }else{  
+        }else{
             emailselect.disabled = false;
-            
+
             if(emailname == '' ||  emailsel == "이메일 선택"){
                 emailCheck.innerHTML = "이메일 선택해주십시오.";
                 return;
@@ -176,7 +176,7 @@ const idcheck = async () => {
         }else{
             emailCheck.innerHTML = "사용 불가능.";
             test[5] = false;
-        }       
+        }
 }
 
 

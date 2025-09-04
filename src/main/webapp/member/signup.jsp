@@ -24,7 +24,7 @@
             <h3 class="signup-title">회원가입</h3>
             <form id="mig">
                 <div class="input-group">
-                    <label>회원명</label> 
+                    <label>회원명</label>
                     <input type="text" onkeyup="mnamecheck()" name="mname" class="mname2" placeholder="홍길동" />
                     <div class="mnameCheck"></div> <!--이름 유효성 [3자리~10자리] -->
                 </div>
@@ -44,7 +44,7 @@
                     <div class="Pwdd"></div> <!--비밀번호 재확인 유효성  -->
                 </div>
                 <div class="input-group">
-                    <label>휴대번호</label> 
+                    <label>휴대번호</label>
                     <input type="text" onkeyup="phonecheck()"  name="mphone" class="mphone2" placeholder="-없이 숫자만 입력" />
                     <div class="phonechecks"></div> <!-- 전화번호 01부터 가능 123-123-123 안됨  -->
                 </div>
@@ -57,7 +57,7 @@
                 </div>
                 <!-- 우편번호 API -->
                  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-                
+
 
                 <div class="input-group">
                     <label>이메일</label>
