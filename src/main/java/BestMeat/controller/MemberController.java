@@ -22,7 +22,7 @@ public class MemberController {
 
     private String tableName = "member/";       // 파일 업로드 경로 fileservice 에 업로드 주소(폴더위치) 있음
 
-    // [1] 회원가입
+    // [1] 회원가입 ㅁ
     @PostMapping("/signup")
     public int signup(MemberDto dto) {
 
