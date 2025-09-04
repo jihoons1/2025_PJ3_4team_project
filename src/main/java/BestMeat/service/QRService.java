@@ -56,12 +56,16 @@ public class QRService {// class start
     public ResponseEntity<byte[]> BuildQR(String content){
         byte[] qrImage = null;
         ByteArrayOutputStream bout = null;
-        try{
+        try{// QR 생성기
             MultiFormatWriter writer = new MultiFormatWriter();
             BitMatrix matrix = writer.encode( content , BarcodeFormat.QR_CODE , 200 ,200);
-            bout = new ByteArrayOutputStream();
+            bout = new ByteArrayOutputStream(); // byte 배열로 변환하기 위해 사용
             MatrixToImageWriter.writeToStream(matrix,"png",bout);
         } catch (Exception e) { System.out.println(e); }
+        // ResponseEntity를 이용해 HTTP 응답 반환
+        // - 상태코드: 200 OK
+        // - Content-Type: image/png (브라우저/클라이언트가 이미지로 인식하게 함)
+        // - Body: QR 코드 이미지 데이터 (byte[])
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_PNG)
                 .body(bout.toByteArray());
