@@ -11,21 +11,22 @@ const myinfo = async() => {
         //fetch 실행
         const op = { method : "GET" }
         const response = await fetch(`/member/get` , op)
-        const data = await response.json();         console.log( data );
+        const data = await response.json();                     console.log( data );
+        let totalPoint = data.totalPoint.toLocaleString();      console.log( totalPoint );
 
         // 정육점을 가진 회원이라면
         if ( data.cno > 0 ){
             menuHtml += `<li><a href="/product/product.jsp" class="nav-link px-2">제품 목록</a></li>
                          <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>
                          <li><a href="/stock/stock.jsp?cno=${data.cno}" class="nav-link px-2">재고 관리</a></li>`
-            logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname}</button>
+            logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname} ${totalPoint} Point</button>
                         <button type="button" onclick="location.href='/company/find.jsp?cno=${data.cno}'" class="btn btn-outline-primary me-2">내 정육점정보</button>
                         <button type="button" onclick="logout()" class="btn btn-primary">로그아웃</button>`
         } else {
             // 정육점이 없는 회원이라면
             menuHtml += `<li><a href="/product/product.jsp" class="nav-link px-2">제품 목록</a></li>
                         <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>`
-            logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname}</button>
+            logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname} ${totalPoint} Point</button>
                         <button type="button" onclick="logout()" class="btn btn-primary">로그아웃</button>`
         } // if end
     }catch{
