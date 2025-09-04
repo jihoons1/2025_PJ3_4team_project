@@ -189,8 +189,8 @@ public class MemberDao extends Dao  {
             int count = ps.executeUpdate();
             if (count == 1) { return true; }
 
-        }catch (Exception e){
-            System.out.println("회원정보 수저 오류 발생" + e );
+            }catch (Exception e){
+                System.out.println("회원정보 수저 오류 발생" + e );
         }
         return false;
     }
