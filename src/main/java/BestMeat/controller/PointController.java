@@ -5,10 +5,7 @@ import BestMeat.service.PointService;
 import BestMeat.service.SessionService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,11 +32,4 @@ public class PointController {
         // 4. Service에게 전달 후, 결과 반환하기
         return pointService.addPointLog( pointDto );
     } // func end
-
-    // [point01] 요금제 결제 - addPlan()
-    // 기능설명 : [ 정육점번호(세션) ]을 받아, 해당 정육점의 포인트가 충분하다면, 요금제 결제를 진행한다.
-    // method : GET, URL : /point/plan
-    // 매개변수 : int cno
-    // 반환타입 : boolean -> true : 성공, false : 실패
-
 } // class end
