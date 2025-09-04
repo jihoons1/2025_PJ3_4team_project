@@ -29,9 +29,11 @@ button{
     margin: 0 auto;
 }
 /* common.css */
-.carousel-control-prev-icon,
+.carousel-control-prev-icon{
+     background-image: url("/img/chevron-left.svg");
+}
 .carousel-control-next-icon {
-    background-image: url("your-custom-icon.svg"); /* 원하는 아이콘 */
+    background-image: url("/img/chevron-right.svg"); /* 원하는 아이콘 */
 }
 .carousel-indicators [data-bs-target] {
     background-color: white; /* 인디케이터 색상 */
