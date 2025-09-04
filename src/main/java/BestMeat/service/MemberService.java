@@ -1,6 +1,7 @@
 package BestMeat.service;
 
 import BestMeat.model.dao.MemberDao;
+import BestMeat.model.dao.PointDao;
 import BestMeat.model.dto.MemberDto;
 import BestMeat.model.dto.PointDto;
 import BestMeat.model.dto.ReviewDto;
@@ -17,6 +18,7 @@ public class MemberService {
     private final MemberDao memberDao;
     private final ReviewService reviewService;
     private final PointService pointService;
+    private final PointDao pointDao;
 
 
     // [1] 회원가입
@@ -108,6 +110,9 @@ public class MemberService {
         // 5. mno를 통해, cno 반환받기
         int cno = memberDao.getCno( mno );
         memberDto.setCno( cno );
+        // 6. mno를 통해, 포인트 총액 반환받기
+        int totalPoint = pointDao.getTotalPoint( mno );
+        memberDto.setTotalPoint( totalPoint );
         // 6. 최종적으로 반환
         return memberDto;
     } // func end

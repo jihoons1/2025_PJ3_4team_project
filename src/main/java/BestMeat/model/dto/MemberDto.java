@@ -25,7 +25,7 @@ public class MemberDto {
     // 부가적인 정보
     private MultipartFile upload; // 파일 받기
     private List<ReviewDto> reviewDtoList;      // 회원별 리뷰목록
-
+    private int totalPoint;     // 회원 포인트 총액
 
 
 
