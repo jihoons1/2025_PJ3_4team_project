@@ -1,5 +1,6 @@
 package BestMeat.controller;
 
+import BestMeat.model.dto.PlanDto;
 import BestMeat.service.PlanService;
 import BestMeat.service.SessionService;
 import jakarta.servlet.http.HttpSession;
@@ -35,7 +36,19 @@ public class PlanController {
         return planService.addPlan( mno, cno );
     } // func end
 
-    // [plan02] 요금제 조회 - getPlan()
+    // [plan02] 정육점별 요금제 유/무 조회 - getCnoEnddate()
+    // 기능설명 : [ 정육점번호 ]를 받아, 해당 정육점의 요금제 유/무를 조회한다.
+    // 매개변수 : PlanDto
+    // 반환타입 : int days
+    @GetMapping("/enddate")
+    public int getCnoEnddate( PlanDto planDto , HttpSession session ){
+        int cno = sessionService.getSessionNo("loginCno",session);
+        planDto.setCno(cno);
+        if ( cno == 0) return 0;
+        return planService.getCnoEnddate(planDto);
+    }// func end
+
+    // [plan03] 요금제 조회 - getPlan()
     // 기능설명 : 요금제를 구독하고 있는 정육점 번호를 조회한다.
     // method : GET, URL : /plan/get
     // 매개변수 : X
