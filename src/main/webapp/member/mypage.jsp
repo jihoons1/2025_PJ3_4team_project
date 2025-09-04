@@ -47,7 +47,8 @@
                 회원정보 수정
             </button>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop20">
-                비밀번호 수정</button>
+                비밀번호 수정
+            </button>
         </div>
         <!-- 회원정보 수정 staticBackdrop5 -->
         <div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

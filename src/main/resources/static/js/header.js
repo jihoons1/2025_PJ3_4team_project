@@ -19,14 +19,20 @@ const myinfo = async() => {
             menuHtml += `<li><a href="/product/product.jsp" class="nav-link px-2">제품 목록</a></li>
                          <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>
                          <li><a href="/stock/stock.jsp?cno=${data.cno}" class="nav-link px-2">재고 관리</a></li>`
-            logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname} ${totalPoint} Point</button>
+            logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname}</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                            ${totalPoint} Point
+                        </button>
                         <button type="button" onclick="location.href='/company/find.jsp?cno=${data.cno}'" class="btn btn-outline-primary me-2">내 정육점정보</button>
                         <button type="button" onclick="logout()" class="btn btn-primary">로그아웃</button>`
         } else {
             // 정육점이 없는 회원이라면
             menuHtml += `<li><a href="/product/product.jsp" class="nav-link px-2">제품 목록</a></li>
                         <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>`
-            logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname} ${totalPoint} Point</button>
+            logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname}</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                            ${totalPoint} Point
+                        </button>
                         <button type="button" onclick="logout()" class="btn btn-primary">로그아웃</button>`
         } // if end
     }catch{
@@ -64,5 +70,24 @@ const search = async (  ) => {
     console.log('search func exe');
     const keyword = document.querySelector('.searchBox').value;
     location.href=`/search/search.jsp?key=pname&keyword=${keyword}`;
+
+} // func end
+
+// 포인트 결제 기능
+const payment = async ( ) => {
+    console.log('payment func exe');
+
+    const response = await PortOne.requestPayment({
+    // Store ID 설정
+    storeId: "store-0bfc00f1-b821-4bba-a568-ed66889fe1a4",
+    // 채널 키 설정
+    channelKey: "channel-key-f9ecba09-eb53-4bab-98f6-94de05c967b0",
+    paymentId: `payment-${crypto.randomUUID()}`,
+    orderName: "나이키 와플 트레이너 2 SD",
+    totalAmount: 1000,
+    currency: "CURRENCY_KRW",
+    payMethod: "CARD",
+    });
+    console.log( response );
 
 } // func end
