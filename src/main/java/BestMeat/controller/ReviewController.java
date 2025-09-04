@@ -7,6 +7,7 @@ import BestMeat.model.dto.ReviewDto;
 import BestMeat.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,10 +24,7 @@ public class ReviewController {
     private final MapService mapService;
     private final MemberService memberService;
     private final CompanyService companyService;
-    private final QRService qrService;
 
-    private String baseDir = System.getProperty("user.dir");
-    private String uploadPath = baseDir + "/build/resources/main/static/upload/";
     private String tableName = "review/";       // 파일 업로드 경로
 
 
@@ -62,8 +60,6 @@ public class ReviewController {
                 if (result2 == false){return result2; }
             }// for end
         }// if end
-        String finalPath = uploadPath + tableName;
-        qrService.QRMake(new File(finalPath+"stoneQR.jpg"),"https://naver.com",300,"jpg");
         return true;
     }// func end
 

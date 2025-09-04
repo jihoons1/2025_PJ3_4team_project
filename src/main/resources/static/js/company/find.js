@@ -238,3 +238,24 @@ const naverMap = async ( ) => {
 
     infowindow.open(map, marker);
 } // func end
+
+// [8] 길찾기 QR Code 출력
+const buildQR = async() => {
+    const cookie = document.cookie;
+    console.log(cookie);
+    const qrbox = document.querySelector('.qrBox');
+    try{
+        const response = await fetch(`/company/qrcode?cno=${cno}`);
+        const blob = await response.blob();
+        if(blob.size < 500){
+            alert('로그인 후 이용하실 수 있습니다.');
+            location.href="/member/login.jsp";
+            return;
+        }// if end
+        const imgUrl = URL.createObjectURL(blob);
+        console.log(blob);
+        let html = `<img src="${imgUrl}" alt="QR Code"/>`;
+        qrbox.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+
