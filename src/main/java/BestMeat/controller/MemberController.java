@@ -188,7 +188,8 @@ public class MemberController {
         // 1. 세션정보 유효성검사하여, 비로그인상태면 실패
         if ( sessionService.getSessionNo( "loginMno", session) == 0 ) return false;
         // 2. 로그인상태라면, 세션 초기화 진행
-        session.invalidate();
+        session.removeAttribute( "loginMno" );
+        session.removeAttribute( "loginCno" );
         // 3. 결과 반환
         return true;
     } // func end
