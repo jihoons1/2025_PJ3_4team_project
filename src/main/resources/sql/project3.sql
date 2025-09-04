@@ -698,9 +698,7 @@ insert into PointLog( mno, plpoint, plcomment ) values
     ( 10003, 100000, '샘플 포인트 지급' ),
 	( 10001, 500, '회원가입 지급' ),
     ( 10002, 500, '회원가입 지급' ),
-    ( 10003, 500, '회원가입 지급' ),
-    ( 10004, -5000, '멤버십 차감' ),
-    ( 10004, -500, '알림등록 차감' );
+    ( 10003, 500, '회원가입 지급' );
     
 -- ---------------------------- Select Test -------------------
 select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;

@@ -1,7 +1,9 @@
 package BestMeat.service;
 
 import BestMeat.model.dao.NoticeDao;
+import BestMeat.model.dao.PointDao;
 import BestMeat.model.dto.NoticeDto;
+import BestMeat.model.dto.PointDto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.NurigoApp;
@@ -18,6 +20,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class NoticeService {
     private final NoticeDao noticeDao;
+    private final PointService pointService;
+    private final PointDao pointDao;
     private DefaultMessageService messageService;
 
     private final String ApiKey = "NCSQQGPH8BYXIF1S";
@@ -42,10 +46,21 @@ public class NoticeService {
     // [notice01] 알림등록 - addNotice()
     // 기능설명 : [ 회원번호(세션), 제품번호, 알림설정가격 ]을 받아, Notice DB에 저장한다. 저장된 조건 만족 시, 문자 API를 통해 알림 전송한다.
     // 매개변수 : NoticeDto, session
-    // 반환타입 : int -> 성공 : 자동생성된 PK값, 실패 : 0
+    // 반환타입 : int -> 성공 : 자동생성된 PK값, 실패 : 0, -1(잔액 부족)
     public int addNotice( NoticeDto noticeDto ){
-
-        // 3. Dao에게 값 전달 후 결과 반환
+        // 1. 회원 포인트 총액 조회
+        int mno = noticeDto.getMno();
+        int totalPoint = pointDao.getTotalPoint( mno );
+        // 2. 만약 회원의 포인트가 500이 안 넘는다면, 알림등록 실패
+        if ( totalPoint < 500 ) return -1;
+        // 3. 넘는다면, 포인트 차감 진행
+        PointDto pointDto = new PointDto();
+        pointDto.setMno( mno );
+        pointDto.setPlpoint( 500 );
+        pointDto.setPlcomment( "알림등록 포인트 차감" );
+        // 4. 포인트 로그 추가 실패하면, 메소드 종료
+        if ( !pointService.addPointLog( pointDto ) ) return 0;
+        // 5. 최종적으로 Dao에게 값 전달 후 결과 반환
         return noticeDao.addNotice( noticeDto );
     } // func end
 
