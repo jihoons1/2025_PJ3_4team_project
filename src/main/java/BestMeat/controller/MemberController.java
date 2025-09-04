@@ -1,8 +1,10 @@
 package BestMeat.controller;
 
 import BestMeat.model.dto.MemberDto;
+import BestMeat.model.dto.PointDto;
 import BestMeat.service.FileService;
 import BestMeat.service.MemberService;
+import BestMeat.service.PointService;
 import BestMeat.service.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -10,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -19,6 +23,7 @@ public class MemberController {
     private final MemberService memberService;
     private final SessionService sessionService;
     private final FileService fileService;
+    private final PointService pointService;
 
     private String tableName = "member/";       // 파일 업로드 경로 fileservice 에 업로드 주소(폴더위치) 있음
 
@@ -44,7 +49,38 @@ public class MemberController {
         HttpSession session = request.getSession();
         // 로그인 성공 정보
         dto = memberService.login(dto);
-        if (dto != null) {
+        int mno = dto.getMno();
+        // 0. 24시간 내 1번만 로그인 포인트 지급
+        // 1. 세션 속성 내 'loginHistory' 값 가져오기
+        Object object = session.getAttribute( "loginHistory" );
+        Map< Integer, String > loginHistory;
+        // 2-1. 세션에 loginHistory가 없으면
+        if ( object == null ){
+            // 2-2. 새롭게 만들어주기
+            loginHistory = new HashMap<>();
+        } else {
+            // 2-3. 존재하면, 기존 자료를 타입변환한다.
+            loginHistory = (Map< Integer, String >) object;
+        } // if end
+        // 3. 현재 날짜를 문자열로 가져오기
+        String today = LocalDate.now().toString();
+        // 4. today와 mno를 조합하여, 기록을 체크한다.
+        String check = loginHistory.get( mno );
+        // 5. today 기록이 없거나, 기록이 today와 다르다면
+        if ( check == null || !check.equals( today ) ){
+            // 6. mno에게 포인트 지급
+            PointDto pointDto = new PointDto();
+            pointDto.setMno( mno );
+            pointDto.setPlpoint( 10 );
+            pointDto.setPlcomment( "로그인 포인트 지급" );
+            pointService.addPointLog( pointDto );
+            // 7. 오늘을 기록
+            loginHistory.put( mno, today );
+            // 8. 세션에 업데이트
+            session.setAttribute( "loginHistory", loginHistory );
+        } // if end
+        // 세션에 회원번호 | 정육점번호 저장하기
+        if ( dto != null ) {
             session.setAttribute("loginMno", dto.getMno());
             session.setAttribute("loginCno", dto.getCno());
         }
