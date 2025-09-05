@@ -8,6 +8,9 @@ const getPlan = async() => {
         const response = await fetch('/plan/get');
         const data = await response.json();
         console.log(data);
+        const response2 = await fetch('/plan/stock');
+        const data2 = await response2.json();
+        console.log(data2[0]);
         for(let i = 0; i < data.length; i++){
             if(data[i].cimg == null || data[i].cimg == ""){
                 data[i].cimg = 'https://placehold.co/100x100';
@@ -19,7 +22,7 @@ const getPlan = async() => {
                                 <img src="${data[i].cimg}" class="d-block w-40" alt="...">
                                 <span>주소 : ${data[i].caddress} </span><br/>
                                 <div>                                    
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR()">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                         길찾기 QR Code [거주지 기준]
                                     </button>
                                 </div>                                
@@ -42,9 +45,16 @@ const getPlan = async() => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="stock-inner">                                
-                            </div>
-                        </div>`
+                            <div class="stock-inner">
+                                    <h3> 재고 목록 </h3>`;                
+                let st = data2[i];
+                console.log(st);
+                for(let a = 0; a < st.length; a++){
+                    console.log(st[a]);
+                    if(st[a].cno == data[i].cno){   
+                        html += ` <span>${st[a].pname}</span> <span>${st[a].sprice}원 (100g)</span><br/>`
+                    }// if end
+                }// for end 
             }else{
                 html += `<div class="carousel-item">
                             <div>
@@ -53,7 +63,7 @@ const getPlan = async() => {
                                 <span>주소 : ${data[i].caddress} </span><br/>
                                 <div>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR()">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                         길찾기 QR Code [거주지 기준]
                                     </button>
                                 </div>
@@ -77,18 +87,27 @@ const getPlan = async() => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="stock-inner">                                
-                            </div>
-                        </div>`
+                            <div class="stock-inner">
+                                    <h3> 재고 목록 </h3>`;
+                let st = data2[i];
+                for(let a = 0; a < st.length; a++){
+                    console.log(st[a]);
+                    if(st[a].cno == data[i].cno){   
+                        html += `<span>${st[a].pname}</span> <span>${st[a].sprice}원 (100g)</span><br/>`
+                    }// if end
+                }// for end 
             }// if end
-        }// for end
+            html += `  </div>
+                        </div>`
+        }// for end        
         carouselInner.innerHTML = html;
+
     }catch(e){ console.log(e); }
 }// func end
 getPlan();
 
 // [2] 길찾기 QR Code 출력
-const buildQR = async() => {
+const buildQR = async(cno) => {
     const cookie = document.cookie;
     console.log(cookie);
     const qrbox = document.querySelector('.qrBox');
@@ -107,4 +126,20 @@ const buildQR = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [3] 
+// [3] 메인페이지 노출시킬 정육점 재고목록
+const getPlanStock = async() => {
+    const stockInner = document.querySelectorAll('.stock-inner');
+    let html1 = "";
+    const response = await fetch("/plan/stock");
+    const data = await response.json();
+    console.log(data);
+    for(let i = 0; i < data.length; i++){
+        let st = data[i];
+        for(let a = 0; a < st.length; a++){            
+            html1 += `<h3> 재고 목록 </h3>
+            <span>${st[a].pname}</span> <span>${st[a].sprice}원 (100g)</span>`
+        }
+    }// for end
+    stockInner.innerHTML = html1;
+}// func end
+

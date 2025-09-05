@@ -86,9 +86,11 @@ public class PlanController {
         System.out.println("PlanController.getPlanStock");
         Map<Integer,List<StockDto>> smap = new HashMap<>();
         List<Integer> ilist = planService.getPlan();
+        int i = 0;
         for (int cno : ilist){
             List<StockDto> slist = stockService.getStock(cno);
-            smap.put(cno,slist);
+            smap.put(i,slist);
+            i++;
         }// for end
         return smap;
     }// func end
