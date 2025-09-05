@@ -15,15 +15,17 @@
 
     <div>
         <div >
-        회원명 :<input type="text" class="mname" > <br>
-        휴대번호 :<input type="text" class="mphoneid" > <br>
-        <button type="button" onclick="findid()"> 아이디 찾기 </button> 
+        회원명 :<input type="text" class="mname"  > <br>
+        휴대번호 :<input onkeyup="findphone()" type="text" class="mphoneid" > <br>
+        <div class="findPhone"></div>
+        <button class="btnid" type="button" onclick="findid()"> 아이디 찾기 </button> 
         </div>
         <hr> 
         <div >
         아이디 :<input type="text" class="mid" > <br>
-        휴대번호 :<input type="text" class="mphonepwd" > <br>
-        <button type="button" onclick="findpwd()"> 비밀번호 찾기 </button>
+        휴대번호 :<input onkeyup="findphone2()" type="text" class="mphonepwd" > <br>
+        <div class="findPhone2"></div>
+        <button class="btnpwd" type="button" onclick="findpwd()"> 비밀번호 찾기 </button>
         </div>
     </div>
 

@@ -25,13 +25,14 @@
             <div class="loginBox">
                 <div class="input-group">
                     <label for="mid">아이디</label>
-                    <input type="text" id="mid" class="mid" placeholder="아이디를 입력하세요.">
+                    <input onkeyup="loginCheck()" type="text" id="mid" class="mid" placeholder="아이디를 입력하세요.">
                 </div>
                 <div class="input-group">
                     <label for="mpwd">비밀번호</label>
                     <input type="password" id="mpwd" class="mpwd" placeholder="비밀번호를 입력하세요."
-                        onkeyup="if( event.keyCode == 13 ){ loginbtn() }">
+                        onkeyup="if( event.keyCode == 13 ){ loginbtn() }; loginCheck()">
                 </div>
+                <div class="loginCheck"></div>
 
                 <div class="login-options">
                     <a href="/member/find.jsp">아이디 | 비밀번호 찾기</a>
