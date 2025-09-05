@@ -64,7 +64,7 @@ public class PlanDao extends Dao {
     public List<Integer> getPlan( String today ){
         List<Integer> list = new ArrayList<>();
         try {
-            String SQL = "select cno from plan where ? between startdate and enddate";
+            String SQL = "select cno from plan where ? between startdate and enddate group by cno";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setString( 1, today );
             ResultSet rs = ps.executeQuery();
