@@ -16,10 +16,16 @@ const signupbtn = async() => {
     const mig = document.querySelector('#mig');
     const emailname = document.querySelector('.emailname').value;
     const emailselect =document.querySelector('#emailselect').value;
+    const sample6_address = document.querySelector('#sample6_address').value;
+    const sample6_detailAddress= document.querySelector('#sample6_detailAddress').value;
+    
+    let maddress = sample6_address;
+    if(sample6_detailAddress) maddress += " " + sample6_address;
 
     const memail = emailname + emailselect;
     const mimgupload = new FormData(mig);
     mimgupload.append("memail", memail);
+    mimgupload.append("maddress", maddress);
     console.log(mimgupload);
     try{
 
@@ -217,34 +223,20 @@ function sample6_execDaumPostcode() {
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_detailAddress").value = '';
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
                 
                 } else {
-                    document.getElementById("sample6_detailAddress").value = '';
+                    document.getElementById("sample6_extraAddress").value = '';
                 }
+
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
                 document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
 
-                const addressin = document.querySelector('#sample6_address').value + " " + document.querySelector('#sample6_detailAddress').value;
-                
-                document.querySelector('input[name="maddress"]').value = addressin;
                 
             }
         }).open();
-        
     }
 
-const maddresscheck = () => {
-    const maddressCheck = document.querySelector('.maddressCheck');
-    const maddress2 = document.querySelector('#sample6_address').value;
-
-    let codd = /[!@#$%^&*()+=`~]/;
-                        if(codd.test(maddress2) || codd.test(maddress2)==null){
-                            maddressCheck.innerHTML = "비어있거나 특수문자가 존재합니다.";
-                            test[6] = false;
-                        }else{
-                            maddressCheck.innerHTML = "입력 완료";
-                            test[6] = true;
-                        }
-}
