@@ -11,35 +11,67 @@
 
     <!-- CSS 불러오기 : static 이하 경로부터 작성 -->
     <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/chatting/chatting.css">
 
 </head>
 
 <body>
     <!-- header JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/header.jsp"></jsp:include>
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">채팅창 목록</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div>
+                정육점명 <br>
+                최근메시지
+            </div>
+            <div>
+                정육점명 <br>
+                최근메시지
+            </div>
+            <div>
+                정육점명 <br>
+                최근메시지
+            </div>
+        </div>
+    </div>
 
     <div id="container">
         <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">채팅창 목록 열기</button>
+        <div class="msgbox" >
 
-        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">채팅창 목록</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="secontent">
+                <div class="date"> 2025-09-02 18:28:01 </div>
+                <div class="content"> 안녕하세요1 </div>
             </div>
-            <div class="offcanvas-body">
-                <div>
-                    정육점명 <br>
-                    최근메시지
+
+
+            <div class="alarm">
+                <span> 유재석이 입장 했습니다. </span>
+            </div>
+
+            <div class="receiveBox">
+                <div class="profileImg">
+                    <img src="/img/default.jpg"/>
                 </div>
                 <div>
-                    정육점명 <br>
-                    최근메시지
-                </div>
-                <div>
-                    정육점명 <br>
-                    최근메시지
+                    <div class="recontent">
+                        <div class="memberNic"> 유재석 </div>
+                        <div class="subcontent">
+                            <div class="content"> 안녕하세요2 </div>
+                            <div class="date"> 2025-09-02 18:28:01 </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+        </div>
+        <div class="bottomBox">
+            <input onkeyup="if( event.keyCode == 13 ){ postMsgSend(); }" type="text" class="msginput"/>
+            <button type="button" onclick="postMsgSend()">전송</button>
         </div>
     </div>
 

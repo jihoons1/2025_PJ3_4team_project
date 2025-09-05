@@ -1,0 +1,88 @@
+.msgbox{
+    border : 3px solid #f9f9f9; /*테두리*/
+    height : 700px;  /* .높이 */
+    background-color : #b2c7d9; /*배경*/
+    overflow-y : scroll; /*하위 요소가 커지면 자동으로 세로 스크롤 사용*/
+    padding : 20px;
+}
+.secontent{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+.secontent .content{
+    background-color : #ffeb33
+}
+.recontent{
+    text-align : left;  /* 가로 정렬 */
+    margin: 0px 0px 20px 10px;
+}
+.content{
+    background-color : #ffffff;
+    border-radius : 10px ;
+    padding : 10px;
+    display : inline-block;
+    font-size : 12px;
+}
+.date{
+    font-size : 10px;
+    text-align : center;
+    padding: 0px 5px;
+}
+.profileImg > img {
+        width : 50px;
+        height : 50px;
+        border-radius : 30px;
+        object-fit : cover;
+}
+.receiveBox{
+    display : flex;
+}
+/* 알람 */
+.alarm{
+    background-color : #a9bdce;
+    text-align : center;
+    font-size : 11px;
+    padding : 5px;
+    width : 400px;
+    margin : 10px auto;
+}
+/* 입력상자 */
+.bottomBox{
+    display : flex;
+    margin-bottom : 100px
+}
+.msginput{
+    width : 90%;
+    padding : 10px;
+    border: 1px solid #eeeeee;
+}
+/* 전송 버튼 */
+.bottomBox > button{
+    width : 15%;
+    background-color : #ffeb33;
+    border : none;
+    border-radius: 10px;
+}
+.recontent > .subcontent{
+    display: flex ;
+    align-items: flex-end;
+    margin-top: 5px;
+}
+.roomList{
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 10px;
+}
+.roomList > a{
+    padding: 10px;
+    background-color: #b2c7d9;
+    border-radius: 10px;
+    width: 100px;
+    text-align: center;
+}
+a{
+    color: black;
+    text-decoration: none;
+}
