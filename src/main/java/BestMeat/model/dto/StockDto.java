@@ -14,6 +14,7 @@ public class StockDto {
     private String sdate;   // 등록일
     private int cno;        // 정육점번호
     private int pno;        // 제품번호
+    private String cname;   // 카테고리명
 
     // 부가적인 정보
     private String pname;   // 제품명

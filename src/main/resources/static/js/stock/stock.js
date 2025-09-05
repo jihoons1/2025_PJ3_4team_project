@@ -102,6 +102,7 @@ const getStock = async ( ) => {
         // 함수에 매개변수를 넣은 이유 : sno를 활용하여, 연쇄적으로 함수에서 사용하기 위해서
         html += `<tr>
                     <td>${stock.sno}</td>
+                    <td>${stock.cname}</td>
                     <td>${stock.pname}</td>
                     <td>${stock.sprice}</td>
                     <td>${stock.sdate}</td>

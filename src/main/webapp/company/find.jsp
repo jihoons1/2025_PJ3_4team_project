@@ -39,6 +39,22 @@
             </div>
             <div>
                 <div>
+                    <h4>재고 목록</h4>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>카테고리명</th>
+                            <th>제품명</th>
+                            <th>가격</th>
+                        </tr>
+                    </thead>
+                    <tbody class="stockTbody">                        
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <div>
                     <h4>리뷰 목록</h4>
                 </div>
                 <div style="display: flex;">

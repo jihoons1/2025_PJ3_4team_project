@@ -287,3 +287,29 @@ const getCnoEnddate = async() => {
     }catch(e){ console.log(e); }
 }// func end
 getCnoEnddate();
+
+// [11] 정육점별 재고목록 조회
+const getStock = async() => {
+    const stockTbody = document.querySelector('.stockTbody');
+    let html = "";
+    try{
+        const response = await fetch(`/stock/get/find?cno=${cno}`)
+        const data = await response.json();
+        data.forEach((stock) => {            
+            html += `<tr>
+                    <td>${stock.cname}</td>
+                    <td>${stock.pname}(100g)</td>
+                    <td>${stock.sprice}원</td>
+                </tr>`                        
+        })// for end
+        stockTbody.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+getStock();
+
+// [12] 멤버쉽 버튼 숨기기
+const checkBox = async() => {
+    try{
+        const response = await fetch()
+    }catch(e){ console.log(e); }
+}

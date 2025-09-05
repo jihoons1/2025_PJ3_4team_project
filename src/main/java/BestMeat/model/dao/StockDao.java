@@ -79,7 +79,7 @@ public class StockDao extends Dao {
     public List<StockDto> getStock( int cno ){
         List<StockDto> stockDtoList = new ArrayList<>();
         try {
-            String SQL = "select * from stock s inner join product p using ( pno ) where s.cno = ?";
+            String SQL = "select * from stock s inner join product p using ( pno ) join category c on p.cno = c.cno where s.cno = ?";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, cno );
             ResultSet rs = ps.executeQuery();
@@ -91,6 +91,7 @@ public class StockDao extends Dao {
                 stockDto.setCno( rs.getInt( "cno" ) );
                 stockDto.setPname( rs.getString( "pname" ) );
                 stockDto.setPno( rs.getInt( "pno" ) );
+                stockDto.setCname(rs.getString("cname"));
                 stockDtoList.add( stockDto );
             } // while end
         } catch ( SQLException e ){

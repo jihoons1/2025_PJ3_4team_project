@@ -52,7 +52,7 @@ const getPlan = async() => {
                 for(let a = 0; a < st.length; a++){
                     console.log(st[a]);
                     if(st[a].cno == data[i].cno){   
-                        html += ` <span>${st[a].pname}</span> <span>${st[a].sprice}원 (100g)</span><br/>`
+                        html += ` <span>${st[a].pname}(${st[a].cname})</span> <span>${st[a].sprice}원 (100g)</span><br/>`
                     }// if end
                 }// for end 
             }else{
@@ -93,7 +93,7 @@ const getPlan = async() => {
                 for(let a = 0; a < st.length; a++){
                     console.log(st[a]);
                     if(st[a].cno == data[i].cno){   
-                        html += `<span>${st[a].pname}</span> <span>${st[a].sprice}원 (100g)</span><br/>`
+                        html += `<span>${st[a].pname}(${st[a].cname})</span> <span>${st[a].sprice}원 (100g)</span><br/>`
                     }// if end
                 }// for end 
             }// if end
