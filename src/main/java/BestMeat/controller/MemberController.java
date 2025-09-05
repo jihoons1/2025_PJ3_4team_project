@@ -181,7 +181,7 @@ public class MemberController {
     // 기능설명 : 로그인 세션을 초기화한다.
     // method : GET, URL : /member/logout
     // 매개변수 : X
-    // 반환타입 : boolean -> 성공 : 로그아웃한 회원번호, 실패 : 0
+    // 반환타입 : int -> 성공 : 로그아웃한 회원번호, 실패 : 0
     @GetMapping("/logout")
     public int logout( HttpSession session ){
         System.out.println("MemberController.logout");

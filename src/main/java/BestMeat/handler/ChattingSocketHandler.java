@@ -7,16 +7,14 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component  // 스프링 컨테이너에 bean 등록
 public class ChattingSocketHandler extends TextWebSocketHandler {
-    // 0. 온라인인 클라이언트 리스트
+    // 0. 클라이언트 리스트
     private static final Map< String, List< WebSocketSession > > users = new HashMap<>();
-    // key : "online"
-    // value : 온라인인 클라이언트의 이름
+    // key : 방번호, value : 방에 접속한 클라이언트들
+
 
     // 1. 클라이언트와 서버의 연결이 시작되었을 때, 실행되는 메소드
     @Override
@@ -35,6 +33,8 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage( WebSocketSession session, TextMessage message ) throws Exception {
         System.out.println("클라이언트로부터 메시지 수신");
         System.out.println("message = " + message.getPayload() );
+        // 1. JS가 보내온 메시지를 Map 타입으로 변환
+        Map< String, String > msg = objectMapper.readValue( message.getPayload(), Map.class );
 
 
     } // func end

@@ -18,8 +18,6 @@ const loginbtn = async() => {
     if(data > 0 ){
         alert('로그인 성공\n' + `어서오세요`);
         location.href="/index.jsp";
-        const message = { type : "login", mno : data }
-        client.send( JSON.stringify(message) );
     }else{
         alert(' 로그인 실패 ');
     }
