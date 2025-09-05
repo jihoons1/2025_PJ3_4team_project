@@ -1,21 +1,27 @@
 package BestMeat.controller;
 
+import BestMeat.model.dto.CompanyDto;
+import BestMeat.service.CompanyService;
 import BestMeat.service.MapService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/map")
+@EnableAsync
 public class MapController {
     private final MapService mapService;
+    private final CompanyService companyService;
 
     // [map01] 정육점별 위도경도 조회 - getLatLng()
     // 기능설명 : [ 정육점주소 ]를 받아, 해당하는 주소의 위도경도를 조회한다.
@@ -36,4 +42,24 @@ public class MapController {
         // 3. 최종적으로 Map 반환하기
         return map;
     } // func end
+
+    // 모든 정육점 위도경도 조회
+    @Async
+    @GetMapping("/latlngList")
+    public CompletableFuture<List<Map<String , Double>>> getLatLngList (){
+        return CompletableFuture.supplyAsync(() -> {
+            System.out.println("MapController.getLatLngList");
+            List<Map<String,Double>> list = new ArrayList<>();
+            List<CompanyDto> clist = companyService.getCompanyList();
+            for (CompanyDto dto : clist){
+                Map<String,Double> map = new HashMap<>();
+                String[] str1 = dto.getCaddress().split(",");
+                double[] darray = mapService.getLatLng(str1[0]);
+                map.put("lat" , darray[1]);
+                map.put("lng",darray[0]);
+                list.add(map);
+            }// for end
+            return list;
+        });
+    }// func end
 } // class end

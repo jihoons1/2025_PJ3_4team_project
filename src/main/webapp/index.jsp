@@ -11,10 +11,8 @@
 
     <!-- CSS 불러오기 : static 이하 경로부터 작성 -->
     <link rel="stylesheet" href="/css/common.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
+     
 </head>
 
 <body>
@@ -22,24 +20,32 @@
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
-        <div id="carouselExampleIndicators" class="carousel slide">            
-            <div class="carousel-inner">                
+        <div>
+            <div id="carouselExampleIndicators" class="carousel slide">            
+                <div class="carousel-inner">                
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
+        <div id="map" style="width:100%;height:400px;padding:0;margin:0;"></div>
     </div>
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
-    <jsp:include page="/footer.jsp"></jsp:include>
+    <jsp:include page="/footer.jsp"></jsp:include>  
+    <!-- 네이버지도 불러오기 -->     
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> 
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=kijgn3tmo2"></script> 
+    <script type="text/javascript" src="/js/MarkerClustering.js"></script>
+    
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
     <script src="/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

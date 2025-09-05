@@ -1,5 +1,6 @@
 console.log('index.js exe');
 
+
 // [1] 메인페이지 노출시킬 회사정보 가져오기
 const getPlan = async() => {
     const carouselInner = document.querySelector('.carousel-inner');
@@ -82,7 +83,7 @@ const getPlan = async() => {
                         </div>`;               
             }// if end            
         }// for end        
-        carouselInner.innerHTML = html;
+        carouselInner.innerHTML = html;        
     }catch(e){ console.log(e); }
 }// func end
 getPlan();
@@ -123,4 +124,112 @@ const getPlanStock = async() => {
     }// for end
     stockInner.innerHTML = html1;
 }// func end
+
+// [4] 메인페이지 지도 클러스터
+const initMap = async () => {
+    const response = await fetch("/map/latlngList");
+    const data = await response.json();
+    const response2 = await fetch("/company/getAll");
+    const data2 = await response2.json();
+
+    console.log(data, data2);
+
+    // 지도는 한 번만 생성
+    console.log('initMap exe');
+    map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng( 37.4904807, 126.7234847),
+        zoom: 10
+    });
+    var markers = [];
+
+    // 정육점 위치 (latlngList 기반)
+    for (let i = 0; i < data.length; i++) {
+        const company = new naver.maps.LatLng(data[i].lat, data[i].lng);
+
+        const marker = new naver.maps.Marker({
+            map: map,
+            position: company
+        });
+
+        // company.getAll 데이터와 매칭 (예: 같은 id 기준)
+        const companyInfo = data2.find(c => c.cno === data[i].cno);
+
+        let cImgUrl = '/upload/' + encodeURIComponent(companyInfo?.cimg || "");
+        if (!companyInfo?.cimg) {
+            cImgUrl = 'https://placehold.co/50x50';
+        }
+
+        const contentString = `
+            <div>
+                <h3>${companyInfo?.cname || "이름 없음"}</h3>
+                <p>
+                    ${companyInfo?.caddress || ""} <br>
+                    <img src="${cImgUrl}">
+                </p>
+            </div>
+        `;
+
+        const infowindow = new naver.maps.InfoWindow({
+            content: contentString
+        });
+
+        // marker 클릭 이벤트
+        naver.maps.Event.addListener(marker, "click", () => {
+            if (infowindow.getMap()) {
+                infowindow.close();
+            } else {
+                infowindow.open(map, marker);
+            }
+        });
+        markers.push(marker);
+    }// for end
+    var htmlMarker1 = {
+        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(/img/cluster-marker-1.png);background-size:contain;"></div>',
+        size: N.Size(40, 40),
+        anchor: N.Point(20, 20)
+    },
+    htmlMarker2 = {
+        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(/img/cluster-marker-2.png);background-size:contain;"></div>',
+        size: N.Size(40, 40),
+        anchor: N.Point(20, 20)
+    },
+    htmlMarker3 = {
+        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(/img/cluster-marker-3.png);background-size:contain;"></div>',
+        size: N.Size(40, 40),
+        anchor: N.Point(20, 20)
+    },
+    htmlMarker4 = {
+        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(/img/cluster-marker-4.png);background-size:contain;"></div>',
+        size: N.Size(40, 40),
+        anchor: N.Point(20, 20)
+    },
+    htmlMarker5 = {
+        content: '<div style="cursor:pointer;width:40px;height:40px;line-height:42px;font-size:10px;color:white;text-align:center;font-weight:bold;background:url(/img/cluster-marker-5.png);background-size:contain;"></div>',
+        size: N.Size(40, 40),
+        anchor: N.Point(20, 20)
+    };
+    console.log(htmlMarker1);
+
+    
+    var markerClustering = new MarkerClustering({
+        minClusterSize: 2,
+        maxZoom: 13,
+        map: map,
+        markers: markers,
+        disableClickZoom: false,
+        gridSize: 120,
+        icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
+        indexGenerator: [10, 100, 200, 500, 1000],
+        stylingFunction: function(clusterMarker, count) {
+            console.log( clusterMarker )
+            console.log( count )
+            $(clusterMarker.getElement()).find('div:first-child').text(count);
+        }
+    });
+
+    
+    console.log(markerClustering);
+
+}// func end
+initMap();
 
