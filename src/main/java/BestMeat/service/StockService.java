@@ -40,7 +40,7 @@ public class StockService {
             if ( ncheck == 0 ){
                 // 4-2. 문자전송하기, 발신번호와 문자내용 필요
                 String content = pname + "이 " + nprice + "원 이하로 등록되었습니다.";      // 정육점명, 정육점링크(jsp 생성후 포함) 포함
-                noticeService.sendSms( mphone, content );
+                noticeService.asyncSMS( mphone, content );
                 // 4-3. 문자를 전송했다면, Notice DB에 업데이트
                 if ( !noticeDao.updateNcheck( noticeDto ) ) return 0;
             } else {    // 5. 문자전송여부가 0이 아니라면, 문자전송여부와 등록재고가격(sprice)을 비교하여
@@ -48,7 +48,7 @@ public class StockService {
                 if ( ncheck > stockDto.getSprice() ){
                     // 5-2. 문자전송하기
                     String content = pname + "이 " + ncheck + "원 이하로 등록되었습니다.";
-                    noticeService.sendSms( mphone, content );
+                    noticeService.asyncSMS( mphone, content );
                     // 5-3. 문자를 전송했다면, Notice DB에 업데이트
                     if ( !noticeDao.updateNcheck( noticeDto ) ) return 0;
                 } // if end
@@ -82,7 +82,7 @@ public class StockService {
             if ( ncheck == 0 ){
                 // 5-2. 문자전송하기, 발신번호와 문자내용 필요
                 String content = pname + "이 " + nprice + "원 이하로 등록되었습니다.";      // 정육점명, 정육점링크(jsp 생성후 포함) 포함
-                noticeService.sendSms( mphone, content );
+                noticeService.asyncSMS( mphone, content );
                 // 5-3. 문자를 전송했다면, Notice DB에 업데이트
                 if ( !noticeDao.updateNcheck( noticeDto ) ) return false;
             } else {    // 6. 문자전송여부가 0이 아니라면, 문자전송여부와 등록재고가격(sprice)을 비교하여
@@ -90,7 +90,7 @@ public class StockService {
                 if ( ncheck > stockDto.getSprice() ){
                     // 6-2. 문자전송하기
                     String content = pname + "이 " + ncheck + "원 이하로 등록되었습니다.";
-                    noticeService.sendSms( mphone, content );
+                    noticeService.asyncSMS( mphone, content );
                     // 6-3. 문자를 전송했다면, Notice DB에 업데이트
                     if ( !noticeDao.updateNcheck( noticeDto ) ) return false;
                 } // if end

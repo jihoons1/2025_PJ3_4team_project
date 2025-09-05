@@ -11,6 +11,7 @@ import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +34,10 @@ public class NoticeService {
         this.messageService = NurigoApp.INSTANCE.initialize( ApiKey, ApiSecret, domain );
     } // func end
 
-    // [notice00] 문자전송 - sendSms()
+    // [notice00-1] 문자전송 - sendSms()
+    // 기능설명 : [ 전화번호, 문구 ]를 받아, 해당 전화번호에 문구를 문자로 전송한다.
+    // 매개변수 : String mphone(전화번호), String content(보낼 문구)
+    // 반환타입 : SingleMessageSentResponse(솔라피에서 정한 타입)
     public SingleMessageSentResponse sendSms( String mphone, String content ){
         Message message = new Message();
         message.setTo( mphone );                // 수신번호 설정
@@ -41,6 +45,15 @@ public class NoticeService {
         message.setFrom( "01051091342" );       // 발신번호 설정
         // 최종적으로 문자 1개 발송
         return this.messageService.sendOne( new SingleMessageSendingRequest( message ) );
+    } // func end
+
+    // [notice00-2] 문자전송 비동기화 - asyncSMS()
+    // 기능설명 : 문자전송 메소드를 비동기화로 실행한다.
+    // 매개변수 : String mphone(전화번호), String content(보낼 문구)
+    // 반환타입 : X
+    @Async
+    public void asyncSMS( String mphone, String content ){
+        sendSms( mphone, content );
     } // func end
 
     // [notice01] 알림등록 - addNotice()

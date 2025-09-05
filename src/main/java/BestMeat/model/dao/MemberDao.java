@@ -154,7 +154,7 @@ public class MemberDao extends Dao  {
                 String b = "2025_PJ3_4조_BestMeat 임시 비밀번호";
                 String c = "회원님의 임시 비밀번호는 " + random_password + " 입니다. \n";
 
-                messageService.mailMessage(a,b,c);
+                messageService.asyncMail(a,b,c);
                 return true;
             }
         }catch (Exception e){
