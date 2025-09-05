@@ -18,15 +18,15 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'   // 스프링부트 웹 설치
-    runtimeOnly 'com.mysql:mysql-connector-j'                           // MYSQL JDBC 라이브러리 설치
-    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"        // JSP 라이브러리 설치
-    // 롬복 라이브러리 설치
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    implementation 'net.nurigo:sdk:4.3.2'                               // 문자전송 라이브러리 설치
-    implementation 'com.googlecode.json-simple:json-simple:1.1.1'       // json-simple 라이브러리
-    implementation 'org.springframework.boot:spring-boot-starter-mail' // email 전송 spring boot 에서만 가능
+    implementation 'org.springframework.boot:spring-boot-starter-web'       // 스프링부트 웹 설치
+    runtimeOnly 'com.mysql:mysql-connector-j'                               // MYSQL JDBC 라이브러리 설치
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper"            // JSP 라이브러리 설치
+    implementation 'org.springframework.boot:spring-boot-starter-websocket' // 웹서버 소켓 라이브러리 설치
+    compileOnly 'org.projectlombok:lombok'                                  // 롬복 라이브러리 설치
+    annotationProcessor 'org.projectlombok:lombok'                          // 롬복 라이브러리 설치
+    implementation 'net.nurigo:sdk:4.3.2'                                   // 문자전송 라이브러리 설치
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'           // json-simple 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-mail'      // email 전송 spring boot 에서만 가능
     // QR Code - zxing
     // https://mvnrepository.com/artifact/com.google.zxing/javase
     implementation group: 'com.google.zxing', name: 'javase', version: '3.5.3'
