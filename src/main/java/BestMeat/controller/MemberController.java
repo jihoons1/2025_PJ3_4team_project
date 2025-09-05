@@ -181,16 +181,17 @@ public class MemberController {
     // 기능설명 : 로그인 세션을 초기화한다.
     // method : GET, URL : /member/logout
     // 매개변수 : X
-    // 반환타입 : boolean -> 성공 : true, 실패 : false
+    // 반환타입 : boolean -> 성공 : 로그아웃한 회원번호, 실패 : 0
     @GetMapping("/logout")
-    public boolean logout( HttpSession session ){
+    public int logout( HttpSession session ){
         System.out.println("MemberController.logout");
         // 1. 세션정보 유효성검사하여, 비로그인상태면 실패
-        if ( sessionService.getSessionNo( "loginMno", session) == 0 ) return false;
+        if ( sessionService.getSessionNo( "loginMno", session) == 0 ) return 0;
+        int mno = (int) session.getAttribute( "loginMno" );
         // 2. 로그인상태라면, 세션 초기화 진행
         session.removeAttribute( "loginMno" );
         session.removeAttribute( "loginCno" );
         // 3. 결과 반환
-        return true;
+        return mno;
     } // func end
 } // class end
