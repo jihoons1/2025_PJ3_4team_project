@@ -32,7 +32,7 @@
                     <tbody id="findTbody">
                     </tbody>
                 </table>
-                <div style="display: flex; margin-right: 20px;">
+                <div id="checkUser" style="display: flex; margin-right: 20px;">
                     <div style="margin-right: 10px;">멤버쉽<button type="button" onclick="addPlan()" style="margin-left: 5px;">신청하기</button></div>
                     <div class="endDate"></div>
                 </div>

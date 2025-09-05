@@ -307,9 +307,3 @@ const getStock = async() => {
 }// func end
 getStock();
 
-// [12] 멤버쉽 버튼 숨기기
-const checkBox = async() => {
-    try{
-        const response = await fetch()
-    }catch(e){ console.log(e); }
-}

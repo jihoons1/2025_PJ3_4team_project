@@ -45,16 +45,8 @@ const getPlan = async() => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="stock-inner">
-                                    <h3> 재고 목록 </h3>`;                
-                let st = data2[i];
-                console.log(st);
-                for(let a = 0; a < st.length; a++){
-                    console.log(st[a]);
-                    if(st[a].cno == data[i].cno){   
-                        html += ` <span>${st[a].pname}(${st[a].cname})</span> <span>${st[a].sprice}원 (100g)</span><br/>`
-                    }// if end
-                }// for end 
+                        </div>`                                         
+                
             }else{
                 html += `<div class="carousel-item">
                             <div>
@@ -87,21 +79,10 @@ const getPlan = async() => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="stock-inner">
-                                    <h3> 재고 목록 </h3>`;
-                let st = data2[i];
-                for(let a = 0; a < st.length; a++){
-                    console.log(st[a]);
-                    if(st[a].cno == data[i].cno){   
-                        html += `<span>${st[a].pname}(${st[a].cname})</span> <span>${st[a].sprice}원 (100g)</span><br/>`
-                    }// if end
-                }// for end 
-            }// if end
-            html += `  </div>
-                        </div>`
+                        </div>`;               
+            }// if end            
         }// for end        
         carouselInner.innerHTML = html;
-
     }catch(e){ console.log(e); }
 }// func end
 getPlan();
