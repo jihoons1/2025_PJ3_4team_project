@@ -32,10 +32,26 @@
                     <tbody id="findTbody">
                     </tbody>
                 </table>
-                <div style="display: flex; margin-right: 20px;">
+                <div id="checkUser" style="display: flex; margin-right: 20px;">
                     <div style="margin-right: 10px;">멤버쉽<button type="button" onclick="addPlan()" style="margin-left: 5px;">신청하기</button></div>
                     <div class="endDate"></div>
                 </div>
+            </div>
+            <div>
+                <div>
+                    <h4>재고 목록</h4>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>카테고리명</th>
+                            <th>제품명</th>
+                            <th>가격</th>
+                        </tr>
+                    </thead>
+                    <tbody class="stockTbody">                        
+                    </tbody>
+                </table>
             </div>
             <div>
                 <div>
@@ -158,7 +174,7 @@
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/footer.jsp"></jsp:include>
     <!-- 네이버지도 불러오기 -->
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=7dgspubsn7&callback=CALLBACK_FUNCTION&submodules=geocoder"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=7dgspubsn7"></script>
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
     <script src="/js/company/find.js"></script>
 

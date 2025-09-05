@@ -26,7 +26,7 @@
                 <ul class="nav menu">
                 </ul>
                 <div class="search-container">
-                    <input type="text" class="searchBox" placeholder="검색어를 입력하세요."
+                    <input type="text" class="searchBox" placeholder="부위명을 입력하세요."
                         onkeyup="if( event.keyCode==13 ){search();}">
                     <button type="button" onclick="search()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

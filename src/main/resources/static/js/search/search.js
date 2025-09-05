@@ -20,9 +20,9 @@ const getCompanySearch = async() => {
                 img = 'https://placehold.co/50x50';
             }// if end
             html += `<tr>
-                        <td><a href="/company/find.jsp?cno=${cno}"><img src="${img}"/></a></td>
-                        <td><a href="/company/find.jsp?cno=${cno}">${ser.cname}</a></td>
-                        <td><a href="/company/find.jsp?cno=${cno}">${ser.caddress}</a></td>
+                        <td><a href="/company/find.jsp?cno=${ser.cno}"><img src="${img}"/></a></td>
+                        <td><a href="/company/find.jsp?cno=${ser.cno}">${ser.cname}</a></td>
+                        <td><a href="/company/find.jsp?cno=${ser.cno}">${ser.caddress}</a></td>
                         <td>${ser.distance.toFixed(2)}km</td>
                         <td>${ser.pname}</td>
                         <td>${ser.sprice}원</td>

@@ -70,5 +70,11 @@ public class CompanyController {
         return qrService.BuildQR(content);
     }// func end
 
+    // 정육점 전체조회
+    @GetMapping("/getAll")
+    public List<CompanyDto> getCompanyList(){
+        return companyService.getCompanyList();
+    }// func end
+
 
 } // class end

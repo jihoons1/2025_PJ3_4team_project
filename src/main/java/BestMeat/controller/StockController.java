@@ -101,4 +101,15 @@ public class StockController {
         // 3. Service에게 전달 후 결과 반환
         return stockService.getStock( loginCno );
     } // func end
+
+    // [stock04] 정육점별 재고조회 - getFindStock()
+    // 기능설명 : [ 정육점번호 ]를 받아, 해당하는 재고를 조회한다.
+    // method : GET, URL : /stock/get/find
+    // 매개변수 : int
+    // 반환타입 : List<StockDto>
+    @GetMapping("/get/find")
+    public List<StockDto> getFindStock(@RequestParam int cno){
+        System.out.println("StockController.getFindStock");
+        return stockService.getStock(cno);
+    }// func end
 } // class end

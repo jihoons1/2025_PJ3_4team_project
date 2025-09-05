@@ -122,4 +122,24 @@ public class CompanyDao extends Dao {
         } catch (Exception e) { System.out.println(e); }
         return null;
     }// func end
+
+    // 정육점 전체조회
+    public List<CompanyDto> getCompanyList(){
+        List<CompanyDto> list = new ArrayList<>();
+        try{
+            String sql = "select * from company";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                CompanyDto dto = new CompanyDto();
+                dto.setMno(rs.getInt("mno"));
+                dto.setCno(rs.getInt("cno"));
+                dto.setCname(rs.getString("cname"));
+                dto.setCaddress(rs.getString("caddress"));
+                dto.setCimg(rs.getString("cimg"));
+                list.add(dto);
+            }// while end
+        } catch (Exception e) { System.out.println(e); }
+        return list;
+    }// func end
 } // class end
