@@ -31,9 +31,12 @@
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
                     aria-label="Slide 3"></button>
             </div>
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="margin: 0 auto;">
                 <div class="carousel-item active">
+                    <h3>#정육점</h3>
                     <img src="..." class="d-block w-100" alt="...">
+                    <span>주소 : </span> <span><button type="button">길찾기QR</button> </span><br/>
+                    <div>재고 목록</div>
                 </div>
                 <div class="carousel-item">
                     <img src="..." class="d-block w-100" alt="...">

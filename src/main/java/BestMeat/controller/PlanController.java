@@ -1,15 +1,22 @@
 package BestMeat.controller;
 
+import BestMeat.model.dto.CompanyDto;
 import BestMeat.model.dto.PlanDto;
+import BestMeat.model.dto.StockDto;
+import BestMeat.service.CompanyService;
 import BestMeat.service.PlanService;
 import BestMeat.service.SessionService;
+import BestMeat.service.StockService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +24,8 @@ import java.util.List;
 public class PlanController {
     private final PlanService planService;
     private final SessionService sessionService;
+    private final CompanyService companyService;
+    private final StockService stockService;
 
     // [plan01] 요금제 결제 - addPlan()
     // 기능설명 : [ 정육점번호(세션) ]을 받아, 해당 정육점의 포인트가 충분하다면, 요금제 결제를 진행한다.
@@ -50,15 +59,37 @@ public class PlanController {
         return planService.getCnoEnddate(planDto);
     }// func end
 
-    // [plan03] 요금제 조회 - getPlan()
-    // 기능설명 : 요금제를 구독하고 있는 정육점 번호를 조회한다.
+    // [plan03-1] 요금제 조회 - getPlan()
+    // 기능설명 : 요금제를 구독하고 있는 정육점을 조회한다.
     // method : GET, URL : /plan/get
     // 매개변수 : X
-    // 반환타입 : List<Integer>
+    // 반환타입 : List<CompanyDto>
     @GetMapping("/get")
-    public List<Integer> getPlan(){
+    public List<CompanyDto> getPlan(){
         System.out.println("PlanController.getPlan");
-
-        return planService.getPlan();
+        List<CompanyDto> clist = new ArrayList<>();
+        List<Integer> ilist = planService.getPlan();
+        for (int cno : ilist){
+            CompanyDto cdto = companyService.findCompany(cno);
+            clist.add(cdto);
+        }// for end
+        return clist;
     } // func end
+
+    // [plan03-2] 요금제 조회 - getPlanStock()
+    // 기능설명 : 요금제를 구독하고 있는 정육점의 재고목록을 조회한다.
+    // method : GET, URL : /plan/stock
+    // 매개변수 : X
+    // 반환타입 : List<StockDto>
+    @GetMapping("/stock")
+    public Map<Integer,List<StockDto>> getPlanStock(){
+        System.out.println("PlanController.getPlanStock");
+        Map<Integer,List<StockDto>> smap = new HashMap<>();
+        List<Integer> ilist = planService.getPlan();
+        for (int cno : ilist){
+            List<StockDto> slist = stockService.getStock(cno);
+            smap.put(cno,slist);
+        }// for end
+        return smap;
+    }// func end
 } // class end
