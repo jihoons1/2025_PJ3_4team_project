@@ -111,6 +111,26 @@ create table PointLog(
     constraint foreign key( mno ) references member( mno ) on delete cascade on update cascade
 );
 select * from PointLog;
+-- ---------------------------- ChatRoom -------------------
+create table ChatRoom(
+	roomname varchar(15),		-- 채팅방 이름
+    mno int not null,			-- 보내는 회원
+    cno int not null,			-- 받는 정육점
+    constraint primary key( roomname ),
+    constraint foreign key( mno ) references member( mno ) on delete cascade on update cascade,
+    constraint foreign key( cno ) references company( cno ) on delete cascade on update cascade
+);
+select * from ChatRoom;
+-- ---------------------------- ChatLog -------------------
+create table ChatLog(
+	chatno int auto_increment,		-- 채팅로그번호
+    message varchar(100) not null,	-- 메시지 내용
+    chatdate datetime not null,		-- 채팅시간
+    roomname varchar(15),			-- 채팅방 이름
+    constraint primary key( chatno ),
+    constraint foreign key( roomname ) references ChatRoom( roomname ) on delete cascade on update cascade
+);
+select * from ChatLog;
 -- ---------------------------- Alter -------------------
 alter table member auto_increment = 10001;
 alter table Category auto_increment = 20001;
@@ -122,6 +142,7 @@ alter table reviewimg auto_increment = 70001;
 alter table notice auto_increment = 80001;
 alter table Plan auto_increment = 90001;
 alter table PointLog auto_increment = 100001;
+alter table ChatLog auto_increment = 200001;
 
 -- ---------------------------- Insert -------------------
 insert into Category ( cname ) values ( '돼지' ), ( '소' ), ( '양' ), ( '오리' );
@@ -701,9 +722,9 @@ insert into PointLog( mno, plpoint, plcomment ) values
     ( 10003, 500, '회원가입 지급' );
     
 -- ---------------------------- Select Test -------------------
-select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
-select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
-from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
-join review r on c.cno = r.cno  where p.pname like '%삼겹살%'
-group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice 
-order by rrank desc limit 0 , 10;
+-- select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
+-- select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
+-- from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
+-- join review r on c.cno = r.cno  where p.pname like '%삼겹살%'
+-- group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice 
+-- order by rrank desc limit 0 , 10;

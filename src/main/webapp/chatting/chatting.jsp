@@ -23,10 +23,12 @@
             <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">채팅창 목록</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body roomList">
             <div>
-                정육점명 <br>
-                최근메시지
+                <a href="chatting.jsp">
+                    정육점명 <br>
+                    최근메시지
+                </a>
             </div>
             <div>
                 정육점명 <br>

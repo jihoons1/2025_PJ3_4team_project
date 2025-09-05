@@ -83,17 +83,26 @@ const postMsgSend = async ( ) => {
     // 3. 메시지 구성하기
     // type : join(입장), alarm(알림메시지), chat(채팅)
     // type, message, from, date
-    const message = { type : "chat", message : Input, from : mno, date : new Date().toLocaleString() };
+    const message = { type : "chat", message : Input, from : mno, to : cno, date : new Date().toLocaleString(), room : room };
     // 4. 구성한 메시지를 서버에게 전송하기
     client.send( JSON.stringify( message ) );
     // 5. Input value 초기화
     msgInput.value = '';
 } // func end
 
-// 5. 방번호에 따른 채팅 가져오기
+// 5. room별 채팅 가져오기
 const getChatLog = async ( ) => {
     console.log('getChatLog func exe');
 
+
+
+
+
+} // func end
+
+// 6. mno별 채팅목록 가져오기
+const getRoomList = async ( ) => {
+    console.log('getRoomList func exe');
 
 
 
