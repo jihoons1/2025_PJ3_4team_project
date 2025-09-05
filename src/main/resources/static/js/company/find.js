@@ -30,6 +30,21 @@ const findCompany = async() => {
 }// func end
 findCompany();
 
+// 채팅방 버튼 출력
+const printBtn = async ( ) => {
+    const chatBtn = document.querySelector('.chatBtn');
+    try {
+    
+        const response = await fetch( "/member/get" );
+        const data = await response.json();
+
+        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${cno}'" class="btn btn-primary">채팅방</button>`;
+    } catch ( error ) {
+        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?cno=${cno}'" class="btn btn-primary">채팅방</button>`;
+    } // try-catch end
+} // func end
+printBtn();
+
 // 리뷰 등록 기능
 const addReview = async() => {
     const reviewAddBox = document.querySelector('.reviewAddBox');
@@ -192,13 +207,6 @@ const naverMap = async ( ) => {
     const data = await response.json();     console.log( data );
 
     var latlng = new naver.maps.LatLng( data.lat, data.lng );
-
-    var utmk = naver.maps.TransCoord.fromLatLngToUTMK(latlng);
-    var tm128 = naver.maps.TransCoord.fromUTMKToTM128(utmk);
-    var naverCoord = naver.maps.TransCoord.fromTM128ToNaver(tm128);
-    console.log( utmk );
-    console.log( tm128 );
-    console.log( naverCoord );
 
     // 정육점 위치
     var company = new naver.maps.LatLng( data.lat, data.lng ),

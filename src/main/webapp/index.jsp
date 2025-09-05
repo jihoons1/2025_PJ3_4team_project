@@ -11,7 +11,6 @@
 
     <!-- CSS 불러오기 : static 이하 경로부터 작성 -->
     <link rel="stylesheet" href="/css/common.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
@@ -44,7 +43,6 @@
 
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
     <script src="/js/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

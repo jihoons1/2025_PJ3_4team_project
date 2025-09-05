@@ -21,7 +21,10 @@
 
     <div id="container">
         <div class="container_left">
-            <h3> 정육점 개별 조회 페이지 </h3>
+            <span style="font-weight: bold; font-size: 20px;"> 정육점 개별 조회 페이지 </span>
+            <span class="chatBtn">
+
+            </span>
             <div style="display: flex; justify-content: space-between;">
                 <table class="table table-striped table-hover">
                     <thead>
