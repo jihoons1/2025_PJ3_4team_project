@@ -53,7 +53,12 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
+                <select class="pointValue">
+                    <option selected disabled>포인트 선택</option>
+                    <option value="1000">1000</option>
+                    <option value="5000">5000</option>
+                    <option value="10000">10000</option>
+                </select>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
@@ -64,7 +69,7 @@
     </div>
 
     <!-- 포트원 JS 불러오기 -->
-    <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <!-- 부트스트랩 JS 불러오기 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

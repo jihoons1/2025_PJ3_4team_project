@@ -52,7 +52,18 @@ public class PlanService {
         return planDao.addPlan( planDto );
     } // func end
 
-    // [plan02] 요금제 조회 - getPlan()
+    // [plan02] 정육점별 요금제 유/무 조회 - getCnoEnddate()
+    // 기능설명 : [ 정육점번호 ]를 받아, 해당 정육점의 요금제 유/무를 조회한다.
+    // 매개변수 : PlanDto
+    // 반환타입 : int days
+    public int getCnoEnddate( PlanDto planDto ){
+        String startdate = LocalDate.now().toString();
+        planDto.setStartdate(startdate);
+        int result = planDao.getCnoEnddate(planDto);
+        return result;
+    }// func end
+
+    // [plan03] 요금제 조회 - getPlan()
     // 기능설명 : 요금제를 구독하고 있는 정육점 번호를 조회한다.
     // 매개변수 : X
     // 반환타입 : List<Integer>

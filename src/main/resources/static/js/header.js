@@ -45,7 +45,6 @@ const myinfo = async() => {
     log.innerHTML = logHtml;
     menu.innerHTML = menuHtml;
 } // func end
-
 myinfo();
 
 const logout= async() => {
@@ -77,17 +76,64 @@ const search = async (  ) => {
 const payment = async ( ) => {
     console.log('payment func exe');
 
-    const response = await PortOne.requestPayment({
-    // Store ID 설정
-    storeId: "store-0bfc00f1-b821-4bba-a568-ed66889fe1a4",
-    // 채널 키 설정
-    channelKey: "channel-key-f9ecba09-eb53-4bab-98f6-94de05c967b0",
-    paymentId: `payment-${crypto.randomUUID()}`,
-    orderName: "나이키 와플 트레이너 2 SD",
-    totalAmount: 1000,
-    currency: "CURRENCY_KRW",
-    payMethod: "CARD",
-    });
-    console.log( response );
+    const point = document.querySelector('.pointValue').value;
+    const pointDot = point.toLocaleString();
+
+    const paymentId = `payment-${crypto.randomUUID()}`;
+
+    let IMP = window.IMP;
+    IMP.init("imp28011161");
+
+    IMP.request_pay(
+    {
+        // 파라미터 값 설정 
+        pg: "kakaopay.TC0ONETIME",
+        pay_method: "card",
+        merchant_uid: paymentId, // 상점 고유 주문번호
+        name: `${pointDot} point`,
+        amount: point,
+        buyer_email: "good@portone.io",
+        buyer_name: "포트원 기술지원팀",
+        buyer_tel: "010-1234-5678",
+        buyer_addr: "서울특별시 강남구 삼성동",
+        buyer_postcode: "123-456",
+    },
+    rsp = ( rsp ) => {
+        if (rsp.success) {
+            // axios로 HTTP 요청
+            axios({
+                url: "{서버의 결제 정보를 받는 endpoint}",
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                data: {
+                imp_uid: rsp.imp_uid,
+                merchant_uid: rsp.merchant_uid
+                }
+            }).then( (data) => {
+                console.log( data );
+            })
+            } else {
+                alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+            }
+        }
+    );
+
+    // const response = await PortOne.requestPayment({
+    //     // Store ID 설정
+    //     storeId: "store-0bfc00f1-b821-4bba-a568-ed66889fe1a4",
+    //     // 채널 키 설정
+    //     channelKey: "channel-key-f9ecba09-eb53-4bab-98f6-94de05c967b0",
+    //     paymentId: paymentId,
+    //     orderName: `${pointDot} point`,
+    //     totalAmount: point,
+    //     currency: "CURRENCY_KRW",
+    //     payMethod: "CARD",
+    // });
+    // console.log( response );
+
+    // // 오류 발생
+    // if (response.code !== undefined) {
+    //     return alert(response.message);
+    // } // if end
 
 } // func end
