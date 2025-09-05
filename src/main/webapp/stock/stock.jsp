@@ -37,7 +37,7 @@
             <span class="numCheck" style="color: red;"></span>
             <button type="button" onclick="addStock()"> 재고 등록 </button>
         </div>
-        <table>         <!-- 재고목록 테이블 -->
+        <table class="table table-striped table-hover">         <!-- 재고목록 테이블 -->
             <thead>
                 <tr>
                     <th>재고번호</th>

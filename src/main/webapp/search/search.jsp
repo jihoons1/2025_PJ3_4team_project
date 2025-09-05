@@ -54,7 +54,7 @@
                 <option value="sprice">낮은가격순</option>
                 <option value="distance">가까운순</option>
             </select>
-            <table>
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th> 사진 </th> <th> 정육점명 </th> <th>정육점 주소</th> <th> 거리 </th>  

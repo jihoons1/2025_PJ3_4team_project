@@ -23,7 +23,7 @@
         <div class="container_left">
             <h3> 정육점 개별 조회 페이지 </h3>
             <div style="display: flex; justify-content: space-between;">
-                <table>
+                <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>사진</th> <th>가게명</th> <th>가게주소</th> <th>평점</th>
@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div>
-                    <table>
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th> 번호 </th><th> 작성자 </th> <th> 리뷰내용 </th> <th> 작성일 </th> <th> 평점 </th> <th> 비고 </th>

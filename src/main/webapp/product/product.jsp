@@ -21,7 +21,7 @@
     <div id="container">
         <h3> 제품 전체 조회 페이지 </h3>
         <div>            
-            <table>
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>사진</th> <th>카테고리</th> <th>부위명</th> 
