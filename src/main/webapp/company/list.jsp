@@ -26,7 +26,7 @@
                 <option value="order">정렬방법</option>
                 <option value="rank">평점순</option>
             </select>
-            <table>
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>사진</th> <th>가게명</th> <th>가게주소</th> <th>평점</th> 

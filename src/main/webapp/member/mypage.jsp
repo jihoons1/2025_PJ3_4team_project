@@ -95,7 +95,7 @@
         </div>
 
         <div>   <!-- 회원별 리뷰조회 -->
-            <table>
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>리뷰번호</th>
@@ -169,7 +169,7 @@
             </div>
         </div>
         <div>   <!-- 회원별 알림조회 -->
-            <table>
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>알림번호</th>

@@ -18,7 +18,7 @@ create table member (
     mpwd varchar(20) not null ,  				                -- 비밀번호
     mphone varchar(13) not null unique , 		                -- 전화번호
     memail varchar(50) not null unique ,                        -- 이메일
-    maddress varchar(50) not null ,  			                -- 주소
+    maddress varchar(100) not null ,  			                -- 주소
     mdate datetime default now(),				                -- 등록일
     mcheck boolean default true ,  				                -- 회원 활성화
     mimg varchar(100) ,    -- 프로필 이미지
