@@ -39,9 +39,9 @@ client.onmessage = ( event ) => {
         html += `<div class="alarm">
                     <span>${message.message}</span>
                  </div>`
-    } else if ( message.type === 'chat' ){
+    } else if ( message.type == 'chat' ){
         // 5. chat html 구성하기
-        if ( message.from === mno ){
+        if ( message.from == mno ){
             // 6. 내가 보낸 메시지 html
             html += `<div class="secontent">
                         <div class="date"> ${message.date} </div>
@@ -93,12 +93,50 @@ const postMsgSend = async ( ) => {
 // 5. room별 채팅 가져오기
 const getChatLog = async ( ) => {
     console.log('getChatLog func exe');
-
-
-
-
-
+    try {
+        // 1. fetch
+        const response = await fetch( `/chatting/getChatLog?room=${room}` );
+        const data = await response.json();     console.log( data );
+        // 2. where
+        const msgbox = document.querySelector('.msgbox');
+        // 3. what
+        let html = '';
+        for ( let i = 0; i < data.length; i++ ){
+            let message = data[i];
+            // 4. 내가 보낸 메시지라면
+            console.log( message.from );
+            console.log( mno );
+            if ( message.from == mno ){
+                // 5. 내가 보낸 메시지 html 구성하기
+                html += `<div class="secontent">
+                            <div class="date"> ${message.chatdate} </div>
+                            <div class="content"> ${message.message} </div>
+                        </div>`
+            } else {
+                // 6. 남이 보낸 메시지 html 구성하기
+                html += `<div class="receiveBox">
+                            <div class="profileImg">
+                                <img src="/img/default.jpg"/>
+                            </div>
+                            <div>
+                                <div class="recontent">
+                                    <div class="memberNic"> ${ message.from } </div>
+                                    <div class="subcontent">
+                                        <div class="content"> ${ message.message } </div>
+                                        <div class="date"> ${ message.chatdate } </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+            } // if end
+            // 7. 메시지 박스에 html 추가하기
+            msgbox.innerHTML += html;
+        } // for end
+    } catch ( error ) {
+        console.log( error );
+    } // try-catch end
 } // func end
+getChatLog();
 
 // 6. mno별 채팅목록 가져오기
 const getRoomList = async ( ) => {

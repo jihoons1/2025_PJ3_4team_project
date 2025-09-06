@@ -44,32 +44,7 @@
     <div id="container">
         <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">채팅창 목록 열기</button>
         <div class="msgbox" >
-
-            <div class="secontent">
-                <div class="date"> 2025-09-02 18:28:01 </div>
-                <div class="content"> 안녕하세요1 </div>
-            </div>
-
-
-            <div class="alarm">
-                <span> 유재석이 입장 했습니다. </span>
-            </div>
-
-            <div class="receiveBox">
-                <div class="profileImg">
-                    <img src="/img/default.jpg"/>
-                </div>
-                <div>
-                    <div class="recontent">
-                        <div class="memberNic"> 유재석 </div>
-                        <div class="subcontent">
-                            <div class="content"> 안녕하세요2 </div>
-                            <div class="date"> 2025-09-02 18:28:01 </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <!-- 사용자들의 메시지로 구성 -->
         </div>
         <div class="bottomBox">
             <input onkeyup="if( event.keyCode == 13 ){ postMsgSend(); }" type="text" class="msginput"/>

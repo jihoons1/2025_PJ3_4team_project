@@ -48,6 +48,7 @@ public class ChattingService {
                 file.createNewFile();
             } // if end
             // 8. Dao에게 전달해 DB 테이블 생성
+            // todo 테이블 생성을 테이블이 없을때만 실행하게 변경해야함
             chattingDao.createCSV( room );
         } catch ( Exception e ) {
             System.out.println("[chatting01] Service 오류 발생" + e );
