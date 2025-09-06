@@ -60,7 +60,6 @@ public class MapController {
                     dto.setLat(darray[1]);
                     dto.setLng(darray[0]);
                     list.add(dto);
-                    System.out.println(list);
                 }// for end
             }// if end
             return list;
