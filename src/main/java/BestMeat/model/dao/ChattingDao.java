@@ -22,7 +22,7 @@ public class ChattingDao extends Dao {
             ps.setString( 3, room.split("_")[1] );
             ps.executeUpdate();
         } catch ( SQLException e ){
-            System.out.println("chatting01] SQL 기재 실패" + e );
+            System.out.println("[chatting01] SQL 기재 실패" + e );
         } // try-catch end
     } // func end
 

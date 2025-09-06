@@ -38,7 +38,7 @@ const printBtn = async ( ) => {
         const response = await fetch( "/member/get" );
         const data = await response.json();
 
-        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${cno}'" class="btn btn-primary">채팅방</button>`;
+        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${cno}&room=${data.mno}_${cno}'" class="btn btn-primary">채팅방</button>`;
     } catch ( error ) {
         chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?cno=${cno}'" class="btn btn-primary">채팅방</button>`;
     } // try-catch end

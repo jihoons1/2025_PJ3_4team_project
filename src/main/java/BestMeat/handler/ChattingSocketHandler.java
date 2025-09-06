@@ -82,11 +82,11 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
             // 13. 같은 방에 있는 모든 클라이언트에게 메시지 보내기
             for ( WebSocketSession client : users.get( room ) ){
                 client.sendMessage( message );
-                // 14. CSV 생성하기
-                chattingService.createCSV( room );
-                // 15. CSV에 메시지 저장하기
-                chattingService.saveSCV( msg );
             } // for end
+            // 14. CSV 생성하기
+            chattingService.createCSV( room );
+            // 15. CSV에 메시지 저장하기
+            chattingService.saveSCV( msg );
         } // if end
         // 16. 생성된 채팅방 확인용
         System.out.println("users = " + users);

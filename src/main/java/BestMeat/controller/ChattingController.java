@@ -20,7 +20,7 @@ public class ChattingController {
     private final SessionService sessionService;
 
 
-    // [chatting01] 회원별 채팅 목록 조회 - getRoomList
+    // [chatting01] 회원별 채팅목록 조회 - getRoomList
     // 기능설명 : [ 회원번호(세션) ]을 받아, 해당 회원의 채팅목록을 조회한다.
     // method : GET, URL : /chatting/getRoomList
     // 매개변수 : HttpSession session

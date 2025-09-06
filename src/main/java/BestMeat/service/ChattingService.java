@@ -34,14 +34,14 @@ public class ChattingService {
             String fileName = today + "_" + room + ".csv";
             String filePath = CSVDir + fileName;
             // 2. 파일경로를 기반으로 파일 객체 생성
-            File file = new File( CSVDir );
+            File folder = new File( CSVDir );
             // 3. 폴더가 존재하지 않으면
-            if ( !file.exists() ){
+            if ( !folder.exists() ){
                 // 4. 폴더 생성하기
-                file.mkdir();
+                folder.mkdirs();
             } // if end
             // 5. CSV 업로드 경로 File 클래스 생성
-            file = new File( filePath );
+            File file = new File( filePath );
             // 6. 지정한 경로에 파일이 존재하지 않으면
             if ( !file.exists() ){
                 // 7. 파일 생성하기
@@ -101,7 +101,7 @@ public class ChattingService {
             String fileName = today + "_" + room + ".csv";
             String filePath = CSVDir + fileName;
             // 2. FileWriter를 이용한 쓰기모드 객체 생성
-            FileWriter fileWriter = new FileWriter( filePath );
+            FileWriter fileWriter = new FileWriter( filePath, true );
             // 3. CSVWriter에 fileWriter 객체를 대입하여 CSV 객체 생성
             CSVWriter csvWriter = new CSVWriter( fileWriter );
             // 4. map을 저장할 빈 리스트 생성
@@ -121,6 +121,7 @@ public class ChattingService {
     // 기능설명 : csv 폴더 내의 모든 csv 파일을 DB처리 후 삭제한다.
     // 매개변수 :
     // 반환타입 : void
+    // todo 스케줄링을 통해 DB에 저장 수행
     public void saveDB() {
         try {
             // 1. CSV 경로의 모든 CSV 가져오기
