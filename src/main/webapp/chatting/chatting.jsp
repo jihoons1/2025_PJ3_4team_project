@@ -24,20 +24,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body roomList">
-            <div>
-                <a href="chatting.jsp">
-                    정육점명 <br>
-                    최근메시지
-                </a>
-            </div>
-            <div>
-                정육점명 <br>
-                최근메시지
-            </div>
-            <div>
-                정육점명 <br>
-                최근메시지
-            </div>
+
         </div>
     </div>
 

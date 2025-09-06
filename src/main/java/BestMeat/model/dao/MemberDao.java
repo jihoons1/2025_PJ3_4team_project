@@ -278,4 +278,24 @@ public class MemberDao extends Dao  {
         } // try-catch end
         return false;
     } // func end
+
+    // [member10] 회원이름 반환 - getMname()
+    // 기능설명 : [ 회원번호 ]를 받아, 해당하는 회원이름을 반환한다.
+    // 매개변수 : int mno
+    // 매개변수 : String mname
+    public String getMname( int mno ){
+        String mname = null;
+        try {
+            String SQL = "select mname from member where mno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, mno );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ){
+                mname = rs.getString("mname");
+            } // if end
+        } catch ( SQLException e ){
+            System.out.println("[member10] SQL 기재 실패" + e );
+        } // try-catch end
+        return mname;
+    } // func end
 } // class end

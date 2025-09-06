@@ -1,6 +1,7 @@
 package BestMeat.service;
 
 import BestMeat.model.dao.ChattingDao;
+import BestMeat.model.dao.MemberDao;
 import BestMeat.model.dto.ChattingDto;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
@@ -19,6 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ChattingService {
     private final ChattingDao chattingDao;
+    private final MemberDao memberDao;
     // CSV 업로드 경로
     private String today = LocalDateTime.now().toString().substring( 0, 10 ).replaceAll( "-", "" );
     private String baseDir = System.getProperty("user.dir");

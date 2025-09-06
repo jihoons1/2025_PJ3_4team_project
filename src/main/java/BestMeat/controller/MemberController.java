@@ -194,4 +194,17 @@ public class MemberController {
         // 3. 결과 반환
         return mno;
     } // func end
+
+    // [member10] 회원이름 반환 - getMname()
+    // 기능설명 : [ 회원번호 ]를 받아, 해당하는 회원이름을 반환한다.
+    // method : GET, URL : /member/getMname
+    // 매개변수 : int mno
+    // 매개변수 : String mname
+    @GetMapping("/getMname")
+    public String getMname( @RequestParam int mno ){
+        System.out.println("MemberController.getMname");
+
+        // 1. Service에게 매개변수 전달 후, 결과 반환하기
+        return memberService.getMname( mno );
+    } // func end
 } // class end

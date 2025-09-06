@@ -72,7 +72,7 @@
 }
 .roomList{
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     margin: 15px 10px;
 }
 .roomList > a{
@@ -85,4 +85,10 @@
 a{
     color: black;
     text-decoration: none;
+}
+.rooms{
+    margin: 20px 0px;
+    border: 1px gray solid;
+    border-radius: 10px;
+    padding: 10px 15px;
 }
