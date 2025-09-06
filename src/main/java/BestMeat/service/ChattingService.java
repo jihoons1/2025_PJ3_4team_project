@@ -61,10 +61,19 @@ public class ChattingService {
     public List<ChattingDto> getChatLog( String room ){
         try {
             // 1. Dao에게 전달 후, DB에 존재하는 모든 채팅로그를 조회한다.
-            List<ChattingDto> DBList = null;
+            List<ChattingDto> DBList = chattingDao.getChatLog( room );
             // 2. getCSV를 실행하여, 오늘의 채팅로그를 조회한다.
             List<ChattingDto> CSVList = getCSV( room );
-            // 3. 두 리스트를 합쳐서 반환한다.
+            // 3. DB의 채팅로그가 있다면
+            if ( !DBList.isEmpty() ){
+                // 4. DB 채팅로그에 합쳐서
+                DBList.addAll( CSVList );
+                // 5. 반환
+                return DBList;
+            } else {
+                // 6. DB 채팅로그가 없다면, CSV 채팅로그만 반환
+                return CSVList;
+            } // if end
         } catch ( Exception e ) {
             System.out.println("[chatting02] Service 오류 발생" + e );
         } // try-catch end

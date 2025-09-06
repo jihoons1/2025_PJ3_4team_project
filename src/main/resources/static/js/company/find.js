@@ -33,14 +33,18 @@ findCompany();
 // 채팅방 버튼 출력
 const printBtn = async ( ) => {
     const chatBtn = document.querySelector('.chatBtn');
+    const sidemno = '1' + cno.substring( 1 );
+    console.log( sidemno );
     try {
     
         const response = await fetch( "/member/get" );
         const data = await response.json();
 
-        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${cno}&room=${data.mno}_${cno}'" class="btn btn-primary">채팅방</button>`;
+
+
+        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">채팅방</button>`;
     } catch ( error ) {
-        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?cno=${cno}'" class="btn btn-primary">채팅방</button>`;
+        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?cno=${sidemno}'" class="btn btn-primary">채팅방</button>`;
     } // try-catch end
 } // func end
 printBtn();
