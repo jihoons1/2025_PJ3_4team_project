@@ -23,6 +23,8 @@ public class MapController {
     private final MapService mapService;
     private final CompanyService companyService;
 
+    public static List<CompanyDto> list = null;
+
     // [map01] 정육점별 위도경도 조회 - getLatLng()
     // 기능설명 : [ 정육점주소 ]를 받아, 해당하는 주소의 위도경도를 조회한다.
     // method : GET, URL : /map/getLatLng
@@ -46,19 +48,21 @@ public class MapController {
     // 모든 정육점 위도경도 조회
     @Async
     @GetMapping("/latlngList")
-    public CompletableFuture<List<Map<String , Double>>> getLatLngList (){
+    public CompletableFuture<List<CompanyDto>> getLatLngList (){
         return CompletableFuture.supplyAsync(() -> {
             System.out.println("MapController.getLatLngList");
-            List<Map<String,Double>> list = new ArrayList<>();
-            List<CompanyDto> clist = companyService.getCompanyList();
-            for (CompanyDto dto : clist){
-                Map<String,Double> map = new HashMap<>();
-                String[] str1 = dto.getCaddress().split(",");
-                double[] darray = mapService.getLatLng(str1[0]);
-                map.put("lat" , darray[1]);
-                map.put("lng",darray[0]);
-                list.add(map);
-            }// for end
+            if (list == null){
+                list = new ArrayList<>();
+                List<CompanyDto> clist = companyService.getCompanyList();
+                for (CompanyDto dto : clist){
+                    String[] str1 = dto.getCaddress().split(",");
+                    double[] darray = mapService.getLatLng(str1[0]);
+                    dto.setLat(darray[1]);
+                    dto.setLng(darray[0]);
+                    list.add(dto);
+                    System.out.println(list);
+                }// for end
+            }// if end
             return list;
         });
     }// func end

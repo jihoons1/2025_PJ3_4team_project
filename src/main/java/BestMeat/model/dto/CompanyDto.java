@@ -17,4 +17,6 @@ public class CompanyDto {
     private String pname;
     private double rrank;
     private double distance;
+    private double lat;
+    private double lng;
 }
