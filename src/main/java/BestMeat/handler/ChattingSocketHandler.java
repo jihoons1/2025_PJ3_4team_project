@@ -46,7 +46,6 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
     } // func end
 
     // 3. 클라이언트가 서버에게 메시지를 보냈을 때, 실행되는 메소드
-    // todo CSV처리 및 DB처리 필요
     @Override
     protected void handleTextMessage( WebSocketSession session, TextMessage message ) throws Exception {
         System.out.println("클라이언트로부터 메시지 수신");

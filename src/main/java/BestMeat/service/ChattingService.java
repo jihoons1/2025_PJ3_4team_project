@@ -24,11 +24,10 @@ public class ChattingService {
     private String baseDir = System.getProperty("user.dir");
     private String CSVDir = baseDir + "/build/resources/main/static/csv/";
 
-    // [chatting01] CSV 생성 기능
+    // [chatting01] CSV 생성 기능 - createCSV()
     // 기능설명 : 방이름을 입력받아, 해당 경로에 파일명이 없으면 생성한다.
     // 매개변수 : String room -> '연월일_방이름'
     // 반환타입 : void
-    // todo 파일명 생성하면서, DB에 방이름 insert도 같이 진행해야해서 추가 필요
     public void createCSV( String room ){
         try {
             // 1. 방이름과 현재날짜를 이용하여, 파일명과 파일경로 생성
@@ -48,6 +47,8 @@ public class ChattingService {
                 // 7. 파일 생성하기
                 file.createNewFile();
             } // if end
+            // 8. Dao에게 전달해 DB 테이블 생성
+            chattingDao.createCSV( room );
         } catch ( Exception e ) {
             System.out.println("[chatting01] Service 오류 발생" + e );
         } // try-catch end
@@ -130,7 +131,7 @@ public class ChattingService {
                 // 3. 파일을 읽고
                 List<ChattingDto> list = readCSV( f );
                 // 4. list를 dao에게 전달해서 모든 로그를 DB에 저장
-
+                chattingDao.saveDBLog( list );
             } // for end
         } catch ( Exception e ) {
             System.out.println("[chatting04] 오류 발생" + e );
@@ -138,6 +139,7 @@ public class ChattingService {
     } // func end
 
     // [chatting05] CSV 읽기 기능 - readCSV()
+    // Service 내의 중복 코드 제거를 위해서
     public List<ChattingDto> readCSV( File file ){
         List<ChattingDto> list = new ArrayList<>();
         try {
@@ -153,11 +155,11 @@ public class ChattingService {
                 for ( int i = 0; i < csv.size(); i++ ) {
                     String[] row = csv.get(i);
                     ChattingDto chattingDto = new ChattingDto();
-                    chattingDto.setMessage( row[0] );
-                    chattingDto.setFrom( row[1] );
-                    chattingDto.setTo( row[2] );
-                    chattingDto.setChatdate( row[3] );
-                    chattingDto.setRoomname( row[4] );
+                    chattingDto.setMessage( row[0] );                   // 대화내용
+                    chattingDto.setFrom( Integer.parseInt(row[1]) );    // 발신자
+                    chattingDto.setTo( Integer.parseInt(row[2]) );      // 수신자
+                    chattingDto.setChatdate( row[3] );                  // 채팅시간
+                    chattingDto.setRoomname( row[4] );                  // 방이름
                     // 7. 생성한 dto를 list에 넣는다
                     list.add( chattingDto );
                 } // for end

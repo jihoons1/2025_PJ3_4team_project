@@ -13,7 +13,7 @@ public class ChattingDto {
     private String message;     // 채팅내용
     private String chatdate;    // 채팅시간
     private String roomname;    // 방 이름
-    private String from;        // 보내는 사람
-    private String to;          // 받는 사람
+    private int from;           // 보내는 사람
+    private int to;             // 받는 사람
 
 } // class end
