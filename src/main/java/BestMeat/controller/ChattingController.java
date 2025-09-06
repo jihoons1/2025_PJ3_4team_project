@@ -25,17 +25,17 @@ public class ChattingController {
     // method : GET, URL : /chatting/getRoomList
     // 매개변수 : HttpSession session
     // 반환타입 : List<ChattingDto>
-//    @GetMapping("/getRoomList")
-//    public List<ChattingDto> getRoomList( HttpSession session ){
-//        System.out.println("ChattingController.getRoomList");
-//
-//        // 1. 세션으로부터 회원번호 가져오기
-//        int mno = sessionService.getSessionNo( "loginMno", session );
-//        // 2. 비로그인 상태라면, 메소드 종료
-//        if ( mno == 0 ) return null;
-//        // 3. Service에게 회원번호 전달 후 결과 받기
-//        return chattingService.getRoomList( mno );
-//    } // func end
+    @GetMapping("/getRoomList")
+    public List<ChattingDto> getRoomList( HttpSession session ){
+        System.out.println("ChattingController.getRoomList");
+
+        // 1. 세션으로부터 회원번호 가져오기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 비로그인 상태라면, 메소드 종료
+        if ( mno == 0 ) return null;
+        // 3. Service에게 회원번호 전달 후 결과 받기
+        return chattingService.getRoomList( mno );
+    } // func end
 
     // [chatting02] 채팅로그 호출 기능 - getChatLog()
     // 기능설명 : 방이름을 입력받아, 해당 경로의 CSV를 조회한다.

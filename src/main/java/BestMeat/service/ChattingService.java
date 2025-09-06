@@ -24,7 +24,7 @@ public class ChattingService {
     private String baseDir = System.getProperty("user.dir");
     private String CSVDir = baseDir + "/build/resources/main/static/csv/";
 
-    // [chatting01] CSV 생성 기능 - createCSV()
+    // [chatting00] CSV 생성 기능 - createCSV()
     // 기능설명 : 방이름을 입력받아, 해당 경로에 파일명이 없으면 생성한다.
     // 매개변수 : String room -> '연월일_방이름'
     // 반환타입 : void
@@ -53,8 +53,57 @@ public class ChattingService {
                 chattingDao.createCSV( room );
             } // if end
         } catch ( Exception e ) {
+            System.out.println("[chatting00] Service 오류 발생" + e );
+        } // try-catch end
+    } // func end
+
+    // [chatting01] 회원별 채팅목록 조회 - getRoomList
+    // 기능설명 : [ 회원번호(세션) ]을 받아, 해당 회원의 채팅목록을 조회한다.
+    // 매개변수 : HttpSession session
+    // 반환타입 : List<ChattingDto>
+    public List<ChattingDto> getRoomList( int mno ){
+        List<ChattingDto> roomList = new ArrayList<>();
+        try {
+            // 0. CSV 경로의 모든 CSV 가져오기
+            File file = new File( CSVDir );
+            File[] files = file.listFiles();
+            // 1. CSV로 저장된 채팅들 순회하기
+            for ( File file1 : files ){
+                // 2. 구분선으로 다 끊고
+                String[] names = file1.getName().split("\\.")[0].split("_");
+                for ( String name : names ) {
+                    // 3. 그 중에서 mno랑 같은게 있다면
+                    if ( name.equals( mno + "" ) ){
+                        // 4. 해당 파일의 마지막 내용을 저장
+                        FileReader fileReader = new FileReader( file1 );    // FileReader로 읽기모드 객체 생성
+                        CSVReader csvReader = new CSVReader( fileReader );  // CSV 객체 생성
+                        List<String[]> csv = csvReader.readAll();           // 모든 정보 조회하기
+                        if ( !csv.isEmpty() ){                              // csv가 비어있지 않으면
+                            String[] lastRow = csv.get( csv.size() - 1 );   // 마지막 행을 조회해서
+                            ChattingDto chattingDto = new ChattingDto();    // dto에 저장
+                            chattingDto.setMessage( lastRow[0] );                   // 대화내용
+                            chattingDto.setFrom( Integer.parseInt(lastRow[1]) );    // 발신자
+                            chattingDto.setTo( Integer.parseInt(lastRow[2]) );      // 수신자
+                            chattingDto.setChatdate( lastRow[3] );                  // 채팅시간
+                            chattingDto.setRoomname( lastRow[4] );                  // 방이름
+                            // 5. 최종적으로 리스트에 저장
+                            roomList.add( chattingDto );
+                        } // if end
+                    } // if end
+                } // for end
+            } // for end
+            // 6. DB에 저장된 채팅목록 가져오기
+            List<ChattingDto> DBroomList = new ArrayList<>();
+            // 7. DB에 저장된 채팅목록이 있다면
+            if ( !DBroomList.isEmpty() ){
+                // 8. CSV로 저장된 채팅목록과 합치기
+                roomList.addAll( DBroomList );
+            } // if end
+        } catch ( Exception e ) {
             System.out.println("[chatting01] Service 오류 발생" + e );
         } // try-catch end
+        // 9. 최종적으로 목록 반환
+        return roomList;
     } // func end
 
     // [chatting02] 채팅로그 호출 기능 - getChatLog()

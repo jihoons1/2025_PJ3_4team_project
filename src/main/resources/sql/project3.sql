@@ -115,10 +115,8 @@ select * from PointLog;
 create table ChatRoom(
 	roomname varchar(15),		-- 채팅방 이름
     mno int not null,			-- 보내는 회원
-    cno int not null,			-- 받는 정육점
-    constraint primary key( roomname ),
-    constraint foreign key( mno ) references member( mno ) on delete cascade on update cascade,
-    constraint foreign key( cno ) references company( cno ) on delete cascade on update cascade
+    cno int not null,			-- 받는 정육점(인데, 사실상 정육점의 회원번호 )
+    constraint primary key( roomname )
 );
 select * from ChatRoom;
 -- ---------------------------- ChatLog -------------------

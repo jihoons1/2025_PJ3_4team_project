@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public class ChattingDao extends Dao {
-    // [chatting01-1] CSV 생성 기능 - createCSV()
+    // [chatting00-1] CSV 생성 기능 - createCSV()
     // 기능설명 : 방이름을 입력받아, 해당 경로에 파일명이 없으면 생성한다.
     // 매개변수 : String room -> '연월일_방이름'
     // 반환타입 : void
@@ -28,7 +28,7 @@ public class ChattingDao extends Dao {
         } // try-catch end
     } // func end
 
-    // [chatting01-2] 해당 방의 DB가 구성되었는지 확인
+    // [chatting00-2] 해당 방의 DB가 구성되었는지 확인
     public boolean checkRoom( String room ){
         String Rroom = room.split("_")[1] + "_" + room.split("_")[0];
         try {
@@ -41,9 +41,35 @@ public class ChattingDao extends Dao {
                 return rs.getInt( 1 ) == 1;
             } // if end
         } catch ( SQLException e ){
-            System.out.println("[chatting01-2] SQL 기재 실패" + e );
+            System.out.println("[chatting00-2] SQL 기재 실패" + e );
         } // try-catch end
         return false;
+    } // func end
+
+    // [chatting01] 회원별 채팅목록 조회 - getRoomList
+    // 기능설명 : [ 회원번호(세션) ]을 받아, 해당 회원의 채팅목록을 조회한다.
+    // 매개변수 : HttpSession session
+    // 반환타입 : List<ChattingDto>
+    public List<ChattingDto> getRoomList( String mno ){
+        List<ChattingDto> roomList = new ArrayList<>();
+        try {
+            String SQL = "select * from chatlog join chatroom using (roomname) where roomname like ? order by chatdate desc limit 1";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setString( 1, "%" + mno + "%" );
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                ChattingDto room = new ChattingDto();
+                room.setRoomname( rs.getString( "roomname" ) );
+                room.setMessage( rs.getString( "message" ) );
+                room.setFrom( rs.getInt( "mno" ) );
+                room.setTo( rs.getInt( "cno" ) );
+                room.setChatdate( rs.getString( "chatdate" ) );
+                roomList.add( room );
+            } // func end
+        } catch ( SQLException e ){
+            System.out.println("[chatting01] SQL 기재 실패" + e );
+        } // try-catch end
+        return roomList;
     } // func end
 
     // [chatting02] 채팅로그 호출 기능 - getChatLog()
