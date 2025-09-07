@@ -8,7 +8,8 @@ let companyData;
 
 // 정육점 개별조회
 const findCompany = async() => {
-    const findTbody = document.querySelector('#findTbody');
+    const cimg = document.querySelector('.cimg');
+    const cinfo = document.querySelector('.cinfo');
     let html = "";
     try{
         const response = await fetch(`/company/find?cno=${cno}`);
@@ -19,13 +20,11 @@ const findCompany = async() => {
         if( data.cimg == null ){
             imgUrl = 'https://placehold.co/50x50';
         } // if end
-        html += `<tr>
-                    <td><img src=${imgUrl}/></td>
-                    <td>${data.cname}</td>
-                    <td>${data.caddress}</td>
-                    <td>${data.rrank}</td>
-                </tr>`;
-        findTbody.innerHTML = html;
+        cimg.innerHTML = `<img src=${imgUrl}/>`;
+        html += `<span>정육점명 : ${data.cname}</span> <br>
+                 <span>정육점주소 : ${data.caddress}</span> <br>
+                 <span>리뷰평점 : ${data.rrank}</span>`;
+        cinfo.innerHTML = html;
     }catch(e){ console.log(e); }
 }// func end
 findCompany();

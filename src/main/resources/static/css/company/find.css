@@ -1,0 +1,127 @@
+/* 전체 컨테이너 배경 및 기본 설정 */
+#container {
+    background-color: #f8f9fa; /* 부트스트랩 기본 배경색 */
+    padding: 40px 0;
+    min-height: calc(100vh - 160px);
+}
+
+.find-page-container {
+    max-width: 1200px; /* 콘텐츠 최대 너비 */
+    margin: 0 auto;
+}
+
+/* 페이지 제목 스타일 */
+.find-page-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.find-page-title h2 {
+    font-weight: 600;
+}
+
+/* 좌우 컨텐츠 그리드 레이아웃 */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 왼쪽 2, 오른쪽 1 비율 */
+    gap: 30px; /* 좌우 컨테이너 사이 간격 */
+}
+
+/* 각 정보 섹션(정육점 정보, 재고 등) 카드 스타일 */
+.info-section {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 30px;
+}
+
+/* 섹션 헤더 (제목 + 버튼) */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h4 {
+    margin: 0;
+}
+
+/* ============== 정육점 정보 섹션 ============== */
+#findTbody img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 0.375rem;
+}
+
+.actions-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+#checkUser {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.membership-status {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* ============== 테이블 공통 스타일 ============== */
+.table {
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+.table thead {
+    text-align: center;
+}
+
+.table tbody {
+    text-align: center;
+}
+
+.rImgBox {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.rImgBox img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* ============== 페이지네이션 ============== */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+/* ============== 지도 스타일 ============== */
+.container_right {
+    position: sticky; /* 스크롤 시 상단에 고정 */
+    top: 20px;
+    height: 500px; /* 지도 높이 고정 */
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+}
