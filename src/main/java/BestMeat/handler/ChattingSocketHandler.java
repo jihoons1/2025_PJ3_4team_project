@@ -84,7 +84,6 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
                 client.sendMessage( message );
             } // for end
             // 14. CSV 생성하기
-            //
             chattingService.createCSV( room );
             // 15. CSV에 메시지 저장하기
             chattingService.saveSCV( msg );

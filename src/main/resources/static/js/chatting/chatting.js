@@ -83,7 +83,14 @@ const postMsgSend = async ( ) => {
     // 3. 메시지 구성하기
     // type : join(입장), alarm(알림메시지), chat(채팅)
     // type, message, from, date
-    const message = { type : "chat", message : Input, from : mno, to : cno, date : new Date().toLocaleString(), room : room };
+    // 3-1. 날짜를 MySQL 형식으로 구성하기
+    let objectDate = new Date();
+    let year = objectDate.getFullYear();
+    let month = objectDate.getMonth() + 1;
+    let day = objectDate.getDate();
+    let times = objectDate.toString().split(" ")[4];
+    let MySQLDate = year + "-" + month + "-" + day + " " + times;
+    const message = { type : "chat", message : Input, from : mno, to : cno, date : MySQLDate, room : room };
     // 4. 구성한 메시지를 서버에게 전송하기
     client.send( JSON.stringify( message ) );
     // 5. Input value 초기화

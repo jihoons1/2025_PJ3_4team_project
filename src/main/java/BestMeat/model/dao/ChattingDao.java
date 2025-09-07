@@ -6,8 +6,11 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Repository
 public class ChattingDao extends Dao {
@@ -99,9 +102,10 @@ public class ChattingDao extends Dao {
     } // func end
 
     // [chatting04] DB chatLog 저장 기능 - saveDBLog()
-    public void saveDBLog( List<ChattingDto> list ){
+    public boolean saveDBLog( List<ChattingDto> list ){
         try {
             for ( ChattingDto chattingDto : list ) {
+                // 5. SQL 작성
                 String SQL = "insert into chatlog( message, chatdate, roomname ) values ( ?, ?, ? )";
                 PreparedStatement ps = conn.prepareStatement( SQL );
                 ps.setString( 1, chattingDto.getMessage() );    // 대화내용
@@ -109,8 +113,10 @@ public class ChattingDao extends Dao {
                 ps.setString( 3, chattingDto.getRoomname() );   // 방이름
                 ps.executeUpdate();
             } // for end
+            return true;
         } catch ( SQLException e ) {
             System.out.println("[chatting04] SQL 기재 실패" + e );
         } // try-catch end
+        return false;
     } // func end
 } // class end

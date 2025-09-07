@@ -1,11 +1,11 @@
 package BestMeat.service;
 
 import BestMeat.model.dao.ChattingDao;
-import BestMeat.model.dao.MemberDao;
 import BestMeat.model.dto.ChattingDto;
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -20,7 +20,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ChattingService {
     private final ChattingDao chattingDao;
-    private final MemberDao memberDao;
     // CSV 업로드 경로
     private String today = LocalDateTime.now().toString().substring( 0, 10 ).replaceAll( "-", "" );
     private String baseDir = System.getProperty("user.dir");
@@ -91,6 +90,8 @@ public class ChattingService {
                             // 5. 최종적으로 리스트에 저장
                             roomList.add( chattingDto );
                         } // if end
+                        csvReader.close();
+                        fileReader.close();
                     } // if end
                 } // for end
             } // for end
@@ -184,21 +185,33 @@ public class ChattingService {
     // 기능설명 : csv 폴더 내의 모든 csv 파일을 DB처리 후 삭제한다.
     // 매개변수 :
     // 반환타입 : void
-    // todo 스케줄링을 통해 DB에 저장 수행
-    public void saveDB() {
+    // 매일 0시에 CSV의 자료 DB에 저장
+    @Scheduled( cron = "* * 0 * * *" )
+    public void saveDB(){
         try {
             // 1. CSV 경로의 모든 CSV 가져오기
             File file = new File( CSVDir );
             File[] files = file.listFiles();
+            // 2. 만약에 파일들이 없으면 메소드 종료
+            if ( files == null || files.length == 0 ) return;
             // 2. 배열을 순회하면서
             for( File f : files ){
                 // 3. 파일을 읽고
                 List<ChattingDto> list = readCSV( f );
                 // 4. list를 dao에게 전달해서 모든 로그를 DB에 저장
-                chattingDao.saveDBLog( list );
+                if ( chattingDao.saveDBLog( list ) ){
+                    // 5. 저장한 파일을 삭제하기
+                    if ( f.delete() ){
+                        // 6. 삭제에 성공했으면, 완료 메시지 출력
+                        System.out.println( f.getName() + " 파일 처리 및 삭제 완료." );
+                    } else {
+                        // 7. 삭제에 실패했으면, 실패 메시지 출력
+                        System.out.println( f.getName() + " 파일 삭제 실패." );
+                    } // if end
+                } // if end
             } // for end
         } catch ( Exception e ) {
-            System.out.println("[chatting04] 오류 발생" + e );
+            System.out.println("[chatting04] Service 오류 발생" + e );
         } // try-catch end
     } // func end
 
@@ -227,6 +240,8 @@ public class ChattingService {
                     // 7. 생성한 dto를 list에 넣는다
                     list.add( chattingDto );
                 } // for end
+                csvReader.close();
+                fileReader.close();
             } // if end
         } catch ( Exception e ) {
             System.out.println("[chatting05] 오류 발생" + e );
