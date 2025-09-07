@@ -44,10 +44,16 @@ const printBtn = async ( ) => {
 
         chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">채팅방</button>`;
     } catch ( error ) {
-        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?cno=${sidemno}'" class="btn btn-primary">채팅방</button>`;
+        chatBtn.innerHTML = `<button type="button" onclick="publicRoom()" class="btn btn-primary">채팅방</button>`;
     } // try-catch end
 } // func end
 printBtn();
+
+const publicRoom = async ( ) => {
+    if ( confirm('비로그인 상태이므로, 전체채팅방으로 이동합니다.') ){
+        location.href='/chatting/chatting.jsp'
+    } // if end
+} // func end
 
 // 리뷰 등록 기능
 const addReview = async() => {

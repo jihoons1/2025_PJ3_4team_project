@@ -24,24 +24,22 @@ const myinfo = async() => {
                          <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>
                          <li><a href="/stock/stock.jsp?cno=${data.cno}" class="nav-link px-2">재고 관리</a></li>`
             logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname}</button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop100">
-                            ${totalPoint} Point
-                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop100">${totalPoint} Point</button>
                         <button type="button" onclick="location.href='/company/find.jsp?cno=${data.cno}'" class="btn btn-outline-primary me-2">내 정육점정보</button>
                         <button type="button" onclick="logout()" class="btn btn-primary">로그아웃</button>`
         } else {
             // 정육점이 없는 회원이라면
             menuHtml += `<li><a href="/product/product.jsp" class="nav-link px-2">제품 목록</a></li>
                         <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>`
+
             logHtml +=` <button type="button" onclick="location.href='/member/mypage.jsp'" class="btn btn-outline-primary me-2">${data.mname}</button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop100">
-                            ${totalPoint} Point
-                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop100">${totalPoint} Point</button>
                         <button type="button" onclick="logout()" class="btn btn-primary">로그아웃</button>`
         } // if end
     }catch{
         menuHtml += `<li><a href="/product/product.jsp" class="nav-link px-2">제품 목록</a></li>
                      <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>`
+
         logHtml +=` <button type="button" onclick="location.href='/member/login.jsp'" class="btn btn-outline-primary me-2">로그인</button>
                     <button type="button" onclick="location.href='/member/signup.jsp'" class="btn btn-primary">회원가입</button>`
     } // try-catch end

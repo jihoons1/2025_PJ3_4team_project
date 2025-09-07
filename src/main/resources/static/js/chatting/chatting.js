@@ -1,12 +1,14 @@
 console.log('chatting.js open');
 //=============================================== 쿼리스트링 ================================================\\
-const random = Math.floor( Math.random() * 1000 ) + 1;
-const randomID = `익명-${random}`;
+const random1 = Math.floor( Math.random() * 1000 ) + 1;
+const randomID1 = `익명-${random1}`;
+const random2 = Math.floor( Math.random() * 1000 ) + 1;
+const randomID2 = `익명-${random2}`;
 
 const params = new URL( location.href ).searchParams;
-const mno = params.get("mno") || randomID;              // 로그인 상태라면 mno를 받고, 비로그인 상태라면 익명아이디를 받는다.
+const mno = params.get("mno") || randomID1;              // 로그인 상태라면 mno를 받고, 비로그인 상태라면 익명아이디를 받는다.
 const room = params.get("room") || "0";                 // 방에 입장하면 roomno를 받고, 아니라면 전채채팅(0)을 받는다.
-const cno = params.get("cno");                          // 채팅방에 입장하면 cno를 무조건적으로 받는다.
+const cno = params.get("cno") || randomID2;             // 전체채팅 방이라면, 익명아이디를 받는다.
 //=============================================== 채팅 연결 ================================================\\
 const client = new WebSocket("/chat");
 
