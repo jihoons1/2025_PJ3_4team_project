@@ -40,9 +40,11 @@ const printBtn = async ( ) => {
         const response = await fetch( "/member/get" );
         const data = await response.json();
 
-
-
-        chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">채팅방</button>`;
+        if ( sidemno == data.mno ){
+            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}'" class="btn btn-primary">채팅방</button>`;
+        } else {
+            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">채팅방</button>`;
+        } // if end        
     } catch ( error ) {
         chatBtn.innerHTML = `<button type="button" onclick="publicRoom()" class="btn btn-primary">채팅방</button>`;
     } // try-catch end

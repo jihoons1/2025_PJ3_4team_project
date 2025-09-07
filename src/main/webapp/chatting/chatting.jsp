@@ -24,7 +24,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body roomList">
-
+            <!-- 해당 회원의 채팅방 목록으로 구성 -->
         </div>
     </div>
 
