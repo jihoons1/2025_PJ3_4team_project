@@ -40,12 +40,13 @@
                             <div class="chatBtn">
                             </div>
                             <div id="checkUser">
-                                <div class="membership-status">
+                                <!-- <div class="membership-status">
                                     <span>멤버십</span>
                                     <span class="endDate"></span>
                                 </div>
                                 <button type="button" class="btn btn-sm btn-success"
-                                    onclick="addPlan()">신청하기</button>
+                                    onclick="addPlan()">신청하기
+                                </button> -->
                             </div>
                         </div>
                     </div>

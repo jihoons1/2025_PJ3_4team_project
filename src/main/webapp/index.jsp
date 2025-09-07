@@ -20,7 +20,7 @@
 
     <div id="container">
         <div class="banner">
-            <img src="/img/banner/adBanner.png" alt="배너 이미지">
+            <img class="bimg" src="/img/banner/adBanner.png" alt="배너 이미지">
         </div>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -36,7 +36,7 @@
         </div>
         <div id="map" style="width:100%;height:400px;padding:0;margin:0;"></div>
         <div class="banner">
-            <img src="/img/banner/adBanner.png" alt="배너 이미지">
+            <img class="bimg" src="/img/banner/adBanner.png" alt="배너 이미지">
         </div>
     </div>
 

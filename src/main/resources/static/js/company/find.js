@@ -231,7 +231,38 @@ const buildQR = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [9] 멤버쉽 신청
+// [9] 멤버쉽 신청 버튼 출력
+const printMBtn = async ( ) => {
+    console.log('printMBtn func exe');
+
+    try {
+        // 1. fetch
+        const response = await fetch( "/member/get" );
+        const data = await response.json();     console.log( data );
+
+        // 2. where
+        const checkUser = document.querySelector('#checkUser');
+        // 3. what
+        let html = '';
+        if ( data.cno == cno ){
+            html += `<div class="membership-status">
+                        <span>멤버십</span>
+                        <span class="endDate"></span>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-success"
+                        onclick="addPlan()">신청하기
+                    </button>`
+        } // if end
+        // 4. print
+        checkUser.innerHTML = html;
+        getCnoEnddate();
+    } catch ( error ) {
+        console.log( error );
+    } // try-catch end
+} // func end
+printMBtn()
+
+// [10] 멤버쉽 신청
 const addPlan = async() => {
     try{
         const response = await fetch("/plan/add");
@@ -245,7 +276,7 @@ const addPlan = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [10] 멤버쉽 남은일 출력
+// [11] 멤버쉽 남은일 출력
 const getCnoEnddate = async() => {
     const endDate = document.querySelector('.endDate');
     let html = "";
@@ -258,9 +289,8 @@ const getCnoEnddate = async() => {
         endDate.innerHTML = html;
     }catch(e){ console.log(e); }
 }// func end
-getCnoEnddate();
 
-// [11] 정육점별 재고목록 조회
+// [12] 정육점별 재고목록 조회
 const getStock = async() => {
     const stockTbody = document.querySelector('.stockTbody');
     let html = "";
