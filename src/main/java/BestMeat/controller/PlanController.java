@@ -55,7 +55,7 @@ public class PlanController {
         int cno = sessionService.getSessionNo("loginCno",session);
         PlanDto planDto = new PlanDto();
         planDto.setCno(cno);
-        if ( cno == 0) return -1;
+        if ( cno == 0 ) return -1;
         return planService.getCnoEnddate(planDto);
     }// func end
 

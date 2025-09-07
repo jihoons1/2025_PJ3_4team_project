@@ -211,6 +211,74 @@ const deleteReview = async(rno) => {
     }catch(e){ console.log(e); }
 }// func end
 
+// [8] 길찾기 QR Code 출력
+const buildQR = async() => {
+    const cookie = document.cookie;
+    console.log(cookie);
+    const qrbox = document.querySelector('.qrBox');
+    try{
+        const response = await fetch(`/company/qrcode?cno=${cno}`);
+        const blob = await response.blob();
+        if(blob.size < 500){
+            alert('로그인 후 이용하실 수 있습니다.');
+            location.href="/member/login.jsp";
+            return;
+        }// if end
+        const imgUrl = URL.createObjectURL(blob);
+        console.log(blob);
+        let html = `<img src="${imgUrl}" alt="QR Code"/>`;
+        qrbox.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+
+// [9] 멤버쉽 신청
+const addPlan = async() => {
+    try{
+        const response = await fetch("/plan/add");
+        const data = await response.json();
+        if(data == 0){
+            alert('신청 실패');
+        }else{
+            alert('신청 완료');
+            getCnoEnddate();
+        }// if end
+    }catch(e){ console.log(e); }
+}// func end
+
+// [10] 멤버쉽 남은일 출력
+const getCnoEnddate = async() => {
+    const endDate = document.querySelector('.endDate');
+    let html = "";
+    try{
+        const response = await fetch("/plan/enddate");
+        const data = await response.json();
+        if(data >= 0){
+            html += `<span>남은일 <span class="endDate">${data}</span>일</span>`
+        }// if end
+        endDate.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+getCnoEnddate();
+
+// [11] 정육점별 재고목록 조회
+const getStock = async() => {
+    const stockTbody = document.querySelector('.stockTbody');
+    let html = "";
+    try{
+        const response = await fetch(`/stock/get/find?cno=${cno}`)
+        const data = await response.json();
+        data.forEach((stock) => {            
+            html += `<tr>
+                    <td>${stock.cname}</td>
+                    <td>${stock.pname}(100g)</td>
+                    <td>${stock.sprice}원</td>
+                </tr>`                        
+        })// for end
+        stockTbody.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+getStock();
+
 //============================ 네이버지도 API JS ============================\\
 const naverMap = async ( ) => {
     const option = { method : "GET" };
@@ -257,72 +325,3 @@ const naverMap = async ( ) => {
 
     infowindow.open(map, marker);
 } // func end
-
-// [8] 길찾기 QR Code 출력
-const buildQR = async() => {
-    const cookie = document.cookie;
-    console.log(cookie);
-    const qrbox = document.querySelector('.qrBox');
-    try{
-        const response = await fetch(`/company/qrcode?cno=${cno}`);
-        const blob = await response.blob();
-        if(blob.size < 500){
-            alert('로그인 후 이용하실 수 있습니다.');
-            location.href="/member/login.jsp";
-            return;
-        }// if end
-        const imgUrl = URL.createObjectURL(blob);
-        console.log(blob);
-        let html = `<img src="${imgUrl}" alt="QR Code"/>`;
-        qrbox.innerHTML = html;
-    }catch(e){ console.log(e); }
-}// func end
-
-// [9] 멤버쉽 신청
-const addPlan = async() => {
-    try{
-        const response = await fetch("/plan/add");
-        const data = await response.json();
-        if(data == 0){
-            alert('신청 실패');
-        }else{
-            alert('신청 완료');
-            getCnoEnddate();
-        }// if end
-    }catch(e){ console.log(e); }
-}// func end
-
-// [10] 멤버쉽 남은일 출력
-const getCnoEnddate = async() => {
-    const endDate = document.querySelector('.endDate');
-    let html = "";
-    try{
-        const response = await fetch("/plan/enddate");
-        const data = await response.json();
-        if(data >= 0){
-            html += `<span>남은일 -<span class="endDate">${data}</span>일</span>`
-        }// if end
-        endDate.innerHTML = html;
-    }catch(e){ console.log(e); }
-}// func end
-getCnoEnddate();
-
-// [11] 정육점별 재고목록 조회
-const getStock = async() => {
-    const stockTbody = document.querySelector('.stockTbody');
-    let html = "";
-    try{
-        const response = await fetch(`/stock/get/find?cno=${cno}`)
-        const data = await response.json();
-        data.forEach((stock) => {            
-            html += `<tr>
-                    <td>${stock.cname}</td>
-                    <td>${stock.pname}(100g)</td>
-                    <td>${stock.sprice}원</td>
-                </tr>`                        
-        })// for end
-        stockTbody.innerHTML = html;
-    }catch(e){ console.log(e); }
-}// func end
-getStock();
-
