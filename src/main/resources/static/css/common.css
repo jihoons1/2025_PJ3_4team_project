@@ -36,3 +36,8 @@ button{
 .carousel-indicators [data-bs-target] {
     background-color: white; /* 인디케이터 색상 */
 }
+.bimg{
+    width: 1280px;
+    height: 100px;
+    margin: 10px 0px;
+}

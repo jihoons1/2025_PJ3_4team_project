@@ -19,6 +19,9 @@
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
+        <div class="banner">
+            <img src="/img/adBanner.png" alt="배너 이미지">
+        </div>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
             </div>
@@ -32,6 +35,9 @@
             </button>
         </div>
         <div id="map" style="width:100%;height:400px;padding:0;margin:0;"></div>
+        <div class="banner">
+            <img src="/img/adBanner.png" alt="배너 이미지">
+        </div>
     </div>
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
