@@ -192,6 +192,30 @@
         </div>
     </div>
 
+    <!-- 멤버쉽 등록 staticBackdrop5 -->
+    <div class="modal fade" id="staticBackdrop5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">멤버쉽 등록</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="planAdd">
+                        배너를 등록해주세요. <br>
+                        기준크기 ( width : 1280px, height : 70px ) <br>
+                        배너 미등록시, 광고가 등록되지 않습니다.
+                        <input type="file" multiple name="upload" />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                    <button type="button" class="btn btn-primary" onclick="addPlan()">멤버쉽 등록</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/footer.jsp"></jsp:include>
