@@ -50,7 +50,7 @@ printBtn();
 
 const publicRoom = async ( ) => {
     if ( confirm('비로그인 상태이므로, 전체채팅방으로 이동합니다.') ){
-        location.href='/chatting/chatting.jsp'
+        location.href='/chatting/chatting.jsp?room=0'
     } // if end
 } // func end
 

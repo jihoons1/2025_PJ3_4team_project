@@ -98,7 +98,7 @@ const getChatLog = async ( ) => {
     try {
         // 1. fetch
         const response = await fetch( `/chatting/getChatLog?room=${room}` );
-        const data = await response.json();     
+        const data = await response.json();
         // 2. where
         const msgbox = document.querySelector('.msgbox');
         // 3. what
@@ -176,3 +176,24 @@ const getRoomList = async ( ) => {
     } // try-catch end
 } // func end
 getRoomList();
+
+// 7. 채팅방 유효성 검사
+const checkSession = async ( ) => {
+    try{
+        const response = await fetch( "/member/get" );
+        const data = await response.json();
+        console.log( room );
+        if ( room == null || room == "0" ) return;
+
+        if ( data.mno != mno && data.mno != cno ){
+            alert('유효하지않은 세션이므로 메인페이지로 이동합니다.');
+            location.href = "/index.jsp";
+        } // if end
+    } catch ( error ){
+        if ( room == null || room == "0" ) return;
+
+        alert('유효하지않은 세션이므로 메인페이지로 이동합니다.');
+        location.href = "/index.jsp";
+    } // try-catch end
+} // func end
+checkSession();
