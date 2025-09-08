@@ -6,6 +6,7 @@ import BestMeat.model.dto.PlanDto;
 import BestMeat.model.dto.PointDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,12 +16,17 @@ import java.util.List;
 public class PlanService {
     private final PlanDao planDao;
     private final PointDao pointDao;
+    private final FileService fileService;
+    // 파일 업로드 경로 지정하기
+    private String directory = "plan/";
 
     // [plan01] 요금제 결제 - addPlan()
-    // 기능설명 : [ 정육점번호(세션) ]을 받아, 해당 정육점의 포인트가 충분하다면, 요금제 결제를 진행한다.
-    // 매개변수 : int mno, int cno
+    // 기능설명 : [ 정육점번호(세션), 배너이미지 ]를 받아, 해당 정육점의 포인트가 충분하다면, 요금제 결제를 진행한다.
+    // 매개변수 : HttpSession, PlanDto
     // 반환타입 : int -> 성공 : 자동생성된 PK값, 실패 : 0
-    public int addPlan( int mno, int cno ){
+    public int addPlan( PlanDto planDto ){
+        int mno = planDto.getMno();
+        int cno = planDto.getCno();
         // 1. 해당 회원의 포인트 총액 가져오기
         int totalPoint = pointDao.getTotalPoint( mno );
         // 2. 요금제(5000)보다 총액이 작다면, 결제 취소
@@ -35,8 +41,7 @@ public class PlanService {
         // 5. 요금제 테이블 추가를 위한, startdate/enddate 만들기
         String startdate = LocalDate.now().toString();              // 결제일 = 시스템 날짜 기준일
         String enddate = LocalDate.now().plusDays(7).toString();    // 종료일 = 시스템 날짜 기준일 + 7일
-        // 6. 요금제 테이블 추가를 위한, PlanDto 만들기
-        PlanDto planDto = new PlanDto();
+        // 6. 요금제 테이블 추가를 위한, PlanDto 구성하기
         planDto.setCno( cno );
         planDto.setStartdate( startdate );
         planDto.setEnddate( enddate );
@@ -48,7 +53,17 @@ public class PlanService {
             enddate = LocalDate.now().plusDays( 7 + days ).toString();
             planDto.setEnddate( enddate );
         } // if end
-        // 9. 최종적으로 Dao에게 전달 후, 결과를 반환한다.
+        // 9-1. 파일업로드 확인하기
+        MultipartFile file = planDto.getUpload();
+        if ( !file.isEmpty() ){
+            // 9-2. 배너 이미지 업로드하기
+            String filename = fileService.fileUpload( file, directory );
+            // 9-3. 파일 업로드에 실패했으면, 메소드 종료
+            if ( filename == null ) return 0;
+            // 9-4. 성공했으면, dto에 파일이름 주입
+            planDto.setBanner( filename );
+        } // if end
+        // 10. 최종적으로 Dao에게 전달 후, 결과를 반환한다.
         return planDao.addPlan( planDto );
     } // func end
 
