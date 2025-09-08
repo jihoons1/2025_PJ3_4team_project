@@ -31,7 +31,7 @@
                 </tbody>
             </table>  
             <div style="width: 380px;">
-                <ul class="pageBtnBox" style="display: flex; justify-content: space-between;">                    
+                <ul class="pageBtnBox" style="display: flex; justify-content: space-between;"> 
                 </ul>
             </div>          
         </div>

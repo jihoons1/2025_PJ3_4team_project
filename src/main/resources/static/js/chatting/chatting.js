@@ -1,4 +1,3 @@
-console.log('chatting.js open');
 //=============================================== 쿼리스트링 ================================================\\
 const random1 = Math.floor( Math.random() * 1000 ) + 1;
 const randomID1 = `익명-${random1}`;
@@ -14,7 +13,6 @@ const client = new WebSocket("/chat");
 
 // 1. 클라이언트와 서버의 연결이 시작되었을 때
 client.onopen = ( event ) => {
-    console.log('서버와 연동 시작');
     // 1. JSON형식으로 문자열 메시지 생성
     let message = { type : "join", room : room, mno : mno, cno : cno };
     // 2. 특정한 방에 입장했다는 메시지 전송
@@ -23,13 +21,10 @@ client.onopen = ( event ) => {
 
 // 2. 클라이언트와 서버의 연결이 종료되었을 때
 client.onclose = ( event ) => {
-    console.log('서버와 연결 종료');
 } // func end
 
 // 3. 서버로부터 메시지를 수신했을 때
 client.onmessage = ( event ) => {
-    console.log('서버로부터 메시지 수신');
-    console.log('서버로부터의 메시지 확인' + event.data );
     // 1. 받은 메시지를 JSON 타입으로 변환
     const message = JSON.parse( event.data );   
     // 2. 받은 메시지의 type을 확인하여, 서로 다른 html 만들기
@@ -76,7 +71,6 @@ client.onmessage = ( event ) => {
 
 // 4. 메시지 전송 기능 - 클라이언트 ---> 서버
 const postMsgSend = async ( ) => {
-    console.log('postMsgSend func exe');
     // 1. Input value
     const msgInput = document.querySelector('.msginput');
     const Input = msgInput.value;
@@ -101,11 +95,10 @@ const postMsgSend = async ( ) => {
 
 // 5. room별 채팅 가져오기
 const getChatLog = async ( ) => {
-    console.log('getChatLog func exe');
     try {
         // 1. fetch
         const response = await fetch( `/chatting/getChatLog?room=${room}` );
-        const data = await response.json();     console.log( data );
+        const data = await response.json();     
         // 2. where
         const msgbox = document.querySelector('.msgbox');
         // 3. what
@@ -113,8 +106,6 @@ const getChatLog = async ( ) => {
         for ( let i = 0; i < data.length; i++ ){
             let message = data[i];
             // 4. 내가 보낸 메시지라면
-            console.log( message.from );
-            console.log( mno );
             if ( message.from == mno ){
                 // 5. 내가 보낸 메시지 html 구성하기
                 html += `<div class="secontent">
@@ -149,11 +140,10 @@ getChatLog();
 
 // 6. mno별 채팅목록 가져오기
 const getRoomList = async ( ) => {
-    console.log('getRoomList func exe');
     try {
         // 1. fetch
         const fetch1 = await fetch( "/chatting/getRoomList" );
-        const data = await fetch1.json();         console.log( data );
+        const data = await fetch1.json();        
         // 2. where
         const roomList = document.querySelector('.roomList');
         for ( let i = 0; i < data.length; i++ ){
@@ -168,7 +158,6 @@ const getRoomList = async ( ) => {
                 me = room.from;
                 other = room.to;
             } // if end
-            console.log( me );      console.log( other );
             const fetch2 = await fetch( `/member/getMname?mno=${me}` );
             const mename = await fetch2.text();
             const fetch3 = await fetch( `/member/getMname?mno=${other}` );

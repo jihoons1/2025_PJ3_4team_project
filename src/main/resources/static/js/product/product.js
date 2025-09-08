@@ -1,4 +1,3 @@
-console.log('product.js check');
 
 const params = new URL(location.href).searchParams;
 const page = params.get('page') || 1;
@@ -24,28 +23,29 @@ const getProduct = async() => {
                 pro.cno = '양';
             }else if(pro.cno == 20004){
                 pro.cno = '오리';
-            }// if end
+            }else if(pro.cno == 20005){
+                pro.cno = '닭';
+            }
             html += `<tr>
-                        <td><img src="${imgUrl}"/></td>
+                        <td><img src="${imgUrl}" style="width: 100px; height: 100px;"/></td>
                         <td>${pro.cno}</td>
                         <td>${pro.pname}</td>                        
                     </tr>`
         })// for end
         productbody.innerHTML = html;
+        viewPageButton(data);
     }catch(e){ console.log(e); }
 }// func end
 getProduct();
 
 // 페이징 버튼 출력 함수 
 const viewPageButton = async ( data ) => {
-
+    console.log('viewPageButton exe');
     // 백엔드로 부터 받은 pageDto{} <--->  data{}
     let currentPage = parseInt( data.currentPage ); // parseInt(자료) : 자료를 int 타입으로 변환
     let totalPage = data.totalPage;
     let startBtn = data.startBtn;
-    let endBtn = data.endBtn;
-    const order = document.querySelector('.order').value;
-    
+    let endBtn = data.endBtn;    
 
     const pageBtnBox = document.querySelector('.pageBtnBox');
     let html = "";
