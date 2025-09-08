@@ -58,7 +58,6 @@ create table Stock (
     constraint foreign key( cno ) references Company( cno ) on delete cascade on update cascade
 );
 select * from stock;
-select count(*) from stock where cno = 30001 and pno = 40001;
 -- ---------------------------- Review -------------------
 create table review(
     rno int auto_increment primary key,	-- 리뷰번호

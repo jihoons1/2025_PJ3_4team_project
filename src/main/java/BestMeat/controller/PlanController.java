@@ -63,17 +63,12 @@ public class PlanController {
     // 기능설명 : 요금제를 구독하고 있는 정육점을 조회한다.
     // method : GET, URL : /plan/get
     // 매개변수 : X
-    // 반환타입 : List<CompanyDto>
+    // 반환타입 : List<PlanDto>
     @GetMapping("/get")
-    public List<CompanyDto> getPlan(){
+    public List<PlanDto> getPlan(){
         System.out.println("PlanController.getPlan");
-        List<CompanyDto> clist = new ArrayList<>();
-        List<Integer> ilist = planService.getPlan();
-        for (int cno : ilist){
-            CompanyDto cdto = companyService.findCompany(cno);
-            clist.add(cdto);
-        }// for end
-        return clist;
+
+        return planService.getPlan();
     } // func end
 
     // [plan03-2] 요금제 조회 - getPlanStock()
@@ -85,7 +80,7 @@ public class PlanController {
     public Map<Integer,List<StockDto>> getPlanStock(){
         System.out.println("PlanController.getPlanStock");
         Map<Integer,List<StockDto>> smap = new HashMap<>();
-        List<Integer> ilist = planService.getPlan();
+        List<Integer> ilist = planService.getPlanCno();
         int i = 0;
         for (int cno : ilist){
             List<StockDto> slist = stockService.getStock(cno);

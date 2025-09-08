@@ -1,6 +1,7 @@
 package BestMeat.model.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -8,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class PlanDto {
     // 기본적인 정보
     private int planno;         // 결제로그번호

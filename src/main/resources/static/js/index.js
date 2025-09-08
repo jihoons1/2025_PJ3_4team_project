@@ -218,3 +218,35 @@ const initMap = async () => {
 }// func end
 initMap();
 
+// 멤버쉽 가입한 정육점의 배너 노출
+const printPlanBanner = async ( ) => {
+    console.log('printPlanBanner func exe');
+    try {
+        // 1. fetch
+        const response = await fetch( "/plan/get" );
+        const data = await response.json();
+        // 2. where
+        const bannerBox_top = document.querySelector('.banner_top');
+        const bannerBox_bot = document.querySelector('.banner_bot');
+        // 3. what
+        // 난수를 통해, 무작위 배너 노출
+        let randomNum = Math.round( Math.random() * ( data.length - 1 ) );
+        
+        let banner = data[randomNum].banner;
+        if ( banner == null ){
+            // 등록한 배너가 없으면, 기본 배너 노출
+            banner = `/img/banner/adBanner.png`;
+        } else {
+            banner = `/upload/plan/${banner}`;
+        } // if end
+        let html = `<img class="bimg" src="${banner}" alt="배너 이미지">`
+        // 4. print
+        bannerBox_top.innerHTML = html;
+        bannerBox_bot.innerHTML = html;
+        // 5초마다 배너 노출 재실행 -> 배너 변경
+        setTimeout( printPlanBanner, 5000 );
+    } catch ( error ){
+        console.log( error );
+    } // try-catch end
+} // func end
+printPlanBanner();

@@ -30,7 +30,7 @@ const getMember = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/member/get", option );
-    const data = await response.json();         
+    const data = await response.json();
     // * ming URL 만들기
     let mimgURL = `/upload/member/${data.mimg}`
     // 이미지를 등록하지 않은 회원이면, placehold로 변경
@@ -176,7 +176,7 @@ const getProduct = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/product/get", option );
-    const data = await response.json();     
+    const data = await response.json();
     // 2. where
     const pBox = document.querySelector('.pBox');
     // 3. what
@@ -227,7 +227,7 @@ const getMnoReview = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/review/getMno", option );
-    const data = await response.json();     
+    const data = await response.json();
     // 2. where
     const reviewTbody = document.querySelector('.reviewTbody');
     // 3. what
@@ -241,10 +241,10 @@ const getMnoReview = async ( ) => {
                         </div>`
         }// if end
         html += `<div class="rImgBox" style="display: flex;">`
-        review.images.forEach((img) => { 
+        review.images.forEach((img) => {
             reimg = '/upload/review/'+encodeURIComponent(img);
             html += `<div><img src=${reimg}/></div>`
-        })// for end        
+        })// for end
         html += `</div>`
         html += `<tr>
                     <td>${review.rno}</td>
@@ -271,7 +271,7 @@ const getRnoReview = async ( rno ) => {
         // 1. fetch
         const option = { method : "GET" };
         const response = await fetch( `/review/getRno?rno=${rno}`, option );
-        const data = await response.json();         
+        const data = await response.json();
         // 2. print
         document.querySelector('.oldrno').value = data.rno;
         document.querySelector('.oldrcontent').innerHTML = data.rcontent;
@@ -305,17 +305,17 @@ const update = async() => {
 
     const mig = document.querySelector('#mig');
     const mphone = document.querySelector('.mphone2').value;
-    const sample6_address = document.querySelector('#sample6_address').value;
-    const sample6_detailAddress= document.querySelector('#sample6_detailAddress').value;
+    const sample6_address = document.querySelector('#sample6_address');
+    const sample6_detailAddress= document.querySelector('#sample6_detailAddress');
 
-    let maddress = sample6_address + "," + sample6_detailAddress;
-    
+
+    let maddress = "" + sample6_detailAddress.value;
+
     const mimg = new FormData(mig);
     mimg.append("mphone2" , mphone);
     mimg.append("maddress", maddress);
     try{
-        const op = { method : "PUT" ,
-        body : mimg }
+        const op = { method : "PUT" , body : mimg }
 
         const response = await fetch(`/member/updateMember` , op);
         const data = await response.json();
