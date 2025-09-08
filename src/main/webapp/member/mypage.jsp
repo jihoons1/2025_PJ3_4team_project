@@ -124,10 +124,19 @@
                 </div>
                 <div class="modal-body">
                     <form id="mig">
-                        전화번호 : <input type="text" class="mphone2" name="mphone" placeholder="전화번호를 입력해주세요." /> <br>
-                        주소 : <input type="text" class="maddress2" name="maddress" placeholder="주소를 입력해주세요." /> <br>
+                        전화번호 : <input onkeyup="mphoneCC()" type="text" class="mphone2" name="mphone" placeholder="전화번호를 입력해주세요." /> <br>
+                        <div class="mphone2CC"></div>
+                        <label>주소</label>
+                    <input type="text" id="sample6_postcode" placeholder="우편번호">
+                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="text" onkeyup="maddresscheck()" name="maddress" id="sample6_address" placeholder="주소를 입력해주세요" />
+                    <input type="text" name="mdetailaddress" id="sample6_detailAddress" placeholder="상세주소">
+                    <div class="maddressCheck"></div>
                         프로필 : <input type="file" name="upload" />
                     </form>
+                    <!-- 우편번호 API -->
+                <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
