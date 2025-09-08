@@ -30,6 +30,7 @@ create table Company (
     cno int auto_increment,			                            -- 정육점번호
     cimg varchar(100) ,                                      	-- 정육점이미지명
     cname varchar(30) ,                                         -- 정육점명
+    views int default 0,										-- 해당 정육점 조회수
     caddress varchar(100)  ,                                    -- 정육점 주소
     mno int not null,                                           -- 회원번호
     constraint primary key( cno ),
@@ -130,6 +131,16 @@ create table ChatLog(
     constraint foreign key( roomname ) references ChatRoom( roomname ) on delete cascade on update cascade
 );
 select * from ChatLog;
+-- ---------------------------- ChatLog -------------------
+create table Alarm(
+	ano int auto_increment,				-- 푸시알림번호
+    mno int not null,					-- 회원번호
+    amessage varchar(100) not null,		-- 알림메시지
+    acheck boolean default false,		-- 확인여부
+    constraint primary key( ano ),
+    constraint foreign key( mno ) references member( mno ) on delete cascade on update cascade
+);
+select * from alarm;
 -- ---------------------------- Alter -------------------
 alter table member auto_increment = 10001;
 alter table Category auto_increment = 20001;
@@ -141,6 +152,7 @@ alter table reviewimg auto_increment = 70001;
 alter table notice auto_increment = 80001;
 alter table Plan auto_increment = 90001;
 alter table PointLog auto_increment = 100001;
+alter table Alarm auto_increment = 110001;
 alter table ChatLog auto_increment = 200001;
 
 -- ---------------------------- Insert -------------------
@@ -735,6 +747,11 @@ insert into PointLog( mno, plpoint, plcomment ) values
 	( 10001, 500, '회원가입 지급' ),
     ( 10002, 500, '회원가입 지급' ),
     ( 10003, 500, '회원가입 지급' );
+insert into Alarm( mno, amessage ) values
+	( 10001, ' XXX님에게 메시지가 도착하였습니다.' ),
+    ( 10002, 'XXX원 아래로 XXX의 재고가 등록되었습니다.' ),
+    ( 10003, ' XXX님에게 메시지가 도착하였습니다.' ),
+    ( 10001, ' XXX님에게 메시지가 도착하였습니다.' );
     
 -- ---------------------------- Select Test -------------------
 -- select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
