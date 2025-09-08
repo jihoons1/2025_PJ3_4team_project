@@ -130,7 +130,7 @@ const getChatLog = async ( ) => {
                         </div>`
             } // if end
             // 7. 메시지 박스에 html 추가하기
-            msgbox.innerHTML += html;
+            msgbox.innerHTML = html;
         } // for end
     } catch ( error ) {
         console.log( error );

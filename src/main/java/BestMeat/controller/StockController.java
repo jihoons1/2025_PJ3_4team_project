@@ -27,12 +27,14 @@ public class StockController {
         System.out.println("StockController.addStock");
         System.out.println("stockDto = " + stockDto);
 
-        // 1. 세션정보에서 정육점번호 가져오기 -> SessionService 메소드화
+        // 1. 세션정보에서 회원번호, 정육점번호 가져오기 -> SessionService 메소드화
         int cno = sessionService.getSessionNo( "loginCno", session );
+        int mno = sessionService.getSessionNo( "loginMno", session );
         // 2. 세션정보가 없으면, 메소드 종료
-        if ( cno == 0 ) return 0;
+        if ( mno == 0 || cno == 0 ) return 0;
         // 3. 정육점번호를 Dto에 넣기
         stockDto.setCno( cno );
+        stockDto.setMno( mno );
         // 4. Service에게 전달 후 결과 받기
         return stockService.addStock( stockDto );
     } // func end

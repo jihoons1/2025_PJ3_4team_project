@@ -1,5 +1,7 @@
 package BestMeat.handler;
 
+import BestMeat.model.dto.AlarmDto;
+import BestMeat.service.AlarmService;
 import BestMeat.service.ChattingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ChattingSocketHandler extends TextWebSocketHandler {
     private final ChattingService chattingService;
+    private final AlarmService alarmService;
 
     // 0. 채팅방 모음
     private static final Map< String, List< WebSocketSession > > users = new HashMap<>();
@@ -82,13 +85,20 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
             // 13. 같은 방에 있는 모든 클라이언트에게 메시지 보내기
             for ( WebSocketSession client : users.get( room ) ){
                 client.sendMessage( message );
+                // 14. 만약에 메시지를 보낸 사람과 받는 사람이 같지 않다면
+                if ( msg.get("from") != client.getAttributes().get("mno") ){
+                    String alarm = "\"" + msg.get("message") + "\" 의 메시지가 도착하였습니다.";
+                    AlarmDto alarmDto = AlarmDto.builder().mno(Integer.parseInt(msg.get("to"))).amessage( alarm ).build();
+                    // 15. 알림 전송하기
+                    alarmService.addAlarm( alarmDto );
+                } // if end
             } // for end
-            // 14. CSV 생성하기
+            // 16. CSV 생성하기
             chattingService.createCSV( room );
-            // 15. CSV에 메시지 저장하기
+            // 17. CSV에 메시지 저장하기
             chattingService.saveSCV( msg );
         } // if end
-        // 16. 생성된 채팅방 확인용
+        // 18. 생성된 채팅방 확인용
         System.out.println("users = " + users);
     } // func end
 
