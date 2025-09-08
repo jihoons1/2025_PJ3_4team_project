@@ -20,7 +20,7 @@
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
-        <div class="banner">
+        <div class="banner_top">
 
         </div>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="width: 40%;">
@@ -38,6 +38,9 @@
         <div style="display: flex;">
             <div id="map" style="width:60%;height:400px;padding:0;margin:0;"></div>
             <div id="sidebar" style="width: 40%; padding: 10px; overflow-y: auto;"></div>
+        </div>
+        <div class="banner_bot">
+
         </div>
     </div>
 

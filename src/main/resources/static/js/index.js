@@ -237,7 +237,8 @@ const printPlanBanner = async ( ) => {
         const response = await fetch( "/plan/get" );
         const data = await response.json();
         // 2. where
-        const bannerBox = document.querySelector('.banner');
+        const bannerBox_top = document.querySelector('.banner_top');
+        const bannerBox_bot = document.querySelector('.banner_bot');
         // 3. what
         // 난수를 통해, 무작위 배너 노출
         let randomNum = Math.round( Math.random() * ( data.length - 1 ) );
@@ -251,7 +252,8 @@ const printPlanBanner = async ( ) => {
         } // if end
         let html = `<img class="bimg" src="${banner}" alt="배너 이미지">`
         // 4. print
-        bannerBox.innerHTML = html;
+        bannerBox_top.innerHTML = html;
+        bannerBox_bot.innerHTML = html;
         // 5초마다 배너 노출 재실행 -> 배너 변경
         setTimeout( printPlanBanner, 5000 );
     } catch ( error ){
