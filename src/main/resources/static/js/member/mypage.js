@@ -322,11 +322,11 @@ const update = async() => {
 
     const mig = document.querySelector('#mig');
     const mphone = document.querySelector('.mphone2').value;
-    const sample6_address = document.querySelector('#sample6_address').value;
-    const sample6_detailAddress= document.querySelector('#sample6_detailAddress').value;
+    const sample6_address = document.querySelector('#sample6_address');
+    const sample6_detailAddress= document.querySelector('#sample6_detailAddress');
 
 
-    let maddress = sample6_address + "," + sample6_detailAddress;
+    let maddress = "" + sample6_detailAddress.value;
 
     const mimg = new FormData(mig);
     mimg.append("mphone2" , mphone);
@@ -334,8 +334,7 @@ const update = async() => {
 
     console.log(mimg);
     try{
-        const op = { method : "PUT" ,
-        body : mimg }
+        const op = { method : "PUT" , body : mimg }
 
         const response = await fetch(`/member/updateMember` , op);
         const data = await response.json();
