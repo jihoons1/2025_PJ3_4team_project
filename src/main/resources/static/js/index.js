@@ -129,10 +129,7 @@ const getPlanStock = async() => {
 const initMap = async () => {
     const response = await fetch("/map/latlngList");
     const data = await response.json();
-    const response2 = await fetch("/company/getAll");
-    const data2 = await response2.json();
-
-    console.log(data, data2);
+    console.log(data);
 
     // 지도는 한 번만 생성
     console.log('initMap exe');
@@ -150,36 +147,23 @@ const initMap = async () => {
             map: map,
             position: company
         });
-
-        // company.getAll 데이터와 매칭 (예: 같은 id 기준)
-        const companyInfo = data2.find(c => c.cno === data[i].cno);
-
-        let cImgUrl = '/upload/' + encodeURIComponent(companyInfo?.cimg || "");
-        if (!companyInfo?.cimg) {
-            cImgUrl = 'https://placehold.co/50x50';
-        }
-
-        const contentString = `
-            <div>
-                <h3>${companyInfo?.cname || "이름 없음"}</h3>
-                <p>
-                    ${companyInfo?.caddress || ""} <br>
-                    <img src="${cImgUrl}">
-                </p>
-            </div>
-        `;
-
-        const infowindow = new naver.maps.InfoWindow({
-            content: contentString
-        });
-
+        // const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
+        // const data2 = await response2.json();
         // marker 클릭 이벤트
         naver.maps.Event.addListener(marker, "click", () => {
-            if (infowindow.getMap()) {
-                infowindow.close();
-            } else {
-                infowindow.open(map, marker);
-            }
+            rimgUrl = "/upload/company/"+encodeURIComponent(data[i].cimg);
+            if(data[i].cimg == null || data[i].cimg == ""){
+                rimgUrl = 'https://placehold.co/50x50';
+            }// if end
+            const sidebar = document.querySelector('#sidebar');
+            sidebar.style.display = 'block';
+            html = `<div><img src="${rimgUrl}"/></div>
+                    <div><h3>${data[i].cname}</h3></div>                                      
+                    <div>주소 : ${data[i].caddress}</div>
+                    <ul>
+                        <li>${data2.pname}</li>
+                    </ul>`
+            sidebar.innerHTML = html;
         });
         markers.push(marker);
     }// for end

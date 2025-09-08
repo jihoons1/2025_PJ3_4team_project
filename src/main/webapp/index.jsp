@@ -34,9 +34,9 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <div id="map" style="width:100%;height:400px;padding:0;margin:0;"></div>
-        <div class="banner">
-            <img class="bimg" src="/img/banner/adBanner.png" alt="배너 이미지">
+        <div style="display: flex;">
+            <div id="sidebar" style="width: 20%; padding: 10px; overflow-y: auto; display: none;"></div>
+            <div id="map" style="width:100%;height:400px;padding:0;margin:0;"></div>
         </div>
     </div>
 
