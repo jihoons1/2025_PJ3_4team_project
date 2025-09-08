@@ -21,7 +21,7 @@
 
     <div id="container">
         <div class="banner">
-            <img class="bimg" src="/img/banner/adBanner.png" alt="배너 이미지">
+
         </div>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="width: 40%;">
             <div class="carousel-inner">
