@@ -1,4 +1,3 @@
-console.log('search.js 확인');
 
 const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
@@ -76,7 +75,6 @@ const viewPageButton = async ( data ) => {
 
 // [4] 알림 등록기능
 const addNotice = async ( ) => {
-    console.log('addNotice func exe');
     // 1. Input value
     const pno = document.querySelector('.pBox').value;
     const nprice = document.querySelector('.nprice').value;
@@ -101,7 +99,6 @@ const addNotice = async ( ) => {
 
 // [5] 제품 전체조회
 const getProduct = async ( ) => {
-    console.log('getProduct func exe');
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/product/get", option );

@@ -1,12 +1,9 @@
 
-console.log('signup.js exe');
 
 // 유효성
 const test = [false,false,false,false,false] // 7개 mname/mid/mwd/mwd확인/mphone/maddress/memail
 
 const signupbtn = async() => {
-    console.log('회원가입1');
-
     // 회원버튼 클릭시 일치x 이면
     if(test.includes(false)){
         alert('올바른 정보 입력해주십시오');
@@ -25,13 +22,11 @@ const signupbtn = async() => {
     const mimgupload = new FormData(mig);
     mimgupload.append("memail", memail);
     mimgupload.append("maddress", maddress);
-    console.log(mimgupload);
     try{
 
     const op = { method : "POST" , body : mimgupload }
     const response = await fetch('/member/signup' , op);
     const data = await response.json();
-        console.log(data);
     if(data > 0 ){
         alert('회원가입 성공');
         location.href="/member/login.jsp"; 

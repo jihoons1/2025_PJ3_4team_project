@@ -1,5 +1,4 @@
 
-console.log('findid.js exe');
 
 
 // 아이디 찾기

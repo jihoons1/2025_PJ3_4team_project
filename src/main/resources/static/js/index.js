@@ -1,4 +1,3 @@
-console.log('index.js exe');
 
 
 // [1] 메인페이지 노출시킬 회사정보 가져오기
@@ -6,18 +5,14 @@ const getPlan = async() => {
     const carouselInner = document.querySelector('.carousel-inner');
     let html = "";
     try{
-        const response = await fetch('/plan/get');
-        const data = await response.json();
-        console.log(data);
-        const response2 = await fetch('/plan/stock');
-        const data2 = await response2.json();
-        console.log(data2[0]);
+        const response = await fetch('/company/getAll');
+        const data = await response.json();     
         for(let i = 0; i < data.length; i++){
             if(data[i].cimg == null || data[i].cimg == ""){
                 data[i].cimg = 'https://placehold.co/100x100';
             }// if end
             if(i == 0){                
-                html += `<div class="carousel-item active">
+                html += `<div class="carousel-item active" style="margin: 0 auto;">
                             <div>
                                 <h3>${data[i].cname}</h3><span>평점 : ${data[i].rrank}점</span>
                                 <img src="${data[i].cimg}" class="d-block w-40" alt="...">
@@ -91,7 +86,6 @@ getPlan();
 // [2] 길찾기 QR Code 출력
 const buildQR = async(cno) => {
     const cookie = document.cookie;
-    console.log(cookie);
     const qrbox = document.querySelector('.qrBox');
     try{
         const response = await fetch(`/company/qrcode?cno=${cno}`);
@@ -102,7 +96,6 @@ const buildQR = async(cno) => {
             return;
         }// if end
         const imgUrl = URL.createObjectURL(blob);
-        console.log(blob);
         let html = `<img src="${imgUrl}" alt="QR Code"/>`;
         qrbox.innerHTML = html;
     }catch(e){ console.log(e); }
@@ -114,7 +107,6 @@ const getPlanStock = async() => {
     let html1 = "";
     const response = await fetch("/plan/stock");
     const data = await response.json();
-    console.log(data);
     for(let i = 0; i < data.length; i++){
         let st = data[i];
         for(let a = 0; a < st.length; a++){            
@@ -129,10 +121,8 @@ const getPlanStock = async() => {
 const initMap = async () => {
     const response = await fetch("/map/latlngList");
     const data = await response.json();
-    console.log(data);
 
     // 지도는 한 번만 생성
-    console.log('initMap exe');
     map = new naver.maps.Map('map', {
         center: new naver.maps.LatLng( 37.4904807, 126.7234847),
         zoom: 10
@@ -147,22 +137,40 @@ const initMap = async () => {
             map: map,
             position: company
         });
-        // const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
-        // const data2 = await response2.json();
-        // marker 클릭 이벤트
+        const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
+        const data2 = await response2.json();        
         naver.maps.Event.addListener(marker, "click", () => {
+            let html = "";
             rimgUrl = "/upload/company/"+encodeURIComponent(data[i].cimg);
             if(data[i].cimg == null || data[i].cimg == ""){
                 rimgUrl = 'https://placehold.co/50x50';
             }// if end
-            const sidebar = document.querySelector('#sidebar');
-            sidebar.style.display = 'block';
-            html = `<div><img src="${rimgUrl}"/></div>
+            const sidebar = document.querySelector('#sidebar');           
+            if(data2.length == 0 || data2 == null){
+                html += `<div><img src="${rimgUrl}"/></div>
+                    <div><a href="/company/find.jsp?cno=${data[i].cno}"><h3>${data[i].cname}</h3></a></div>                                      
+                    <div>주소 : ${data[i].caddress}</div>
+                    <br/><br/>`
+            }else{
+                const lastDate = new Date(
+                    Math.max(...data2.map(st => new Date(st.sdate)))
+                ).toISOString().slice(0, 10);
+                html += `<div><img src="${rimgUrl}"/></div>
                     <div><h3>${data[i].cname}</h3></div>                                      
                     <div>주소 : ${data[i].caddress}</div>
-                    <ul>
-                        <li>${data2.pname}</li>
-                    </ul>`
+                    <br/><br/>
+                    <div>( ${lastDate}일 기준 )</div>
+                    <ul>`                
+                data2.forEach( (st) => {
+                    const day =  st.sdate.slice(0,10);
+                    html += `<li style="display: flex; align-items: center; list-style: none;">
+                                <span>${st.pname}(100g당)</span>
+                                <span style="flex: 1; background: repeating-linear-gradient(to right, #999 0, #999 2px, transparent 2px, transparent 6px); height: 1px; margin: 0 8px;"></span>
+                                <span>${st.sprice}원</span>
+                            </li>`
+                })// for end
+                html += `</ul>`;
+            } // if end
             sidebar.innerHTML = html;
         });
         markers.push(marker);
@@ -192,12 +200,11 @@ const initMap = async () => {
         size: N.Size(40, 40),
         anchor: N.Point(20, 20)
     };
-    console.log(htmlMarker1);
 
     
     var markerClustering = new MarkerClustering({
         minClusterSize: 2,
-        maxZoom: 13,
+        maxZoom: 16,
         map: map,
         markers: markers,
         disableClickZoom: false,
@@ -205,15 +212,41 @@ const initMap = async () => {
         icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
         indexGenerator: [10, 100, 200, 500, 1000],
         stylingFunction: function(clusterMarker, count) {
-            console.log( clusterMarker )
-            console.log( count )
             $(clusterMarker.getElement()).find('div:first-child').text(count);
         }
     });
-
-    
-    console.log(markerClustering);
-
 }// func end
 initMap();
 
+// 멤버쉽 가입한 정육점의 배너 노출
+const printPlanBanner = async ( ) => {
+    console.log('printPlanBanner func exe');
+    try {
+        // 1. fetch
+        const response = await fetch( "/plan/get" );
+        const data = await response.json();
+        // 2. where
+        const bannerBox_top = document.querySelector('.banner_top');
+        const bannerBox_bot = document.querySelector('.banner_bot');
+        // 3. what
+        // 난수를 통해, 무작위 배너 노출
+        let randomNum = Math.round( Math.random() * ( data.length - 1 ) );
+        
+        let banner = data[randomNum].banner;
+        if ( banner == null ){
+            // 등록한 배너가 없으면, 기본 배너 노출
+            banner = `/img/banner/adBanner.png`;
+        } else {
+            banner = `/upload/plan/${banner}`;
+        } // if end
+        let html = `<img class="bimg" src="${banner}" alt="배너 이미지">`
+        // 4. print
+        bannerBox_top.innerHTML = html;
+        bannerBox_bot.innerHTML = html;
+        // 5초마다 배너 노출 재실행 -> 배너 변경
+        setTimeout( printPlanBanner, 5000 );
+    } catch ( error ){
+        console.log( error );
+    } // try-catch end
+} // func end
+printPlanBanner();

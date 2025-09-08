@@ -8,9 +8,6 @@ a{
     text-decoration: none;
     color: black;
 }
-li{
-    list-style: none;
-}
 button{
     cursor: pointer;
 }
@@ -38,6 +35,10 @@ button{
 }
 .bimg{
     width: 1280px;
-    height: 100px;
+    height: 75px;
     margin: 10px 0px;
 }
+li{
+    list-style: none;
+}
+

@@ -1,13 +1,10 @@
-console.log('mypage.js open');
 
 // [*] 입력값 유효성 검사
 const numCheckList = [ false ,false ];
 // 숫자만 유효성 검사 - 알림등록
 const noticeAddCheck = (  ) => {
-    console.log('noticeAddCheck func exe');
     const nprice = document.querySelector('.nprice').value;
     const regExp = /^[0-9]+$/;
-    console.log( regExp.test( nprice ) );
     if ( !regExp.test( nprice ) ){
         document.querySelector('.noticeAddCheck').innerHTML = '숫자만 입력해주세요.'
     } else {
@@ -17,10 +14,8 @@ const noticeAddCheck = (  ) => {
 } // func end
 // 숫자만 유효성 검사 - 알림수정
 const noticeupdateCheck = (  ) => {
-    console.log('noticeupdateCheck func exe');
     const NewNprice = document.querySelector('.NewNprice').value;
     const regExp = /^[0-9]+$/;
-    console.log( regExp.test( NewNprice ) );
     if ( !regExp.test( NewNprice ) ){
         document.querySelector('.noticeUpdateCheck').innerHTML = '숫자만 입력해주세요.'
     } else {
@@ -32,11 +27,10 @@ const noticeupdateCheck = (  ) => {
 
 // [1] 회원정보 상세조회
 const getMember = async ( ) => {
-    console.log('getMember func exe');
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/member/get", option );
-    const data = await response.json();         console.log( data );
+    const data = await response.json();
     // * ming URL 만들기
     let mimgURL = `/upload/member/${data.mimg}`
     // 이미지를 등록하지 않은 회원이면, placehold로 변경
@@ -57,7 +51,6 @@ getMember();
 
 // [2] 회원탈퇴 기능
 const resignMember = async ( ) => {
-    console.log('resignMember func exe');
     try {
         // 1. Input value
         const mpwd = document.querySelector('.mpwdInput').value;
@@ -87,7 +80,6 @@ const resignMember = async ( ) => {
 let noticeData;
 // [3] 회원별 알림조회
 const getNotice = async ( ) => {
-    console.log('getNotice func exe');
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/notice/get", option );
@@ -125,8 +117,6 @@ getNotice();
 
 // [4] 수정 기본 출력
 const updatePrint = async ( nno ) => {
-    console.log( nno )
-    console.log( noticeData.length );
     // 1. 전역변수로 선언된 noticeData를 통해 기본 출력
     for ( let i = 0; i < noticeData.length; i++ ){
         if ( noticeData[i].nno == nno ){
@@ -140,7 +130,6 @@ const updatePrint = async ( nno ) => {
 
 // [5] 알림 수정
 const updateNotice = async ( nno ) => {
-    console.log('updateNotice func exe');
     // 숫자 유효성 체크
     if ( numCheckList.includes(false) ){
         alert('올바른 정보를 입력해주세요.');
@@ -169,7 +158,6 @@ const updateNotice = async ( nno ) => {
 
 // [6] 알림 삭제
 const deleteNotice = async ( nno ) => {
-    console.log('deleteNotice func exe');
     // 1. fetch
     const option = { method : "DELETE" };
     const response = await fetch( `/notice/delete?nno=${nno}`, option );
@@ -185,11 +173,10 @@ const deleteNotice = async ( nno ) => {
 
 // [7] 제품 전체조회
 const getProduct = async ( ) => {
-    console.log('getProduct func exe');
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/product/get", option );
-    const data = await response.json();     console.log( data );
+    const data = await response.json();
     // 2. where
     const pBox = document.querySelector('.pBox');
     // 3. what
@@ -206,7 +193,6 @@ getProduct();
 
 // [8] 알림 등록기능
 const addNotice = async ( ) => {
-    console.log('addNotice func exe');
     // 숫자 유효성 체크
     if ( numCheckList.includes(false) ){
         alert('올바른 정보를 입력해주세요.');
@@ -238,11 +224,10 @@ const addNotice = async ( ) => {
 
 // [9] 회원별 리뷰조회
 const getMnoReview = async ( ) => {
-    console.log('getMnoReview func exe');
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/review/getMno", option );
-    const data = await response.json();     console.log( data );
+    const data = await response.json();
     // 2. where
     const reviewTbody = document.querySelector('.reviewTbody');
     // 3. what
@@ -256,11 +241,10 @@ const getMnoReview = async ( ) => {
                         </div>`
         }// if end
         html += `<div class="rImgBox" style="display: flex;">`
-        review.images.forEach((img) => { console.log(img);
+        review.images.forEach((img) => {
             reimg = '/upload/review/'+encodeURIComponent(img);
             html += `<div><img src=${reimg}/></div>`
         })// for end
-        console.log(reimg);
         html += `</div>`
         html += `<tr>
                     <td>${review.rno}</td>
@@ -283,12 +267,11 @@ getMnoReview();
 
 // 리뷰번호 리뷰 내용 조회
 const getRnoReview = async ( rno ) => {
-    console.log('getRnoReview func exe');
     try {
         // 1. fetch
         const option = { method : "GET" };
         const response = await fetch( `/review/getRno?rno=${rno}`, option );
-        const data = await response.json();         console.log( data );
+        const data = await response.json();
         // 2. print
         document.querySelector('.oldrno').value = data.rno;
         document.querySelector('.oldrcontent').innerHTML = data.rcontent;
@@ -331,8 +314,6 @@ const update = async() => {
     const mimg = new FormData(mig);
     mimg.append("mphone2" , mphone);
     mimg.append("maddress", maddress);
-
-    console.log(mimg);
     try{
         const op = { method : "PUT" , body : mimg }
 
