@@ -18,7 +18,6 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/map")
-@EnableAsync
 public class MapController {
     private final MapService mapService;
     private final CompanyService companyService;
@@ -46,23 +45,20 @@ public class MapController {
     } // func end
 
     // 모든 정육점 위도경도 조회
-    @Async
     @GetMapping("/latlngList")
-    public CompletableFuture<List<CompanyDto>> getLatLngList (){
-        return CompletableFuture.supplyAsync(() -> {
-            System.out.println("MapController.getLatLngList");
-            if (list == null){
-                list = new ArrayList<>();
-                List<CompanyDto> clist = companyService.getCompanyList();
-                for (CompanyDto dto : clist){
-                    String[] str1 = dto.getCaddress().split(",");
-                    double[] darray = mapService.getLatLng(str1[0]);
-                    dto.setLat(darray[1]);
-                    dto.setLng(darray[0]);
-                    list.add(dto);
-                }// for end
-            }// if end
-            return list;
-        });
+    public List<CompanyDto> getLatLngList (){
+        System.out.println("MapController.getLatLngList");
+        if (list == null){
+            list = new ArrayList<>();
+            List<CompanyDto> clist = companyService.getCompanyList();
+            for (CompanyDto dto : clist){
+                String[] str1 = dto.getCaddress().split(",");
+                double[] darray = mapService.getLatLng(str1[0]);
+                dto.setLat(darray[1]);
+                dto.setLng(darray[0]);
+                list.add(dto);
+            }// for end
+        }// if end
+        return list;
     }// func end
 } // class end

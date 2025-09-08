@@ -11,6 +11,7 @@
 
     <!-- CSS 불러오기 : static 이하 경로부터 작성 -->
     <link rel="stylesheet" href="/css/common.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
@@ -22,7 +23,7 @@
         <div class="banner">
             <img class="bimg" src="/img/banner/adBanner.png" alt="배너 이미지">
         </div>
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="width: 40%;">
             <div class="carousel-inner">
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -35,8 +36,8 @@
             </button>
         </div>
         <div style="display: flex;">
-            <div id="sidebar" style="width: 20%; padding: 10px; overflow-y: auto; display: none;"></div>
-            <div id="map" style="width:100%;height:400px;padding:0;margin:0;"></div>
+            <div id="map" style="width:60%;height:400px;padding:0;margin:0;"></div>
+            <div id="sidebar" style="width: 40%; padding: 10px; overflow-y: auto;"></div>
         </div>
     </div>
 
@@ -44,11 +45,12 @@
     <jsp:include page="/footer.jsp"></jsp:include>
     <!-- 네이버지도 불러오기 -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=kijgn3tmo2"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=7dgspubsn7"></script>
     <script type="text/javascript" src="/js/MarkerClustering.js"></script>
 
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
     <script src="/js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

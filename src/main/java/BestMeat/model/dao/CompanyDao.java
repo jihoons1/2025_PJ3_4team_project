@@ -127,7 +127,7 @@ public class CompanyDao extends Dao {
     public List<CompanyDto> getCompanyList(){
         List<CompanyDto> list = new ArrayList<>();
         try{
-            String sql = "select * from company";
+            String sql = "select c.cno , c.mno , c.cimg , c.cname , c.caddress , ifnull(round(avg(r.rrank),1),0) as rrank from company c left outer join review r on c.cno = r.cno group by c.cno";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
@@ -137,6 +137,7 @@ public class CompanyDao extends Dao {
                 dto.setCname(rs.getString("cname"));
                 dto.setCaddress(rs.getString("caddress"));
                 dto.setCimg(rs.getString("cimg"));
+                dto.setRrank(rs.getDouble("rrank"));
                 list.add(dto);
             }// while end
         } catch (Exception e) { System.out.println(e); }

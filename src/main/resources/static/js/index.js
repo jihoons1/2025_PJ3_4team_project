@@ -6,18 +6,15 @@ const getPlan = async() => {
     const carouselInner = document.querySelector('.carousel-inner');
     let html = "";
     try{
-        const response = await fetch('/plan/get');
-        const data = await response.json();
-        console.log(data);
-        const response2 = await fetch('/plan/stock');
-        const data2 = await response2.json();
-        console.log(data2[0]);
+        const response = await fetch('/company/getAll');
+        const data = await response.json();     
+        console.log(data);          
         for(let i = 0; i < data.length; i++){
             if(data[i].cimg == null || data[i].cimg == ""){
                 data[i].cimg = 'https://placehold.co/100x100';
             }// if end
             if(i == 0){                
-                html += `<div class="carousel-item active">
+                html += `<div class="carousel-item active" style="margin: 0 auto;">
                             <div>
                                 <h3>${data[i].cname}</h3><span>평점 : ${data[i].rrank}점</span>
                                 <img src="${data[i].cimg}" class="d-block w-40" alt="...">
@@ -147,22 +144,37 @@ const initMap = async () => {
             map: map,
             position: company
         });
-        // const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
-        // const data2 = await response2.json();
-        // marker 클릭 이벤트
+        const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
+        const data2 = await response2.json();        
+        console.log(data2);
         naver.maps.Event.addListener(marker, "click", () => {
+            let html = "";
             rimgUrl = "/upload/company/"+encodeURIComponent(data[i].cimg);
             if(data[i].cimg == null || data[i].cimg == ""){
                 rimgUrl = 'https://placehold.co/50x50';
             }// if end
-            const sidebar = document.querySelector('#sidebar');
-            sidebar.style.display = 'block';
-            html = `<div><img src="${rimgUrl}"/></div>
+            const sidebar = document.querySelector('#sidebar');           
+            if(data2.length == 0 || data2 == null){
+                html += `<div><img src="${rimgUrl}"/></div>
+                    <div><h3><a href="/company/find.jsp?cno=${data[i].cno}">${data[i].cname}</a></h3></div>                                      
+                    <div>주소 : ${data[i].caddress}</div>
+                    <br/><br/>`
+            }else{
+                const lastDate = new Date(
+                    Math.max(...data2.map(st => new Date(st.sdate)))
+                ).toISOString().slice(0, 10);
+                html += `<div><img src="${rimgUrl}"/></div>
                     <div><h3>${data[i].cname}</h3></div>                                      
                     <div>주소 : ${data[i].caddress}</div>
-                    <ul>
-                        <li>${data2.pname}</li>
-                    </ul>`
+                    <br/><br/>
+                    <div>( ${lastDate}일 기준 )</div>
+                    <ul>`                
+                data2.forEach( (st) => {
+                    const day =  st.sdate.slice(0,10);
+                    html += `<li>${st.pname} ---------- ${st.sprice}원</li>`
+                })// for end
+                html += `</ul>`;
+            } // if end
             sidebar.innerHTML = html;
         });
         markers.push(marker);
@@ -197,7 +209,7 @@ const initMap = async () => {
     
     var markerClustering = new MarkerClustering({
         minClusterSize: 2,
-        maxZoom: 13,
+        maxZoom: 16,
         map: map,
         markers: markers,
         disableClickZoom: false,
