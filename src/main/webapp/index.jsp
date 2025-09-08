@@ -23,17 +23,27 @@
         <div class="banner">
             <img class="bimg" src="/img/banner/adBanner.png" alt="배너 이미지">
         </div>
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="width: 40%;">
-            <div class="carousel-inner">
+        <div style="display: flex;" class="mb-3">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="width: 60%;">
+                <div class="carousel-inner">
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            <div class="video-container" style="width: 40%;">
+                <iframe width="100%" height="100%" 
+                    src="https://www.youtube.com/embed/2l2oU858Yn4?autoplay=1&loop=1&playlist=2l2oU858Yn4&mute=1" 
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
+            </div>
         </div>
         <div style="display: flex;">
             <div id="map" style="width:60%;height:400px;padding:0;margin:0;"></div>
