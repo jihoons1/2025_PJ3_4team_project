@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    <div class="toast-container p-3 bottom-0 end-0">
+    <div class="toast-container p-3 bottom-0 end-0" style="position: fixed; z-index: 1100; width: 20%;">
         <!-- 해당 회원의 푸시 알림으로 구성될 예정 -->
     </div>
 

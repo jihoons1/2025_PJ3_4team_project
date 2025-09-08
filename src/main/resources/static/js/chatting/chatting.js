@@ -69,7 +69,9 @@ client.onmessage = ( event ) => {
     msgBox.scrollTop = msgBox.scrollHeight;
 } // func end
 
-// 4. 메시지 전송 기능 - 클라이언트 ---> 서버
+//=============================================== 일반 로직 ================================================\\
+
+// 1. 메시지 전송 기능 - 클라이언트 ---> 서버
 const postMsgSend = async ( ) => {
     // 1. Input value
     const msgInput = document.querySelector('.msginput');
@@ -93,7 +95,7 @@ const postMsgSend = async ( ) => {
     msgInput.value = '';
 } // func end
 
-// 5. room별 채팅 가져오기
+// 2. room별 채팅 가져오기
 const getChatLog = async ( ) => {
     try {
         // 1. fetch
@@ -138,7 +140,7 @@ const getChatLog = async ( ) => {
 } // func end
 getChatLog();
 
-// 6. mno별 채팅목록 가져오기
+// 3. mno별 채팅목록 가져오기
 const getRoomList = async ( ) => {
     try {
         // 1. fetch
@@ -177,21 +179,24 @@ const getRoomList = async ( ) => {
 } // func end
 getRoomList();
 
-// 7. 채팅방 유효성 검사
+// 4. 채팅방 유효성 검사
 const checkSession = async ( ) => {
     try{
+        // 1. fetch
         const response = await fetch( "/member/get" );
         const data = await response.json();
-        console.log( room );
+        // 2. 전체채팅방이면 유지
         if ( room == null || room == "0" ) return;
-
+        // 3. 세션 회원번호가 수신/발신 어디에도 없다면
         if ( data.mno != mno && data.mno != cno ){
+            // 4. 메인페이지로 이동
             alert('유효하지않은 세션이므로 메인페이지로 이동합니다.');
             location.href = "/index.jsp";
         } // if end
     } catch ( error ){
+        // 5. 전체채팅방이면 유지
         if ( room == null || room == "0" ) return;
-
+        // 6. 메인페이지로 이동
         alert('유효하지않은 세션이므로 메인페이지로 이동합니다.');
         location.href = "/index.jsp";
     } // try-catch end

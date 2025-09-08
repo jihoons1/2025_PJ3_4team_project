@@ -1,12 +1,11 @@
-
-// 쿼리스트링에서 정보 가져오기
+//=============================================== 쿼리스트링 ================================================\\
 const queryString = new URL( location.href ).searchParams;
 const cno = queryString.get("cno");
 let StockData;
-
-// [*] 입력값 유효성 검사
+//=============================================== 일반 로직 ================================================\\
+// * 입력값 유효성 검사
 const checkList = [ false ];
-// 숫자만 유효성 검사 - 재고등록
+// 1. 숫자만 유효성 검사 - 재고등록
 const numCheck = (  ) => {
     const sprice = document.querySelector('.sprice').value;
     const regExp = /^[0-9]+$/;
@@ -17,7 +16,8 @@ const numCheck = (  ) => {
         checkList[0] = true;
     } // if end
 } // func end
-// 숫자만 유효성 검사 - 재고수정
+
+// 2. 숫자만 유효성 검사 - 재고수정
 const updateCheck = (  ) => {
     const sprice = document.querySelector('.spriceBox').value;
     const regExp = /^[0-9]+$/;
@@ -29,8 +29,7 @@ const updateCheck = (  ) => {
     } // if end
 } // func end
 
-
-// [1] 카테고리별 상품 출력
+// 3. 카테고리별 상품 출력
 const getCnoProduct = async ( ) => {
     // 1. Input value
     const cno = document.querySelector('.cno').value;
@@ -48,7 +47,7 @@ const getCnoProduct = async ( ) => {
     productBox.innerHTML = html;
 } // func end
 
-// [2] 재고등록 기능
+// 4. 재고등록 기능
 const addStock = async ( ) => {
     if ( checkList.includes(false) ){
         alert('올바른 정보를 입력해주세요.');
@@ -79,7 +78,7 @@ const addStock = async ( ) => {
     } // if end
 } // func end
 
-// [3] 재고조회 기능
+// 5. 재고조회 기능
 const getStock = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
@@ -111,9 +110,8 @@ const getStock = async ( ) => {
 } // func end
 getStock();
 
-// [4] 재고수정 버튼
+// 6. 재고수정 버튼
 const updateButton = async ( sno ) => {
-    
     // 1. where
     const buttons = document.querySelector(`.modal-footer`);
     const sprice = document.querySelector(`.spriceBox`);
@@ -139,7 +137,7 @@ const updateButton = async ( sno ) => {
     sprice.value = oldPrice;
 } // func end
 
-// [5] 재고수정
+// 7. 재고수정
 const updateStock = async ( sno, pno ) => {
     // 입력값 체크
     if ( checkList.includes(false) ){
@@ -167,7 +165,7 @@ const updateStock = async ( sno, pno ) => {
     } // if end
 } // func end
 
-// [6] 재고삭제
+// 8. 재고삭제
 const deleteStock = async ( sno ) => {
     // 1. fetch
     const option = { method : "DELETE" };

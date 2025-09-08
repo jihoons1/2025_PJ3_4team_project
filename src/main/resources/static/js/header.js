@@ -1,6 +1,7 @@
 let MemberData;
 
 //=============================================== 일반 로직 ================================================\\
+// 1. 세션정보에 따라 다른 출력 구현
 const myinfo = async() => {
     const log = document.querySelector('.log');
     const menu = document.querySelector('.menu');
@@ -45,13 +46,14 @@ const myinfo = async() => {
 } // func end
 myinfo();
 
+// 2. 로그아웃 버튼 구현
 const logout= async() => {
-    
     try{
+        // 1. fetch
         const op = { method : "GET" }
         const response = await fetch('/member/logout' , op)
         const data = await response.json();
-
+        // 2. result
         if( data > 0){
             alert('로그아웃 성공');
             location.href="/index.jsp";
@@ -61,17 +63,14 @@ const logout= async() => {
     }catch(error){console.log(error) ; }
 }
 
-// 검색 함수
+// 3. 검색 함수
 const search = async (  ) => {
     const keyword = document.querySelector('.searchBox').value;
     location.href=`/search/search.jsp?key=pname&keyword=${keyword}`;
-
 } // func end
 
 // 4. 푸시알림조회
 const getAlarm = async ( ) => {
-    console.log('getAlarm func exe');
-
     try{
         // 1. fetch
         const response = await fetch( "/alarm/get" );
@@ -101,7 +100,6 @@ getAlarm();
 
 // 5. 푸시알림수정
 const updateAlarm = async ( ano ) => {
-    console.log('updateAlarm func exe');
     try{
         // 1. fetch
         const option = { method : "PUT" };
@@ -112,8 +110,8 @@ const updateAlarm = async ( ano ) => {
     } // try-catch end
 } // func end
 
-//=============================================== 결제 API ===========================================\\
-// 포인트 결제 기능
+//=============================================== 결제 API ================================================\\
+// 1. 포인트 결제 기능
 const payment = async ( ) => {
     // 포트원 기본 정보 제공
     let IMP = window.IMP;
@@ -169,5 +167,4 @@ const payment = async ( ) => {
             }
         } // func end
     ); // 결제 프롬프트 end
-
 } // func end

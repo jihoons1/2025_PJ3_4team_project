@@ -1,6 +1,5 @@
-
-
-// [1] 메인페이지 노출시킬 회사정보 가져오기
+//=============================================== 일반 로직 ================================================\\
+// 1. 메인페이지 노출시킬 회사정보 가져오기
 const getPlan = async() => {
     const carouselInner = document.querySelector('.carousel-inner');
     let html = "";
@@ -83,7 +82,7 @@ const getPlan = async() => {
 }// func end
 getPlan();
 
-// [2] 길찾기 QR Code 출력
+// 2. 길찾기 QR Code 출력
 const buildQR = async(cno) => {
     const cookie = document.cookie;
     const qrbox = document.querySelector('.qrBox');
@@ -101,7 +100,7 @@ const buildQR = async(cno) => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [3] 메인페이지 노출시킬 정육점 재고목록
+// 3. 메인페이지 노출시킬 정육점 재고목록
 const getPlanStock = async() => {
     const stockInner = document.querySelectorAll('.stock-inner');
     let html1 = "";
@@ -117,7 +116,7 @@ const getPlanStock = async() => {
     stockInner.innerHTML = html1;
 }// func end
 
-// [4] 메인페이지 지도 클러스터
+// 4. 메인페이지 지도 클러스터
 const initMap = async () => {
     const response = await fetch("/map/latlngList");
     const data = await response.json();
@@ -218,7 +217,7 @@ const initMap = async () => {
 }// func end
 initMap();
 
-// 멤버쉽 가입한 정육점의 배너 노출
+// 5. 멤버쉽 가입한 정육점의 배너 노출
 const printPlanBanner = async ( ) => {
     console.log('printPlanBanner func exe');
     try {

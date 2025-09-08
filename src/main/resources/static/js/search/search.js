@@ -1,4 +1,4 @@
-
+//=============================================== 쿼리스트링 ================================================\\
 const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
 const page = params.get('page') || 1;
@@ -6,7 +6,8 @@ const key = "pname";
 const orderr = params.get('order') || "order";
 const keyword = params.get('keyword');
 
-// [1] 검색기능
+//=============================================== 일반 로직 ================================================\\
+// 1. 검색기능
 const getCompanySearch = async() => {
     const searchtbody = document.querySelector('#searchTbody');    
     let html = "";
@@ -37,14 +38,14 @@ const getCompanySearch = async() => {
 }// func end
 getCompanySearch();
 
-// 페이지이동
+// 2. 페이지이동
 const searchParam = async() => {
     const orders = document.querySelector('.order').value;
     location.href = `/search/search.jsp?page=${page}&order=${orders}&key=${key}&keyword=${keyword}`
     getCompanySearch();
 }// func end
 
-// 페이징 버튼 출력 함수 
+// 3. 페이징 버튼 출력 함수 
 const viewPageButton = async ( data ) => {   
 
     let currentPage = parseInt( data.currentPage ); 
@@ -73,7 +74,7 @@ const viewPageButton = async ( data ) => {
     pageBtnBox.innerHTML = html;
 } // func end
 
-// [4] 알림 등록기능
+// 4. 알림 등록기능
 const addNotice = async ( ) => {
     // 1. Input value
     const pno = document.querySelector('.pBox').value;
@@ -97,7 +98,7 @@ const addNotice = async ( ) => {
     } // if end
 } // func end
 
-// [5] 제품 전체조회
+// 5. 제품 전체조회
 const getProduct = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };

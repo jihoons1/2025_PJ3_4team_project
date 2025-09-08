@@ -1,11 +1,12 @@
-
+//=============================================== 쿼리스트링 ================================================\\
 const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
 const page = params.get('page') || 1;
 
 let companyData;
 
-// 정육점 개별조회
+//=============================================== 일반 로직 ================================================\\
+// 1. 정육점 개별조회
 const findCompany = async() => {
     const cimg = document.querySelector('.cimg');
     const cinfo = document.querySelector('.cinfo');
@@ -28,33 +29,37 @@ const findCompany = async() => {
 }// func end
 findCompany();
 
-// 채팅방 버튼 출력
+// 2. 채팅방 버튼 출력
 const printBtn = async ( ) => {
     const chatBtn = document.querySelector('.chatBtn');
     const sidemno = '1' + cno.substring( 1 );
     try {
-    
+        // 1. fetch
         const response = await fetch( "/member/get" );
         const data = await response.json();
-
+        // 2. result
         if ( sidemno == data.mno ){
+            // 3. 해당 정육점이 내 정육점이라면, 방으로 안 들어가고 그냥 전체채팅방으로
             chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}'" class="btn btn-primary">채팅방</button>`;
         } else {
+            // 4. 해당 정육점이 내 정육점이 아니라면, 해당 정육점과의 채팅방으로 이동
             chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">채팅방</button>`;
         } // if end        
     } catch ( error ) {
+        // 5. 비로그인 상태라면, 전체채팅방으로 이동
         chatBtn.innerHTML = `<button type="button" onclick="publicRoom()" class="btn btn-primary">채팅방</button>`;
     } // try-catch end
 } // func end
 printBtn();
 
+// 3. 전체채팅방으로 이동
 const publicRoom = async ( ) => {
     if ( confirm('비로그인 상태이므로, 전체채팅방으로 이동합니다.') ){
         location.href='/chatting/chatting.jsp?room=0'
     } // if end
 } // func end
 
-// 리뷰 등록 기능
+// 4. 리뷰 등록 기능
 const addReview = async() => {
     const reviewAddBox = document.querySelector('.reviewAddBox');
     const productForm = new FormData(reviewAddBox);
@@ -75,7 +80,7 @@ const addReview = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [3] 회사별 리뷰 목록 조회
+// 5. 회사별 리뷰 목록 조회
 const getReview = async() => {
     const reviewtbody = document.querySelector('.reviewTbody');    
     let html = "";    
@@ -126,7 +131,7 @@ const getReview = async() => {
 }// func end
 getReview();
 
-// [4] 페이징 버튼 출력 함수
+// 6. 페이징 버튼 출력 함수
 const viewPageButton = async ( data ) => {
     let currentPage = parseInt( data.currentPage ); 
     let totalPage = data.totalPage;
@@ -151,7 +156,7 @@ const viewPageButton = async ( data ) => {
 } // func end
 
 
-// [5] 리뷰번호 리뷰 내용 조회
+// 7. 리뷰번호 리뷰 내용 조회
 const getRnoReview = async ( rno ) => {
     try {
         // 1. fetch
@@ -167,7 +172,7 @@ const getRnoReview = async ( rno ) => {
     } // try-catch end
 } // func end
 
-// [6] 리뷰 수정 기능
+// 8. 리뷰 수정 기능
 const saveReview = async() => {    
     const reviewupdateBox = document.querySelector('.reviewupdateBox'); 
     const rno = document.querySelector('.oldrno').value;
@@ -186,7 +191,7 @@ const saveReview = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [7] 리뷰 삭제
+// 9. 리뷰 삭제
 const deleteReview = async(rno) => {
     let result = confirm('삭제 하시겠습니까?');
     if(result == false){ return; }
@@ -203,7 +208,7 @@ const deleteReview = async(rno) => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [8] 길찾기 QR Code 출력
+// 10. 길찾기 QR Code 출력
 const buildQR = async() => {
     const cookie = document.cookie;
     const qrbox = document.querySelector('.qrBox');
@@ -221,7 +226,7 @@ const buildQR = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [9] 멤버쉽 신청 버튼 출력
+// 11. 멤버쉽 신청 버튼 출력
 const printMBtn = async ( ) => {
     try {
         // 1. fetch
@@ -232,6 +237,7 @@ const printMBtn = async ( ) => {
         const checkUser = document.querySelector('#checkUser');
         // 3. what
         let html = '';
+        // 4. 해당 정육점이 내 정육점이라면, 멤버쉽 신청 버튼 출력
         if ( data.cno == cno ){
             html += `<div class="membership-status">
                         <span>멤버십</span>
@@ -241,7 +247,7 @@ const printMBtn = async ( ) => {
                         신청하기
                     </button>`
         } // if end
-        // 4. print
+        // 5. print
         checkUser.innerHTML = html;
         getCnoEnddate();
     } catch ( error ) {
@@ -250,7 +256,7 @@ const printMBtn = async ( ) => {
 } // func end
 printMBtn()
 
-// [10] 멤버쉽 신청
+// 12. 멤버쉽 신청
 const addPlan = async() => {
     try{
         // 1. Input value
@@ -273,7 +279,7 @@ const addPlan = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [11] 멤버쉽 남은일 출력
+// 13. 멤버쉽 남은일 출력
 const getCnoEnddate = async() => {
     const endDate = document.querySelector('.endDate');
     let html = "";
@@ -287,7 +293,7 @@ const getCnoEnddate = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
-// [12] 정육점별 재고목록 조회
+// 14. 정육점별 재고목록 조회
 const getStock = async() => {
     const stockTbody = document.querySelector('.stockTbody');
     let html = "";
@@ -306,7 +312,8 @@ const getStock = async() => {
 }// func end
 getStock();
 
-//============================ 네이버지도 API JS ============================\\
+//=============================================== 네이버지도 API JS ================================================\\
+// 1. 네이버지도 출력
 const naverMap = async ( ) => {
     const option = { method : "GET" };
     const response = await fetch ( `/map/getLatLng?caddress=${companyData.caddress}`, option );

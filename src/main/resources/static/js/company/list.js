@@ -1,10 +1,10 @@
-
+//=============================================== 쿼리스트링 ================================================\\
 const params = new URL(location.href).searchParams;
 const page = params.get('page') || 1;  // 조건 || false , 만약에 page가 존재하지않으면 1
 const orderr = params.get('order') || "order";
 
-
-// 정육점 전체조회
+//=============================================== 일반 로직 ================================================\\
+// 1. 정육점 전체조회
 const getAllCompany = async() => {
     const listTbody = document.querySelector('#listTbody');    
     let html = "";
@@ -30,7 +30,7 @@ const getAllCompany = async() => {
 }// func end
 getAllCompany();
 
-// 페이지이동
+// 2. 페이지이동
 const searchParams = async() => {
     const orders = document.querySelector('.order').value;
     location.href = `/company/list.jsp?page=${page}&order=${orders}`
@@ -38,7 +38,7 @@ const searchParams = async() => {
     getAllCompany();
 }// func end
 
-// 페이징 버튼 출력 함수 
+// 3. 페이징 버튼 출력 함수 
 const viewPageButton = async ( data ) => {
 
     // 백엔드로 부터 받은 pageDto{} <--->  data{}
