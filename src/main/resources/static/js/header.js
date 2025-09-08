@@ -1,5 +1,3 @@
-
-
 let MemberData;
 
 //=============================================== 일반 로직 ================================================\\
@@ -68,6 +66,50 @@ const search = async (  ) => {
     const keyword = document.querySelector('.searchBox').value;
     location.href=`/search/search.jsp?key=pname&keyword=${keyword}`;
 
+} // func end
+
+// 4. 푸시알림조회
+const getAlarm = async ( ) => {
+    console.log('getAlarm func exe');
+
+    try{
+        // 1. fetch
+        const response = await fetch( "/alarm/get" );
+        const data = await response.json();
+        // 2. where
+        const toastBox = document.querySelector('.toast-container');
+        // 3. what
+        let html = '';
+        data.forEach( (alarm) => {
+            html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Push Alarm</strong>
+                            <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            ${alarm.amessage}
+                        </div>
+                     </div>`
+        });
+        // 4. print
+        toastBox.innerHTML = html;
+    } catch ( error ){
+        console.log( error );
+    } // try-catch end
+} // func end
+getAlarm();
+
+// 5. 푸시알림수정
+const updateAlarm = async ( ano ) => {
+    console.log('updateAlarm func exe');
+    try{
+        // 1. fetch
+        const option = { method : "PUT" };
+        const response = await fetch( `/alarm/update?ano=${ano}`, option );
+        const data = await response.json();
+    } catch ( error ){
+        console.log( error );
+    } // try-catch end
 } // func end
 
 //=============================================== 결제 API ===========================================\\
