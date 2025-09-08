@@ -14,16 +14,17 @@ import java.util.List;
 public class PlanDao extends Dao {
 
     // [plan01] 요금제 결제 - addPlan()
-    // 기능설명 : [ 정육점번호(세션) ]을 받아, 해당 정육점의 포인트가 충분하다면, 요금제 결제를 진행한다.
-    // 매개변수 : PlanDto
+    // 기능설명 : [ 정육점번호(세션), 배너이미지 ]를 받아, 해당 정육점의 포인트가 충분하다면, 요금제 결제를 진행한다.
+    // 매개변수 : HttpSession, PlanDto
     // 반환타입 : int -> 성공 : 자동생성된 PK값, 실패 : 0
     public int addPlan( PlanDto planDto ){
         try {
-            String SQL = "insert into plan ( cno, startdate, enddate ) values ( ?, ?, ? )";
+            String SQL = "insert into plan ( cno, startdate, enddate, banner ) values ( ?, ?, ?, ? )";
             PreparedStatement ps = conn.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
             ps.setInt( 1, planDto.getCno() );
             ps.setString( 2, planDto.getStartdate() );
             ps.setString( 3, planDto.getEnddate() );
+            ps.setString( 4, planDto.getBanner() );
             int count = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if ( count == 1 ){

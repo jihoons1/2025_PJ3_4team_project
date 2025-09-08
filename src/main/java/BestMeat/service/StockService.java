@@ -21,6 +21,8 @@ public class StockService {
     // 매개변수 : StockDto
     // 반환타입 : int
     public int addStock( StockDto stockDto ){
+        // 0. 재고등록 전, 재고등록여부 확인하기 -> 등록되어있는 제품이라면, 메소드 종료
+        if ( !stockDao.checkStock( stockDto.getCno(), stockDto.getPno() ) ) return 0;
         // 1-1. 재고등록하고
         int sno = stockDao.addStock( stockDto );
         // 1-2. 재고등록에 실패했다면, 메소드 종료

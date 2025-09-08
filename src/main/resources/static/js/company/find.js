@@ -249,8 +249,8 @@ const printMBtn = async ( ) => {
                         <span>멤버십</span>
                         <span class="endDate"></span>
                     </div>
-                    <button type="button" class="btn btn-sm btn-success"
-                        onclick="addPlan()">신청하기
+                    <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                        신청하기
                     </button>`
         } // if end
         // 4. print
@@ -265,13 +265,22 @@ printMBtn()
 // [10] 멤버쉽 신청
 const addPlan = async() => {
     try{
-        const response = await fetch("/plan/add");
+        // 1. Input value
+        const planAddBox = document.querySelector('.planAdd');
+        const planForm = new FormData( planAddBox );
+        // 2. fetch
+        const option = {
+            method : "POST",
+            body : planForm
+        } // option end
+        const response = await fetch( "/plan/add", option );
         const data = await response.json();
-        if(data == 0){
+        if( data == 0 ){
             alert('신청 실패');
         }else{
             alert('신청 완료');
             getCnoEnddate();
+            location.reload();
         }// if end
     }catch(e){ console.log(e); }
 }// func end
