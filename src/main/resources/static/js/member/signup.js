@@ -19,7 +19,7 @@ const signupbtn = async() => {
     const sample6_address = document.querySelector('#sample6_address').value;
     const sample6_detailAddress= document.querySelector('#sample6_detailAddress').value;
     
-    let maddress = sample6_address + "," + sample6_detailAddress;
+    let maddress = + sample6_detailAddress;
 
     const memail = emailname + emailselect;
     const mimgupload = new FormData(mig);
