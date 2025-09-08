@@ -23,7 +23,7 @@
         <div class="banner">
             <img class="bimg" src="/img/banner/adBanner.png" alt="배너 이미지">
         </div>
-        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" style="width: 40%;">
             <div class="carousel-inner">
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -45,7 +45,7 @@
     <jsp:include page="/footer.jsp"></jsp:include>
     <!-- 네이버지도 불러오기 -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=kijgn3tmo2"></script>
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=7dgspubsn7"></script>
     <script type="text/javascript" src="/js/MarkerClustering.js"></script>
 
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
