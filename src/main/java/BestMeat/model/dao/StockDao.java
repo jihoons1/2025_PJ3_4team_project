@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public class StockDao extends Dao {
-    // [stock01] 재고등록 - addStock()
+    // [stock01-1] 재고등록 - addStock()
     // 기능설명 : [ 정육점번호(세션), 가격, 제품번호(select) ]를 받아, Stock DB에 저장한다.
     // 매개변수 : StockDto
     // 반환타입 : int
@@ -32,9 +32,30 @@ public class StockDao extends Dao {
                 } // if end
             } // if end
         } catch ( SQLException e ){
-            System.out.println("[stock01] SQL 기재 실패" + e );
+            System.out.println("[stock01-1] SQL 기재 실패" + e );
         } // try-catch end
         return 0;
+    } // func end
+
+    // [stock01-2] 재고 등록여부 확인 - checkStock()
+    // 기능설명 : [ 정육점번호, 제품번호 ]를 받아, 해당 정육점이 해당 제품을 등록한 적이 있는지 확인
+    // 매개변수 : int cno, int pno
+    // 반환타입 : boolean -> true : 등록X / false : 등록O
+    public boolean checkStock( int cno, int pno ){
+        try {
+            String SQL = "select count(*) from stock where cno = ? and pno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, cno );
+            ps.setInt( 2, pno );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ){
+                // count(*)이 0이어야 등록이 안된 상태이므로
+                return rs.getInt( 1 ) == 0;
+            } // if end
+        } catch ( SQLException e ){
+            System.out.println("[stock01-2] SQL 기재 실패" + e );
+        } // try-catch end
+        return false;
     } // func end
 
     // [stock02] 재고수정 - updateStock()
