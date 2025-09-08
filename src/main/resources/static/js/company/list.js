@@ -1,7 +1,6 @@
-console.log('list.js check');
 
 const params = new URL(location.href).searchParams;
-const page = params.get('page') || 1; console.log(page); // 조건 || false , 만약에 page가 존재하지않으면 1
+const page = params.get('page') || 1;  // 조건 || false , 만약에 page가 존재하지않으면 1
 const orderr = params.get('order') || "order";
 
 
@@ -24,7 +23,6 @@ const getAllCompany = async() => {
                         <td>${com.rrank}</td>
                     </tr>`;
     })// for end        
-    console.log(html);
     listTbody.innerHTML = html;
     document.querySelector('.order').value = orderr;
     viewPageButton(data);

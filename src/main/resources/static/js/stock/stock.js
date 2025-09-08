@@ -1,4 +1,3 @@
-console.log('stock.js open');
 
 // 쿼리스트링에서 정보 가져오기
 const queryString = new URL( location.href ).searchParams;
@@ -9,10 +8,8 @@ let StockData;
 const checkList = [ false ];
 // 숫자만 유효성 검사 - 재고등록
 const numCheck = (  ) => {
-    console.log('numCheck func exe');
     const sprice = document.querySelector('.sprice').value;
     const regExp = /^[0-9]+$/;
-    console.log( regExp.test( sprice ) );
     if ( !regExp.test( sprice ) ){
         document.querySelector('.numCheck').innerHTML = '숫자만 입력해주세요.'
     } else {
@@ -22,10 +19,8 @@ const numCheck = (  ) => {
 } // func end
 // 숫자만 유효성 검사 - 재고수정
 const updateCheck = (  ) => {
-    console.log('updateCheck func exe');
     const sprice = document.querySelector('.spriceBox').value;
     const regExp = /^[0-9]+$/;
-    console.log( regExp.test( sprice ) );
     if ( !regExp.test( sprice ) ){
         document.querySelector('.updateSprice').innerHTML = '숫자만 입력해주세요.'
     } else {
@@ -37,13 +32,12 @@ const updateCheck = (  ) => {
 
 // [1] 카테고리별 상품 출력
 const getCnoProduct = async ( ) => {
-    console.log('getCnoProduct func exe');
     // 1. Input value
     const cno = document.querySelector('.cno').value;
     // 2. fetch
     const option = { method : "GET" };
     const response = await fetch( `/product/getCno?cno=${cno}`, option );
-    const data = await response.json();         console.log( data );
+    const data = await response.json();        
     // 3. where
     const productBox = document.querySelector('.product');
     // 4. what
@@ -56,7 +50,6 @@ const getCnoProduct = async ( ) => {
 
 // [2] 재고등록 기능
 const addStock = async ( ) => {
-    console.log('addStock func exe');
     if ( checkList.includes(false) ){
         alert('올바른 정보를 입력해주세요.');
         return;
@@ -88,11 +81,10 @@ const addStock = async ( ) => {
 
 // [3] 재고조회 기능
 const getStock = async ( ) => {
-    console.log('getStock func exe');
     // 1. fetch
     const option = { method : "GET" };
     const response = await fetch( "/stock/get", option );
-    const data = await response.json();         console.log( data );
+    const data = await response.json();         
     StockData = data;
     // 2. where
     const stockTbody = document.querySelector('.stockTbody');
@@ -121,7 +113,7 @@ getStock();
 
 // [4] 재고수정 버튼
 const updateButton = async ( sno ) => {
-    console.log('updateButton func exe');
+    
     // 1. where
     const buttons = document.querySelector(`.modal-footer`);
     const sprice = document.querySelector(`.spriceBox`);
@@ -149,8 +141,6 @@ const updateButton = async ( sno ) => {
 
 // [5] 재고수정
 const updateStock = async ( sno, pno ) => {
-    console.log('updateStock func exe');
-    console.log( pno )
     // 입력값 체크
     if ( checkList.includes(false) ){
         alert('올바른 정보를 입력해주세요.');
@@ -179,7 +169,6 @@ const updateStock = async ( sno, pno ) => {
 
 // [6] 재고삭제
 const deleteStock = async ( sno ) => {
-    console.log('deleteStock func exe');
     // 1. fetch
     const option = { method : "DELETE" };
     const response = await fetch( `/stock/delete?cno=${cno}&sno=${sno}`, option );

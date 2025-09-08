@@ -1,4 +1,3 @@
-console.log('find.js check');
 
 const params = new URL(location.href).searchParams;
 const cno = params.get('cno');
@@ -13,7 +12,7 @@ const findCompany = async() => {
     let html = "";
     try{
         const response = await fetch(`/company/find?cno=${cno}`);
-        const data = await response.json();     console.log( data );
+        const data = await response.json();     
         companyData = await data;
         naverMap();
         let imgUrl = '/upload/'+encodeURIComponent(data.cimg);
@@ -33,7 +32,6 @@ findCompany();
 const printBtn = async ( ) => {
     const chatBtn = document.querySelector('.chatBtn');
     const sidemno = '1' + cno.substring( 1 );
-    console.log( sidemno );
     try {
     
         const response = await fetch( "/member/get" );
@@ -83,9 +81,8 @@ const getReview = async() => {
     let html = "";    
     try{
         const response = await fetch(`/review/get?cno=${cno}`);
-        const data = await response.json(); console.log(data);
-        data.data.forEach((re) => { 
-            console.log(re.images);
+        const data = await response.json(); 
+        data.data.forEach((re) => {             
             let rimgUrl = "";
             if(re.images == null || re.images == ""){
                 rimgUrl = 'https://placehold.co/50x50';
@@ -93,14 +90,12 @@ const getReview = async() => {
                                 <div><img src=${rimgUrl}/></div>
                         </div>`  
             }// if end
-            console.log(rimgUrl);
             html += `<div class="rImgBox" style="display: flex;"> `  
             re.images.forEach((img) => {                           
                 rimgUrl = '/upload/review/'+encodeURIComponent(img);                   
                 html += `<div><img src=${rimgUrl}/></div> `                     
             })// for end          
             html += `</div>`  
-            console.log(rimgUrl);
             if(re.check == true){
                 html += `<tr>
                             <td>${re.rno}</td>                            
@@ -158,12 +153,11 @@ const viewPageButton = async ( data ) => {
 
 // [5] 리뷰번호 리뷰 내용 조회
 const getRnoReview = async ( rno ) => {
-    console.log('getRnoReview func exe');
     try {
         // 1. fetch
         const option = { method : "GET" };
         const response = await fetch( `/review/getRno?rno=${rno}`, option );
-        const data = await response.json();         console.log( data );
+        const data = await response.json();         
         // 2. print
         document.querySelector('.oldrno').value = data.rno;
         document.querySelector('.oldrcontent').innerHTML = data.rcontent;
@@ -180,11 +174,9 @@ const saveReview = async() => {
     const formData = new FormData(reviewupdateBox);  
     formData.append("rno",rno);
     const option = { method : "PUT" , body : formData}  
-    console.log(option);
     try{
         const response = await fetch('/review/update',option);
         const data = await response.json();
-        console.log(data);
         if(data == true){
             alert('수정성공!');
             location.href=`/company/find.jsp?cno=${cno}`
@@ -214,7 +206,6 @@ const deleteReview = async(rno) => {
 // [8] 길찾기 QR Code 출력
 const buildQR = async() => {
     const cookie = document.cookie;
-    console.log(cookie);
     const qrbox = document.querySelector('.qrBox');
     try{
         const response = await fetch(`/company/qrcode?cno=${cno}`);
@@ -225,7 +216,6 @@ const buildQR = async() => {
             return;
         }// if end
         const imgUrl = URL.createObjectURL(blob);
-        console.log(blob);
         let html = `<img src="${imgUrl}" alt="QR Code"/>`;
         qrbox.innerHTML = html;
     }catch(e){ console.log(e); }
@@ -233,12 +223,10 @@ const buildQR = async() => {
 
 // [9] 멤버쉽 신청 버튼 출력
 const printMBtn = async ( ) => {
-    console.log('printMBtn func exe');
-
     try {
         // 1. fetch
         const response = await fetch( "/member/get" );
-        const data = await response.json();     console.log( data );
+        const data = await response.json();     
 
         // 2. where
         const checkUser = document.querySelector('#checkUser');
@@ -322,7 +310,7 @@ getStock();
 const naverMap = async ( ) => {
     const option = { method : "GET" };
     const response = await fetch ( `/map/getLatLng?caddress=${companyData.caddress}`, option );
-    const data = await response.json();     console.log( data );
+    const data = await response.json();     
 
     var latlng = new naver.maps.LatLng( data.lat, data.lng );
 

@@ -1,11 +1,9 @@
-console.log('header.js exe');
 
 
 let MemberData;
 
 //=============================================== 일반 로직 ================================================\\
 const myinfo = async() => {
-    console.log('myinfo');
     const log = document.querySelector('.log');
     const menu = document.querySelector('.menu');
     let logHtml = '';
@@ -14,8 +12,8 @@ const myinfo = async() => {
         //fetch 실행
         const op = { method : "GET" }
         const response = await fetch(`/member/get` , op)
-        const data = await response.json();                     console.log( data );
-        let totalPoint = data.totalPoint.toLocaleString();      console.log( totalPoint );
+        const data = await response.json();                    
+        let totalPoint = data.totalPoint.toLocaleString();      
         MemberData = await data;
 
         // 정육점을 가진 회원이라면
@@ -50,7 +48,6 @@ const myinfo = async() => {
 myinfo();
 
 const logout= async() => {
-    console.log('로그아웃 확인');
     
     try{
         const op = { method : "GET" }
@@ -68,7 +65,6 @@ const logout= async() => {
 
 // 검색 함수
 const search = async (  ) => {
-    console.log('search func exe');
     const keyword = document.querySelector('.searchBox').value;
     location.href=`/search/search.jsp?key=pname&keyword=${keyword}`;
 
@@ -77,7 +73,6 @@ const search = async (  ) => {
 //=============================================== 결제 API ===========================================\\
 // 포인트 결제 기능
 const payment = async ( ) => {
-    console.log('payment func exe');
     // 포트원 기본 정보 제공
     let IMP = window.IMP;
     IMP.init("imp28011161");
@@ -117,7 +112,6 @@ const payment = async ( ) => {
                 plcomment : `${pointDot} point 결제`
                 }
             }).then( (data) => {
-                console.log( data );
                 // 결제에 성공했다면
                 if ( data.data == true ){
                     // 결제금액이 결제에 성공했다는 알림

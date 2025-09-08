@@ -1,4 +1,3 @@
-console.log('login.js test');
 
 
 const loginbtn = async() => {
@@ -31,8 +30,8 @@ const loginbtn = async() => {
 // id , pwd
 
 const loginCheck = async () => {
-    const mid = document.querySelector('#mid').value;  console.log(mid);
-    const mpwd = document.querySelector('#mpwd').value; console.log(mpwd);
+    const mid = document.querySelector('#mid').value;  
+    const mpwd = document.querySelector('#mpwd').value; 
     const loginCheck = document.querySelector('.loginCheck');
 
 

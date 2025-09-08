@@ -1,4 +1,3 @@
-console.log('index.js exe');
 
 
 // [1] 메인페이지 노출시킬 회사정보 가져오기
@@ -8,7 +7,6 @@ const getPlan = async() => {
     try{
         const response = await fetch('/company/getAll');
         const data = await response.json();     
-        console.log(data);          
         for(let i = 0; i < data.length; i++){
             if(data[i].cimg == null || data[i].cimg == ""){
                 data[i].cimg = 'https://placehold.co/100x100';
@@ -88,7 +86,6 @@ getPlan();
 // [2] 길찾기 QR Code 출력
 const buildQR = async(cno) => {
     const cookie = document.cookie;
-    console.log(cookie);
     const qrbox = document.querySelector('.qrBox');
     try{
         const response = await fetch(`/company/qrcode?cno=${cno}`);
@@ -99,7 +96,6 @@ const buildQR = async(cno) => {
             return;
         }// if end
         const imgUrl = URL.createObjectURL(blob);
-        console.log(blob);
         let html = `<img src="${imgUrl}" alt="QR Code"/>`;
         qrbox.innerHTML = html;
     }catch(e){ console.log(e); }
@@ -111,7 +107,6 @@ const getPlanStock = async() => {
     let html1 = "";
     const response = await fetch("/plan/stock");
     const data = await response.json();
-    console.log(data);
     for(let i = 0; i < data.length; i++){
         let st = data[i];
         for(let a = 0; a < st.length; a++){            
@@ -126,10 +121,8 @@ const getPlanStock = async() => {
 const initMap = async () => {
     const response = await fetch("/map/latlngList");
     const data = await response.json();
-    console.log(data);
 
     // 지도는 한 번만 생성
-    console.log('initMap exe');
     map = new naver.maps.Map('map', {
         center: new naver.maps.LatLng( 37.4904807, 126.7234847),
         zoom: 10
@@ -146,7 +139,6 @@ const initMap = async () => {
         });
         const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
         const data2 = await response2.json();        
-        console.log(data2);
         naver.maps.Event.addListener(marker, "click", () => {
             let html = "";
             rimgUrl = "/upload/company/"+encodeURIComponent(data[i].cimg);
@@ -171,7 +163,7 @@ const initMap = async () => {
                     <ul>`                
                 data2.forEach( (st) => {
                     const day =  st.sdate.slice(0,10);
-                    html += `<li>${st.pname} ---------- ${st.sprice}원</li>`
+                    html += `<li style="list-style: unset;">${st.pname}(100g당) ---------- ${st.sprice}원</li>`
                 })// for end
                 html += `</ul>`;
             } // if end
@@ -204,7 +196,6 @@ const initMap = async () => {
         size: N.Size(40, 40),
         anchor: N.Point(20, 20)
     };
-    console.log(htmlMarker1);
 
     
     var markerClustering = new MarkerClustering({
@@ -217,15 +208,9 @@ const initMap = async () => {
         icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
         indexGenerator: [10, 100, 200, 500, 1000],
         stylingFunction: function(clusterMarker, count) {
-            console.log( clusterMarker )
-            console.log( count )
             $(clusterMarker.getElement()).find('div:first-child').text(count);
         }
     });
-
-    
-    console.log(markerClustering);
-
 }// func end
 initMap();
 
