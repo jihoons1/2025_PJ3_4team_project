@@ -15,6 +15,7 @@ public class StockService {
     private final StockDao stockDao;
     private final NoticeDao noticeDao;
     private final NoticeService noticeService;
+    private final CompanyService companyService;
 
     // [stock01] 재고등록 - addStock()
     // 기능설명 : [ 정육점번호(세션), 가격, 제품번호(select) ]를 받아, Stock DB에 저장한다.
@@ -37,11 +38,12 @@ public class StockService {
             String mphone = noticeDto.getMphone().replaceAll( "-", "" );    // 문자 전송을 위하여, '-' 제거
             String pname = noticeDto.getPname();                            // 문자 내용을 위한, 제품명
             int nprice = noticeDto.getNprice();                             // 알림설정가격
+            String cname = companyService.findCompany( noticeDto.getCno() ).getCname(); // cno를 통해 cname 반환받기
             noticeDto.setSprice( stockDto.getSprice() );                    // 재고 가격 수정을 위하여, noticeDto에 저장
+            String content = cname + "에서 " + pname + "이 " + nprice + "원 이하로 등록되었습니다.";
             // 4-1. 문자전송여부가 0이라면
             if ( ncheck == 0 ){
                 // 4-2. 문자전송하기, 발신번호와 문자내용 필요
-                String content = pname + "이 " + nprice + "원 이하로 등록되었습니다.";      // 정육점명, 정육점링크(jsp 생성후 포함) 포함
                 noticeService.asyncSMS( mphone, content );
                 // 4-3. 문자를 전송했다면, Notice DB에 업데이트
                 if ( !noticeDao.updateNcheck( noticeDto ) ) return 0;
@@ -49,7 +51,6 @@ public class StockService {
                 // 5-1. 등록재고가격이 낮으면
                 if ( ncheck > stockDto.getSprice() ){
                     // 5-2. 문자전송하기
-                    String content = pname + "이 " + ncheck + "원 이하로 등록되었습니다.";
                     noticeService.asyncSMS( mphone, content );
                     // 5-3. 문자를 전송했다면, Notice DB에 업데이트
                     if ( !noticeDao.updateNcheck( noticeDto ) ) return 0;
@@ -79,11 +80,12 @@ public class StockService {
             String mphone = noticeDto.getMphone().replaceAll( "-", "" );
             String pname = noticeDto.getPname();
             int nprice = noticeDto.getNprice();
+            String cname = companyService.findCompany( noticeDto.getCno() ).getCname(); // cno를 통해 cname 반환받기
             noticeDto.setSprice( stockDto.getSprice() );                    // 재고 가격 수정을 위하여, noticeDto에 저장
+            String content = cname + "에서 " + pname + "이 " + nprice + "원 이하로 등록되었습니다.";
             // 5-1. 문자전송여부가 0이라면
             if ( ncheck == 0 ){
                 // 5-2. 문자전송하기, 발신번호와 문자내용 필요
-                String content = pname + "이 " + nprice + "원 이하로 등록되었습니다.";      // 정육점명, 정육점링크(jsp 생성후 포함) 포함
                 noticeService.asyncSMS( mphone, content );
                 // 5-3. 문자를 전송했다면, Notice DB에 업데이트
                 if ( !noticeDao.updateNcheck( noticeDto ) ) return false;
@@ -91,7 +93,6 @@ public class StockService {
                 // 6-1. 등록재고가격이 낮으면
                 if ( ncheck > stockDto.getSprice() ){
                     // 6-2. 문자전송하기
-                    String content = pname + "이 " + ncheck + "원 이하로 등록되었습니다.";
                     noticeService.asyncSMS( mphone, content );
                     // 6-3. 문자를 전송했다면, Notice DB에 업데이트
                     if ( !noticeDao.updateNcheck( noticeDto ) ) return false;
