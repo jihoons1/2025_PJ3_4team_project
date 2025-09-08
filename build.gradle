@@ -32,6 +32,7 @@ dependencies {
     implementation group: 'com.google.zxing', name: 'javase', version: '3.5.3'
     // https://mvnrepository.com/artifact/com.google.zxing/core
     implementation group: 'com.google.zxing', name: 'core', version: '3.5.3'
+    implementation 'net.sf.opencsv:opencsv:2.3'                             // OpenCSV 라이브러리 설치
 }
 
 tasks.named('test') {

@@ -161,7 +161,7 @@ public class ReviewDao extends Dao  {
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, mno );
             ResultSet rs = ps.executeQuery();
-            while ( rs.next() ){    // todo 중복코드 일원화 생각해보기
+            while ( rs.next() ){
                 ReviewDto reviewDto = new ReviewDto();
                 reviewDto.setRno( rs.getInt("rno") );
                 reviewDto.setRcontent( rs.getString("rcontent") );

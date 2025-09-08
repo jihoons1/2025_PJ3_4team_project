@@ -17,10 +17,13 @@
 ## 구성원
 - #### 민성호
   - [Github](https://github.com/msh-94)
+  - [Project Branch](https://github.com/jihoons1/2025_PJ3_4team_project/tree/min)
 - #### 송지훈
   - [Github](https://github.com/jihoons1)
+  - [Project Branch](https://github.com/jihoons1/2025_PJ3_4team_project/tree/%EC%A7%80%ED%9B%88)
 - #### 안정훈
   - [Github](https://github.com/JeonghoonAHN0510)
+  - [Project Branch](https://github.com/jihoons1/2025_PJ3_4team_project/tree/AHNJH)
 
 # 2. 구현 기능
 - #### 회원가입( 송지훈 )
@@ -62,12 +65,14 @@
 - CSS3
 
 ## 3-3. API · Library
-- Lombok
+- Lombok Library
 - Bootstrap( 5.3.8 )
 - NaverMap API
 - Zxing API
 - Geocoder API
 - PortOne API
 - Daum Postcode API
-- Java Mail Sender
+- Java Mail Sender Library
 - Solapi API
+- OpenCSV Library
+- WebSocket Library

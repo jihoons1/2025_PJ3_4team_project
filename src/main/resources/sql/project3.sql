@@ -111,6 +111,24 @@ create table PointLog(
     constraint foreign key( mno ) references member( mno ) on delete cascade on update cascade
 );
 select * from PointLog;
+-- ---------------------------- ChatRoom -------------------
+create table ChatRoom(
+	roomname varchar(15),		-- 채팅방 이름
+    mno int not null,			-- 보내는 회원
+    cno int not null,			-- 받는 정육점(인데, 사실상 정육점의 회원번호 )
+    constraint primary key( roomname )
+);
+select * from ChatRoom;
+-- ---------------------------- ChatLog -------------------
+create table ChatLog(
+	chatno int auto_increment,		-- 채팅로그번호
+    message varchar(100) not null,	-- 메시지 내용
+    chatdate datetime not null,		-- 채팅시간
+    roomname varchar(15),			-- 채팅방 이름
+    constraint primary key( chatno ),
+    constraint foreign key( roomname ) references ChatRoom( roomname ) on delete cascade on update cascade
+);
+select * from ChatLog;
 -- ---------------------------- Alter -------------------
 alter table member auto_increment = 10001;
 alter table Category auto_increment = 20001;
@@ -122,6 +140,7 @@ alter table reviewimg auto_increment = 70001;
 alter table notice auto_increment = 80001;
 alter table Plan auto_increment = 90001;
 alter table PointLog auto_increment = 100001;
+alter table ChatLog auto_increment = 200001;
 
 -- ---------------------------- Insert -------------------
 insert into Category ( cname ) values ( '돼지' ), ( '소' ), ( '양' ), ( '오리' );
@@ -608,7 +627,7 @@ INSERT INTO Company ( mno, cname, caddress ) VALUES
     (10182, '코리아축산', '인천광역시 부평구 경원대로 1240, 지하1층 (산곡동)'),
     (10183, '코리아축산(부평)', '인천광역시 부평구 세월천로 9, 1층 (청천동)'),
     (10184, '태근이네 정육점', '인천광역시 부평구 마장로324번길 70, 101호 (산곡동, 대우프라자1)'),
-    (10185, '탱그리축산', '인천광역시 부평구 길주로 510, 1층 (청천동)'),
+
     (10186, '토종한우축산', '인천광역시 부평구 충선로 334-3 (삼산동)'),
     (10187, '투나마트', '인천광역시 부평구 백범로 516 (십정동)'),
     (10188, '팔팔축산', '인천광역시 부평구 세월천로 17, 청천뷰그리안1차아파트 1층 105호 (청천동)'),
@@ -621,7 +640,7 @@ INSERT INTO Company ( mno, cname, caddress ) VALUES
     (10195, '프레시홈마트식자재', '인천광역시 부평구 주부토로 116 (부평동)'),
     (10196, '플러스마트', '인천광역시 부평구 길주남로 40 (부평동)'),
     (10197, '하나로축산', '인천광역시 부평구 부흥로304번길 24, 1층 (부평동)'),
-    (10198, '하누사랑', '인천광역시 부평구 영성로 40, 1층 (삼산동)'),
+
     (10199, '하누축산', '인천광역시 부평구 부평문화로 38 (부평동)'),
     (10200, '하모니 축산', '인천광역시 부평구 이규보로 28 (십정동)'),
     (10201, '하모니마트 정육코너', '인천광역시 부평구 부흥로 329, 로얄프라자 (부평동)'),
@@ -701,9 +720,9 @@ insert into PointLog( mno, plpoint, plcomment ) values
     ( 10003, 500, '회원가입 지급' );
     
 -- ---------------------------- Select Test -------------------
-select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
-select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
-from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
-join review r on c.cno = r.cno  where p.pname like '%삼겹살%'
-group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice 
-order by rrank desc limit 0 , 10;
+-- select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;
+-- select c.cno, c.mno , c.cname, c.caddress, c.cimg, p.pname, s.sprice, round(avg(r.rrank),1) as rrank
+-- from company c join stock s on c.cno = s.cno join product p on p.pno = s.pno
+-- join review r on c.cno = r.cno  where p.pname like '%삼겹살%'
+-- group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice 
+-- order by rrank desc limit 0 , 10;

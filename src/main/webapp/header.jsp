@@ -8,8 +8,7 @@
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/header.css">
 </head>
@@ -19,7 +18,7 @@
         <header class="d-flex justify-content-between align-items-center py-3 mb-4 border-bottom">
             <div class="header-left">
                 <a href="/index.jsp" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <img src="/img/logo.png" alt="사이트 로고">
+                    <img src="/img/logo.png" class="header_logo" alt="사이트 로고">
                 </a>
             </div>
             <div class="header-center">

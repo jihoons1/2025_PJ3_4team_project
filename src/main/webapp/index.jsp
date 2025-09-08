@@ -20,6 +20,9 @@
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
+        <div class="banner">
+            <img class="bimg" src="/img/banner/adBanner.png" alt="배너 이미지">
+        </div>
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
             </div>
@@ -32,9 +35,9 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <div style="display: flex;">            
-            <div id="map" style="width:60%;height:400px;padding:0;margin:0;"></div>    
-            <div id="sidebar" style="width: 40%; padding: 10px; overflow-y: auto;"></div>        
+        <div style="display: flex;">
+            <div id="map" style="width:60%;height:400px;padding:0;margin:0;"></div>
+            <div id="sidebar" style="width: 40%; padding: 10px; overflow-y: auto;"></div>
         </div>
     </div>
 

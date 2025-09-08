@@ -8,7 +8,8 @@ let companyData;
 
 // 정육점 개별조회
 const findCompany = async() => {
-    const findTbody = document.querySelector('#findTbody');
+    const cimg = document.querySelector('.cimg');
+    const cinfo = document.querySelector('.cinfo');
     let html = "";
     try{
         const response = await fetch(`/company/find?cno=${cno}`);
@@ -19,16 +20,41 @@ const findCompany = async() => {
         if( data.cimg == null ){
             imgUrl = 'https://placehold.co/50x50';
         } // if end
-        html += `<tr>
-                    <td><img src=${imgUrl}/></td>
-                    <td>${data.cname}</td>
-                    <td>${data.caddress}</td>
-                    <td>${data.rrank}</td>
-                </tr>`;
-        findTbody.innerHTML = html;
+        cimg.innerHTML = `<img src=${imgUrl}/>`;
+        html += `<span>정육점명 : ${data.cname}</span> <br>
+                 <span>정육점주소 : ${data.caddress}</span> <br>
+                 <span>리뷰평점 : ${data.rrank}</span>`;
+        cinfo.innerHTML = html;
     }catch(e){ console.log(e); }
 }// func end
 findCompany();
+
+// 채팅방 버튼 출력
+const printBtn = async ( ) => {
+    const chatBtn = document.querySelector('.chatBtn');
+    const sidemno = '1' + cno.substring( 1 );
+    console.log( sidemno );
+    try {
+    
+        const response = await fetch( "/member/get" );
+        const data = await response.json();
+
+        if ( sidemno == data.mno ){
+            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}'" class="btn btn-primary">채팅방</button>`;
+        } else {
+            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">채팅방</button>`;
+        } // if end        
+    } catch ( error ) {
+        chatBtn.innerHTML = `<button type="button" onclick="publicRoom()" class="btn btn-primary">채팅방</button>`;
+    } // try-catch end
+} // func end
+printBtn();
+
+const publicRoom = async ( ) => {
+    if ( confirm('비로그인 상태이므로, 전체채팅방으로 이동합니다.') ){
+        location.href='/chatting/chatting.jsp'
+    } // if end
+} // func end
 
 // 리뷰 등록 기능
 const addReview = async() => {
@@ -185,6 +211,104 @@ const deleteReview = async(rno) => {
     }catch(e){ console.log(e); }
 }// func end
 
+// [8] 길찾기 QR Code 출력
+const buildQR = async() => {
+    const cookie = document.cookie;
+    console.log(cookie);
+    const qrbox = document.querySelector('.qrBox');
+    try{
+        const response = await fetch(`/company/qrcode?cno=${cno}`);
+        const blob = await response.blob();
+        if(blob.size < 500){
+            alert('로그인 후 이용하실 수 있습니다.');
+            location.href="/member/login.jsp";
+            return;
+        }// if end
+        const imgUrl = URL.createObjectURL(blob);
+        console.log(blob);
+        let html = `<img src="${imgUrl}" alt="QR Code"/>`;
+        qrbox.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+
+// [9] 멤버쉽 신청 버튼 출력
+const printMBtn = async ( ) => {
+    console.log('printMBtn func exe');
+
+    try {
+        // 1. fetch
+        const response = await fetch( "/member/get" );
+        const data = await response.json();     console.log( data );
+
+        // 2. where
+        const checkUser = document.querySelector('#checkUser');
+        // 3. what
+        let html = '';
+        if ( data.cno == cno ){
+            html += `<div class="membership-status">
+                        <span>멤버십</span>
+                        <span class="endDate"></span>
+                    </div>
+                    <button type="button" class="btn btn-sm btn-success"
+                        onclick="addPlan()">신청하기
+                    </button>`
+        } // if end
+        // 4. print
+        checkUser.innerHTML = html;
+        getCnoEnddate();
+    } catch ( error ) {
+        console.log( error );
+    } // try-catch end
+} // func end
+printMBtn()
+
+// [10] 멤버쉽 신청
+const addPlan = async() => {
+    try{
+        const response = await fetch("/plan/add");
+        const data = await response.json();
+        if(data == 0){
+            alert('신청 실패');
+        }else{
+            alert('신청 완료');
+            getCnoEnddate();
+        }// if end
+    }catch(e){ console.log(e); }
+}// func end
+
+// [11] 멤버쉽 남은일 출력
+const getCnoEnddate = async() => {
+    const endDate = document.querySelector('.endDate');
+    let html = "";
+    try{
+        const response = await fetch("/plan/enddate");
+        const data = await response.json();
+        if(data >= 0){
+            html += `<span>남은일 <span class="endDate">${data}</span>일</span>`
+        }// if end
+        endDate.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+
+// [12] 정육점별 재고목록 조회
+const getStock = async() => {
+    const stockTbody = document.querySelector('.stockTbody');
+    let html = "";
+    try{
+        const response = await fetch(`/stock/get/find?cno=${cno}`)
+        const data = await response.json();
+        data.forEach((stock) => {            
+            html += `<tr>
+                    <td>${stock.cname}</td>
+                    <td>${stock.pname}(100g)</td>
+                    <td>${stock.sprice}원</td>
+                </tr>`                        
+        })// for end
+        stockTbody.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+getStock();
+
 //============================ 네이버지도 API JS ============================\\
 const naverMap = async ( ) => {
     const option = { method : "GET" };
@@ -192,13 +316,6 @@ const naverMap = async ( ) => {
     const data = await response.json();     console.log( data );
 
     var latlng = new naver.maps.LatLng( data.lat, data.lng );
-
-    var utmk = naver.maps.TransCoord.fromLatLngToUTMK(latlng);
-    var tm128 = naver.maps.TransCoord.fromUTMKToTM128(utmk);
-    var naverCoord = naver.maps.TransCoord.fromTM128ToNaver(tm128);
-    console.log( utmk );
-    console.log( tm128 );
-    console.log( naverCoord );
 
     // 정육점 위치
     var company = new naver.maps.LatLng( data.lat, data.lng ),
@@ -238,72 +355,3 @@ const naverMap = async ( ) => {
 
     infowindow.open(map, marker);
 } // func end
-
-// [8] 길찾기 QR Code 출력
-const buildQR = async() => {
-    const cookie = document.cookie;
-    console.log(cookie);
-    const qrbox = document.querySelector('.qrBox');
-    try{
-        const response = await fetch(`/company/qrcode?cno=${cno}`);
-        const blob = await response.blob();
-        if(blob.size < 500){
-            alert('로그인 후 이용하실 수 있습니다.');
-            location.href="/member/login.jsp";
-            return;
-        }// if end
-        const imgUrl = URL.createObjectURL(blob);
-        console.log(blob);
-        let html = `<img src="${imgUrl}" alt="QR Code"/>`;
-        qrbox.innerHTML = html;
-    }catch(e){ console.log(e); }
-}// func end
-
-// [9] 멤버쉽 신청
-const addPlan = async() => {
-    try{
-        const response = await fetch("/plan/add");
-        const data = await response.json();
-        if(data == 0){
-            alert('신청 실패');
-        }else{
-            alert('신청 완료');
-            getCnoEnddate();
-        }// if end
-    }catch(e){ console.log(e); }
-}// func end
-
-// [10] 멤버쉽 남은일 출력
-const getCnoEnddate = async() => {
-    const endDate = document.querySelector('.endDate');
-    let html = "";
-    try{
-        const response = await fetch("/plan/enddate");
-        const data = await response.json();
-        if(data >= 0){
-            html += `<span>남은일 -<span class="endDate">${data}</span>일</span>`
-        }// if end
-        endDate.innerHTML = html;
-    }catch(e){ console.log(e); }
-}// func end
-getCnoEnddate();
-
-// [11] 정육점별 재고목록 조회
-const getStock = async() => {
-    const stockTbody = document.querySelector('.stockTbody');
-    let html = "";
-    try{
-        const response = await fetch(`/stock/get/find?cno=${cno}`)
-        const data = await response.json();
-        data.forEach((stock) => {            
-            html += `<tr>
-                    <td>${stock.cname}</td>
-                    <td>${stock.pname}(100g)</td>
-                    <td>${stock.sprice}원</td>
-                </tr>`                        
-        })// for end
-        stockTbody.innerHTML = html;
-    }catch(e){ console.log(e); }
-}// func end
-getStock();
-
