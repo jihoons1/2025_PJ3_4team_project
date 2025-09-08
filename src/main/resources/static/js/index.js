@@ -149,20 +149,23 @@ const initMap = async () => {
         });
         // const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
         // const data2 = await response2.json();
+        // <ul>
+        //                 <li>${data2.pname}</li>
+        //             </ul>
         // marker 클릭 이벤트
         naver.maps.Event.addListener(marker, "click", () => {
             rimgUrl = "/upload/company/"+encodeURIComponent(data[i].cimg);
             if(data[i].cimg == null || data[i].cimg == ""){
                 rimgUrl = 'https://placehold.co/50x50';
             }// if end
-            const sidebar = document.querySelector('#sidebar');
-            sidebar.style.display = 'block';
+            const sidebar = document.querySelector('#sidebar');            
             html = `<div><img src="${rimgUrl}"/></div>
                     <div><h3>${data[i].cname}</h3></div>                                      
                     <div>주소 : ${data[i].caddress}</div>
+                    <br/><br/>
                     <ul>
-                        <li>${data2.pname}</li>
-                    </ul>`
+                        <li>재고이름 --------  가격   </li>
+                    </ul`
             sidebar.innerHTML = html;
         });
         markers.push(marker);
@@ -197,7 +200,7 @@ const initMap = async () => {
     
     var markerClustering = new MarkerClustering({
         minClusterSize: 2,
-        maxZoom: 13,
+        maxZoom: 16,
         map: map,
         markers: markers,
         disableClickZoom: false,
