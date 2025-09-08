@@ -21,6 +21,8 @@ const loginbtn = async() => {
         alert('로그인 성공\n' + `\n어서오세요`);
         location.href="/index.jsp";
     }else{
+        alert('로그인 실패');
+        
         
     }
     }catch(error)  {console.log(error);}
@@ -34,10 +36,9 @@ const loginCheck = async () => {
     const loginCheck = document.querySelector('.loginCheck');
 
 
-        if (mid == '') {
-            loginCheck.innerHTML = '아이디 | 또는 비밀번호 입력 바람';
-        } else {
-            loginCheck.innerHTML = '';
+        if (mid == '' && mpwd != '') {
+            loginCheck.innerHTML = ' 아이디를 입력해주세요.';
+        }else if(mid != '' && mpwd == ''){
+            loginCheck.innerHTML = '비밀번호를 입력해주세요. ';
         }
-        
     }
