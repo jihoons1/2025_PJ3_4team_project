@@ -148,7 +148,7 @@ const initMap = async () => {
             const sidebar = document.querySelector('#sidebar');           
             if(data2.length == 0 || data2 == null){
                 html += `<div><img src="${rimgUrl}"/></div>
-                    <div><h3><a href="/company/find.jsp?cno=${data[i].cno}">${data[i].cname}</a></h3></div>                                      
+                    <div><a href="/company/find.jsp?cno=${data[i].cno}"><h3>${data[i].cname}</h3></a></div>                                      
                     <div>주소 : ${data[i].caddress}</div>
                     <br/><br/>`
             }else{
@@ -163,7 +163,11 @@ const initMap = async () => {
                     <ul>`                
                 data2.forEach( (st) => {
                     const day =  st.sdate.slice(0,10);
-                    html += `<li style="list-style: unset;">${st.pname}(100g당) ---------- ${st.sprice}원</li>`
+                    html += `<li style="display: flex; align-items: center; list-style: none;">
+                                <span>${st.pname}(100g당)</span>
+                                <span style="flex: 1; background: repeating-linear-gradient(to right, #999 0, #999 2px, transparent 2px, transparent 6px); height: 1px; margin: 0 8px;"></span>
+                                <span>${st.sprice}원</span>
+                            </li>`
                 })// for end
                 html += `</ul>`;
             } // if end
