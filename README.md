@@ -62,12 +62,14 @@
 - CSS3
 
 ## 3-3. API · Library
-- Lombok
+- Lombok Library
 - Bootstrap( 5.3.8 )
 - NaverMap API
 - Zxing API
 - Geocoder API
 - PortOne API
 - Daum Postcode API
-- Java Mail Sender
+- Java Mail Sender Library
 - Solapi API
+- OpenCSV Library
+- WebSocket Library
