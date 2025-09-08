@@ -58,11 +58,31 @@ public class PlanDao extends Dao {
         return 0;
     } // func end
 
-    // [plan03] 요금제 조회 - getPlan()
+    // [plan03-1] 요금제 배너 조회 - getPlan()
+    // 기능설명 : 요금제를 구독하고 있는 정육점의 배너를 조회한다.
+    // 매개변수 : int cno
+    // 반환타입 : PlanDto
+    public PlanDto getPlan( int cno ){
+        try {
+            String SQL = "select banner, cno from plan where cno = ? order by startdate desc limit 1";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, cno );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ){
+                // Builder Pattern을 이용한 객체 생성
+                return PlanDto.builder().banner( rs.getString( "banner" ) ).cno( rs.getInt( "cno" ) ).build();
+            } // if end
+        } catch ( SQLException e ){
+            System.out.println("[plan03-1] SQL 기재 실패" + e );
+        } // try-catch end
+        return null;
+    } // func end
+
+    // [plan03-2] 요금제 조회 - getPlanCno()
     // 기능설명 : 요금제를 구독하고 있는 정육점 번호를 조회한다.
     // 매개변수 : String today
     // 반환타입 : List<Integer>
-    public List<Integer> getPlan( String today ){
+    public List<Integer> getPlanCno( String today ){
         List<Integer> list = new ArrayList<>();
         try {
             String SQL = "select cno from plan where ? between startdate and enddate group by cno";
@@ -73,7 +93,7 @@ public class PlanDao extends Dao {
                 list.add( rs.getInt( 1 ) );
             } // while end
         } catch ( SQLException e ){
-            System.out.println("[plan03] SQL 기재 실패" + e );
+            System.out.println("[plan03-2] SQL 기재 실패" + e );
         } // try-catch end
         return list;
     } // func end

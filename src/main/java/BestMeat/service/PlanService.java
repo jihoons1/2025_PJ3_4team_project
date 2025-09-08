@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -84,15 +85,34 @@ public class PlanService {
         return result;
     }// func end
 
-    // [plan03] 요금제 조회 - getPlan()
+    // [plan03-1] 요금제 배너 조회 - getPlan()
+    // 기능설명 : 요금제를 구독하고 있는 정육점의 배너를 조회한다.
+    // 매개변수 : X
+    // 반환타입 : List<PlanDto>
+    public List<PlanDto> getPlan(){
+        // 0. 반환할 리스트 선언하기
+        List<PlanDto> planDtos = new ArrayList<>();
+        // 1. 구독중인 정육점 리스트 조회하기
+        List<Integer> planCno = getPlanCno();
+        // 2. 구독중인 정육점 번호들로 배너 조회하기
+        for ( Integer cno : planCno ){
+            PlanDto planDto = planDao.getPlan( cno );
+            // 3. 조회된 배너를 리스트에 넣기
+            planDtos.add( planDto );
+        } // fore nd
+        // 4. 최종적으로 배너리스트 반환하기
+        return planDtos;
+    } // func end
+
+    // [plan03-2] 요금제 정육점 조회 - getPlanCno()
     // 기능설명 : 요금제를 구독하고 있는 정육점 번호를 조회한다.
     // 매개변수 : X
     // 반환타입 : List<Integer>
-    public List<Integer> getPlan(){
+    public List<Integer> getPlanCno(){
         // 1. 오늘 날짜 구하기
         String today = LocalDate.now().toString();
         System.out.println("today = " + today);
         // 2. Dao에게 전달 후 결과 반환하기
-        return planDao.getPlan( today );
+        return planDao.getPlanCno( today );
     } // func end
 } // class end
