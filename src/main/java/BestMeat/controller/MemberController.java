@@ -207,4 +207,16 @@ public class MemberController {
         // 1. Service에게 매개변수 전달 후, 결과 반환하기
         return memberService.getMname( mno );
     } // func end
+
+    // [member11] 세션의 회원번호 반환 - getMno()
+    // 기능설명 : 세션의 회원번호를 반환한다,
+    // method : GET, URL : /member/getMno
+    // 매개변수 :
+    // 매개변수 : int mno
+    @GetMapping("/getMno")
+    public int getMno( HttpSession session ){
+        System.out.println("MemberController.getMno");
+        // 1. 세션정보에서 회원번호 꺼내서 반환하기
+        return sessionService.getSessionNo( "loginMno", session );
+    } // func end
 } // class end

@@ -54,13 +54,13 @@ public class ChattingService {
             if ( !chattingDao.checkRoom( room ) ){
                 // 9. Dao에게 전달해 DB 테이블 생성
                 chattingDao.createCSV( room );
+                // 10. 채팅방 개설 푸시알림 전송하기
+                int mno = Integer.parseInt( room.split("_")[1] );     // room의 뒷부분이 채팅방이 개설당한 사람
+                String alarm = room + " 채팅방이 개설되었습니다.";
+                AlarmDto alarmDto = AlarmDto.builder().mno( mno ).amessage( alarm ).atype( "chat" ).build();
+                // 11. 알림 전송하기
+                alarmService.addAlarm( alarmDto );
             } // if end
-            // 10. 채팅방 개설 푸시알림 전송하기
-            int mno = Integer.parseInt(room.split("_")[1]);     // room의 뒷부분이 채팅방이 개설당한 사람
-            String alarm = room + " 채팅방이 개설되었습니다.";
-            AlarmDto alarmDto = AlarmDto.builder().mno( mno ).amessage( alarm ).atype( "chat" ).build();
-            // 11. 알림 전송하기
-            alarmService.addAlarm( alarmDto );
         } catch ( Exception e ) {
             System.out.println("[chatting00] Service 오류 발생" + e );
         } // try-catch end
