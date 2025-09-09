@@ -23,38 +23,9 @@ import java.util.Map;
 
 @Service
 public class QRService {// class start
-    // [*]
-    public void QRMake(File qrFile, String qrCodeText, int size, String fileType){
-        System.out.println("QRService.QRMake");
-        System.out.println("qrFile = " + qrFile + ", qrCodeText = " + qrCodeText + ", size = " + size + ", fileType = " + fileType);
-        Hashtable<EncodeHintType , ErrorCorrectionLevel> hintMap = new Hashtable<>();
-        hintMap.put(EncodeHintType.ERROR_CORRECTION,ErrorCorrectionLevel.L);
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        try {
-            BitMatrix bitMatrix = qrCodeWriter.encode(qrCodeText, BarcodeFormat.QR_CODE, size, size, hintMap);
-            int matrixWidth = bitMatrix.getWidth();
-            BufferedImage image = new BufferedImage(matrixWidth,matrixWidth,BufferedImage.TYPE_INT_RGB);
-            image.createGraphics();
-            Graphics2D graphics = (Graphics2D) image.getGraphics();
-            // 배경색
-            graphics.setColor(Color.white);
-            graphics.fillRect(0,0,matrixWidth,matrixWidth);
-            // QR 코드색
-            graphics.setColor(Color.BLACK);
-            for (int i = 0; i < matrixWidth; i++){
-                for (int a = 0; a < matrixWidth; a++){
-                    if (bitMatrix.get(i,a)){
-                        graphics.fillRect(i,a,1,1);
-                    }// if end
-                }// for end
-            }// for end
-            ImageIO.write(image, fileType, qrFile);
-        }catch (Exception e){ System.out.println(e); }
-    }// func end
 
-    // [*]
-    public ResponseEntity<byte[]> BuildQR(String content){
-        byte[] qrImage = null;
+    // [*] qr 생성
+    public byte[] BuildQR(String content){
         ByteArrayOutputStream bout = null;
         try{// QR 생성기
             MultiFormatWriter writer = new MultiFormatWriter();
@@ -62,13 +33,7 @@ public class QRService {// class start
             bout = new ByteArrayOutputStream(); // byte 배열로 변환하기 위해 사용
             MatrixToImageWriter.writeToStream(matrix,"png",bout);
         } catch (Exception e) { System.out.println(e); }
-        // ResponseEntity를 이용해 HTTP 응답 반환
-        // - 상태코드: 200 OK
-        // - Content-Type: image/png (브라우저/클라이언트가 이미지로 인식하게 함)
-        // - Body: QR 코드 이미지 데이터 (byte[])
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .body(bout.toByteArray());
+        return bout.toByteArray();
     }// func end
 
     // 네이버 위도/경도 구하기
