@@ -64,7 +64,7 @@ public class PlanDao extends Dao {
     // 반환타입 : PlanDto
     public PlanDto getPlan( int cno ){
         try {
-            String SQL = "select banner, cno from plan where cno = ? order by startdate desc limit 1";
+            String SQL = "select banner, cno from plan where cno = ? order by enddate desc limit 1";
             PreparedStatement ps = conn.prepareStatement( SQL );
             ps.setInt( 1, cno );
             ResultSet rs = ps.executeQuery();

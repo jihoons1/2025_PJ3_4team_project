@@ -227,7 +227,6 @@ initMap();
 
 // 5. 멤버쉽 가입한 정육점의 배너 노출
 const printPlanBanner = async ( ) => {
-    console.log('printPlanBanner func exe');
     try {
         // 1. fetch
         const response = await fetch( "/plan/get" );
