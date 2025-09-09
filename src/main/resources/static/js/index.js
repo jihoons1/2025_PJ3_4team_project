@@ -13,7 +13,7 @@ const getPlan = async() => {
             if(i == 0){                
                 html += `<div class="carousel-item active" style="margin: 0 auto;">
                             <div>
-                                <h3>${data[i].cname}</h3><span>평점 : ${data[i].rrank}점</span>
+                                <h3><a href="/company/find.jsp?cno=${data[i].cno}">${data[i].cname}</a></h3><span>평점 : ${data[i].rrank}점</span>
                                 <img src="${data[i].cimg}" class="d-block w-40" alt="...">
                                 <span>주소 : ${data[i].caddress} </span><br/>
                                 <div>                                    
@@ -45,7 +45,7 @@ const getPlan = async() => {
             }else{
                 html += `<div class="carousel-item">
                             <div>
-                                <h3>${data[i].cname}</h3><span>평점 : ${data[i].rrank}점</span>
+                                <h3><a href="/company/find.jsp?cno=${data[i].cno}">${data[i].cname}</a></h3><span>평점 : ${data[i].rrank}점</span>
                                 <img src="${data[i].cimg}" class="d-block w-40" alt="...">
                                 <span>주소 : ${data[i].caddress} </span><br/>
                                 <div>
