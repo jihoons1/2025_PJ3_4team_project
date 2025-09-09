@@ -15,7 +15,7 @@ public class CompanyDao extends Dao {
     public List<CompanyDto> getCompany(int startRow , int count , String order){
         List<CompanyDto> list = new ArrayList<>();
         try{
-            String sql = "select c.cno, c.mno , c.cname, c.caddress, c.cimg, ifnull(round(avg(r.rrank),1),0) as rrank " +
+            String sql = "select c.cno, c.mno , c.cname, c.caddress, c.cimg, c.views , ifnull(round(avg(r.rrank),1),0) as rrank " +
                     " from company c left outer join review r on c.cno = r.cno ";
             if ("rank".equals(order)){
                 sql += " group by c.cno order by rrank desc , cno limit ? , ?";
@@ -34,11 +34,20 @@ public class CompanyDao extends Dao {
                 dto.setCaddress(rs.getString("caddress"));
                 dto.setCimg(rs.getString("cimg"));
                 dto.setRrank(rs.getDouble("rrank"));
+                dto.setViews(rs.getInt("views"));
                 list.add(dto);
             }// while end
         } catch (Exception e) { System.out.println(e); }
         return list;
     }// func end
+
+    // 정육점 조회수
+    public void viewCompany(int cno){
+        try{
+            String sql = "update company set views = views + 1 where cno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+        }catch (Exception e){ System.out.println("조회수 오류 발생"+e); }
+    }
 
     // 정육점 전체 수
     public int getTotalCompany(){
