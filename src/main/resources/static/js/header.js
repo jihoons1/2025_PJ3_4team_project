@@ -127,9 +127,9 @@ const getAlarm = async ( ) => {
                         </div>`
             } // if end
         });
-        // . print
+        // 6. print
         toastBox.innerHTML = html;
-        printToast();
+        printToast( data );
     } catch ( error ){
         console.log( error );
     } // try-catch end
@@ -149,7 +149,7 @@ const updateAlarm = async ( ano ) => {
 } // func end
 
 // 6. toast show 함수
-const printToast = async ( ) => {
+const printToast = async ( data ) => {
     // 1. where
     const toastList = document.querySelectorAll('.toast');
     // 2. show
@@ -158,6 +158,10 @@ const printToast = async ( ) => {
             const toast = new bootstrap.Toast(toastBox);
             toast.show();
         } // if end
+    })
+    // 3. data 순회하기
+    data.forEach( (alarm) => {
+        updateAlarm( alarm.ano );
     })
 } // func end
 //=============================================== 결제 API ================================================\\

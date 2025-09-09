@@ -27,8 +27,7 @@
                 </div>
                 <div class="input-group">
                     <label for="mpwd">비밀번호</label>
-                    <input type="password" onkeyup="loginCheck()" id="mpwd" class="mpwd" placeholder="비밀번호를 입력하세요."
-                        onkeyup="if( event.keyCode == 13 ){ loginbtn()  };"onkeyup="loginCheck()">
+                    <input type="password" onkeyup="loginCheck(); if( event.keyCode == 13 ){ loginbtn()  };" id="mpwd" class="mpwd" placeholder="비밀번호를 입력하세요.">
                 </div>
                 <div class="loginCheck"></div>
 
