@@ -85,18 +85,23 @@ public class MemberDao extends Dao  {
     // [2] 로그인
     public int login( MemberDto memberDto ){
         try{
-            String sql = "select * from member where mid = ? and mpwd = ? ";
+            String sql = "select mno , mcheck from member where mid = ? and mpwd = ? ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString( 1 , memberDto.getMid() );
             ps.setString( 2 , memberDto.getMpwd() );
             ResultSet rs = ps.executeQuery();
             if( rs.next() ){
                 int mno = rs.getInt("mno");
-                return mno; // 로그인 성공시 조회한 회원번호 반환
-            }
-        } catch (Exception e) { System.out.println("로그인 발생 오류 " + e);  }
+                boolean mcheck = rs.getBoolean("mcheck");
+                        if (mcheck == true){ return mno; }
+                            else{
+                                return 0; }
+                }
+            }catch (Exception e) { System.out.println("로그인 발생 오류 " + e);  }
         return 0; // 로그인 실패시 0 반환
     }// func end
+
+
 
     // [3] 아이디 찾기
     public String findId(Map<String , String> map){
@@ -182,7 +187,7 @@ public class MemberDao extends Dao  {
             String sql = "update member set mphone = ? , maddress = ? where mno = ? ";
             PreparedStatement ps = conn.prepareStatement(sql , Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dto.getMphone());
-            ps.setString(2, dto.getMaddress());
+            ps.setString(2, dto.getMaddress() );
             ps.setInt(3, dto.getMno());
             int count = ps.executeUpdate();
             if (count == 1) { return true; }

@@ -13,15 +13,15 @@ const signupbtn = async() => {
     const mig = document.querySelector('#mig');
     const emailname = document.querySelector('.emailname').value;
     const emailselect =document.querySelector('#emailselect').value;
-    const sample6_address = document.querySelector('#sample6_address').value;
-    const sample6_detailAddress= document.querySelector('#sample6_detailAddress').value;
+    const sample6_address = document.querySelector('#sample6_address');
+    const sample6_detailAddress= document.querySelector('#sample6_detailAddress');
     
-    let maddress = + sample6_detailAddress;
+    let asd = sample6_address + sample6_detailAddress;
 
     const memail = emailname + emailselect;
     const mimgupload = new FormData(mig);
     mimgupload.append("memail", memail);
-    mimgupload.append("maddress", maddress);
+    mimgupload.append("maddress", asd);
     try{
 
     const op = { method : "POST" , body : mimgupload }

@@ -134,4 +134,5 @@ public class MemberService {
         // 1. Dao에게 매개변수 전달 후, 결과 반환하기
         return memberDao.getMname( mno );
     } // func end
+
 } // class end

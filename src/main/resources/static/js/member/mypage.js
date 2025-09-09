@@ -303,15 +303,15 @@ const addUpdate = async() => {
 const update = async() => {
 
     const mig = document.querySelector('#mig');
-    const mphone = document.querySelector('.mphone2').value;
-    const sample6_address = document.querySelector('#sample6_address');
-    const sample6_detailAddress= document.querySelector('#sample6_detailAddress');
 
 
-    let maddress = "" + sample6_detailAddress.value;
+    let maddress = '';
+    maddress =  document.querySelector('#sample6_address').value +
+                "," +
+                document.querySelector('#sample6_detailAddress').value;
 
+                console.log(maddress);
     const mimg = new FormData(mig);
-    mimg.append("mphone2" , mphone);
     mimg.append("maddress", maddress);
     try{
         const op = { method : "PUT" , body : mimg }
@@ -336,6 +336,8 @@ const passup = async() => {
     const mpwd2 = document.querySelector('.mpwd2').value;
     
     const obj = {oldmpwd : mpwd , newmpwd : mpwd2 }
+
+    let html = '';
     try{
         const option = { 
             method : "PUT" ,
@@ -344,6 +346,9 @@ const passup = async() => {
         };
         const response = await fetch('/member/update/Pwd' , option);
         const data = await response.json();
+    
+
+        
 
         if(data==true){
             alert('비밀번호 수정완료');
@@ -439,7 +444,7 @@ function sample6_execDaumPostcode() {
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('sample6_postcode').value = data.zonecode;
-            document.getElementById("sample6_address").value = addr + extraAddr;
+            document.getElementById("sample6_address").value = addr;
 
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById("sample6_detailAddress").focus();

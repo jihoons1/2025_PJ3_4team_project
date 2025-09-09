@@ -38,5 +38,7 @@ const loginCheck = async () => {
         loginCheck.innerHTML = ' 아이디를 입력해주세요.';
     }else if(mid != '' && mpwd == ''){
         loginCheck.innerHTML = '비밀번호를 입력해주세요. ';
+    }else{
+        loginCheck.innerHTML = '';
     }
 }

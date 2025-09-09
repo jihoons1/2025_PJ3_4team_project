@@ -129,7 +129,7 @@
                         <label>주소</label>
                     <input type="text" id="sample6_postcode" placeholder="우편번호">
                     <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                    <input type="text" onkeyup="maddresscheck()" name="maddress" id="sample6_address" placeholder="주소를 입력해주세요" />
+                    <input type="text" onkeyup="maddresscheck()" class="maddress" id="sample6_address" placeholder="주소를 입력해주세요" />
                     <input type="text" name="mdetailaddress" id="sample6_detailAddress" placeholder="상세주소">
                     <div class="maddressCheck"></div>
                         프로필 : <input type="file" name="upload" />
@@ -157,8 +157,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- 기능-->
-                    기존 비밀번호 : <input type="text" class="mpwd" /> <br>
-                    변경하실 비밀번호 : <input type="text" class="mpwd2" /> <br>
+                    기존 비밀번호 : <input type="password" class="mpwd" /> <br>
+                    변경하실 비밀번호 : <input type="pas" class="mpwd2" /> <br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>

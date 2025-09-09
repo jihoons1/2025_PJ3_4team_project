@@ -51,12 +51,12 @@
 /* 입력상자 */
 .bottomBox{
     display : flex;
-    margin-bottom : 100px
+    margin-bottom : 100px;
 }
 .msginput{
     width : 90%;
     padding : 10px;
-    border: 1px solid #eeeeee;
+    border: 1px solid #f1a5e7;
 }
 /* 전송 버튼 */
 .bottomBox > button{
