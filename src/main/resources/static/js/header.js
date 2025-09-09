@@ -92,7 +92,7 @@ const getAlarm = async ( ) => {
         data.forEach( (alarm) => {
             if ( alarm.atype == "chat" ){
                 let amessage = alarm.amessage;
-                let room = amessage.split(" ")[0];
+                let room = alarm.etc;
                 let members = room.split("_");
                 // 반복문을 통해, 상대방의 회원번호 찾기
                 let cno = 0;
@@ -109,12 +109,13 @@ const getAlarm = async ( ) => {
                                 <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                             <div class="toast-body">
-                                <a href="/chatting/chatting.jsp?mno=${alarm.mno}&cno=${cno}&room=${room}">${amessage}</a>
+                                <a href="/chatting/chatting.jsp?mno=${alarm.mno}&cno=${cno}&room=${room}">${cno}와의 ${amessage}</a>
                             </div>
                         </div>`
             } else if ( alarm.atype == "stock" ){
-                let amessage = alarm.amessage.split(".")[0];    // .을 기준으로 앞부분은 메시지
-                let cno = alarm.amessage.split(".")[1];         // 뒷부분은 cno로 저장되어있음.
+                console.log( alarm );
+                let amessage = alarm.amessage;
+                let cno = alarm.etc;
                 // 5. atype이 stock이라면, a태그로 정육점상세페이지 링크 걸기
                 html += `<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">

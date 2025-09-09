@@ -138,6 +138,7 @@ create table Alarm(
     amessage varchar(100) not null,		-- 알림메시지
     acheck boolean default false,		-- 확인여부
     atype varchar(20) not null,			-- 푸시알림종류
+    etc varchar(20) not null,			-- room | cno 등의 기타
     constraint primary key( ano ),
     constraint foreign key( mno ) references member( mno ) on delete cascade on update cascade
 );
@@ -746,11 +747,11 @@ insert into PointLog( mno, plpoint, plcomment ) values
 	( 10001, 500, '회원가입 지급' ),
     ( 10002, 500, '회원가입 지급' ),
     ( 10003, 500, '회원가입 지급' );
-insert into Alarm( mno, amessage, atype ) values
-	( 10001, 'XXX원 아래로 XXX의 재고가 등록되었습니다.30002', 'stock' ),
-    ( 10002, 'XXX원 아래로 XXX의 재고가 등록되었습니다.30001', 'stock' ),
-    ( 10003, 'XXX원 아래로 XXX의 재고가 등록되었습니다.30001', 'stock' ),
-    ( 10001, 'XXX원 아래로 XXX의 재고가 등록되었습니다.30003', 'stock' );
+insert into Alarm( mno, amessage, atype, etc ) values
+	( 10001, 'XXX원 아래로 XXX의 재고가 등록되었습니다.', 'stock', '30002' ),
+    ( 10002, 'XXX원 아래로 XXX의 재고가 등록되었습니다.', 'stock', '30001' ),
+    ( 10003, 'XXX원 아래로 XXX의 재고가 등록되었습니다.', 'stock', '30001' ),
+    ( 10001, 'XXX원 아래로 XXX의 재고가 등록되었습니다.', 'stock', '30003' );
     
 -- ---------------------------- Select Test -------------------
 -- select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;

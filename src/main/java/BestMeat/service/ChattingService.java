@@ -56,8 +56,8 @@ public class ChattingService {
                 chattingDao.createCSV( room );
                 // 10. 채팅방 개설 푸시알림 전송하기
                 int mno = Integer.parseInt( room.split("_")[1] );     // room의 뒷부분이 채팅방이 개설당한 사람
-                String alarm = room + " 채팅방이 개설되었습니다.";
-                AlarmDto alarmDto = AlarmDto.builder().mno( mno ).amessage( alarm ).atype( "chat" ).build();
+                String alarm = "채팅방이 개설되었습니다.";
+                AlarmDto alarmDto = AlarmDto.builder().mno( mno ).amessage( alarm ).atype( "chat" ).etc( room ).build();
                 // 11. 알림 전송하기
                 alarmService.addAlarm( alarmDto );
             } // if end
