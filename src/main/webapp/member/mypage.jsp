@@ -80,8 +80,7 @@
             <div class="mypage-section">
                 <div class="section-header">
                     <h4>가격 알림</h4>
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop1">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
                         새 알림 등록
                     </button>
                 </div>

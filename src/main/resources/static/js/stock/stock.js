@@ -113,10 +113,10 @@ getStock();
 // 6. 재고수정 버튼
 const updateButton = async ( sno ) => {
     // 1. where
-    const buttons = document.querySelector(`.modal-footer`);
     const sprice = document.querySelector(`.spriceBox`);
     const pnameBox = document.querySelector('.pnameBox');
     const snoBox = document.querySelector('.snoBox');
+    const pnoBox = document.querySelector('#pnoBox');
     // 2. what
     let oldPrice;
     let pno;
@@ -128,17 +128,15 @@ const updateButton = async ( sno ) => {
             pname = stock.pname;
         } // if end
     }) // for end
-    let button = `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                  <button type="button" class="btn btn-primary" onclick="updateStock(${sno}, ${pno})"> 수정완료 </button>`;
     // 3. print
     snoBox.innerHTML = sno;
     pnameBox.innerHTML = pname;
-    buttons.innerHTML = button;
     sprice.value = oldPrice;
+    pnoBox.innerHTML = pno;
 } // func end
 
 // 7. 재고수정
-const updateStock = async ( sno, pno ) => {
+const updateStock = async ( ) => {
     // 입력값 체크
     if ( checkList.includes(false) ){
         alert('올바른 정보를 입력해주세요.');
@@ -146,6 +144,8 @@ const updateStock = async ( sno, pno ) => {
     } // if end
     // 1. Input value
     const sprice = document.querySelector(`.spriceBox`).value;
+    const sno = document.querySelector('.snoBox').value;
+    const pno = document.querySelector('#pnoBox').value;
     // 2. obj
     const obj = { sno, sprice, pno };
     // 3. fetch
