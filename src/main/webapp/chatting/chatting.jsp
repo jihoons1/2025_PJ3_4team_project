@@ -34,7 +34,7 @@
         <div class="roomTitle" style="text-align: center;">
             
         </div>
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">채팅창 목록 열기</button>
+        <button class="btn btn-primary" onclick="getRoomList()" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">채팅창 목록 열기</button>
         <div class="msgbox" >
             <!-- 사용자들의 메시지로 구성 -->
         </div>

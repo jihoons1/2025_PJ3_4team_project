@@ -180,7 +180,6 @@ const getRoomList = async ( ) => {
         console.log( error );
     } // try-catch end
 } // func end
-getRoomList();
 
 // 4. 채팅방 유효성 검사
 const checkSession = async ( ) => {

@@ -93,7 +93,7 @@ const getAlarm = async ( ) => {
                 } // for end
 
                 // 4. atype이 chat이라면, a태그로 chat링크 걸기
-                html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                html += `<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
                                 <strong class="me-auto">Push Alarm</strong>
                                 <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -106,7 +106,7 @@ const getAlarm = async ( ) => {
                 let amessage = alarm.amessage.split(".")[0];
                 let cno = alarm.amessage.split(".")[1];
                 // 5. atype이 stock이라면, a태그로 정육점상세페이지 링크 걸기
-                html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                html += `<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
                                 <strong class="me-auto">Push Alarm</strong>
                                 <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -119,6 +119,7 @@ const getAlarm = async ( ) => {
         });
         // . print
         toastBox.innerHTML = html;
+        printToast();
     } catch ( error ){
         console.log( error );
     } // try-catch end
@@ -137,6 +138,18 @@ const updateAlarm = async ( ano ) => {
     } // try-catch end
 } // func end
 
+// 6. toast show 함수
+const printToast = async ( ) => {
+    // 1. where
+    const toastList = document.querySelectorAll('.toast');
+    // 2. show
+    toastList.forEach( (toastBox) => {
+        if ( toastBox ){
+            const toast = new bootstrap.Toast(toastBox);
+            toast.show();
+        } // if end
+    })
+} // func end
 //=============================================== 결제 API ================================================\\
 // 1. 포인트 결제 기능
 const payment = async ( ) => {
