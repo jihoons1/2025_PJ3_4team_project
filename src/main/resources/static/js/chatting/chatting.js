@@ -61,8 +61,6 @@ client.onmessage = ( event ) => {
                         </div>
                      </div>`
         } // if end
-        // 8. chat이 왔을 때, 채팅방 목록 조회
-        getRoomList();
     } // if end
     // 9. 구성한 html을 div에 추가하기
     const msgBox = document.querySelector('.msgbox');
@@ -143,45 +141,7 @@ const getChatLog = async ( ) => {
 } // func end
 getChatLog();
 
-// 3. mno별 채팅목록 가져오기
-const getRoomList = async ( ) => {
-    try {
-        // 1. fetch
-        const fetch1 = await fetch( "/chatting/getRoomList" );
-        const data = await fetch1.json();        
-        // 2. where
-        const roomList = document.querySelector('.roomList');
-        for ( let i = 0; i < data.length; i++ ){
-            let room = data[i];
-            // mno와 data.to가 다르다면
-            let me = 0;
-            let other = 0;
-            if ( room.to == mno ){
-                me = room.to;
-                other = room.from;
-            } else {
-                me = room.from;
-                other = room.to;
-            } // if end
-            const fetch2 = await fetch( `/member/getMname?mno=${me}` );
-            const mename = await fetch2.text();
-            const fetch3 = await fetch( `/member/getMname?mno=${other}` );
-            const othername = await fetch3.text();
-
-            // 3. what
-            let html = `<div class="rooms">
-                            <a href="chatting.jsp?mno=${me}&cno=${other}&room=${room.roomname}">
-                            ${mename}님과 ${othername}의 채팅방 <br>
-                            최근메시지 : ${room.message}
-                        </div>`;
-            roomList.innerHTML = html;
-        } // for end
-    } catch ( error ) {
-        console.log( error );
-    } // try-catch end
-} // func end
-
-// 4. 채팅방 유효성 검사
+// 3. 채팅방 유효성 검사
 const checkSession = async ( ) => {
     try{
         // 1. fetch
@@ -205,7 +165,7 @@ const checkSession = async ( ) => {
 } // func end
 checkSession();
 
-// 5. 전체채팅방 표시 출력
+// 4. 전체채팅방 표시 출력
 const printPublicRoom = async ( ) => {
     console.log( room );
     if ( room == "0" ){

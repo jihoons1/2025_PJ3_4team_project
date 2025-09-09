@@ -92,3 +92,7 @@ a{
     border-radius: 10px;
     padding: 10px 15px;
 }
+.roomTitle{
+    padding: 20px 0px;
+    text-align: center;
+}

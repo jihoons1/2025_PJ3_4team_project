@@ -46,12 +46,13 @@
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop5">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onclick="getRoomList()" >
+                        채팅방 목록 열기
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
                         회원정보 수정
                     </button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop20">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop20">
                         비밀번호 수정
                     </button>
                 </div>
@@ -109,6 +110,17 @@
                     회원탈퇴 진행
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- 채팅방목록 offcanvas -->
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">채팅창 목록</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body roomList">
+            <!-- 해당 회원의 채팅방 목록으로 구성 -->
         </div>
     </div>
 
