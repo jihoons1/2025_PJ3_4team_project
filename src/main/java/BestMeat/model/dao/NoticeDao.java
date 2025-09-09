@@ -61,6 +61,7 @@ public class NoticeDao extends Dao {
                 noticeDto.setNdate( rs.getString( "ndate" ) );
                 noticeDto.setMphone( rs.getString( "mphone" ) );
                 noticeDto.setPname( rs.getString( "pname" ) );
+                noticeDto.setCno( rs.getInt( "cno" ) );
                 noticeDtoList.add( noticeDto );
             } // while end
         } catch ( SQLException e ){

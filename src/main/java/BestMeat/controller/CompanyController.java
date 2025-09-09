@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -51,9 +53,43 @@ public class CompanyController {
 
     // 정육점 개별조회
     @GetMapping("/find")
-    public CompanyDto findCompany(@RequestParam int cno){
-        return companyService.findCompany(cno);
-    }// func end
+    public CompanyDto findCompany( @RequestParam int cno, HttpSession session ){
+        // 배웠던 코드는 비회원 전용 조회수 증가여서, 배웠던 코드로 하면 1계정 당 1조회수만 올릴 수 있다.
+        // 1. 세션정보에서 회원번호 꺼내기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 세션 속성 내 'viewHistory' 값 가져오기
+        Object object = session.getAttribute( "viewHistory" );
+        Map< Integer, String > viewHistory;
+        // 3-1. 세션에 viewHistory가 없으면
+        if ( object == null ){
+            // 3-2. 새롭게 만들어주기
+            viewHistory = new HashMap<>();
+        } else {
+            // 3-3. 존재하면, 기존 자료를 타입변환한다.
+            viewHistory = (Map< Integer, String >) object;
+        } // if end
+        // 4. 현재 날짜를 문자열로 가져오기
+        String today = LocalDate.now().toString();
+        // 5. today와 mno를 조합하여, 기록을 체크한다.
+        String dayCheck = viewHistory.get( mno );
+        // 6. 정육점을 봤는지 안봤는지 체크한다.
+        String cnoCheck = viewHistory.get( cno );
+        // 7. 정육점을 봤던 기록이 없거나, 봤던 정육점이 아니라면
+        if ( cnoCheck == null || cnoCheck.equals("false") ){
+            // 8. today 기록이 없거나, 기록이 today와 다르다면
+            if ( dayCheck == null || !dayCheck.equals( today + cno ) ){
+                // 9. 조회수 증가시키기
+                companyService.addViews( cno );
+                // 10. 오늘 + 정육점을 기록
+                viewHistory.put( mno, today + cno );
+                // 11. 이 정육점을 봤다고 기록
+                viewHistory.put( cno, "true" );
+                // 12. 세션에 업데이트
+                session.setAttribute( "viewHistory", viewHistory );
+            } // if end
+        } // if end
+        return companyService.findCompany( cno );
+    } // func end
 
     // QR 코드 생성
     @GetMapping("/qrcode")

@@ -61,15 +61,19 @@ client.onmessage = ( event ) => {
                         </div>
                      </div>`
         } // if end
+        // 8. chat이 왔을 때, 채팅방 목록 조회
+        getRoomList();
     } // if end
-    // 8. 구성한 html을 div에 추가하기
+    // 9. 구성한 html을 div에 추가하기
     const msgBox = document.querySelector('.msgbox');
     msgBox.innerHTML += html;
-    // 9. 내용물이 넘치면, 자동으로 스크롤 내리기
+    // 10. 내용물이 넘치면, 자동으로 스크롤 내리기
     msgBox.scrollTop = msgBox.scrollHeight;
 } // func end
 
-// 4. 메시지 전송 기능 - 클라이언트 ---> 서버
+//=============================================== 일반 로직 ================================================\\
+
+// 1. 메시지 전송 기능 - 클라이언트 ---> 서버
 const postMsgSend = async ( ) => {
     // 1. Input value
     const msgInput = document.querySelector('.msginput');
@@ -91,14 +95,16 @@ const postMsgSend = async ( ) => {
     client.send( JSON.stringify( message ) );
     // 5. Input value 초기화
     msgInput.value = '';
+    // 6. chat을 보냈을 때, 채팅방 목록 조회
+    getRoomList();
 } // func end
 
-// 5. room별 채팅 가져오기
+// 2. room별 채팅 가져오기
 const getChatLog = async ( ) => {
     try {
         // 1. fetch
         const response = await fetch( `/chatting/getChatLog?room=${room}` );
-        const data = await response.json();     
+        const data = await response.json();
         // 2. where
         const msgbox = document.querySelector('.msgbox');
         // 3. what
@@ -130,7 +136,7 @@ const getChatLog = async ( ) => {
                         </div>`
             } // if end
             // 7. 메시지 박스에 html 추가하기
-            msgbox.innerHTML += html;
+            msgbox.innerHTML = html;
         } // for end
     } catch ( error ) {
         console.log( error );
@@ -138,7 +144,7 @@ const getChatLog = async ( ) => {
 } // func end
 getChatLog();
 
-// 6. mno별 채팅목록 가져오기
+// 3. mno별 채팅목록 가져오기
 const getRoomList = async ( ) => {
     try {
         // 1. fetch
@@ -169,10 +175,34 @@ const getRoomList = async ( ) => {
                             ${mename}님과 ${othername}의 채팅방 <br>
                             최근메시지 : ${room.message}
                         </div>`;
-            roomList.innerHTML += html;
+            roomList.innerHTML = html;
         } // for end
     } catch ( error ) {
         console.log( error );
     } // try-catch end
 } // func end
 getRoomList();
+
+// 4. 채팅방 유효성 검사
+const checkSession = async ( ) => {
+    try{
+        // 1. fetch
+        const response = await fetch( "/member/get" );
+        const data = await response.json();
+        // 2. 전체채팅방이면 유지
+        if ( room == null || room == "0" ) return;
+        // 3. 세션 회원번호가 수신/발신 어디에도 없다면
+        if ( data.mno != mno && data.mno != cno ){
+            // 4. 메인페이지로 이동
+            alert('유효하지않은 세션이므로 메인페이지로 이동합니다.');
+            location.href = "/index.jsp";
+        } // if end
+    } catch ( error ){
+        // 5. 전체채팅방이면 유지
+        if ( room == null || room == "0" ) return;
+        // 6. 메인페이지로 이동
+        alert('유효하지않은 세션이므로 메인페이지로 이동합니다.');
+        location.href = "/index.jsp";
+    } // try-catch end
+} // func end
+checkSession();

@@ -1,8 +1,9 @@
-
+//=============================================== 쿼리스트링 ================================================\\
 const params = new URL(location.href).searchParams;
 const page = params.get('page') || 1;
 
-// 제품 전체 조회
+//=============================================== 일반 로직 ================================================\\
+// 1. 제품 전체 조회
 const getProduct = async() => {
     const productbody = document.querySelector('#productTbody');
     let html = "";
@@ -38,7 +39,7 @@ const getProduct = async() => {
 }// func end
 getProduct();
 
-// 페이징 버튼 출력 함수 
+// 2. 페이징 버튼 출력 함수 
 const viewPageButton = async ( data ) => {
     console.log('viewPageButton exe');
     // 백엔드로 부터 받은 pageDto{} <--->  data{}

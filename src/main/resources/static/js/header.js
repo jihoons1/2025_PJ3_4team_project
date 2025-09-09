@@ -1,8 +1,7 @@
-
-
 let MemberData;
 
 //=============================================== 일반 로직 ================================================\\
+// 1. 세션정보에 따라 다른 출력 구현
 const myinfo = async() => {
     const log = document.querySelector('.log');
     const menu = document.querySelector('.menu');
@@ -47,13 +46,14 @@ const myinfo = async() => {
 } // func end
 myinfo();
 
+// 2. 로그아웃 버튼 구현
 const logout= async() => {
-    
     try{
+        // 1. fetch
         const op = { method : "GET" }
         const response = await fetch('/member/logout' , op)
         const data = await response.json();
-
+        // 2. result
         if( data > 0){
             alert('로그아웃 성공');
             location.href="/index.jsp";
@@ -63,15 +63,82 @@ const logout= async() => {
     }catch(error){console.log(error) ; }
 }
 
-// 검색 함수
+// 3. 검색 함수
 const search = async (  ) => {
     const keyword = document.querySelector('.searchBox').value;
     location.href=`/search/search.jsp?key=pname&keyword=${keyword}`;
-
 } // func end
 
-//=============================================== 결제 API ===========================================\\
-// 포인트 결제 기능
+// 4. 푸시알림조회
+const getAlarm = async ( ) => {
+    try{
+        // 1. fetch
+        const response = await fetch( "/alarm/get" );
+        const data = await response.json();
+        // 2. where
+        const toastBox = document.querySelector('.toast-container');
+        // 3. what
+        let html = '';
+        data.forEach( (alarm) => {
+            if ( alarm.atype == "chat" ){
+                let amessage = alarm.amessage;
+                let room = amessage.split(" ")[0];
+                let members = room.split("_");
+                // 반복문을 통해, 상대방의 회원번호 찾기
+                let cno = 0;
+                for ( let i = 0; i < members.length; i++ ){
+                    if ( members[i] != alarm.mno ){
+                        cno = members[i];
+                    } // if end
+                } // for end
+
+                // 4. atype이 chat이라면, a태그로 chat링크 걸기
+                html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">Push Alarm</strong>
+                                <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                <a href="/chatting/chatting.jsp?mno=${alarm.mno}&cno=${cno}&room=${room}">${amessage}</a>
+                            </div>
+                        </div>`
+            } else if ( alarm.atype == "stock" ){
+                let amessage = alarm.amessage.split(".")[0];
+                let cno = alarm.amessage.split(".")[1];
+                // 5. atype이 stock이라면, a태그로 정육점상세페이지 링크 걸기
+                html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">Push Alarm</strong>
+                                <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                <a href="/company/find.jsp?cno=${cno}">${amessage}.</a>
+                            </div>
+                        </div>`
+            } // if end
+        });
+        // . print
+        toastBox.innerHTML = html;
+    } catch ( error ){
+        console.log( error );
+    } // try-catch end
+} // func end
+getAlarm();
+
+// 5. 푸시알림수정
+const updateAlarm = async ( ano ) => {
+    try{
+        // 1. fetch
+        const option = { method : "PUT" };
+        const response = await fetch( `/alarm/update?ano=${ano}`, option );
+        const data = await response.json();
+    } catch ( error ){
+        console.log( error );
+    } // try-catch end
+} // func end
+
+//=============================================== 결제 API ================================================\\
+// 1. 포인트 결제 기능
 const payment = async ( ) => {
     // 포트원 기본 정보 제공
     let IMP = window.IMP;
@@ -127,5 +194,4 @@ const payment = async ( ) => {
             }
         } // func end
     ); // 결제 프롬프트 end
-
 } // func end

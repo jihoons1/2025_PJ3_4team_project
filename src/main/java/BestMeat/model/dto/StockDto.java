@@ -18,4 +18,5 @@ public class StockDto {
 
     // 부가적인 정보
     private String pname;   // 제품명
+    private int mno;        // 회원번호
 } // class end

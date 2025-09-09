@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,7 +107,7 @@ public class CompanyDao extends Dao {
     // 정육점 개별조회
     public CompanyDto findCompany(int cno){
         try{
-            String sql = "select c.cno, c.mno , c.cname, c.caddress, c.cimg, ifnull(round(avg(r.rrank),1),0) as rrank"+
+            String sql = "select c.cno, c.mno, c.views , c.cname, c.caddress, c.cimg, ifnull(round(avg(r.rrank),1),0) as rrank"+
                     " from company c left outer join review r on c.cno = r.cno  where c.cno = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,cno);
@@ -119,6 +120,7 @@ public class CompanyDao extends Dao {
                 dto.setCaddress(rs.getString("caddress"));
                 dto.setCimg(rs.getString("cimg"));
                 dto.setRrank(rs.getDouble("rrank"));
+                dto.setViews( rs.getInt("views") );
                 return dto;
             }// if end
         } catch (Exception e) { System.out.println(e); }
@@ -145,4 +147,17 @@ public class CompanyDao extends Dao {
         } catch (Exception e) { System.out.println(e); }
         return list;
     }// func end
+
+    // 정육점 조회수 증가
+    public boolean addViews( int cno ){
+        try {
+            String SQL = "update company set views = views + 1 where cno = ?";
+            PreparedStatement ps = conn.prepareStatement(SQL);
+            ps.setInt(1,cno);
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ) {
+            System.out.println(e);
+        } // try-catch end
+        return false;
+    } // func end
 } // class end

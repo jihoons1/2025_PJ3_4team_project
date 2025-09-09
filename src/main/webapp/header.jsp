@@ -40,6 +40,7 @@
                 <div class="log">
                 </div>
             </div>
+            <a href=""></a>
         </header>
     </div>
 
@@ -67,14 +68,17 @@
         </div>
     </div>
 
+    <div class="toast-container p-3 bottom-0 end-0" style="position: fixed; z-index: 1100; width: 20%;">
+        <!-- 해당 회원의 푸시 알림으로 구성될 예정 -->
+    </div>
+
+
     <!-- axios JS 불러오기 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- 포트원 JS 불러오기 -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
     <!-- 부트스트랩 JS 불러오기 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="/js/header.js"></script>
 
 </body>

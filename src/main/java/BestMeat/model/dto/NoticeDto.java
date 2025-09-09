@@ -21,4 +21,5 @@ public class NoticeDto {
     private String pname;   // 제품명
     private String cname;   // 카테고리명
     private int sprice;     // 재고(등록/수정) 가격
+    private int cno;        // 정육점번호
 } // class end

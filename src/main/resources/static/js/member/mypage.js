@@ -1,7 +1,7 @@
-
+//=============================================== 일반 로직 ================================================\\
 // [*] 입력값 유효성 검사
 const numCheckList = [ false ,false ];
-// 숫자만 유효성 검사 - 알림등록
+// 1. 숫자만 유효성 검사 - 알림등록
 const noticeAddCheck = (  ) => {
     const nprice = document.querySelector('.nprice').value;
     const regExp = /^[0-9]+$/;
@@ -12,7 +12,7 @@ const noticeAddCheck = (  ) => {
         numCheckList[0] = true;
     } // if end
 } // func end
-// 숫자만 유효성 검사 - 알림수정
+// 2. 숫자만 유효성 검사 - 알림수정
 const noticeupdateCheck = (  ) => {
     const NewNprice = document.querySelector('.NewNprice').value;
     const regExp = /^[0-9]+$/;
@@ -24,8 +24,7 @@ const noticeupdateCheck = (  ) => {
     } // if end
 } // func end
 
-
-// [1] 회원정보 상세조회
+// 3. 회원정보 상세조회
 const getMember = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
@@ -49,7 +48,7 @@ const getMember = async ( ) => {
 } // func end
 getMember();
 
-// [2] 회원탈퇴 기능
+// 4. 회원탈퇴 기능
 const resignMember = async ( ) => {
     try {
         // 1. Input value
@@ -78,7 +77,7 @@ const resignMember = async ( ) => {
 
 // 다른 함수에서도 사용하기 위해, 전역변수로 선언
 let noticeData;
-// [3] 회원별 알림조회
+// 5. 회원별 알림조회
 const getNotice = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
@@ -115,7 +114,7 @@ const getNotice = async ( ) => {
 } // func end
 getNotice();
 
-// [4] 수정 기본 출력
+// 6. 수정 기본 출력
 const updatePrint = async ( nno ) => {
     // 1. 전역변수로 선언된 noticeData를 통해 기본 출력
     for ( let i = 0; i < noticeData.length; i++ ){
@@ -128,7 +127,7 @@ const updatePrint = async ( nno ) => {
     } // for end
 } // func end
 
-// [5] 알림 수정
+// 7. 알림 수정
 const updateNotice = async ( nno ) => {
     // 숫자 유효성 체크
     if ( numCheckList.includes(false) ){
@@ -156,7 +155,7 @@ const updateNotice = async ( nno ) => {
     } // if end
 } // func end
 
-// [6] 알림 삭제
+// 8. 알림 삭제
 const deleteNotice = async ( nno ) => {
     // 1. fetch
     const option = { method : "DELETE" };
@@ -171,7 +170,7 @@ const deleteNotice = async ( nno ) => {
     } // if end
 } // func end
 
-// [7] 제품 전체조회
+// 9. 제품 전체조회
 const getProduct = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
@@ -191,7 +190,7 @@ const getProduct = async ( ) => {
 } // func end
 getProduct();
 
-// [8] 알림 등록기능
+// 10. 알림 등록기능
 const addNotice = async ( ) => {
     // 숫자 유효성 체크
     if ( numCheckList.includes(false) ){
@@ -222,7 +221,7 @@ const addNotice = async ( ) => {
     } // if end
 } // func end
 
-// [9] 회원별 리뷰조회
+// 11. 회원별 리뷰조회
 const getMnoReview = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
@@ -265,7 +264,7 @@ const getMnoReview = async ( ) => {
 } // func end
 getMnoReview();
 
-// 리뷰번호 리뷰 내용 조회
+// 12. 리뷰번호 리뷰 내용 조회
 const getRnoReview = async ( rno ) => {
     try {
         // 1. fetch
@@ -281,7 +280,7 @@ const getRnoReview = async ( rno ) => {
     } // try-catch end
 } // func end
 
-// [11] 리뷰 수정 기능
+// 13. 리뷰 수정 기능
 const addUpdate = async() => {
     const reviewupdateBoxs = document.querySelector('.reviewupdateBox');
     const rno = document.querySelector('.oldrno').value;
@@ -300,7 +299,7 @@ const addUpdate = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
- // [12] 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
+ // 14. 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
 const update = async() => {
 
     const mig = document.querySelector('#mig');
@@ -331,7 +330,7 @@ const update = async() => {
 
 }
 
-// [13] 비밀번호 수정 [기존 , 임시]
+// 15. 비밀번호 수정 [기존 , 임시]
 const passup = async() => {
     const mpwd = document.querySelector('.mpwd').value;
     const mpwd2 = document.querySelector('.mpwd2').value;
@@ -356,7 +355,7 @@ const passup = async() => {
     
 }
 
-// [14] 리뷰 삭제 
+// 16. 리뷰 삭제 
 const deleteReview = async(rno) => {
     let result = confirm('삭제 하시겠습니까?');
     if(result == false){ return; }    
@@ -373,80 +372,78 @@ const deleteReview = async(rno) => {
     }catch(e){ console.log(e); }
 }// func end
 
+// 17. 전화번호 하이폰
+const mphoneCC = () => {
+    const mphone = document.querySelector('.mphone2');
+    const mphone2CC = document.querySelector('.mphone2CC');
 
-// 우편주소 API
+    // hiphone 숫자 추출
+    let hiphone = mphone.value.replace(/[^0-9]/g, "");
+
+    // 자동 하이폰 생성
+    if(hiphone.length <=3){ // 010- <
+    mphone.value = hiphone;
+    }else if( hiphone.length < 7) {
+    mphone.value = hiphone.replace(/(\d{3})(\d{1,4})/, "$1-$2");
+    }else {
+    mphone.value = hiphone.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3");
+    }
+
+    const hiphonecode = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 시작 01?-343 or 3424- 마지막 4자리 고정
+
+    if(hiphonecode.test(mphone.value)){
+    mphone2CC.innerHTML = "정상적";
+    numCheckList[1] = true;
+    }else{
+    mphone2CC.innerHTML = "사용불가능";
+    numCheckList[1] = false; 
+    }
+}
+
+//=============================================== 우편주소 API ================================================\\
 function sample6_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
 
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr + extraAddr;
-
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
-
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
             }
-        }).open();
-    }
 
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if(data.userSelectedType === 'R'){
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraAddr !== ''){
+                    extraAddr = ' (' + extraAddr + ')';
+                }
+                // 조합된 참고항목을 해당 필드에 넣는다.
+                
+            }
 
-    // 전화번호 하이폰
-    const mphoneCC = () => {
-       const mphone = document.querySelector('.mphone2');
-       const mphone2CC = document.querySelector('.mphone2CC');
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode;
+            document.getElementById("sample6_address").value = addr + extraAddr;
 
-       // hiphone 숫자 추출
-       let hiphone = mphone.value.replace(/[^0-9]/g, "");
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("sample6_detailAddress").focus();
 
-       // 자동 하이폰 생성
-       if(hiphone.length <=3){ // 010- <
-        mphone.value = hiphone;
-       }else if( hiphone.length < 7) {
-        mphone.value = hiphone.replace(/(\d{3})(\d{1,4})/, "$1-$2");
-       }else {
-        mphone.value = hiphone.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3");
-       }
-
-       const hiphonecode = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 시작 01?-343 or 3424- 마지막 4자리 고정
-
-       if(hiphonecode.test(mphone.value)){
-        mphone2CC.innerHTML = "정상적";
-        numCheckList[1] = true;
-       }else{
-        mphone2CC.innerHTML = "사용불가능";
-        numCheckList[1] = false; 
-       }
-    }
+        }
+    }).open();
+}

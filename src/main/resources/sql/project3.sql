@@ -12,36 +12,37 @@ create table Category (
 select * from category;
 -- ---------------------------- Member -------------------
 create table member (
-    mno INT auto_increment, 					                -- 회원번호
-    mname varchar(10) not null ,    			                -- 회원명
-    mid varchar(20) not null ,        			                -- id
-    mpwd varchar(20) not null ,  				                -- 비밀번호
-    mphone varchar(13) not null unique , 		                -- 전화번호
-    memail varchar(50) not null unique ,                        -- 이메일
-    maddress varchar(100) not null ,  			                -- 주소
-    mdate datetime default now(),				                -- 등록일
-    mcheck boolean default true ,  				                -- 회원 활성화
-    mimg varchar(100) ,    -- 프로필 이미지
+    mno INT auto_increment, 				-- 회원번호
+    mname varchar(10) not null,    			-- 회원명
+    mid varchar(20) not null,        		-- id
+    mpwd varchar(20) not null,  			-- 비밀번호
+    mphone varchar(13) not null unique, 	-- 전화번호
+    memail varchar(50) not null unique,     -- 이메일
+    maddress varchar(100) not null,  		-- 주소
+    mdate datetime default now(),			-- 등록일
+    mcheck boolean default true,  			-- 회원 활성화
+    mimg varchar(100),    					-- 프로필 이미지
     constraint primary key(mno)
 );
 select * from member;
 -- ---------------------------- Company -------------------
 create table Company (
-    cno int auto_increment,			                            -- 정육점번호
-    cimg varchar(100) ,                                      	-- 정육점이미지명
-    cname varchar(30) ,                                         -- 정육점명
-    caddress varchar(100)  ,                                    -- 정육점 주소
-    mno int not null,                                           -- 회원번호
+    cno int auto_increment,			-- 정육점번호
+    cimg varchar(100) ,             -- 정육점이미지명
+    cname varchar(30) ,             -- 정육점명
+    views int default 0,			-- 해당 정육점 조회수
+    caddress varchar(100)  ,        -- 정육점 주소
+    mno int not null,               -- 회원번호
     constraint primary key( cno ),
     constraint foreign key( mno ) references member( mno ) on update cascade on delete cascade
 );
 select * from company;
 -- ---------------------------- Product -------------------
 create table Product (
-    pno int auto_increment,			                            -- 제품번호
-    pname varchar(10) not null,		                            -- 부위명
-    cno int,						                            -- 카테고리번호
-    pimg varchar(100) ,	-- 제품이미지명
+    pno int auto_increment,			-- 제품번호
+    pname varchar(10) not null,		-- 부위명
+    cno int,						-- 카테고리번호
+    pimg varchar(100) ,				-- 제품이미지명
     constraint primary key( pno ),
     constraint foreign key( cno ) references category ( cno ) on update cascade on delete cascade
 );
@@ -72,9 +73,9 @@ create table review(
 select * from review;
 -- ---------------------------- ReviewImg -------------------
 create table reviewimg(
-    rimgno int auto_increment primary key,	                    -- 리뷰이미지번호
-    rimg varchar(100)                                        , 	-- 리뷰이미지명
-    rno int not null default 0 ,			                    -- 리뷰번호
+    rimgno int auto_increment primary key,	-- 리뷰이미지번호
+    rimg varchar(100), 						-- 리뷰이미지명
+    rno int not null default 0,			    -- 리뷰번호
     constraint foreign key(rno) references review(rno) on delete cascade on update cascade
 );
 select * from reviewimg;
@@ -130,6 +131,17 @@ create table ChatLog(
     constraint foreign key( roomname ) references ChatRoom( roomname ) on delete cascade on update cascade
 );
 select * from ChatLog;
+-- ---------------------------- Alarm -------------------
+create table Alarm(
+	ano int auto_increment,				-- 푸시알림번호
+    mno int not null,					-- 회원번호
+    amessage varchar(100) not null,		-- 알림메시지
+    acheck boolean default false,		-- 확인여부
+    atype varchar(20) not null,			-- 푸시알림종류
+    constraint primary key( ano ),
+    constraint foreign key( mno ) references member( mno ) on delete cascade on update cascade
+);
+select * from alarm;
 -- ---------------------------- Alter -------------------
 alter table member auto_increment = 10001;
 alter table Category auto_increment = 20001;
@@ -141,6 +153,7 @@ alter table reviewimg auto_increment = 70001;
 alter table notice auto_increment = 80001;
 alter table Plan auto_increment = 90001;
 alter table PointLog auto_increment = 100001;
+alter table Alarm auto_increment = 110001;
 alter table ChatLog auto_increment = 200001;
 
 -- ---------------------------- Insert -------------------
@@ -628,7 +641,6 @@ INSERT INTO Company ( mno, cname, caddress ) VALUES
     (10182, '코리아축산', '인천광역시 부평구 경원대로 1240, 지하1층 (산곡동)'),
     (10183, '코리아축산(부평)', '인천광역시 부평구 세월천로 9, 1층 (청천동)'),
     (10184, '태근이네 정육점', '인천광역시 부평구 마장로324번길 70, 101호 (산곡동, 대우프라자1)'),
-
     (10186, '토종한우축산', '인천광역시 부평구 충선로 334-3 (삼산동)'),
     (10187, '투나마트', '인천광역시 부평구 백범로 516 (십정동)'),
     (10188, '팔팔축산', '인천광역시 부평구 세월천로 17, 청천뷰그리안1차아파트 1층 105호 (청천동)'),
@@ -641,7 +653,6 @@ INSERT INTO Company ( mno, cname, caddress ) VALUES
     (10195, '프레시홈마트식자재', '인천광역시 부평구 주부토로 116 (부평동)'),
     (10196, '플러스마트', '인천광역시 부평구 길주남로 40 (부평동)'),
     (10197, '하나로축산', '인천광역시 부평구 부흥로304번길 24, 1층 (부평동)'),
-
     (10199, '하누축산', '인천광역시 부평구 부평문화로 38 (부평동)'),
     (10200, '하모니 축산', '인천광역시 부평구 이규보로 28 (십정동)'),
     (10201, '하모니마트 정육코너', '인천광역시 부평구 부흥로 329, 로얄프라자 (부평동)'),
@@ -719,10 +730,10 @@ insert into reviewimg( rimg , rno ) values
     ( 'review3.jpg' , 60003  ),
     ( 'review4.jpg' , 60004  );
 insert into notice(mno , pno , nprice , ncheck , ndate) values
-    ( 10001 , 40001 , 1200 , 0 , '2025-09-07 16:22:00'),
-    ( 10002 , 40002 , 2000 , 0 , '2025-09-07 16:22:00'),
-    ( 10003 , 40003 , 1300 , 1200 , '2025-09-07 16:22:00'),
-    ( 10004, 40004 , 2000 , 0 , '2025-09-07 16:22:00');
+    ( 10001 , 40001 , 1200 , 0 , '2025-09-08 16:22:00'),
+    ( 10002 , 40002 , 2000 , 0 , '2025-09-08 16:22:00'),
+    ( 10003 , 40003 , 1300 , 1200 , '2025-09-08 16:22:00'),
+    ( 10004, 40004 , 2000 , 0 , '2025-09-08 16:22:00');
 insert into Plan( cno, startdate, enddate ) values
 	( 30001, '2025-09-07', '2025-09-14' ),
     ( 30002, '2025-09-07', '2025-09-14' ),
@@ -735,6 +746,11 @@ insert into PointLog( mno, plpoint, plcomment ) values
 	( 10001, 500, '회원가입 지급' ),
     ( 10002, 500, '회원가입 지급' ),
     ( 10003, 500, '회원가입 지급' );
+insert into Alarm( mno, amessage, atype ) values
+	( 10001, 'XXX원 아래로 XXX의 재고가 등록되었습니다.30002', 'stock' ),
+    ( 10002, 'XXX원 아래로 XXX의 재고가 등록되었습니다.30001', 'stock' ),
+    ( 10003, 'XXX원 아래로 XXX의 재고가 등록되었습니다.30001', 'stock' ),
+    ( 10001, 'XXX원 아래로 XXX의 재고가 등록되었습니다.30003', 'stock' );
     
 -- ---------------------------- Select Test -------------------
 -- select * from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno where pname like '%목살%' order by sprice asc;

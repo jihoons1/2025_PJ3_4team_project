@@ -1,5 +1,5 @@
-
-
+//=============================================== 일반 로직 ================================================\\
+// 1. 로그인 버튼
 const loginbtn = async() => {
     const mid = document.querySelector('.mid').value;
     const mpwd = document.querySelector('.mpwd').value;
@@ -27,17 +27,16 @@ const loginbtn = async() => {
     }catch(error)  {console.log(error);}
 } // func end
 
-// id , pwd
-
+// 2. id , pwd
 const loginCheck = async () => {
     const mid = document.querySelector('#mid').value;  
     const mpwd = document.querySelector('#mpwd').value; 
     const loginCheck = document.querySelector('.loginCheck');
 
 
-        if (mid == '' && mpwd != '') {
-            loginCheck.innerHTML = ' 아이디를 입력해주세요.';
-        }else if(mid != '' && mpwd == ''){
-            loginCheck.innerHTML = '비밀번호를 입력해주세요. ';
-        }
+    if (mid == '' && mpwd != '') {
+        loginCheck.innerHTML = ' 아이디를 입력해주세요.';
+    }else if(mid != '' && mpwd == ''){
+        loginCheck.innerHTML = '비밀번호를 입력해주세요. ';
     }
+}

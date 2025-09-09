@@ -60,10 +60,13 @@ public class CompanyService {
     public CompanyDto findCompany(int cno){
         return companyDao.findCompany(cno);
     }// func end
+
     // 정육점 전체조회
     public List<CompanyDto> getCompanyList(){
         return companyDao.getCompanyList();
     }// func end
-    // 정육점 조회수
-    public void viewCompany(int cno){ companyDao.viewCompany(cno); }
+
+    public boolean addViews( int cno ){
+        return companyDao.addViews(cno);
+    }
 } // class end
