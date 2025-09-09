@@ -35,7 +35,6 @@ public class MapController {
 
         // 1. Service에게 주소 전달하고 결과받기
         double[] result = mapService.getLatLng( caddress );
-        System.out.println("result = " + Arrays.toString(result));
         // 2. 반환할 Map 만들어서 값 넣기
         Map< String, Double > map = new HashMap<>();
         map.put( "lat", result[1] );    // 위도 넣기

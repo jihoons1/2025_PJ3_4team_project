@@ -16,7 +16,6 @@ public class Dao {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection( DB_URL, DB_USER, DB_PASSWORD );
-            System.out.println("Dao.DBConnect");
         }catch( Exception e ){
             System.out.println( e );
         } // try-catch end

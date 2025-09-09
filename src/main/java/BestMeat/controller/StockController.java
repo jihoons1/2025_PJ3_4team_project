@@ -25,7 +25,6 @@ public class StockController {
     @PostMapping("/add")
     public int addStock( @RequestBody StockDto stockDto, HttpSession session ){
         System.out.println("StockController.addStock");
-        System.out.println("stockDto = " + stockDto);
 
         // 1. 세션정보에서 정육점번호 가져오기 -> SessionService 메소드화
         int cno = sessionService.getSessionNo( "loginCno", session );
@@ -45,7 +44,6 @@ public class StockController {
     @PutMapping("/update")
     public boolean updateStock( @RequestBody StockDto stockDto, HttpSession session ){
         System.out.println("StockController.updateStock");
-        System.out.println("stockDto = " + stockDto);
 
         // 1. 세션정보에서 정육점번호 가져오기 -> SessionService 메소드화
         int cno = sessionService.getSessionNo( "loginCno", session );

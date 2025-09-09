@@ -6,6 +6,7 @@ import BestMeat.model.dto.PageDto;
 import BestMeat.service.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,7 +68,14 @@ public class CompanyController {
         String endPoint = endMap.get("x") + "," + endMap.get("y");
         //String content = "https://map.naver.com/p/directions/"+startPoint+"/"+endPoint+"/-/car"; // 웹 버전
         String content = "https://qp.map.naver.com/end-quick-path/"+startPoint+"/"+endPoint+"/-/car"; // 앱버전
-        return qrService.BuildQR(content);
+        byte[] qrCode = qrService.BuildQR(content);
+        // ResponseEntity를 이용해 HTTP 응답 반환
+        // - 상태코드: 200 OK
+        // - Content-Type: image/png (브라우저/클라이언트가 이미지로 인식하게 함)
+        // - Body: QR 코드 이미지 데이터 (byte[])
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_PNG)
+                .body(qrCode);
     }// func end
 
     // 정육점 전체조회

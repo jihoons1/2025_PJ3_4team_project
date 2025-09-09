@@ -111,7 +111,6 @@ public class PlanService {
     public List<Integer> getPlanCno(){
         // 1. 오늘 날짜 구하기
         String today = LocalDate.now().toString();
-        System.out.println("today = " + today);
         // 2. Dao에게 전달 후 결과 반환하기
         return planDao.getPlanCno( today );
     } // func end
