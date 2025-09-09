@@ -41,13 +41,6 @@ public class CompanyDao extends Dao {
         return list;
     }// func end
 
-    // 정육점 조회수
-    public void viewCompany(int cno){
-        try{
-            String sql = "update company set views = views + 1 where cno = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-        }catch (Exception e){ System.out.println("조회수 오류 발생"+e); }
-    }
 
     // 정육점 전체 수
     public int getTotalCompany(){

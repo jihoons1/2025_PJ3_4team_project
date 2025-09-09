@@ -5,6 +5,7 @@ import BestMeat.model.dto.MemberDto;
 import BestMeat.model.dto.PageDto;
 import BestMeat.model.dto.PointDto;
 import BestMeat.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -78,32 +80,7 @@ public class CompanyController {
         return companyService.getCompanyList();
     }// func end
 
-//    // 정육점 조회수
-//    public
-//    // 3. 현재 날짜를 문자열로 가져오기
-//            String today = LocalDate.now().toString();
-//    // 4. today와 mno를 조합하여, 기록을 체크한다.
-//    String check = loginHistory.get( mno );
-//    // 5. today 기록이 없거나, 기록이 today와 다르다면
-//        if ( check == null || !check.equals( today ) ){
-//        // 6. mno에게 포인트 지급
-//        PointDto pointDto = new PointDto();
-//        pointDto.setMno( mno );
-//        pointDto.setPlpoint( 10 );
-//        pointDto.setPlcomment( "로그인 포인트 지급" );
-//        pointService.addPointLog( pointDto );
-//        // 7. 오늘을 기록
-//        loginHistory.put( mno, today );
-//        // 8. 세션에 업데이트
-//        session.setAttribute( "loginHistory", loginHistory );
-//    } // if end
-//    // 세션에 회원번호 | 정육점번호 저장하기
-//        if ( dto != null ) {
-//        session.setAttribute("loginMno", dto.getMno());
-//        session.setAttribute("loginCno", dto.getCno());
-//    }
-//        return dto.getMno();
-//}
+
 
 
 } // class end
