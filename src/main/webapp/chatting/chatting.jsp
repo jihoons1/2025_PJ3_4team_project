@@ -18,6 +18,8 @@
 <body>
     <!-- header JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/header.jsp"></jsp:include>
+
+
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">채팅창 목록</h5>
@@ -29,7 +31,10 @@
     </div>
 
     <div id="container">
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">채팅창 목록 열기</button>
+        <div class="roomTitle" style="text-align: center;">
+            
+        </div>
+        <button class="btn btn-primary" onclick="getRoomList()" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">채팅창 목록 열기</button>
         <div class="msgbox" >
             <!-- 사용자들의 메시지로 구성 -->
         </div>

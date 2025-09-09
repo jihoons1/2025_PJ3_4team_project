@@ -72,7 +72,6 @@ client.onmessage = ( event ) => {
 } // func end
 
 //=============================================== 일반 로직 ================================================\\
-
 // 1. 메시지 전송 기능 - 클라이언트 ---> 서버
 const postMsgSend = async ( ) => {
     // 1. Input value
@@ -181,7 +180,6 @@ const getRoomList = async ( ) => {
         console.log( error );
     } // try-catch end
 } // func end
-getRoomList();
 
 // 4. 채팅방 유효성 검사
 const checkSession = async ( ) => {
@@ -206,3 +204,17 @@ const checkSession = async ( ) => {
     } // try-catch end
 } // func end
 checkSession();
+
+// 5. 전체채팅방 표시 출력
+const printPublicRoom = async ( ) => {
+    console.log( room );
+    if ( room == "0" ){
+        // 1. where
+        const roomTitle = document.querySelector('.roomTitle');
+        // 2. what
+        let html = `<strong style="font-size: 25px;"> 전체 채팅방 </strong>`;
+        // 3. print
+        roomTitle.innerHTML = html;
+    } // if end
+} // func end
+printPublicRoom()

@@ -76,6 +76,7 @@ public class ChattingService {
             // 0. CSV 경로의 모든 CSV 가져오기
             File file = new File( CSVDir );
             File[] files = file.listFiles();
+            if ( files == null || files.length == 0) return null;
             // 1. CSV로 저장된 채팅들 순회하기
             for ( File file1 : files ){
                 // 2. 구분선으로 다 끊고
