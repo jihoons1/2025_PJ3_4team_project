@@ -239,18 +239,21 @@ const printPlanBanner = async ( ) => {
         let randomNum = Math.round( Math.random() * ( data.length - 1 ) );
         
         let banner = data[randomNum].banner;
+        let cno = data[randomNum].cno;
         if ( banner == null ){
             // 등록한 배너가 없으면, 기본 배너 노출
             banner = `/img/banner/adBanner.png`;
         } else {
             banner = `/upload/plan/${banner}`;
         } // if end
-        let html = `<img class="bimg" src="${banner}" alt="배너 이미지"
-                    style="display: block !important;
-                    vertical-align: baseline !important; 
-                    width: 100%;
-                    height: 100%;
-                    object-fit: fill; ">`
+        let html = `<a href="/company/find.jsp?cno=${cno}">
+                        <img class="bimg" src="${banner}" alt="배너 이미지"
+                            style="display: block !important;
+                            vertical-align: baseline !important;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: fill;">
+                    </a>`
         // 4. print
         bannerBox_top.innerHTML = html;
         bannerBox_bot.innerHTML = html;
