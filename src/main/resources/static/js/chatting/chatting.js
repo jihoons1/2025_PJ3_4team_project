@@ -61,11 +61,13 @@ client.onmessage = ( event ) => {
                         </div>
                      </div>`
         } // if end
+        // 8. chat이 왔을 때, 채팅방 목록 조회
+        getRoomList();
     } // if end
-    // 8. 구성한 html을 div에 추가하기
+    // 9. 구성한 html을 div에 추가하기
     const msgBox = document.querySelector('.msgbox');
     msgBox.innerHTML += html;
-    // 9. 내용물이 넘치면, 자동으로 스크롤 내리기
+    // 10. 내용물이 넘치면, 자동으로 스크롤 내리기
     msgBox.scrollTop = msgBox.scrollHeight;
 } // func end
 
