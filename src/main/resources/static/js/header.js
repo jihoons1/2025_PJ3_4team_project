@@ -113,7 +113,6 @@ const getAlarm = async ( ) => {
                             </div>
                         </div>`
             } else if ( alarm.atype == "stock" ){
-                console.log( alarm );
                 let amessage = alarm.amessage;
                 let cno = alarm.etc;
                 // 5. atype이 stock이라면, a태그로 정육점상세페이지 링크 걸기
