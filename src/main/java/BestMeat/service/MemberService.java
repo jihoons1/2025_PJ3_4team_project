@@ -89,6 +89,7 @@ public class MemberService {
         return 0;
     }
 
+
     // [6] 비밀번호 수정
     public boolean updatePwd(int mno , Map<String , String> map){
         System.out.println("MemberService.updatePwd");

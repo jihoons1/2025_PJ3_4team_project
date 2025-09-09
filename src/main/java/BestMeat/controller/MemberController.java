@@ -126,6 +126,7 @@ public class MemberController {
         return mno;
     }
 
+
     // [6] 비밀번호 수정
     @PutMapping("/update/Pwd")
     public boolean updatePwd( @RequestBody Map<String , String>map , HttpServletRequest request){
