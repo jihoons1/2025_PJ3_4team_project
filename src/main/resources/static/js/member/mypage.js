@@ -407,6 +407,7 @@ const mphoneCC = () => {
 
 // 18. mno별 채팅목록 가져오기
 const getRoomList = async ( ) => {
+    printPublic();
     try {
         // 1. fetch
         const fetch1 = await fetch( "/chatting/getRoomList" );
@@ -416,11 +417,7 @@ const getRoomList = async ( ) => {
         // 2. where
         const roomList = document.querySelector('.roomList');
         // 3. html
-        let html = `<div class="rooms">
-                        <a href="/chatting/chatting.jsp?mno=${mno}&room=0">
-                            전체채팅방
-                        </a>
-                    </div>`;
+        let html = ``;
         for ( let i = 0; i < data.length; i++ ){
             let room = data[i];
             // mno와 data.to가 다르다면
@@ -448,6 +445,27 @@ const getRoomList = async ( ) => {
                         </div>`;
         } // for end
         roomList.innerHTML += html;
+    } catch ( error ) {
+        console.log( error );
+    } // try-catch end
+} // func end
+
+// 19. 전체채팅방 출력하기
+const printPublic = async ( ) => {
+    try {
+        // 1. fetch
+        const response = await fetch( "/member/getMno" );
+        const data = await response.json();
+        // 2. where
+        const roomList = document.querySelector('.roomList');
+        // 3. html
+        let html = `<div class="rooms">
+                        <a href="/chatting/chatting.jsp?mno=${data}&room=0">
+                            전체채팅방
+                        </a>
+                    </div>`;
+        // 4. print
+        roomList.innerHTML = html;
     } catch ( error ) {
         console.log( error );
     } // try-catch end
