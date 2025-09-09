@@ -245,7 +245,12 @@ const printPlanBanner = async ( ) => {
         } else {
             banner = `/upload/plan/${banner}`;
         } // if end
-        let html = `<img class="bimg" src="${banner}" alt="배너 이미지">`
+        let html = `<img class="bimg" src="${banner}" alt="배너 이미지"
+                    style="display: block !important;
+                    vertical-align: baseline !important; 
+                    width: 100%;
+                    height: 100%;
+                    object-fit: fill; ">`
         // 4. print
         bannerBox_top.innerHTML = html;
         bannerBox_bot.innerHTML = html;
