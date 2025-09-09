@@ -148,7 +148,11 @@ const initMap = async () => {
             const sidebar = document.querySelector('#sidebar');           
             if(data2.length == 0 || data2 == null){
                 html += `<div><img src="${rimgUrl}"/></div>
-                    <div><a href="/company/find.jsp?cno=${data[i].cno}"><h3>${data[i].cname}</h3></a></div>                                      
+                    <div>
+                        <h3>
+                            <a href='/company/find.jsp?cno=${data[i].cno}'>${data[i].cname}</a>
+                        </h3>
+                    </div>                                      
                     <div>주소 : ${data[i].caddress}</div>
                     <br/><br/>`
             }else{
@@ -156,7 +160,11 @@ const initMap = async () => {
                     Math.max(...data2.map(st => new Date(st.sdate)))
                 ).toISOString().slice(0, 10);
                 html += `<div><img src="${rimgUrl}"/></div>
-                    <div><h3>${data[i].cname}</h3></div>                                      
+                    <div>
+                        <h3>
+                            <a href='/company/find.jsp?cno=${data[i].cno}'>${data[i].cname}</a>
+                        </h3>
+                    </div>                                       
                     <div>주소 : ${data[i].caddress}</div>
                     <br/><br/>
                     <div>( ${lastDate}일 기준 )</div>
