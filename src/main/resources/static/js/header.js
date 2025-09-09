@@ -80,7 +80,6 @@ const getAlarm = async ( ) => {
         // 3. what
         let html = '';
         data.forEach( (alarm) => {
-            console.log( alarm );
             if ( alarm.atype == "chat" ){
                 let amessage = alarm.amessage;
                 let room = amessage.split(" ")[0];
@@ -106,8 +105,6 @@ const getAlarm = async ( ) => {
             } else if ( alarm.atype == "stock" ){
                 let amessage = alarm.amessage.split(".")[0];
                 let cno = alarm.amessage.split(".")[1];
-                console.log( amessage );
-                console.log( cno );
                 // 5. atype이 stock이라면, a태그로 정육점상세페이지 링크 걸기
                 html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="toast-header">
