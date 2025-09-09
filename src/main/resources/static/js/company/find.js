@@ -26,6 +26,7 @@ const findCompany = async() => {
                  <span>리뷰평점 : ${data.rrank}</span> <br>
                  <span>조회수 : ${data.views}</span>`;
         cinfo.innerHTML = html;
+        loginCheck();
     }catch(e){ console.log(e); }
 }// func end
 findCompany();
@@ -60,7 +61,25 @@ const publicRoom = async ( ) => {
     } // if end
 } // func end
 
-// 4. 리뷰 등록 기능
+// 4. 로그인체크
+const loginCheck = async() => {
+    const reviewactions = document.querySelector('.review-actions');
+    try{
+        const response = await fetch("/member/get");
+        const data = await response.json();
+        html = `<button type="button" class="btn btn-sm btn-outline-secondary" id="reviewBtn"
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                    리뷰 작성
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                    data-bs-toggle="modal" data-bs-target="#staticBackdrop10" onclick="buildQR()">
+                    길찾기 QR
+                </button>`;
+        reviewactions.innerHTML = html;
+    }catch(e){ console.log(e); }
+}// func end
+
+// 5. 리뷰 등록 기능
 const addReview = async() => {
     const reviewAddBox = document.querySelector('.reviewAddBox');
     const productForm = new FormData(reviewAddBox);

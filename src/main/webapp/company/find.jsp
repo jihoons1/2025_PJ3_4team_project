@@ -69,15 +69,7 @@
                     <div class="info-section">
                         <div class="section-header">
                             <h4>방문자 리뷰</h4>
-                            <div class="review-actions">
-                                <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-                                    리뷰 작성
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop10" onclick="buildQR()">
-                                    길찾기 QR
-                                </button>
+                            <div class="review-actions">                                
                             </div>
                         </div>
                         <table class="table table-hover">
