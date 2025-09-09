@@ -58,7 +58,7 @@ public class MemberService {
 
     // [3] 아이디 찾기
     public Map<String , String> findId(Map<String , String > map){
-        System.out.println("map = " + map);
+        System.out.println("MemberService.findId");
         String result = memberDao.findId(map);
         Map<String , String > maps = new HashMap<>();
         if (result == null) { // 만약에 result 가 null이면

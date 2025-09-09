@@ -27,7 +27,6 @@ public class NoticeController {
     @PostMapping("/add")
     public int addNotice( @RequestBody NoticeDto noticeDto, HttpSession session ){
         System.out.println("NoticeController.addNotice");
-        System.out.println("noticeDto = " + noticeDto);
 
         // 1. 세선정보에서 회원번호 가져오기
         int mno = sessionService.getSessionNo( "loginMno", session );

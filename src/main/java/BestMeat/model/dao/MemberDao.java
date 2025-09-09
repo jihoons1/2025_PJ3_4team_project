@@ -123,7 +123,6 @@ public class MemberDao extends Dao  {
         for (int i = 0 ; i < 6; i++){
             code += chart.charAt(random.nextInt(chart.length())); // chars 문자열에서 랜덤한 문자 하나를 뽑아 code 끝에 이어붙임.
         }
-        System.out.println(code);
         return code;
     }
 
@@ -147,7 +146,6 @@ public class MemberDao extends Dao  {
                 ps2.setString(3, map.get("mphone"));
                 ps2.executeUpdate();
 
-                System.out.println("임시 비밀번호 = " + random_password);
 
                 // 이메일 전송
                 String a = rs.getString("memail"); // 회원메일

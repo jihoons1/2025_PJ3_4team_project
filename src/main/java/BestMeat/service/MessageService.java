@@ -21,7 +21,6 @@ public class MessageService {
         mailMessage.setText(c); // 메일 내용
 
         mailSender.send(mailMessage); // 위 내용 지정 후 메일 전송
-        System.out.println("[성공] 이메일 발송");
     } // func end
 
     // [mail01-2] 메일전송 비동기화

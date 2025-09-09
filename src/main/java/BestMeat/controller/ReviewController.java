@@ -77,7 +77,6 @@ public class ReviewController {
         if (result  && dto.getUploads() != null && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){
                 String filename = fileService.fileUpload(file, tableName );
-                System.out.println(filename);
                 if (filename == null){ return false; }
                 boolean result2 = reviewService.updateReviewImg(dto,filename);
                 if (result2 == false){return result2; }
