@@ -1,85 +1,149 @@
 /* =================== 헤더 전체 레이아웃 =================== */
 #header header {
     padding: 0 20px; /* 좌우 여백 */
+    position: relative; /* 자식 요소의 absolute 위치 기준점 */
+    height: 120px; /* 헤더 높이 고정 */
+}
+
+/* 로고와 버튼이 양쪽 공간을 차지하도록 설정 */
+.header-left, .header-right {
+    flex: 1; /* 남는 공간을 차지하도록 설정 */
+}
+
+.header-left {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+}
+
+.header-right {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
 }
 
 .header-left img {
     width: 150px;
-    height: auto; /* 높이를 자동으로 조절하여 이미지 비율 유지 */
+    height: auto;
 }
 
 /* 중앙 컨테이너 (메뉴 + 검색창) */
 .header-center {
+    /* ✅ 절대 위치로 화면 정중앙에 배치 */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    
     display: flex;
-    flex-direction: column; /* 세로 정렬 */
+    flex-direction: column;
     align-items: center;
     gap: 15px; /* 메뉴와 검색창 사이의 간격 */
 }
 
 /* =================== 메뉴 리스트 스타일 =================== */
+/* ... (기존 메뉴 스타일과 동일하여 생략) ... */
 .menu {
     display: flex;
-    gap: 15px; /* 메뉴 아이템 사이의 간격 */
+    gap: 15px;
     padding: 0;
     margin: 0;
 }
-
-/* JS에서 생성하는 .nav-link (a 태그)에 스타일 적용 */
 .menu .nav-link {
     padding: 8px 16px;
-    border-radius: 20px; /* 둥근 모서리 */
-    background-color: #f8f9fa; /* 밝은 배경색 */
+    border-radius: 20px;
+    background-color: #f8f9fa;
     color: #495057;
     font-weight: 500;
     text-decoration: none;
     border: 1px solid #dee2e6;
-    transition: all 0.2s ease-in-out; /* 부드러운 전환 효과 */
+    transition: all 0.2s ease-in-out;
 }
-
-/* 마우스를 올리거나 활성화됐을 때 스타일 */
-.menu .nav-link:hover,
-.menu .nav-link.active {
-    background-color: #0d6efd; /* 부트스트랩 primary 색상 */
+.menu .nav-link:hover, .menu .nav-link.active {
+    background-color: #0d6efd;
     color: #fff;
     border-color: #0d6efd;
-    transform: translateY(-2px); /* 살짝 위로 이동하는 효과 */
+    transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 /* =================== 네이버 스타일 검색창 =================== */
+/* ... (기존 검색창 스타일과 동일하여 생략) ... */
 .search-container {
     display: flex;
     align-items: center;
 }
-
 .searchBox {
     height: 40px;
     width: 250px;
-    border: 2px solid #0d6efd; /* 검색창 테두리 색상 */
-    border-right: none; /* 오른쪽 테두리 제거 */
+    border: 2px solid #0d6efd;
+    border-right: none;
     padding: 5px 15px;
-    border-radius: 20px 0 0 20px; /* 왼쪽 모서리만 둥글게 */
+    border-radius: 20px 0 0 20px;
     outline: none;
     font-size: 14px;
 }
-
 .search-container button {
     width: 50px;
     height: 40px;
     border: none;
-    background-color: #0d6efd; /* 검색 버튼 배경색 */
+    background-color: #0d6efd;
     color: white;
-    border-radius: 0 20px 20px 0; /* 오른쪽 모서리만 둥글게 */
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+}
+.search-container button:hover {
+    background-color: #0b5ed7;
+}
+
+
+/* =================== 우측 사용자 정보 메뉴 =================== */
+
+/* 전체 영역 정렬 */
+.header-right .log {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 20px; /* 각 요소(정보, 로그아웃) 사이의 간격 */
+    font-size: 0.95rem;
+}
+
+/* 1. 회원정보와 포인트 영역 */
+.log-info {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 이름과 포인트 사이 간격 */
+    padding: 8px 12px;
+    background-color: #f8f9fa; /* 밝은 배경색 */
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.log-info a {
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.log-info .username {
+    color: #212529;
+}
+
+.log-info .points {
+    color: #0d6efd; /* 포인트 색상 강조 */
     cursor: pointer;
 }
 
-.search-container button:hover {
-    background-color: #0b5ed7; /* 마우스 올렸을 때 색상 */
+/* 2. 내 정육점 정보와 로그아웃 영역 */
+.log-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* 링크 사이 간격 */
 }
 
-/* =================== 우측 로그인/회원가입 버튼 =================== */
-.header-right .log {
-    /* JS가 .log 내부에 버튼을 생성하므로, log 자체보다 내부 버튼에 스타일 적용 */
-    display: flex;
-    gap: 10px; /* 버튼 사이 간격 */
+.log-actions a {
+    text-decoration: none;
+    color: #6c757d; /* 회색 계열 */
+    transition: color 0.2s ease-in-out;
+}
+
+.log-actions a:hover {
+    color: #212529;
+    text-decoration: underline;
 }

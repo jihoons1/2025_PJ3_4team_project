@@ -15,32 +15,41 @@
 
 <body>
     <div id="header">
-        <header class="d-flex justify-content-between align-items-center py-3 mb-4 border-bottom">
+        <header class="d-flex justify-content-between align-items-center py-3 border-bottom">
+   
             <div class="header-left">
                 <a href="/index.jsp" class="d-inline-flex link-body-emphasis text-decoration-none">
                     <img src="/img/logo.png" class="header_logo" alt="사이트 로고">
                 </a>
             </div>
+
             <div class="header-center">
-                <ul class="nav menu">
-                </ul>
+                <div class="menu-container">
+                    <ul class="nav menu">
+                        </ul>
+                </div>
                 <div class="search-container">
-                    <input type="text" class="searchBox" placeholder="부위명을 입력하세요."
-                        onkeyup="if( event.keyCode==13 ){search();}">
+                    <input type="text" class="searchBox" placeholder="부위명을 입력하세요." onkeyup="if( event.keyCode==13 ){search();}">
                     <button type="button" onclick="search()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                         </svg>
                     </button>
                 </div>
             </div>
+
             <div class="header-right text-end">
                 <div class="log">
+                    <div class="log-info">
+                        <a href="/member/mypage.jsp" class="username">${data.mname}</a>
+                        <a href="#" class="points" data-bs-toggle="modal" data-bs-target="#staticBackdrop100">(${totalPoint} Point)</a>
+                    </div>
+                    <div class="log-actions">
+                        <a href="/company/find.jsp?cno=${data.cno}">내 정육점</a>
+                        <a href="#" onclick="logout()">로그아웃</a>
+                    </div>
                 </div>
             </div>
-            <a href=""></a>
         </header>
     </div>
 
