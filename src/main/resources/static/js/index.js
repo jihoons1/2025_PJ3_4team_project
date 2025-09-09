@@ -124,7 +124,7 @@ const initMap = async () => {
     // 지도는 한 번만 생성
     map = new naver.maps.Map('map', {
         center: new naver.maps.LatLng( 37.4904807, 126.7234847),
-        zoom: 10
+        zoom: 13
     });
     var markers = [];
 

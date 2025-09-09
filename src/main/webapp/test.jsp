@@ -1,22 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
-
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Best Meat</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-    <!-- CSS 불러오기 : static 이하 경로부터 작성 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/index.css">
-
 </head>
 
 <body>
-    <!-- header JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
@@ -60,16 +58,15 @@
         </div>
     </div>
 
-    <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/footer.jsp"></jsp:include>
 
-
-    <!-- 네이버지도 불러오기 -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=7dgspubsn7"></script>
     <script type="text/javascript" src="/js/MarkerClustering.js"></script>
-    <!-- JS 불러오기 : static 이하 경로부터 작성 -->
+
     <script src="/js/index.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
