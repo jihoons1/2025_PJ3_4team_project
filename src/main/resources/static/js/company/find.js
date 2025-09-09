@@ -23,7 +23,8 @@ const findCompany = async() => {
         cimg.innerHTML = `<img src=${imgUrl}/>`;
         html += `<span>정육점명 : ${data.cname}</span> <br>
                  <span>정육점주소 : ${data.caddress}</span> <br>
-                 <span>리뷰평점 : ${data.rrank}</span>`;
+                 <span>리뷰평점 : ${data.rrank}</span> <br>
+                 <span>조회수 : ${data.views}</span>`;
         cinfo.innerHTML = html;
     }catch(e){ console.log(e); }
 }// func end
