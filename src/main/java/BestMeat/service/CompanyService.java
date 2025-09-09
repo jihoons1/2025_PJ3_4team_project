@@ -64,4 +64,6 @@ public class CompanyService {
     public List<CompanyDto> getCompanyList(){
         return companyDao.getCompanyList();
     }// func end
+    // 정육점 조회수
+    public void viewCompany(int cno){ companyDao.viewCompany(cno); }
 } // class end
