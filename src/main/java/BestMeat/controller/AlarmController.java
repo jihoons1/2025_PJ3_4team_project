@@ -16,12 +16,6 @@ public class AlarmController {
     private final AlarmService alarmService;
     private final SessionService sessionService;
 
-    // [alarm01] 푸시알림등록 - addAlarm()
-    // 기능설명 : [ 회원번호, 알림메시지 ]를 받아, 알림을 등록한다.
-    // 매개변수 : AlarmDto
-    // 반환타입 : int -> 성공 : 자동생성된 PK, 실패 : 0
-
-
     // [alarm02] 푸시알림수정 - updateAlarm()
     // 기능설명 : [ 푸시알림번호 ]를 받아, 해당 알림의 확인여부를 수정한다.
     // method : PUT, URL : /alarm/update

@@ -18,10 +18,11 @@ public class AlarmDao extends Dao {
     // 반환타입 : int -> 성공 : 자동생성된 PK, 실패 : 0
     public int addAlarm ( AlarmDto alarmDto ){
         try {
-            String SQL = "insert into alarm ( mno, amessage ) values ( ?, ? )";
+            String SQL = "insert into alarm ( mno, amessage, atype ) values ( ?, ?, ? )";
             PreparedStatement ps = conn.prepareStatement( SQL, Statement.RETURN_GENERATED_KEYS );
             ps.setInt( 1, alarmDto.getMno() );
             ps.setString( 2, alarmDto.getAmessage() );
+            ps.setString( 3, alarmDto.getAtype() );
             int count = ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if ( count == 1 ){
@@ -68,7 +69,7 @@ public class AlarmDao extends Dao {
             ps.setInt( 1, mno );
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ){
-                list.add( AlarmDto.builder().ano( rs.getInt( "ano" ) ).mno( rs.getInt( "mno" ) ).amessage( rs.getString( "amessage" ) ).build() );
+                list.add( AlarmDto.builder().ano( rs.getInt( "ano" ) ).mno( rs.getInt( "mno" ) ).amessage( rs.getString( "amessage" ) ).atype( rs.getString( "atype" ) ).build() );
             } // while end
         } catch ( SQLException e ){
             System.out.println("[alarm02] SQL 기재 실패" + e );

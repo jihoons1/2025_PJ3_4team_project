@@ -80,17 +80,47 @@ const getAlarm = async ( ) => {
         // 3. what
         let html = '';
         data.forEach( (alarm) => {
-            html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="toast-header">
-                            <strong class="me-auto">Push Alarm</strong>
-                            <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            ${alarm.amessage}
-                        </div>
-                     </div>`
+            console.log( alarm );
+            if ( alarm.atype == "chat" ){
+                let amessage = alarm.amessage;
+                let room = amessage.split(" ")[0];
+                let members = room.split("_");
+                // 반복문을 통해, 상대방의 회원번호 찾기
+                let cno = 0;
+                for ( let i = 0; i < members.length; i++ ){
+                    if ( members[i] != alarm.mno ){
+                        cno = members[i];
+                    } // if end
+                } // for end
+
+                // 4. atype이 chat이라면, a태그로 chat링크 걸기
+                html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">Push Alarm</strong>
+                                <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                <a href="/chatting/chatting.jsp?mno=${alarm.mno}&cno=${cno}&room=${room}">${amessage}</a>
+                            </div>
+                        </div>`
+            } else if ( alarm.atype == "stock" ){
+                let amessage = alarm.amessage.split(".")[0];
+                let cno = alarm.amessage.split(".")[1];
+                console.log( amessage );
+                console.log( cno );
+                // 5. atype이 stock이라면, a태그로 정육점상세페이지 링크 걸기
+                html += `<div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">Push Alarm</strong>
+                                <button type="button" onclick="updateAlarm(${alarm.ano})" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                            <div class="toast-body">
+                                <a href="/company/find.jsp?cno=${cno}">${amessage}.</a>
+                            </div>
+                        </div>`
+            } // if end
         });
-        // 4. print
+        // . print
         toastBox.innerHTML = html;
     } catch ( error ){
         console.log( error );

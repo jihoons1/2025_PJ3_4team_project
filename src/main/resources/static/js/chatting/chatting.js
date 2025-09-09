@@ -95,6 +95,8 @@ const postMsgSend = async ( ) => {
     client.send( JSON.stringify( message ) );
     // 5. Input value 초기화
     msgInput.value = '';
+    // 6. chat을 보냈을 때, 채팅방 목록 조회
+    getRoomList();
 } // func end
 
 // 2. room별 채팅 가져오기
@@ -173,7 +175,7 @@ const getRoomList = async ( ) => {
                             ${mename}님과 ${othername}의 채팅방 <br>
                             최근메시지 : ${room.message}
                         </div>`;
-            roomList.innerHTML += html;
+            roomList.innerHTML = html;
         } // for end
     } catch ( error ) {
         console.log( error );

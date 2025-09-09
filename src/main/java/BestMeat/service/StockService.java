@@ -40,12 +40,13 @@ public class StockService {
             String mphone = noticeDto.getMphone().replaceAll( "-", "" );    // 문자 전송을 위하여, '-' 제거
             String pname = noticeDto.getPname();                            // 문자 내용을 위한, 제품명
             int nprice = noticeDto.getNprice();                             // 알림설정가격
-            String cname = companyService.findCompany( noticeDto.getCno() ).getCname(); // cno를 통해 cname 반환받기
+            int cno = noticeDto.getCno();
+            String cname = companyService.findCompany( cno ).getCname();    // cno를 통해 cname 반환받기
             noticeDto.setSprice( stockDto.getSprice() );                    // 재고 가격 수정을 위하여, noticeDto에 저장
-            String content = cname + "에서 " + pname + "이 " + nprice + "원 이하로 등록되었습니다.";
+            String content = cname + "에서 " + pname + "이 " + nprice + "원 이하로 등록되었습니다." + cno;
             int mno = stockDto.getMno();    // 푸시알림 전송을 위한 회원번호 조회
             // 푸시알림 전송을 위한 AlarmDto 구성 -> Builder를 통해서
-            AlarmDto alarmDto = AlarmDto.builder().mno( mno ).amessage( content ).build();
+            AlarmDto alarmDto = AlarmDto.builder().mno( mno ).amessage( content ).atype( "stock" ).build();
             // 4-1. 문자전송여부가 0이라면
             if ( ncheck == 0 ){
                 // 4-2. 문자전송하기, 발신번호와 문자내용 필요
@@ -89,12 +90,13 @@ public class StockService {
             String mphone = noticeDto.getMphone().replaceAll( "-", "" );
             String pname = noticeDto.getPname();
             int nprice = noticeDto.getNprice();
-            String cname = companyService.findCompany( noticeDto.getCno() ).getCname(); // cno를 통해 cname 반환받기
+            int cno = noticeDto.getCno();
+            String cname = companyService.findCompany( cno ).getCname();    // cno를 통해 cname 반환받기
             noticeDto.setSprice( stockDto.getSprice() );                    // 재고 가격 수정을 위하여, noticeDto에 저장
             String content = cname + "에서 " + pname + "이 " + nprice + "원 이하로 등록되었습니다.";
             int mno = stockDto.getMno();    // 푸시알림 전송을 위한 회원번호 조회
             // 푸시알림 전송을 위한 AlarmDto 구성 -> Builder를 통해서
-            AlarmDto alarmDto = AlarmDto.builder().mno( mno ).amessage( content ).build();
+            AlarmDto alarmDto = AlarmDto.builder().mno( mno ).amessage( content ).atype( "stock" ).build();
             // 5-1. 문자전송여부가 0이라면
             if ( ncheck == 0 ){
                 // 5-2. 문자전송하기, 발신번호와 문자내용 필요
