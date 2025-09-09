@@ -19,4 +19,5 @@ public class CompanyDto {
     private double distance;
     private double lat;
     private double lng;
+    private int views;
 }

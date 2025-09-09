@@ -3,7 +3,9 @@ package BestMeat.controller;
 import BestMeat.model.dto.CompanyDto;
 import BestMeat.model.dto.MemberDto;
 import BestMeat.model.dto.PageDto;
+import BestMeat.model.dto.PointDto;
 import BestMeat.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,6 +87,8 @@ public class CompanyController {
     public List<CompanyDto> getCompanyList(){
         return companyService.getCompanyList();
     }// func end
+
+
 
 
 } // class end
