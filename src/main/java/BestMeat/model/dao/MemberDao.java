@@ -133,25 +133,25 @@ public class MemberDao extends Dao  {
     }
 
     // [4] 비밀번호 찾기
-    public boolean findPwd(Map<String , String > map){
+    public boolean findPwd(MemberDto dto){
         try {
-            String sql = "select * from member where mid = ? and mphone = ? ";
+            String sql = "select mpwd , memail from member where mid = ? and mphone = ? and mcheck = true ";
 
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, map.get("mid"));
-            ps.setString(2, map.get("mphone"));
+            ps.setString(1,dto.getMid());
+            ps.setString(2, dto.getMphone());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+
                 // 회원 존재시 임시 비밀번호 발급
                 String random_password = getPwd();
 
                 String sql2 = "update member set mpwd = ? where mid = ? and mphone = ? ";
                 PreparedStatement ps2 = conn.prepareStatement(sql2);
                 ps2.setString(1, random_password);
-                ps2.setString(2,map.get("mid"));
-                ps2.setString(3, map.get("mphone"));
+                ps2.setString(2,dto.getMid());
+                ps2.setString(3, dto.getMphone());
                 ps2.executeUpdate();
-
 
                 // 이메일 전송
                 String a = rs.getString("memail"); // 회원메일
@@ -166,7 +166,6 @@ public class MemberDao extends Dao  {
         }
         return false;
     }
-
     // 파일 등록
     public boolean fileuploads(int mno , String filename ){
         try{

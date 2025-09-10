@@ -167,7 +167,7 @@
                         <label>주소</label>
                     <input type="text" onkeyup="maddresscheck()" id="sample6_postcode" placeholder="우편번호">
                     <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                    <input type="text" onkeyup="maddresscheck()" class="maddress" id="sample6_address" placeholder="주소를 입력해주세요" />
+                    <input type="text" onkeyup="maddresscheck()" class="maddress" id="sample6_address" placeholder="주소를 입력해주세요" /> <br>
                     <input type="text" onkeyup="maddresscheck()" name="mdetailaddress" id="sample6_detailAddress" placeholder="상세주소">
                     <div class="maddressCheck"></div>
                         프로필 : <input type="file" name="upload" />

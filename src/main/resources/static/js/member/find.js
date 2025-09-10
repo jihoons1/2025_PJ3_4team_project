@@ -30,12 +30,12 @@ const findpwd = async() => {
     const response = await fetch(`/member/findPwd`,obj);
     const data = await response.json();
 
-    if(data==true){
+    if(data){
         alert(`임시 발급 완료 입니다.`);
     }else{
-        alert('임시 발급 실패.');
+        alert('정보를 찾지못했습니다.');
     }
-    }catch(error){console.log(error) ;}
+    }catch(error){console.log(error) ;} 
 }
 
 // 3. 

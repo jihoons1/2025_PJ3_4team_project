@@ -309,9 +309,9 @@ try{
 
         document.querySelector('.mphone2').value = dataInput.mphone;
         if(dataInput.maddress){
-            let maddressselect = dataInput.maddress.split(",");
-            document.querySelector('#sample6_address').value = maddressselect[0] ?? '';
-            document.querySelector('#sample6_detailAddress').value = maddressselect[1] ?? '';
+            let maddressselect = dataInput.maddress.split(")");
+            document.querySelector('#sample6_address').value = maddressselect[0] + ")";
+            document.querySelector('#sample6_detailAddress').value = maddressselect[1].split(",")[1];
         }
         console.log(dataInput.maddress);
     }catch(error){ console.log(error); }
@@ -325,11 +325,10 @@ const update = async() => {
     const mig = document.querySelector('#mig');
     const mphone2 = document.querySelector('.mphone2').value;
     const sample6_address = document.querySelector('#sample6_address').value;
-    const sample6_detailAddress = document.querySelector('#sample6_detailAddress').value;
+    const sample6_detailAddress = document.querySelector('#sample6_detailAddress').value; 
 
     let maddress = '';
-    maddress =  sample6_address + "," + sample6_detailAddress;
-
+    maddress = sample6_address + "," + sample6_detailAddress;
 
     if( mphone2 === '' || sample6_address === '' || sample6_detailAddress === '' ){
         alert('칸을 비어 두지 마세요.');
@@ -539,7 +538,7 @@ function sample6_execDaumPostcode() {
                 }
                 // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
                 if(extraAddr !== ''){
-                    extraAddr = ' (' + extraAddr + ')';
+                    extraAddr = ', (' + extraAddr + ')';
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
                 
@@ -547,7 +546,7 @@ function sample6_execDaumPostcode() {
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
             document.getElementById('sample6_postcode').value = data.zonecode;
-            document.getElementById("sample6_address").value = addr;
+            document.getElementById("sample6_address").value = addr + extraAddr;
 
             // 커서를 상세주소 필드로 이동한다.
             document.getElementById("sample6_detailAddress").focus();

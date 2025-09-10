@@ -63,9 +63,9 @@ public class MemberService {
         return result; // 반환
     }
     // [4] 비밀번호 찾기
-    public boolean findPwd(Map<String , String> map){
+    public boolean findPwd(MemberDto dto){
         System.out.println("MemberService.findPwd");
-        boolean result = memberDao.findPwd(map);
+        boolean result = memberDao.findPwd(dto);
         return result;
     }
 
