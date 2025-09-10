@@ -153,10 +153,12 @@ const initMap = async () => {
         const data2 = await response2.json();        
         naver.maps.Event.addListener(marker, "click", () => {
             let html = "";
-            rimgUrl = "/upload/company/"+encodeURIComponent(data[i].cimg);
+            let rimgUrl;
             if(data[i].cimg == null || data[i].cimg == ""){
                 rimgUrl = 'https://placehold.co/50x50';
-            }// if end
+            } else {
+                rimgUrl = '/img/company/' + data[i].cimg;
+            } // if end
             const sidebar = document.querySelector('#sidebar');           
             if(data2.length == 0 || data2 == null){
                 html += `<div><img src="${rimgUrl}"/></div>

@@ -12,8 +12,8 @@ const getAllCompany = async() => {
         const response = await fetch(`/company/get?page=${page}&order=${orderr}`);
         const data = await response.json();    
         data.data.forEach((com) => {
-            let imgUrl = '/upload/company/'+com.cimg;
-            if(data.cimg == null){
+            let imgUrl = '/img/company/'+ com.cimg;
+            if( com.cimg == null){
                 imgUrl = 'https://placehold.co/50x50';
             }// if end
             html += `<tr>
