@@ -19,31 +19,37 @@
     <!-- header JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/header.jsp"></jsp:include>
 
-    <div id="container">
-        <h3> 정육점 전체 조회 페이지 </h3>
-        <div>
-            <select class="order" onchange="searchParams()">
-                <option value="order">정렬방법</option>
-                <option value="rank">평점순</option>
-                <option value="views">조회수순</option>
-            </select>
-            <table class="table table-striped table-hover">
-                <thead>
+<div id="container">
+        <div class="list-page-container">
+            <div class="list-page-title">
+                <h2>정육점 목록</h2>
+            </div>
+
+            <div class="order-controls">
+                <select class="order form-select" onchange="searchParams()">
+                    <option value="order" disabled>정렬방법</option>
+                    <option value="rank">평점순</option>
+                    <option value="views">조회수순</option>
+                </select>
+            </div>
+
+            <table class="table table-hover">
+                <thead class="table-light">
                     <tr>
-                        <th>사진</th> <th>가게명</th> <th>가게주소</th> <th> 조회수 </th> <th>평점</th> 
+                        <th>사진</th>
+                        <th>가게명</th>
+                        <th>가게주소</th>
+                        <th>조회수</th>
+                        <th>평점</th>
                     </tr>
                 </thead>
-                <tbody id="listTbody">                    
-                </tbody>
+                <tbody id="listTbody">
+                    </tbody>
             </table>
-            <div style="width: 380px;">
-                <ul class="pageBtnBox" style="display: flex; justify-content: space-between;">
-                    <li><a href="list.jsp?page=1"> 1 </a></li>
-                    <li><a href="list.jsp?page=2"> 2 </a></li>
-                    <li><a href="list.jsp?page=3"> 3 </a></li>
-                    <li><a href="list.jsp?page=4"> 4 </a></li>
-                    <li><a href="list.jsp?page=5"> 5 </a></li>
-                </ul>
+
+            <div class="pagination-container">
+                <ul class="pageBtnBox pagination">
+                    </ul>
             </div>
         </div>
     </div>

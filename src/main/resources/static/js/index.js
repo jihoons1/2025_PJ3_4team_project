@@ -41,7 +41,7 @@ const getPlan = async() => {
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="qrBox">
+                                            <div class="qrBox${data[i].cno}" >
 
                                             </div>
                                         </div>
@@ -82,7 +82,7 @@ const getPlan = async() => {
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="qrBox">
+                                            <div class="qrBox${data[i].cno}" >
 
                                             </div>
                                         </div>
