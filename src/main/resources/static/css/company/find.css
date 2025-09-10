@@ -128,3 +128,20 @@
     border-radius: 0.5rem;
     border: 1px solid #dee2e6;
 }
+.infodiv{
+    display: flex;
+}
+.cinfo{
+    padding: 0px 30px;
+    align-content: center;
+}
+.cinfo div{
+    margin: 10px 0px;
+}
+.mapInfo{
+    
+}
+.mapInfo img{
+    width: 100px;
+    height: 100px;
+}

@@ -21,10 +21,10 @@ const findCompany = async() => {
             imgUrl = 'https://placehold.co/50x50';
         } // if end
         cimg.innerHTML = `<img src=${imgUrl}/>`;
-        html += `<span>정육점명 : ${data.cname}</span> <br>
-                 <span>정육점주소 : ${data.caddress}</span> <br>
-                 <span>리뷰평점 : ${data.rrank}</span> <br>
-                 <span>조회수 : ${data.views}</span>`;
+        html += `<div>정육점명 : ${data.cname}</div>
+                 <div>정육점주소 : ${data.caddress}</div>
+                 <div>리뷰평점 : ${data.rrank}</div>
+                 <div>조회수 : ${data.views}</div>`;
         cinfo.innerHTML = html;
         loginCheck();
     }catch(e){ console.log(e); }
@@ -42,14 +42,14 @@ const printBtn = async ( ) => {
         // 2. result
         if ( sidemno == data.mno ){
             // 3. 해당 정육점이 내 정육점이라면, 방으로 안 들어가고 그냥 전체채팅방으로
-            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}'" class="btn btn-primary">채팅방</button>`;
+            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}'" class="btn btn-primary">채팅 시작</button>`;
         } else {
             // 4. 해당 정육점이 내 정육점이 아니라면, 해당 정육점과의 채팅방으로 이동
-            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">채팅방</button>`;
+            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">채팅 시작</button>`;
         } // if end        
     } catch ( error ) {
         // 5. 비로그인 상태라면, 전체채팅방으로 이동
-        chatBtn.innerHTML = `<button type="button" onclick="publicRoom()" class="btn btn-primary">채팅방</button>`;
+        chatBtn.innerHTML = `<button type="button" onclick="publicRoom()" class="btn btn-primary">채팅 시작</button>`;
     } // try-catch end
 } // func end
 printBtn();
@@ -345,30 +345,30 @@ const naverMap = async ( ) => {
     // 정육점 위치
     var company = new naver.maps.LatLng( data.lat, data.lng ),
         map = new naver.maps.Map('map', {
-            center: company.destinationPoint(0, 500),
-            zoom: 15
+            center: company.destinationPoint(0, 0),
+            zoom: 17
         }),
         marker = new naver.maps.Marker({
             map: map,
             position: company
         });
 
-    let cImgUrl = '/upload/'+encodeURIComponent(companyData.cimg);
-    if( companyData.cimg == null ){
-        cImgUrl = 'https://placehold.co/50x50';
-    } // if end
+    // let cImgUrl = '/img/company/'+ companyData.cimg;
+    // if( companyData.cimg == null ){
+    //     cImgUrl = 'https://placehold.co/50x50';
+    // } // if end
 
-    var contentString = `<div>
-                            <h3>${companyData.cname}</h3>
-                            <p>
-                                ${companyData.caddress} <br>
-                                <img src="${cImgUrl}">
-                            </p>
-                        </div>`;
+    // var contentString = `<div class="mapInfo">
+    //                         <h3>${companyData.cname}</h3>
+    //                         <p>
+    //                             ${companyData.caddress} <br>
+    //                             <img src="${cImgUrl}">
+    //                         </p>
+    //                     </div>`;
 
-    var infowindow = new naver.maps.InfoWindow({
-        content: contentString
-    });
+    // var infowindow = new naver.maps.InfoWindow({
+    //     content: contentString
+    // });
 
     naver.maps.Event.addListener(marker, "click", function(e) {
         if (infowindow.getMap()) {
