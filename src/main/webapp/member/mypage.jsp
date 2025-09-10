@@ -244,7 +244,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="saveReview()">리뷰 수정</button>
+                    <button type="button" class="btn btn-primary" onclick="addUpdate()">리뷰 수정</button>
                 </div>
             </div>
         </div>
