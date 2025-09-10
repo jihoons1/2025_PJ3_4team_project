@@ -21,8 +21,7 @@ const myinfo = async() => {
                          <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>
                          <li><a href="/stock/stock.jsp?cno=${data.cno}" class="nav-link px-2">재고 관리</a></li>`
             logHtml += `<div class="log-info">
-                            <a href="/member/mypage.jsp" class="username">${data.mname}</a>
-                            <a href="#" class="points" data-bs-toggle="modal" data-bs-target="#staticBackdrop100">(${totalPoint} Point)</a>
+                            <a href="/member/mypage.jsp" class="username">${data.mname} (${totalPoint} Point)</a>
                         </div>
                         <div class="log-actions">
                             <a href="/company/find.jsp?cno=${data.cno}">내 정육점</a>
@@ -34,8 +33,7 @@ const myinfo = async() => {
                         <li><a href="/company/list.jsp" class="nav-link px-2">정육점 목록</a></li>`
 
             logHtml +=`<div class="log-info">
-                            <a href="/member/mypage.jsp" class="username">${data.mname}</a>
-                            <a href="#" class="points" data-bs-toggle="modal" data-bs-target="#staticBackdrop100">(${totalPoint} Point)</a>
+                            <a href="/member/mypage.jsp" class="username">${data.mname} (${totalPoint} Point)</a>
                         </div>
                         <div class="log-actions">
                             <a href="#" onclick="logout()">로그아웃</a>
@@ -163,62 +161,4 @@ const printToast = async ( data ) => {
     data.forEach( (alarm) => {
         updateAlarm( alarm.ano );
     })
-} // func end
-//=============================================== 결제 API ================================================\\
-// 1. 포인트 결제 기능
-const payment = async ( ) => {
-    // 포트원 기본 정보 제공
-    let IMP = window.IMP;
-    IMP.init("imp28011161");
-
-    // 1. Select value
-    const point = document.querySelector('.pointValue').value;
-    const pointDot = point.toLocaleString();    // 천단위 콤마찍기
-
-    // 2. JAVA에서 생성한 UUID 가져오기
-    const response = await fetch ( "/point/getUUID" );
-    let paymentID = await response.text();
-    paymentID = `payment-${paymentID}`;
-
-
-
-    IMP.request_pay(
-    {   // 파라미터 값 설정 
-        pg: "kakaopay.TC0ONETIME",
-        pay_method: "card",                     // 결제방식
-        merchant_uid: paymentID,                // 고객 거래번호
-        name: `${pointDot} point`,              // 상품명
-        amount: point,                          // 결제금액
-        buyer_email: `${MemberData.memail}`,    // 고객 이메일
-        buyer_name: `${MemberData.mname}`,      // 고객 이름
-        buyer_tel: `${MemberData.mphone}`,      // 고객 전화번호
-        buyer_addr: `${MemberData.maddress}`,   // 고객 주소
-    },
-    rsp = ( rsp ) => {
-        if ( rsp.success ) {
-            // axios로 HTTP 요청
-            axios({
-                url: "/point/payment",          // 매핑할 URL 주소
-                method: "post",                 // 매핑 방식
-                headers: { "Content-Type": "application/json" },
-                data: {                         // JAVA에게 전달할 객체 -> PointDto의 구성요소
-                plpoint : point,
-                plcomment : `${pointDot} point 결제`
-                }
-            }).then( (data) => {
-                // 결제에 성공했다면
-                if ( data.data == true ){
-                    // 결제금액이 결제에 성공했다는 알림
-                    if ( confirm(`${pointDot} point 결제에 성공하였습니다.`) ){
-                        // 확인을 눌러야 새로고침됨.
-                        location.reload();
-                    } // if end
-                } // if end
-            })
-            } else {
-                // 실패했다면, 실패 알림 및 에러 내용 표시
-                alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
-            }
-        } // func end
-    ); // 결제 프롬프트 end
 } // func end

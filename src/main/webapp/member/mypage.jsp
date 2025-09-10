@@ -46,6 +46,9 @@
                     </div>
                 </div>
                 <div class="action-buttons">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop100">
+                        포인트 결제
+                    </button>
                     <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onclick="getRoomList()" >
                         채팅방 목록 열기
                     </button>
@@ -121,6 +124,30 @@
         </div>
         <div class="offcanvas-body roomList">
             <!-- 해당 회원의 채팅방 목록으로 구성 -->
+        </div>
+    </div>
+
+    <!-- 포인트 결제 staticBackdrop100 -->
+    <div class="modal fade" id="staticBackdrop100" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">포인트 결제</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select class="pointValue">
+                    <option selected disabled>포인트 선택</option>
+                    <option value="1000">1000</option>
+                    <option value="5000">5000</option>
+                    <option value="10000">10000</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                <button type="button" class="btn btn-primary"  onclick="payment()">포인트 결제</button>
+            </div>
+            </div>
         </div>
     </div>
 
