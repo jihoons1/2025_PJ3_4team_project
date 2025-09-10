@@ -128,9 +128,296 @@
     width: 75px;
     height: 75px;
 }
-.rooms{
-    margin: 20px 0px;
-    border: 1px gray solid;
-    border-radius: 10px;
-    padding: 10px 15px;
+
+/* 채팅방 목록 (Offcanvas) */
+.roomList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0.5rem;
+}
+
+.rooms a {
+    display: block;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #212529;
+    background-color: #f8f9fa;
+    transition: background-color 0.2s;
+}
+
+.rooms a:hover {
+    background-color: #e9ecef;
+}
+
+/* =================== 포인트 결제 모달 (staticBackdrop100) 스타일 =================== */
+
+#staticBackdrop100 .modal-body {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    display: flex; /* flexbox를 사용하여 내부 요소 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    gap: 1.5rem; /* 요소들 사이의 간격 */
+}
+
+/* 안내 메시지 스타일 */
+#staticBackdrop100 .modal-body::before {
+    content: "결제할 포인트를 선택해주세요."; /* HTML에 없는 텍스트를 CSS로 추가 (선택 사항) */
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #343a40; /* 진한 회색 텍스트 */
+    margin-bottom: 0.5rem; /* 아래 여백 */
+    display: block; /* 줄 바꿈 */
+}
+
+/* 포인트 선택(select) 박스 스타일 강화 */
+#staticBackdrop100 .pointValue {
+    display: block; /* 블록 요소로 만들어 너비 100% 적용 */
+    width: 100%;
+    max-width: 250px; /* 최대 너비 제한으로 너무 넓어지는 것 방지 */
+    padding: 0.75rem 1.25rem; /* 내부 여백 */
+    font-size: 1.2rem; /* 글자 크기 키움 */
+    font-weight: bold;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #f8f9fa; /* 연한 배경색 */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); /* 부트스트랩 기본 화살표 아이콘 */
+    background-repeat: no-repeat;
+    background-position: right 1.25rem center;
+    background-size: 16px 12px;
+    border: 1px solid #0d6efd; /* 강조하는 테두리 색상 */
+    border-radius: 0.5rem; /* 모서리 둥글게 */
+    appearance: none; /* 기본 select 스타일 제거 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    cursor: pointer; /* 클릭 가능한 요소임을 나타냄 */
+}
+
+#staticBackdrop100 .pointValue:hover {
+    border-color: #0a58ca; /* 호버 시 테두리 색상 변경 */
+}
+
+#staticBackdrop100 .pointValue:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* select 요소의 옵션 스타일 (브라우저마다 제한적) */
+#staticBackdrop100 .pointValue option {
+    padding: 10px;
+}
+
+/* 모달 푸터 (Modal Footer) 버튼 정렬 */
+#staticBackdrop100 .modal-footer {
+    justify-content: center; /* 버튼 중앙 정렬 */
+    padding: 1rem;
+    border-top: 1px solid #e9ecef;
+}
+
+/* 모달 제목 */
+#staticBackdrop100 .modal-header {
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* =================== 모달 공통 스타일 =================== */
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* 요소들 사이의 기본 간격 */
+    padding: 1.5rem;
+}
+
+.modal-body .form-control,
+.modal-body .form-select,
+.modal-body textarea {
+    /* 부트스트랩 기본 스타일을 명시적으로 적용 */
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.modal-body .form-control:focus,
+.modal-body .form-select:focus,
+.modal-body textarea:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
+}
+
+.modal-body .validation-message {
+    font-size: 0.875rem;
+    color: #dc3545;
+    min-height: 1.2em;
+}
+
+/* =================== 회원정보 수정 (staticBackdrop5) =================== */
+#staticBackdrop5 .modal-body .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+#staticBackdrop5 .modal-body .input-group label {
+    font-weight: 500;
+}
+.address-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.address-group #sample6_postcode {
+    flex-basis: 120px;
+}
+.address-group input[type="button"] {
+    flex-shrink: 0;
+    padding: 0.375rem 0.75rem;
+}
+
+
+/* =================== 비밀번호 수정 (staticBackdrop20) =================== */
+#staticBackdrop20 .modal-body .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+#staticBackdrop20 .modal-body .input-group label {
+    font-weight: 500;
+}
+
+/* =================== 리뷰 수정 (staticBackdrop6) =================== */
+#staticBackdrop6 .reviewupdateBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+#staticBackdrop6 .oldrno {
+    font-weight: bold;
+    background-color: #e9ecef;
+}
+#staticBackdrop6 .oldrcontent {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* =================== 알림 등록 모달 (staticBackdrop1) 스타일 =================== */
+
+/* 모달 본문 (Modal Body) 내부 요소 정렬 및 간격 조절 */
+#staticBackdrop1 .modal-body {
+    display: flex;
+    flex-direction: column; /* 요소를 세로로 배치 */
+    gap: 1rem; /* 요소들 사이의 간격 */
+    padding: 1.5rem;
+}
+
+/* 텍스트 설명 스타일 */
+#staticBackdrop1 .modal-body > span:first-child {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+
+/* 제품 선택(select) 박스 스타일 */
+#staticBackdrop1 .modal-body .pBox {
+    /* 부트스트랩 form-select 기본 스타일 사용 */
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    width: 100%;
+}
+
+/* 가격 입력(input) 필드 스타일 */
+#staticBackdrop1 .modal-body .nprice {
+    /* 부트스트랩 form-control 기본 스타일과 유사하게 */
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    width: 100%;
+}
+
+/* 유효성 검사 메시지 */
+#staticBackdrop1 .noticeAddCheck {
+    min-height: 1.2em; /* 메시지 공간 확보 */
+    font-size: 0.875rem;
+}
+
+/* 모달 푸터 (Modal Footer) 버튼 정렬 */
+#staticBackdrop1 .modal-footer {
+    justify-content: flex-end; /* 버튼 오른쪽 정렬 */
+}
+
+/* =================== 알림 수정 모달 (staticBackdrop4) 스타일 =================== */
+
+/* 모달 본문 (Modal Body) 내부 요소 정렬 및 간격 조절 */
+#staticBackdrop4 .modal-body {
+    display: flex;
+    flex-direction: column; /* 요소를 세로로 배치 */
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+/* 텍스트 설명 스타일 */
+#staticBackdrop4 .modal-body > span:first-child {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #495057;
+}
+
+/* 제품명 표시 스타일 */
+#staticBackdrop4 .oldPname {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    width: 30%;
+    margin-right: 4%;
+}
+
+/* 가격 입력(input) 필드 스타일 */
+#staticBackdrop4 .NewNprice {
+    /* 부트스트랩 form-control 스타일 */
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    width: 40%;
+}
+
+.updatePriceBox{
+    display: flex;
+}
+
+/* 유효성 검사 메시지 */
+#staticBackdrop4 .noticeUpdateCheck {
+    min-height: 1.2em; /* 메시지 공간 확보 */
+    font-size: 0.875rem;
+}
+
+/* =================== 회원탈퇴 (staticBackdrop2, 3) =================== */
+#staticBackdrop2 .modal-body span,
+#staticBackdrop3 .modal-body .col-form-label {
+    text-align: center;
+    display: block;
+    line-height: 1.6;
+}
+#staticBackdrop3 .modal-body .mpwdInput {
+    margin-top: 1rem;
+}
+.mb-3{
+    text-align: center;
 }

@@ -129,24 +129,23 @@
 
     <!-- 포인트 결제 staticBackdrop100 -->
     <div class="modal fade" id="staticBackdrop100" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">포인트 결제</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <select class="pointValue">
-                    <option selected disabled>포인트 선택</option>
-                    <option value="1000">1000</option>
-                    <option value="5000">5000</option>
-                    <option value="10000">10000</option>
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                <button type="button" class="btn btn-primary"  onclick="payment()">포인트 결제</button>
-            </div>
+        <div class="modal-dialog modal-dialog-centered"> <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">포인트 결제</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select class="pointValue form-select">
+                        <option selected disabled>포인트 선택</option>
+                        <option value="1000">1,000 P</option>
+                        <option value="5000">5,000 P</option>
+                        <option value="10000">10,000 P</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
+                    <button type="button" class="btn btn-primary" onclick="payment()">포인트 결제</button>
+                </div>
             </div>
         </div>
     </div>
@@ -162,20 +161,26 @@
                 </div>
                 <div class="modal-body">
                     <form id="mig">
-                        전화번호 : <input onkeyup="mphoneCC()" type="text" id="mhpoen3" class="mphone2" name="mphone" placeholder="전화번호를 입력해주세요." /> <br>
-                        <div class="mphone2CC"></div>
-                        <label>주소</label>
-                    <input type="text" onkeyup="maddresscheck()" id="sample6_postcode" placeholder="우편번호">
-                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                    <input type="text" onkeyup="maddresscheck()" class="maddress" id="sample6_address" placeholder="주소를 입력해주세요" />
-                    <input type="text" onkeyup="maddresscheck()" name="mdetailaddress" id="sample6_detailAddress" placeholder="상세주소">
-                    <div class="maddressCheck"></div>
-                        프로필 : <input type="file" name="upload" />
-                        <div class="maddressCheck"></div>
+                        <div class="input-group">
+                            <label for="mhpoen3">전화번호</label>
+                            <input style="width: 100%;" onkeyup="mphoneCC()" type="text" id="mhpoen3" class="mphone2 form-control" name="mphone" placeholder="전화번호를 입력해주세요." />
+                            <div class="mphone2CC validation-message"></div>
+                        </div>
+                        <div class="input-group">
+                            <label>주소</label>
+                            <div class="address-group">
+                                <input type="text" id="sample6_postcode" class="form-control" placeholder="우편번호">
+                                <input type="button" onclick="sample6_execDaumPostcode()" class="btn btn-secondary btn-sm" value="우편번호 찾기">
+                            </div>
+                            <input style="width: 100%;" type="text" class="maddress form-control" id="sample6_address" placeholder="주소" />
+                            <input style="width: 100%;" type="text" name="mdetailaddress" id="sample6_detailAddress" class="form-control" placeholder="상세주소">
+                            <div class="maddressCheck validation-message"></div>
+                        </div>
+                        <div class="input-group">
+                            <label>프로필</label>
+                            <input style="width: 100%;" type="file" name="upload" class="form-control" />
+                        </div>
                     </form>
-                    <!-- 우편번호 API -->
-                <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
@@ -195,9 +200,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- 기능-->
-                    기존 비밀번호 : <input type="password" class="mpwd" /> <br>
-                    변경하실 비밀번호 : <input type="password" class="mpwd2" /> <br>
+                    <div class="input-group">
+                        <label>기존 비밀번호</label>
+                        <input style="width: 100%;" type="password" class="mpwd form-control" />
+                    </div>
+                    <div class="input-group">
+                        <label>변경하실 비밀번호</label>
+                        <input style="width: 100%;" type="password" class="mpwd2 form-control" />
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -227,7 +237,7 @@
                             <option value="2">2</option>
                             <option value="1">1</option>
                         </select>
-                        <input type="file" multiple name="uploads" />
+                        <input type="file" class="form-control" multiple name="uploads" />
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -248,11 +258,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span>알림등록할 제품과 가격을 입력해주세요.</span> <br>
-                    <select class="pBox">
-
+                    <span>알림등록할 제품과 가격을 입력해주세요.</span>
+                    <select class="pBox form-select">
                     </select>
-                    <input type="text" class="nprice" placeholder="가격을 입력하세요." onkeyup="noticeAddCheck()"> <br>
+                    <input style="width: 100%;" type="text" class="nprice form-control" placeholder="가격을 입력하세요." onkeyup="noticeAddCheck()">
                     <span class="noticeAddCheck" style="color: red;"></span>
                 </div>
                 <div class="modal-footer">
@@ -273,10 +282,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span>알림수정할 제품의 가격을 입력해주세요.</span> <br>
-                    <span class="oldPname"></span>
-                    <input type="text" class="NewNprice" placeholder="가격을 입력하세요." onkeyup="noticeupdateCheck()">
-                    <br>
+                    <span>알림수정할 제품의 가격을 입력해주세요.</span>
+                    <div class="updatePriceBox">
+                        <span class="oldPname"></span>
+                        <input type="text" class="NewNprice" placeholder="가격을 입력하세요." onkeyup="noticeupdateCheck()">
+                    </div>
                     <span class="noticeUpdateCheck" style="color: red;"></span>
                 </div>
                 <div class="modal-footer" id="updateInput">
@@ -301,7 +311,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
                     <button type="button" class="btn btn-primary" data-bs-target="#staticBackdrop3"
-                        data-bs-toggle="modal">회원탈퇴</button>
+                        data-bs-toggle="modal">탈퇴 진행하기</button>
                 </div>
             </div>
         </div>
@@ -319,7 +329,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">탈퇴에 동의하신다면, 현재 비밀번호를 입력해주세요.</label>
-                        <input type="password" class="mpwdInput">
+                        비밀번호 : <input type="password" class="mpwdInput">
                     </div>
                 </div>
                 <div class="modal-footer">
