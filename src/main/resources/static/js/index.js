@@ -16,7 +16,9 @@ const getPlan = async() => {
             if(i == 0){                
                 html += `<div class="carousel-item active" style="margin: 0 auto;">
                             <div>
-                                <h3 style="padding-left: 20px;">${data[i].cname}</h3>
+                                <a href="/company/find.jsp?cno=${data[i].cno}">
+                                    <h3 style="padding-left: 20px;">${data[i].cname}</h3>
+                                </a>
                                 <div style="display: flex; justify-content: space-around; margin-top: 30px">
                                     <div class="caimgBox" style="width: 45%;">
                                         <img src="${imgURL}" class="d-block w-40" alt="...">
@@ -56,7 +58,9 @@ const getPlan = async() => {
             }else{
                 html += `<div class="carousel-item" style="margin: 0 auto;">
                             <div>
-                                <h3 style="padding-left: 20px;">${data[i].cname}</h3>
+                                <a href="/company/find.jsp?cno=${data[i].cno}">
+                                    <h3 style="padding-left: 20px;">${data[i].cname}</h3>
+                                </a>
                                 <div style="display: flex; justify-content: space-around; margin-top: 30px">
                                     <div class="caimgBox" style="width: 45%;">
                                         <img src="${imgURL}" class="d-block w-40" alt="...">
