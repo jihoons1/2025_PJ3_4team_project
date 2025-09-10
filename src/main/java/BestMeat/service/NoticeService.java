@@ -69,7 +69,7 @@ public class NoticeService {
         // 3. 넘는다면, 포인트 차감 진행
         PointDto pointDto = new PointDto();
         pointDto.setMno( mno );
-        pointDto.setPlpoint( 500 );
+        pointDto.setPlpoint( -500 );
         pointDto.setPlcomment( "알림등록 포인트 차감" );
         // 4. 포인트 로그 추가 실패하면, 메소드 종료
         if ( !pointService.addPointLog( pointDto ) ) return 0;
