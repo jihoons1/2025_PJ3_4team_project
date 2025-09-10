@@ -7,14 +7,17 @@ const getPlan = async() => {
         const response = await fetch('/company/getAll');
         const data = await response.json();     
         for(let i = 0; i < data.length; i++){
-            if(data[i].cimg == null || data[i].cimg == ""){
-                data[i].cimg = 'https://placehold.co/100x100';
-            }// if end
+            let imgURL;
+            if( data[i].cimg == null || data[i].cimg == "" ){
+                imgURL = 'https://placehold.co/100x100';
+            } else {
+                imgURL = `/img/company/` + data[i].cimg;
+            }
             if(i == 0){                
                 html += `<div class="carousel-item active" style="margin: 0 auto;">
                             <div>
                                 <h3><a href="/company/find.jsp?cno=${data[i].cno}">${data[i].cname}</a></h3><span>평점 : ${data[i].rrank}점</span>
-                                <img src="${data[i].cimg}" class="d-block w-40" alt="...">
+                                <img src="${imgURL}" class="d-block w-40" alt="...">
                                 <span>주소 : ${data[i].caddress} </span><br/>
                                 <div>                                    
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
@@ -46,7 +49,7 @@ const getPlan = async() => {
                 html += `<div class="carousel-item">
                             <div>
                                 <h3><a href="/company/find.jsp?cno=${data[i].cno}">${data[i].cname}</a></h3><span>평점 : ${data[i].rrank}점</span>
-                                <img src="${data[i].cimg}" class="d-block w-40" alt="...">
+                                <img src="${imgURL}" class="d-block w-40" alt="...">
                                 <span>주소 : ${data[i].caddress} </span><br/>
                                 <div>
                                     <!-- Button trigger modal -->
