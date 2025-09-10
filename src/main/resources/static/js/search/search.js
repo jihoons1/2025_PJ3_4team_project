@@ -21,7 +21,7 @@ const getCompanySearch = async() => {
             }// if end
             html += `<tr>
                         <td><a href="/company/find.jsp?cno=${ser.cno}"><img src="${img}"/></a></td>
-                        <td><a href="/company/find.jsp?cno=${ser.cno}">${ser.cname}</a></td>
+                        <td><a href="/company/find.jsp?cno=${ser.cno}" style="font-weight: bold; font-size: 16px;">${ser.cname}</a></td>
                         <td><a href="/company/find.jsp?cno=${ser.cno}">${ser.caddress}</a></td>
                         <td>${ser.distance.toFixed(2)}km</td>
                         <td>${ser.pname}</td>
