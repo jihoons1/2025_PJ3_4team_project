@@ -23,12 +23,28 @@
         <div class="roomTitle">
             
         </div>
+        <div>
+            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onclick="getRoomList()" >
+                채팅방 목록 열기
+            </button>
+        </div>
         <div class="msgbox" >
             <!-- 사용자들의 메시지로 구성 -->
         </div>
         <div class="bottomBox">
             <input onkeyup="if( event.keyCode == 13 ){ postMsgSend(); }" type="text" class="msginput"/>
             <button type="button" onclick="postMsgSend()">전송</button>
+        </div>
+    </div>
+
+    <!-- 채팅방목록 offcanvas -->
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">채팅창 목록</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body roomList">
+            <!-- 해당 회원의 채팅방 목록으로 구성 -->
         </div>
     </div>
 
