@@ -96,6 +96,7 @@ public class ChattingService {
                             chattingDto.setTo( Integer.parseInt(lastRow[2]) );      // 수신자
                             chattingDto.setChatdate( lastRow[3] );                  // 채팅시간
                             chattingDto.setRoomname( lastRow[4] );                  // 방이름
+                            chattingDto.setFromname( lastRow[5] );                  // 발신자 이름
                             // 5. 최종적으로 리스트에 저장
                             roomList.add( chattingDto );
                         } // if end
@@ -180,7 +181,7 @@ public class ChattingService {
             // 4. map을 저장할 빈 리스트 생성
             List<String[]> list = new ArrayList<>();
             // 5. 메시지의 정보를 리스트에 대입하기
-            list.add( new String[]{ map.get("message"), map.get("from"), map.get("to"), map.get("date"), map.get("room") } );
+            list.add( new String[]{ map.get("message"), map.get("from"), map.get("to"), map.get("date"), map.get("room"), map.get("fromname") } );
             // 6. 정보가 담긴 리스트를 CSV객체에 저장한다
             csvWriter.writeAll( list );
             // 7. CSVWriter를 안전하게 닫기
@@ -246,6 +247,7 @@ public class ChattingService {
                     chattingDto.setTo( Integer.parseInt(row[2]) );      // 수신자
                     chattingDto.setChatdate( row[3] );                  // 채팅시간
                     chattingDto.setRoomname( row[4] );                  // 방이름
+                    chattingDto.setFromname( row[5] );                  // 발신자 이름
                     // 7. 생성한 dto를 list에 넣는다
                     list.add( chattingDto );
                 } // for end

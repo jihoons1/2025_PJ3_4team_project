@@ -1,8 +1,7 @@
 package BestMeat.handler;
 
-import BestMeat.model.dto.AlarmDto;
-import BestMeat.service.AlarmService;
 import BestMeat.service.ChattingService;
+import BestMeat.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,6 +16,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ChattingSocketHandler extends TextWebSocketHandler {
     private final ChattingService chattingService;
+    private final MemberService memberService;
 
     // 0. 채팅방 모음
     private static final Map< String, List< WebSocketSession > > users = new HashMap<>();
@@ -36,6 +36,13 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
         // 1. 연결이 종료된 클라이언트의 정보 확인하기
         String room = (String) session.getAttributes().get("room"); // 접속했던 방번호
         String mno = (String) session.getAttributes().get("mno");   // 접속한 회원번호
+        String mname;
+        // mno가 익명일 경우, Integer.parseInt에서 에러가 발생하기 때문에, 그때는 그냥 mno를 mname으로 사용
+        try {
+            mname = memberService.getMname( Integer.parseInt( mno ) );   // 접속한 회원명
+        } catch (NumberFormatException e) {
+            mname = mno;
+        } // try-catch end
         // 2. 만약 방번호와 회원번호가 일치하는 데이터가 채팅방에 존재한다면 -> null이 아니라는 것은 존재한다는 의미
         if ( room != null || mno != null ){
             // 3. 해당 방의 접속목록을 꺼내서
@@ -43,7 +50,7 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
             // 4. 해당 세션을 삭제한다.
             list.remove( session );
             // 5. 클라이언트가 방에서 나갔다고 알림
-            alarmMessage( room, mno + "님이 채팅을 종료했습니다.");
+            alarmMessage( room, mname + "님이 채팅을 종료했습니다.");
         } // if end
     } // func end
 
@@ -58,6 +65,13 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
         if ( msg.get("type").equals("join") ){
             String room = msg.get("room");          // 접속한 방번호 -> 0(전체채팅) 또는 채팅방 PK
             String mno = msg.get("mno");            // 접속한 회원번호 -> 익명 또는 회원번호
+            String mname;
+            // mno가 익명일 경우, Integer.parseInt에서 에러가 발생하기 때문에, 그때는 그냥 mno를 mname으로 사용
+            try {
+                mname = memberService.getMname( Integer.parseInt( mno ) );   // 접속한 회원명
+            } catch (NumberFormatException e) {
+                mname = mno;
+            } // try-catch end
             String cno = msg.get("cno");            // 채팅대상 -> 정육점번호
             // 3. 메시지를 보내온 클라이언트 소켓세션에 정보 추가
             session.getAttributes().put( "room", room );
@@ -76,7 +90,7 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
                 users.put( room, list );
             } // if end
             // 10. 접속한 회원을 알림을 통해 보내기
-            alarmMessage( room, mno + "님이 채팅을 시작했습니다." );
+            alarmMessage( room, mname + "님이 채팅을 시작했습니다." );
             // 11. 만약 msg의 type이 chat이라면
         } else if ( msg.get("type").equals("chat") ){
             // 12. 메시지를 보낸 클라이언트의 방 가져오기
