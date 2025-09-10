@@ -102,9 +102,9 @@ public class MemberController {
 
     // [4] 비밀번호찾기
     @PostMapping("/findPwd")
-    public boolean findPwd( @RequestBody Map<String , String> map){
+    public boolean findPwd( @RequestBody MemberDto dto){
         System.out.println("MemberController.findPwd");
-        return memberService.findPwd(map);
+        return memberService.findPwd(dto);
     }
 
     // [5] 회원정보수정
