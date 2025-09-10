@@ -37,12 +37,6 @@ create table Company (
     constraint foreign key( mno ) references member( mno ) on update cascade on delete cascade
 );
 select * from company;
-select c.cno , c.mno , c.cname , c.caddress , c.cimg ,p.pname , c.views , s.sprice ,  round(avg(r.rrank), 1) as rrank 
-                     from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno
-                     group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by rrank desc;
-select c.cno, c.mno , c.cname, c.caddress, c.cimg, c.views , ifnull(round(avg(r.rrank),1),0) as rrank 
-                    from company c left outer join review r on c.cno = r.cno
-                    group by c.cno order by rrank desc , cno;
 -- ---------------------------- Product -------------------
 create table Product (
     pno int auto_increment,			-- 제품번호
