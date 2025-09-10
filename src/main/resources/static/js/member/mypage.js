@@ -305,13 +305,26 @@ try{
         const option = { method : "GET"}
         const getMember = await fetch(`/member/get` , option );
         const dataInput = await getMember.json();
-        console.log(dataInput);
 
+        // 로그인한 사용자 휴대번호 가져오기
         document.querySelector('.mphone2').value = dataInput.mphone;
-        if(dataInput.maddress){
-            let maddressselect = dataInput.maddress.split(")");
-            document.querySelector('#sample6_address').value = maddressselect[0] + ")";
-            document.querySelector('#sample6_detailAddress').value = maddressselect[1].split(",")[1];
+        // 회원정보가 있으면 getmember로 주소 받아오기 
+        if(dataInput.maddress){ 
+            // dataInput.maddress(로그인한 사용자 정보)를 가져와 쉼표 기준으로 배열 분리
+            // "인천광역시 부평구 길주로 623 105동 2004호 (삼산동), 105동 2004호"  -- mno : 10003 기준
+            const part1 = dataInput.maddress.split(','); // dataInput.maddress 쉼교 기준 정리
+            // 배열 마지막 요소를 가져와 사용(상세주소)
+            // 상세주소만 배열 제거 part1 = ['인천광역시 부평구 길주로 623 (삼산동)'] < 상세주소를 제외한 나머지 주소
+            // part2 = '105동 2004호'
+            const part2 = part1.pop().trim();  // pop 마지막 배열 반환 후 배열 제거(따로) 후 공백제거
+            // 위에서 배열 제거 하였으니 다시 주소를 쉼표로 합쳐 다시 주소 문자열로 변경
+            // '인천광역시 부평구 길주로 623 105동 2004호 (삼산동)'
+            const part3 = part1.join(',').trim(); // 합친후 공백 제거
+            // sample6_address input에 기본 주소(part1에서 마지막 요소 제거 후 남은 요소를 합친 문자열) 넣기
+            document.querySelector('#sample6_address').value = part3;
+            // sample6_detailAddress input에 상세주소(배열에서 pop한 마지막 요소) 넣기
+            document.querySelector('#sample6_detailAddress').value = part2;
+            
         }
         console.log(dataInput.maddress);
     }catch(error){ console.log(error); }
