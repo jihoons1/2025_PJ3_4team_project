@@ -16,7 +16,7 @@ const findCompany = async() => {
         const data = await response.json();     
         companyData = await data;
         naverMap();
-        let imgUrl = '/upload/'+encodeURIComponent(data.cimg);
+        let imgUrl = '/img/company/' + data.cimg;
         if( data.cimg == null ){
             imgUrl = 'https://placehold.co/50x50';
         } // if end

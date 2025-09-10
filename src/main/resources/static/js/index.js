@@ -7,15 +7,18 @@ const getPlan = async() => {
         const response = await fetch('/company/getAll');
         const data = await response.json();     
         for(let i = 0; i < data.length; i++){
-            if(data[i].cimg == null || data[i].cimg == ""){
-                data[i].cimg = 'https://placehold.co/100x100';
-            }// if end
+            let imgURL;
+            if( data[i].cimg == null || data[i].cimg == "" ){
+                imgURL = 'https://placehold.co/100x100';
+            } else {
+                imgURL = `/img/company/` + data[i].cimg;
+            }
             if(i == 0){                
                 html += `<div class="carousel-item active" style="margin: 0 auto;">
                             <div>
                                 <h3 style="padding-left: 20px;">${data[i].cname}</h3>
                                 <div style="display: flex; justify-content: space-around;">
-                                    <img src="${data[i].cimg}" class="d-block w-40" alt="...">
+                                    <img src="${imgURL}" class="d-block w-40" alt="...">
                                     <div><br/>
                                         <span>평점 : ${data[i].rrank}점</span><br/>
                                         <span>주소 : ${data[i].caddress} </span>
@@ -52,7 +55,7 @@ const getPlan = async() => {
                             <div>
                                 <h3>${data[i].cname}</h3>
                                 <div style="display: flex; justify-content: space-around;">
-                                    <img src="${data[i].cimg}" class="d-block w-40" alt="...">
+                                    <img src="${imgURL}" class="d-block w-40" alt="...">
                                     <div><br/>
                                         <span>평점 : ${data[i].rrank}점</span><br/>
                                         <span>주소 : ${data[i].caddress} </span>

@@ -56,7 +56,10 @@
     object-fit: cover;
     border-radius: 0.375rem;
 }
-
+.cimg img{
+    width: 200px;
+    height: 200px;
+}
 .actions-group {
     display: flex;
     justify-content: space-between;
