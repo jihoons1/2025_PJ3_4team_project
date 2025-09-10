@@ -15,7 +15,7 @@
 
 .carousel-inner {
     text-align: center;
-    padding: 20px;
+    padding: 55px 50px 20px 60px;
     height: 450px; /* 캐러셀 높이 고정 */
 }
 
@@ -25,6 +25,13 @@
     object-fit: cover;
     border-radius: 0.375rem;
 }
+
+/* ✅ 캐러셀 애니메이션 수정 시작 */
+.carousel-item {
+    transition: transform 0.6s ease-in-out; /* 부드러운 전환 효과 */
+}
+/* ✅ 캐러셀 애니메이션 수정 끝 */
+
 
 /* ===================== 비디오 컨테이너 ===================== */
 .video-container {

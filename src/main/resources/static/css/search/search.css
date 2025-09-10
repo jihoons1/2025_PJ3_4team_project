@@ -2,3 +2,7 @@
     width: 100px;
     height: 100px;
 }
+.container_top{
+    display: flex;
+    justify-content: space-between;
+}
