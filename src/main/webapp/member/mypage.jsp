@@ -262,6 +262,7 @@
                 <div class="modal-body">
                     <span>알림등록할 제품과 가격을 입력해주세요.</span>
                     <select class="pBox form-select">
+                        
                     </select>
                     <input style="width: 100%;" type="text" class="nprice form-control" placeholder="가격을 입력하세요." onkeyup="noticeAddCheck()">
                     <span class="noticeAddCheck" style="color: red;"></span>

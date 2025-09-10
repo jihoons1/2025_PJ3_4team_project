@@ -174,13 +174,13 @@ const deleteNotice = async ( nno ) => {
 const getProduct = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
-    const response = await fetch( "/product/get", option );
+    const response = await fetch( "/product/getAll", option );
     const data = await response.json();
     // 2. where
     const pBox = document.querySelector('.pBox');
     // 3. what
     let html = `<option selected disabled>제품을 선택하세요.</option>`;
-    data.data.forEach( (product) => {
+    data.forEach( (product) => {
         html += `<option value="${product.pno}">
                     ${product.cname} - ${product.pname}
                  </option>`

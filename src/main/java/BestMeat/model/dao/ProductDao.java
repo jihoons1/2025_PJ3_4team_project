@@ -45,6 +45,31 @@ public class ProductDao extends Dao {
         return 0;
     }// func end
 
+    // [product02] 모든 제품정보 조회 - getProductAll()
+    // 기능설명 : 모든 제품을 조회한다.
+    // 매개변수 : X
+    // 반환타입 : List<ProductDto>
+    public List<ProductDto> getProductAll(){
+        List<ProductDto> list = new ArrayList<>();
+        try {
+            String SQL = "select * from product join category c using ( cno )";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ResultSet rs = ps.executeQuery();
+            while( rs.next() ){
+                ProductDto productDto = new ProductDto();
+                productDto.setCno( rs.getInt("cno") );
+                productDto.setPno( rs.getInt("pno") );
+                productDto.setPname( rs.getString("pname") );
+                productDto.setPimg( rs.getString("pimg") );
+                productDto.setCname( rs.getString("cname") );
+                list.add( productDto );
+            } // while end
+        } catch ( SQLException e ){
+            System.out.println("[product02] SQL 기재 실패" + e );
+        } // try-catch end
+        return list;
+    } // func end
+
     // [product03] 카테고리별 제품조회 - getCnoProduct()
     // 기능설명 : [ 카테고리번호 ]를 받아, 해당하는 제품을 조회한다.
     // 매개변수 : int cno

@@ -29,6 +29,18 @@ public class ProductController {
         return productService.getProduct(page);
     }// func end
 
+    // [product02] 모든 제품정보 조회 - getProductAll()
+    // 기능설명 : 모든 제품을 조회한다.
+    // method : GET, URL : /product/getAll
+    // 매개변수 : X
+    // 반환타입 : List<ProductDto>
+    @GetMapping("/getAll")
+    public List<ProductDto> getProductAll(){
+        System.out.println("ProductController.getProductAll");
+
+        return productService.getProductAll();
+    } // func end
+
     // [product03] 카테고리별 제품조회 - getCnoProduct()
     // 기능설명 : [ 카테고리번호 ]를 받아, 해당하는 제품을 조회한다.
     // method : GET, URL : /product/getCno
