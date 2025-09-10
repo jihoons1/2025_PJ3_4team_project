@@ -37,6 +37,12 @@ create table Company (
     constraint foreign key( mno ) references member( mno ) on update cascade on delete cascade
 );
 select * from company;
+select c.cno , c.mno , c.cname , c.caddress , c.cimg ,p.pname , c.views , s.sprice ,  round(avg(r.rrank), 1) as rrank 
+                     from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno
+                     group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by rrank desc;
+select c.cno, c.mno , c.cname, c.caddress, c.cimg, c.views , ifnull(round(avg(r.rrank),1),0) as rrank 
+                    from company c left outer join review r on c.cno = r.cno
+                    group by c.cno order by rrank desc , cno;
 -- ---------------------------- Product -------------------
 create table Product (
     pno int auto_increment,			-- 제품번호
@@ -734,11 +740,11 @@ insert into notice(mno , pno , nprice , ncheck , ndate) values
     ( 10002 , 40002 , 2000 , 0 , '2025-09-08 16:22:00'),
     ( 10003 , 40003 , 1300 , 1200 , '2025-09-08 16:22:00'),
     ( 10004, 40004 , 2000 , 0 , '2025-09-08 16:22:00');
-insert into Plan( cno, startdate, enddate ) values
-	( 30001, '2025-09-07', '2025-09-14' ),
-    ( 30002, '2025-09-07', '2025-09-14' ),
-    ( 30003, '2025-09-07', '2025-09-14' ),
-    ( 30004, '2025-09-07', '2025-09-14' );
+insert into Plan( cno, banner , startdate, enddate ) values
+	( 30001, 'banner1.jpg' , '2025-09-07', '2025-09-14' ),
+    ( 30002, 'banner2.jpg' , '2025-09-07', '2025-09-14' ),
+    ( 30003, 'banner3.jpg' , '2025-09-07', '2025-09-14' ),
+    ( 30004, 'banner4.jpg' , '2025-09-07', '2025-09-14' );
 insert into PointLog( mno, plpoint, plcomment ) values
 	( 10001, 100000, '샘플 포인트 지급' ),
     ( 10002, 100000, '샘플 포인트 지급' ),

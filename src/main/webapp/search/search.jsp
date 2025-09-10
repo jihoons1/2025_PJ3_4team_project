@@ -53,12 +53,13 @@
                 <option value="rank">평점순</option>
                 <option value="sprice">낮은가격순</option>
                 <option value="distance">가까운순</option>
+                <option value="views">조회수순</option>
             </select>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th> 사진 </th> <th> 정육점명 </th> <th>정육점 주소</th> <th> 거리 </th>  
-                        <th> 부위명 </th> <th> 가격 </th> <th> 평점 </th>                   
+                        <th> 부위명 </th> <th> 가격 </th> <th> 조회수 </th> <th> 평점 </th>                   
                     </tr>>
                 </thead>
                 <tbody id="searchTbody">                

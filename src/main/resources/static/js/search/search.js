@@ -26,6 +26,7 @@ const getCompanySearch = async() => {
                         <td>${ser.distance.toFixed(2)}km</td>
                         <td>${ser.pname}</td>
                         <td>${ser.sprice}원</td>
+                        <td>${ser.views}</td>
                         <td>${ser.rrank}점</td>
                     </tr>`;
         })// for end

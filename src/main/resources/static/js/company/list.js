@@ -20,6 +20,7 @@ const getAllCompany = async() => {
                         <td><img src=${imgUrl}/></td>
                         <td><a href="/company/find.jsp?cno=${com.cno}">${com.cname}</a></td>
                         <td>${com.caddress}</td>
+                        <td>${com.views}</td>
                         <td>${com.rrank}</td>
                     </tr>`;
     })// for end        

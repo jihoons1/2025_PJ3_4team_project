@@ -20,7 +20,9 @@ public class CompanyDao extends Dao {
                     " from company c left outer join review r on c.cno = r.cno ";
             if ("rank".equals(order)){
                 sql += " group by c.cno order by rrank desc , cno limit ? , ?";
-            }else{
+            } else if ("views".equals(order)) {
+                sql += " group by c.cno order by views desc , cno limit ? , ?";
+            } else{
                 sql += " group by c.cno order by cno desc limit ? , ?";
             }// if end
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -58,7 +60,7 @@ public class CompanyDao extends Dao {
     public List<CompanyDto> getCompanySearch( String key , String keyword , String order){
         List<CompanyDto> list = new ArrayList<>();
         try{
-            String sql = "select c.cno , c.mno , c.cname , c.caddress , c.cimg ,p.pname , s.sprice ,  round(avg(r.rrank), 1) as rrank " +
+            String sql = "select c.cno , c.mno , c.cname , c.caddress , c.cimg ,p.pname , c.views , s.sprice ,  round(avg(r.rrank), 1) as rrank " +
                     " from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno";
             if (key.equals("pname")){
                 sql += " where pname like ? ";
@@ -67,7 +69,9 @@ public class CompanyDao extends Dao {
                 sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by rrank desc ";
             }else if ("sprice".equals(order)){
                 sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by sprice asc ";
-            }else{
+            } else if ("views".equals(order)) {
+                sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by views desc ";
+            } else{
                 sql += " group by c.cno, c.cname, c.caddress, c.cimg, p.pname, s.sprice order by cno desc ";
             }// if end
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -83,6 +87,7 @@ public class CompanyDao extends Dao {
                 dto.setCaddress(rs.getString("caddress"));
                 dto.setCimg(rs.getString("cimg"));
                 dto.setRrank(rs.getDouble("rrank"));
+                dto.setViews(rs.getInt("views"));
                 list.add(dto);
             }// while end
         } catch (Exception e) { System.out.println(e); }
@@ -131,7 +136,7 @@ public class CompanyDao extends Dao {
     public List<CompanyDto> getCompanyList(){
         List<CompanyDto> list = new ArrayList<>();
         try{
-            String sql = "select c.cno , c.mno , c.cimg , c.cname , c.caddress , ifnull(round(avg(r.rrank),1),0) as rrank from company c left outer join review r on c.cno = r.cno group by c.cno";
+            String sql = "select c.cno , c.mno , c.cimg , c.views , c.cname , c.caddress , ifnull(round(avg(r.rrank),1),0) as rrank from company c left outer join review r on c.cno = r.cno group by c.cno";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
@@ -142,6 +147,7 @@ public class CompanyDao extends Dao {
                 dto.setCaddress(rs.getString("caddress"));
                 dto.setCimg(rs.getString("cimg"));
                 dto.setRrank(rs.getDouble("rrank"));
+                dto.setViews(rs.getInt("views"));
                 list.add(dto);
             }// while end
         } catch (Exception e) { System.out.println(e); }
