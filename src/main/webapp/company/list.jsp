@@ -25,11 +25,12 @@
             <select class="order" onchange="searchParams()">
                 <option value="order">정렬방법</option>
                 <option value="rank">평점순</option>
+                <option value="views">조회수순</option>
             </select>
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>사진</th> <th>가게명</th> <th>가게주소</th> <th>평점</th> 
+                        <th>사진</th> <th>가게명</th> <th>가게주소</th> <th> 조회수 </th> <th>평점</th> 
                     </tr>
                 </thead>
                 <tbody id="listTbody">                    

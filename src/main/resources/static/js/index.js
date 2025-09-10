@@ -13,10 +13,15 @@ const getPlan = async() => {
             if(i == 0){                
                 html += `<div class="carousel-item active" style="margin: 0 auto;">
                             <div>
-                                <h3><a href="/company/find.jsp?cno=${data[i].cno}">${data[i].cname}</a></h3><span>평점 : ${data[i].rrank}점</span>
-                                <img src="${data[i].cimg}" class="d-block w-40" alt="...">
-                                <span>주소 : ${data[i].caddress} </span><br/>
-                                <div>                                    
+                                <h3 style="padding-left: 20px;">${data[i].cname}</h3>
+                                <div style="display: flex; justify-content: space-around;">
+                                    <img src="${data[i].cimg}" class="d-block w-40" alt="...">
+                                    <div><br/>
+                                        <span>평점 : ${data[i].rrank}점</span><br/>
+                                        <span>주소 : ${data[i].caddress} </span>
+                                    </div>
+                                </div>
+                                <div style="padding-left: 20px;">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                         길찾기 QR Code [거주지 기준]
                                     </button>
@@ -45,9 +50,14 @@ const getPlan = async() => {
             }else{
                 html += `<div class="carousel-item">
                             <div>
-                                <h3><a href="/company/find.jsp?cno=${data[i].cno}">${data[i].cname}</a></h3><span>평점 : ${data[i].rrank}점</span>
-                                <img src="${data[i].cimg}" class="d-block w-40" alt="...">
-                                <span>주소 : ${data[i].caddress} </span><br/>
+                                <h3>${data[i].cname}</h3>
+                                <div style="display: flex; justify-content: space-around;">
+                                    <img src="${data[i].cimg}" class="d-block w-40" alt="...">
+                                    <div><br/>
+                                        <span>평점 : ${data[i].rrank}점</span><br/>
+                                        <span>주소 : ${data[i].caddress} </span>
+                                    </div>
+                                </div>
                                 <div>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
