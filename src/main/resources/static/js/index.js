@@ -14,7 +14,7 @@ const getPlan = async() => {
                 imgURL = `/img/company/` + data[i].cimg;
             }
             if(i == 0){                
-                html += `<div class="carousel-item active" style="margin: 0 auto;">
+                html += `<div class="carousel-item active">
                             <div>
                                 <h3 style="padding-left: 20px;">${data[i].cname}</h3>
                                 <div style="display: flex; justify-content: space-around; margin-top: 30px">
@@ -54,7 +54,7 @@ const getPlan = async() => {
                         </div>`                                         
                 
             }else{
-                html += `<div class="carousel-item" style="margin: 0 auto;">
+                html += `<div class="carousel-item">
                             <div>
                                 <h3 style="padding-left: 20px;">${data[i].cname}</h3>
                                 <div style="display: flex; justify-content: space-around; margin-top: 30px">
