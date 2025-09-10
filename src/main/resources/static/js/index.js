@@ -17,18 +17,21 @@ const getPlan = async() => {
                 html += `<div class="carousel-item active" style="margin: 0 auto;">
                             <div>
                                 <h3 style="padding-left: 20px;">${data[i].cname}</h3>
-                                <div style="display: flex; justify-content: space-around;">
-                                    <img src="${imgURL}" class="d-block w-40" alt="...">
-                                    <div><br/>
-                                        <span>평점 : ${data[i].rrank}점</span><br/>
-                                        <span>주소 : ${data[i].caddress} </span>
+                                <div style="display: flex; justify-content: space-around; margin-top: 30px">
+                                    <div style="width: 45%;">
+                                        <img src="${imgURL}" class="d-block w-40" alt="...">
                                     </div>
-                                </div>
-                                <div style="padding-left: 20px;">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
-                                        길찾기 QR Code [거주지 기준]
-                                    </button>
-                                </div>                                
+                                    <div style="text-align: left; width: 45%;"><br/>
+                                        <span>평점 : ${data[i].rrank}점</span><br/><br/>
+                                        <span>주소 : ${data[i].caddress} </span><br/><br/>
+                                        <span>조회수 : ${data[i].views} </span>
+                                        <div style="padding-left: 20px; margin-top: 30px;">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
+                                                길찾기 QR Code [거주지 기준]
+                                            </button>
+                                        </div>  
+                                    </div>
+                                </div>                                                              
                                 <div class="modal fade" id="staticBackdrop${data[i].cno}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -51,22 +54,24 @@ const getPlan = async() => {
                         </div>`                                         
                 
             }else{
-                html += `<div class="carousel-item">
+                html += `<div class="carousel-item" style="margin: 0 auto;">
                             <div>
-                                <h3>${data[i].cname}</h3>
-                                <div style="display: flex; justify-content: space-around;">
-                                    <img src="${imgURL}" class="d-block w-40" alt="...">
-                                    <div><br/>
-                                        <span>평점 : ${data[i].rrank}점</span><br/>
-                                        <span>주소 : ${data[i].caddress} </span>
+                                <h3 style="padding-left: 20px;">${data[i].cname}</h3>
+                                <div style="display: flex; justify-content: space-around; margin-top: 30px">
+                                    <div style="width: 45%;">
+                                        <img src="${imgURL}" class="d-block w-40" alt="...">
                                     </div>
-                                </div>
-                                <div>
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
-                                        길찾기 QR Code [거주지 기준]
-                                    </button>
-                                </div>
+                                    <div style="text-align: left; width: 45%;"><br/>
+                                        <span>평점 : ${data[i].rrank}점</span><br/><br/>
+                                        <span>주소 : ${data[i].caddress} </span><br/><br/>
+                                        <span>조회수 : ${data[i].views} </span>
+                                        <div style="padding-left: 20px; margin-top: 30px;">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
+                                                길찾기 QR Code [거주지 기준]
+                                            </button>
+                                        </div>  
+                                    </div>
+                                </div>  
                                 <!-- QR Code 출력 staticBackdrop10 -->
                                 <div class="modal fade" id="staticBackdrop${data[i].cno}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
