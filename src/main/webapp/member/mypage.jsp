@@ -228,21 +228,23 @@
                 <div class="modal-body">
                     <form class="reviewupdateBox">
                         <input type="text" name="rno" class="oldrno" disabled />
-                        <textarea name="rcontent" class="oldrcontent"></textarea>
-                        <select name="rrank" class="oldrrank">
-                            <option value="0" selected disabled>평점</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
-                        <input type="file" class="form-control" multiple name="uploads" />
+                        <textarea name="rcontent" class="form-control oldrcontent" placeholder="솔직한 리뷰를 남겨주세요!"></textarea>
+                        <div class="review-options">
+                            <select name="rrank" class="form-select oldrrank">
+                                <option value="0" selected disabled>평점</option>
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                            <input type="file" multiple name="uploads" class="form-control" />
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="addUpdate()">리뷰 수정</button>
+                    <button type="button" class="btn btn-primary" onclick="saveReview()">리뷰 수정</button>
                 </div>
             </div>
         </div>
