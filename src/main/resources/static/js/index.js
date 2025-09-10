@@ -15,17 +15,19 @@ const getPlan = async() => {
             }
             if(i == 0){                
                 html += `<div class="carousel-item active">
-                            <a href="/company/find.jsp?cno=${data[i].cno}">
-                                <h3 style="padding-left: 20px;">${data[i].cname}</h3>
-                            </a>
+                            <h3>
+                                <a href="/company/find.jsp?cno=${data[i].cno}">
+                                    ${data[i].cname}
+                                </a>
+                            </h3>
                             <div style="display: flex; justify-content: space-around; margin-top: 30px">
                                 <div class="caimgBox" style="width: 45%;">
                                     <img src="${imgURL}" class="d-block w-40" alt="...">
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
                                     <span>평점 : ${data[i].rrank}점</span><br/><br/>
-                                    <span>주소 : ${data[i].caddress} </span><br/><br/>
-                                    <span>조회수 : ${data[i].views} </span>
+                                    <span>조회수 : ${data[i].views} </span><br/><br/>
+                                    <span>주소 : ${data[i].caddress} </span>
                                     <div style="padding-left: 20px; margin-top: 30px;">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR Code [거주지 기준]
@@ -55,17 +57,19 @@ const getPlan = async() => {
                 
             }else{
                 html += `<div class="carousel-item">
-                            <a href="/company/find.jsp?cno=${data[i].cno}">
-                                <h3 style="padding-left: 20px;">${data[i].cname}</h3>
-                            </a>
+                            <h3>
+                                <a href="/company/find.jsp?cno=${data[i].cno}">
+                                    ${data[i].cname}
+                                </a>
+                            </h3>
                             <div style="display: flex; justify-content: space-around; margin-top: 30px">
                                 <div class="caimgBox" style="width: 45%;">
                                     <img src="${imgURL}" class="d-block w-40" alt="...">
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
                                     <span>평점 : ${data[i].rrank}점</span><br/><br/>
-                                    <span>주소 : ${data[i].caddress} </span><br/><br/>
-                                    <span>조회수 : ${data[i].views} </span>
+                                    <span>조회수 : ${data[i].views} </span><br/><br/>
+                                    <span>주소 : ${data[i].caddress} </span>
                                     <div style="padding-left: 20px; margin-top: 30px;">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR Code [거주지 기준]
@@ -165,37 +169,38 @@ const initMap = async () => {
             } // if end
             const sidebar = document.querySelector('#sidebar');           
             if(data2.length == 0 || data2 == null){
-                html += `<div><img src="${rimgUrl}"/></div>
-                    <div>
-                        <h3>
-                            <a href='/company/find.jsp?cno=${data[i].cno}'>${data[i].cname}</a>
-                        </h3>
-                    </div>                                      
-                    <div>주소 : ${data[i].caddress}</div>
-                    <br/><br/>`
+                html += `<div class="sidebar-content-wrapper">
+                            <div class="company-info-card">
+                                <img src="${rimgUrl}"/>
+                                <h3><a href='/company/find.jsp?cno=${data[i].cno}'>${data[i].cname}</a></h3>
+                                <div class="address">${data[i].caddress}</div>
+                            </div>`
             }else{
                 const lastDate = new Date(
                     Math.max(...data2.map(st => new Date(st.sdate)))
                 ).toISOString().slice(0, 10);
-                html += `<div><img src="${rimgUrl}"/></div>
-                    <div>
-                        <h3>
-                            <a href='/company/find.jsp?cno=${data[i].cno}'>${data[i].cname}</a>
-                        </h3>
-                    </div>                                       
-                    <div>주소 : ${data[i].caddress}</div>
-                    <br/><br/>
-                    <div>( ${lastDate}일 기준 )</div>
-                    <ul>`                
+                html += `<div class="sidebar-content-wrapper">
+                            <div class="company-info-card">
+                                <img src="${rimgUrl}"/>
+                                <h3><a href='/company/find.jsp?cno=${data[i].cno}'>${data[i].cname}</a></h3>
+                                <div class="address">${data[i].caddress}</div>
+                            </div>
+                            <div class="stock-info-card">
+                                <div class="stock-header">
+                                    <h5>재고 목록</h5>
+                                    <span class="last-updated">(${lastDate} 기준)</span>
+                                </div>
+                                <ul>`                
                 data2.forEach( (st) => {
                     const day =  st.sdate.slice(0,10);
-                    html += `<li style="display: flex; align-items: center; list-style: none;">
-                                <span>${st.pname}(100g당)</span>
-                                <span style="flex: 1; background: repeating-linear-gradient(to right, #999 0, #999 2px, transparent 2px, transparent 6px); height: 1px; margin: 0 8px;"></span>
-                                <span>${st.sprice}원</span>
-                            </li>`
+                    html += `<li>
+                                <span class="stock-name">${st.pname}(100g당)</span>
+                                <span class="dot-line"></span>
+                                <span class="stock-price">${st.sprice.toLocaleString()}원</span>
+                             </li>`
                 })// for end
-                html += `</ul>`;
+                html += `</ul>
+                    </div>`;
             } // if end
             sidebar.innerHTML = html;
         });

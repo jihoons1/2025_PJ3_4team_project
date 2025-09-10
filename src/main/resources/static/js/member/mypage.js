@@ -105,7 +105,7 @@ const getNotice = async ( ) => {
                     <td>${ncheck}</td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop4" onclick="updatePrint(${notice.nno})"> 수정 </button>
-                        <button type="button" onclick="deleteNotice(${notice.nno})"> 삭제 </button>
+                        <button type="button" class="btn btn-danger" onclick="deleteNotice(${notice.nno})"> 삭제 </button>
                     </td>
                  </tr>`
     });
@@ -255,7 +255,7 @@ const getMnoReview = async ( ) => {
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop6" onclick="getRnoReview(${review.rno})">
                                     수정
                                 </button>
-                        <button type="button" onclick="deleteReview(${review.rno})"> 삭제 </button>
+                        <button type="button" class="btn btn-danger" onclick="deleteReview(${review.rno})"> 삭제 </button>
                     </td>
                  </tr>`
     })

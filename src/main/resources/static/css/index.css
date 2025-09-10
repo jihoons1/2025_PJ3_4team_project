@@ -63,7 +63,7 @@
     border: 1px solid #dee2e6;
     border-radius: 0.5rem;
     padding: 20px;
-    overflow-y: scroll; /* 내용이 길어지면 스크롤 생성 */
+    overflow-y: auto; /* 내용이 길어지면 스크롤 */
     background-color: #fff;
 }
 
@@ -77,14 +77,21 @@
     text-align: center;
 }
 
-/* JS로 생성되는 사이드바 컨텐츠 스타일 */
-#sidebar h3 a {
-    text-decoration: none;
-    color: #212529;
-    font-weight: 600;
+/* --- JS로 생성되는 사이드바 컨텐츠 스타일 --- */
+
+/* 전체 컨텐츠 래퍼 */
+.sidebar-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 각 섹션 사이 간격 */
 }
 
-#sidebar img {
+/* 정육점 정보 카드 */
+.company-info-card {
+    text-align: center;
+}
+
+.company-info-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -92,9 +99,91 @@
     margin-bottom: 15px;
 }
 
-#sidebar ul {
+.company-info-card h3 {
+    margin: 0;
+}
+
+.company-info-card h3 a {
+    text-decoration: none;
+    color: #212529;
+    font-weight: 600;
+}
+
+.carousel-item a:hover {
+    color: #0d6efd;
+}
+
+.carousel-item a {
+    color: #212529;
+    font-weight: 600;
+}
+
+.company-info-card h3 a:hover {
+    color: #0d6efd;
+}
+
+.company-info-card .address {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+
+/* 재고 목록 카드 */
+.stock-info-card {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.stock-info-card .stock-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.stock-info-card h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.stock-info-card .last-updated {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.stock-info-card ul {
+    list-style: none;
     padding: 0;
-    margin-top: 15px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* 재고 항목 사이 간격 */
+}
+
+.stock-info-card ul li {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.stock-info-card .stock-name {
+    color: #495057;
+}
+
+.stock-info-card .dot-line {
+    flex: 1;
+    border-bottom: 1px dotted #ccc;
+    margin: 0 8px;
+}
+
+.stock-info-card .stock-price {
+    font-weight: 500;
+    color: #dc3545; /* 가격 강조 */
+}
+
+.company-info-card img{
+    object-fit: cover;
 }
 
 /* ===================== 배너 스타일 (common.css 내용 유지) ===================== */

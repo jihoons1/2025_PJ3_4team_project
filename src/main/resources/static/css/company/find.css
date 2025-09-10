@@ -145,3 +145,179 @@
     width: 100px;
     height: 100px;
 }
+
+/* =================== 리뷰 수정 (staticBackdrop2) =================== */
+#staticBackdrop2 .reviewupdateBox {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+#staticBackdrop2 .oldrno {
+    font-weight: bold;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    padding: 0px 12px;
+}
+#staticBackdrop2 .oldrcontent {
+    min-height: 120px;
+    resize: vertical;
+}
+
+#staticBackdrop2 .reviewAddBox {
+    display: flex;
+    flex-direction: column; /* 요소를 세로로 배치 */
+    gap: 1rem; /* 요소들 사이의 간격 */
+}
+
+/* 리뷰 내용 입력 (textarea) */
+#staticBackdrop2 textarea[name="rcontent"] {
+    width: 100%;
+    min-height: 120px; /* 최소 높이 */
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    resize: vertical; /* 세로 크기만 조절 가능 */
+}
+
+/* 평점 선택 (select) */
+#staticBackdrop2 select[name="rrank"] {
+    flex-basis: 120px; /* 기본 너비 */
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+}
+
+/* 파일 업로드 (input) */
+#staticBackdrop2 input[name="uploads"] {
+    flex-grow: 1; /* 남은 공간을 모두 차지 */
+}
+
+/* =================== 리뷰 작성 모달 (staticBackdrop1) 스타일 =================== */
+
+#staticBackdrop1 .modal-body {
+    padding: 1.5rem;
+}
+
+#staticBackdrop1 .reviewAddBox {
+    display: flex;
+    flex-direction: column; /* 요소를 세로로 배치 */
+    gap: 1rem; /* 요소들 사이의 간격 */
+}
+
+/* 리뷰 내용 입력 (textarea) */
+#staticBackdrop1 textarea[name="rcontent"] {
+    width: 100%;
+    min-height: 120px; /* 최소 높이 */
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    resize: vertical; /* 세로 크기만 조절 가능 */
+}
+
+/* 평점 선택과 파일 업로드를 묶는 그룹 */
+.review-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* 평점 선택 (select) */
+#staticBackdrop1 select[name="rrank"] {
+    flex-basis: 120px; /* 기본 너비 */
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+}
+
+/* 파일 업로드 (input) */
+#staticBackdrop1 input[name="uploads"] {
+    flex-grow: 1; /* 남은 공간을 모두 차지 */
+}
+/* =================== 모달 공통 스타일 =================== */
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* 요소들 사이의 기본 간격 */
+    padding: 1.5rem;
+}
+
+.modal-body .form-control,
+.modal-body .form-select,
+.modal-body textarea {
+    /* 부트스트랩 기본 스타일을 명시적으로 적용 */
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.modal-body .form-control:focus,
+.modal-body .form-select:focus,
+.modal-body textarea:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25);
+}
+
+.modal-body .validation-message {
+    font-size: 0.875rem;
+    color: #dc3545;
+    min-height: 1.2em;
+}
+
+/* =================== 멤버십 등록 모달 (staticBackdrop5) 스타일 =================== */
+
+#staticBackdrop5 .modal-dialog {
+    max-width: 600px; /* 모달 너비 확장 */
+}
+
+#staticBackdrop5 .modal-body {
+    padding: 2rem;
+    text-align: center;
+}
+
+#staticBackdrop5 .planAdd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; /* 요소들 사이 간격 */
+}
+
+/* 안내 문구 스타일 */
+.banner-instruction {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+    border: 1px solid #dee2e6;
+}
+
+.banner-instruction h5 {
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.banner-instruction p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.banner-instruction .text-danger {
+    font-weight: 500;
+}
+
+
+/* 파일 업로드 input 스타일 */
+#staticBackdrop5 input[type="file"] {
+    /* 부트스트랩 form-control 스타일 활용 */
+    display: block;
+    width: 68.5%;
+}

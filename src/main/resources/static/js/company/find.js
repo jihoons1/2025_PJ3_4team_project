@@ -139,7 +139,7 @@ const getReview = async() => {
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onclick="getRnoReview(${re.rno})">
                                     수정
                                 </button>
-                                <button type="button" onclick="deleteReview(${re.rno})"> 삭제 </button>
+                                <button type="button" class="btn btn-danger" onclick="deleteReview(${re.rno})"> 삭제 </button>
                             </td>
                         </tr>`
             }else{
