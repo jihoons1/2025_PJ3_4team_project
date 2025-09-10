@@ -170,10 +170,6 @@ const emailcheck = async() => {
         }
         memail = emailname + emailsel;
     }
-    // try{
-    //     const op = { method : "GET" };
-    //     const response = await fetch(`/member/check?type=memail&data=${memail}`, op);
-    //     const data = await response.json();
 
     if(memailtext.test(memail) &&
         (memail.endsWith("@naver.com") || memail.endsWith("@gmail.com") || memail.endsWith("@daum.net") )){

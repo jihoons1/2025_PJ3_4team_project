@@ -299,14 +299,34 @@ const addUpdate = async() => {
     }catch(e){ console.log(e); }
 }// func end
 
- // 14. 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
+// 회원정보 불러오기
+const modalevent = async() => {
+try{
+        const option = { method : "GET"}
+        const getMember = await fetch(`/member/get` , option );
+        const dataInput = await getMember.json();
+        console.log(dataInput);
+
+        document.querySelector('.mphone2').value = dataInput.mphone;
+        if(dataInput.maddress){
+            let maddressselect = dataInput.maddress.split(",");
+            document.querySelector('#sample6_address').value = maddressselect[0] ?? '';
+            document.querySelector('#sample6_detailAddress').value = maddressselect[1] ?? '';
+        }
+        console.log(dataInput.maddress);
+    }catch(error){ console.log(error); }
+}
+
+const modelent = document.getElementById('staticBackdrop5');
+modelent.addEventListener('shown.bs.modal' , modalevent); // shown.bs.modal 부트스트렙 모달 열람시 modalevent 정보 불러오기
+
+// 14. 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
 const update = async() => {
 
     const mig = document.querySelector('#mig');
     const mphone2 = document.querySelector('.mphone2').value;
     const sample6_address = document.querySelector('#sample6_address').value;
     const sample6_detailAddress = document.querySelector('#sample6_detailAddress').value;
-
 
     let maddress = '';
     maddress =  document.querySelector('#sample6_address').value +
@@ -322,11 +342,13 @@ const update = async() => {
     const mimg = new FormData(mig);
     mimg.append("maddress", maddress);
 
+
     try{
         const op = { method : "PUT" , body : mimg }
 
         const response = await fetch(`/member/updateMember` , op);
         const data = await response.json();
+        
 
         if(data == 0){
             alert(' 수정실패');
@@ -339,7 +361,7 @@ const update = async() => {
 
 }
 
-// 15. 비밀번호 수정 [기존 , 임시]
+// 15. 비밀번호 수정 [기존 , 임시]  
 const passup = async() => {
     const mpwd = document.querySelector('.mpwd').value;
     const mpwd2 = document.querySelector('.mpwd2').value;

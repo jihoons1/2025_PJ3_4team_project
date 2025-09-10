@@ -135,7 +135,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="mig">
-                        전화번호 : <input onkeyup="mphoneCC()" type="text" class="mphone2" name="mphone" placeholder="전화번호를 입력해주세요." /> <br>
+                        전화번호 : <input onkeyup="mphoneCC()" type="text" id="mhpoen3" class="mphone2" name="mphone" placeholder="전화번호를 입력해주세요." /> <br>
                         <div class="mphone2CC"></div>
                         <label>주소</label>
                     <input type="text" onkeyup="maddresscheck()" id="sample6_postcode" placeholder="우편번호">
@@ -170,7 +170,7 @@
                 <div class="modal-body">
                     <!-- 기능-->
                     기존 비밀번호 : <input type="password" class="mpwd" /> <br>
-                    변경하실 비밀번호 : <input type="pas" class="mpwd2" /> <br>
+                    변경하실 비밀번호 : <input type="password" class="mpwd2" /> <br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
