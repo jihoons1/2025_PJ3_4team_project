@@ -57,7 +57,7 @@
     border: 1px solid #dee2e6;
     border-radius: 0.5rem;
     padding: 20px;
-    overflow-y: auto; /* 내용이 길어지면 스크롤 생성 */
+    overflow-y: scroll; /* 내용이 길어지면 스크롤 생성 */
     background-color: #fff;
 }
 
