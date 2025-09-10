@@ -19,7 +19,7 @@
     height: 450px; /* 캐러셀 높이 고정 */
 }
 
-.carousel-item .caimgBox {
+.carousel-item .caimgBox img {
     width: 100%;
     height: 250px;
     object-fit: cover;
