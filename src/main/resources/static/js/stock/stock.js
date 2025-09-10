@@ -99,9 +99,9 @@ const getStock = async ( ) => {
                     <td>${stock.sdate}</td>
                     <td>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick="updateButton(${stock.sno})">
-                            재고수정
+                            수정
                         </button>
-                        <button type="button" onclick="deleteStock(${stock.sno})"> 삭제 </button>
+                        <button type="button" class="btn btn-danger" onclick="deleteStock(${stock.sno})"> 삭제 </button>
                     </td>
                  </tr>`
     })

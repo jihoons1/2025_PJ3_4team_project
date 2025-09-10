@@ -1,0 +1,149 @@
+/* 전체 컨테이너 배경 및 기본 설정 */
+#container {
+    background-color: #f8f9fa; /* 부트스트랩 기본 배경색 */
+    padding: 40px 0;
+    min-height: calc(100vh - 160px);
+}
+
+.stock-page-container {
+    max-width: 1100px; /* 콘텐츠 최대 너비 */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* 페이지 제목 스타일 */
+.stock-page-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.stock-page-title h2 {
+    font-weight: 600;
+}
+
+.stock-page-title p {
+    color: #6c757d;
+}
+
+/* 재고 등록 섹션 */
+.add-stock-section {
+    display: flex;
+    gap: 10px; /* 요소 사이 간격 */
+    align-items: flex-start; /* 상단 정렬 */
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 0.375rem;
+    margin-bottom: 2rem;
+    background-color: #f8f9fa;
+}
+
+.add-stock-section .form-select,
+.add-stock-section .form-control {
+    flex: 1; /* 동일한 너비로 유연하게 조절 */
+}
+
+.price-input-group {
+    flex: 1;
+}
+
+.validation-message {
+    font-size: 0.875rem;
+    color: #dc3545; /* 부트스트랩 danger 색상 */
+    min-height: 1.2em; /* 메시지 공간 확보 */
+    padding-left: 5px;
+}
+
+.add-stock-section button {
+    flex-shrink: 0; /* 버튼 너비 고정 */
+}
+
+.stockTbody td{
+    align-content: center;
+}
+
+/* ============== 테이블 스타일 ============== */
+.table {
+    vertical-align: middle; /* 테이블 내용 세로 중앙 정렬 */
+}
+
+.table thead {
+    text-align: center;
+}
+
+.table tbody {
+    text-align: center;
+}
+
+/* =================== 재고 수정 모달 (staticBackdrop1) 스타일 =================== */
+
+/* 모달 본문 (Modal Body) 내부 요소 정렬 및 간격 조절 */
+#staticBackdrop1 .modal-body {
+    display: flex;
+    flex-direction: column; /* 요소를 세로로 배치 */
+    gap: 15px; /* 요소들 사이의 간격 */
+    padding: 25px;
+}
+
+/* 텍스트 설명 스타일 */
+#staticBackdrop1 .modal-body > span:first-child {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+/* '재고번호 :', '제품명 :' 텍스트와 값을 묶는 그룹 */
+.info-group {
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+}
+
+.info-group .label {
+    font-weight: 600;
+    width: 90px; /* 라벨 너비 고정 */
+}
+
+.info-group .value {
+    color: #495057;
+}
+
+/* '수정할 가격' 입력 필드 그룹 */
+.input-group-update {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.input-group-update label {
+    font-weight: 600;
+}
+
+/* 가격 입력(input) 필드 스타일 */
+#staticBackdrop1 .modal-body .spriceBox {
+    /* 부트스트랩 form-control 기본 스타일과 유사하게 */
+    padding: 10px 15px;
+    border-radius: 0.375rem;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    width: 100%;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#staticBackdrop1 .modal-body .spriceBox:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* 유효성 검사 메시지 */
+#staticBackdrop1 .updateSprice {
+    min-height: 1.2em; /* 메시지 공간 확보 */
+}

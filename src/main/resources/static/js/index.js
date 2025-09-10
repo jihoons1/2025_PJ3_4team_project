@@ -271,7 +271,7 @@ const printPlanBanner = async ( ) => {
                             vertical-align: baseline !important;
                             width: 100%;
                             height: 100%;
-                            object-fit: fill;">
+                            object-fit: cover;">
                     </a>`
         // 4. print
         bannerBox_top.innerHTML = html;

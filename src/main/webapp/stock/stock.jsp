@@ -20,39 +20,46 @@
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
-        <div>
-            <select name="category" class="cno" onchange="getCnoProduct()">
-                <option disabled selected>카테고리 선택</option>
-                <option value="20001">돼지</option>
-                <option value="20002">소</option>
-                <option value="20003">양</option>
-                <option value="20004">오리</option>
-            </select>
-            <select name="product" class="product">
-                <option disabled selected>고기 선택</option>
-                <!-- 카테고리에 따른 고기 option 추가 -->
-                
-            </select>
-            <input type="text" placeholder="가격 입력" class="sprice" onkeyup="numCheck()">
-            <span class="numCheck" style="color: red;"></span>
-            <button type="button" onclick="addStock()"> 재고 등록 </button>
-        </div>
-        <table class="table table-striped table-hover">         <!-- 재고목록 테이블 -->
-            <thead>
-                <tr>
-                    <th>재고번호</th>
-                    <th>카테고리명</th>
-                    <th>제품명</th>
-                    <th>등록가격</th>
-                    <th>등록일</th>
-                    <th>비고</th>
-                </tr>
-            </thead>
-            <tbody class="stockTbody">
+        <div class="stock-page-container">
+            <div class="stock-page-title">
+                <h2>재고 관리</h2>
+            </div>
 
-            </tbody>
-        </table>
+            <div class="add-stock-section">
+                <select name="category" class="cno form-select" onchange="getCnoProduct()">
+                    <option disabled selected>카테고리 선택</option>
+                    <option value="20001">돼지</option>
+                    <option value="20002">소</option>
+                    <option value="20003">양</option>
+                    <option value="20004">오리</option>
+                </select>
+                <select name="product" class="product form-select">
+                    <option disabled selected>고기 선택</option>
+                    </select>
+                <div class="price-input-group">
+                    <input type="text" placeholder="가격(100g) 입력" class="sprice form-control" onkeyup="numCheck()">
+                    <span class="numCheck validation-message"></span>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="addStock()">재고 등록</button>
+            </div>
+
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>재고번호</th>
+                        <th>카테고리명</th>
+                        <th>제품명</th>
+                        <th>등록가격(100g)</th>
+                        <th>등록일</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody class="stockTbody">
+                    </tbody>
+            </table>
+        </div>
     </div>
+
     <!-- 재고수정 staticBackdrop1 -->
     <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -62,12 +69,24 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span>수정할 재고의 가격을 입력해주세요.</span>   <br>
-                    재고번호 : <span class="snoBox"></span>         <br>
-                    제품명 :   <span class="pnameBox"></span>       <br>
-                    수정할 가격 : <input type="text" class="spriceBox" placeholder="가격을 입력하세요." onkeyup="updateCheck()"> <br>
-                    <span class="updateSprice" style="color: red;"></span>
-                    <span id="pnoBox" style="display: none;"></span> <br>
+                    <span>수정할 재고의 가격을 입력해주세요.</span>
+                    
+                    <div class="info-group">
+                        <span class="label">재고번호 :</span>
+                        <span class="snoBox value"></span>
+                    </div>
+                    <div class="info-group">
+                        <span class="label">제품명 :</span>
+                        <span class="pnameBox value"></span>
+                    </div>
+                    
+                    <div class="input-group-update">
+                        <label for="spriceBoxInput">수정할 가격 (100g)</label>
+                        <input type="text" id="spriceBoxInput" class="spriceBox" placeholder="가격을 입력하세요." onkeyup="updateCheck()">
+                        <span class="updateSprice" style="color: red;"></span>
+                    </div>
+
+                    <span id="pnoBox" style="display: none;"></span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
