@@ -95,9 +95,9 @@ public class MemberController {
 
     // [3] 아이디찾기
     @GetMapping("/findId")
-    public Map<String , String > findId(@RequestParam Map<String , String>map){
+    public String findId(@RequestParam String mname ,@RequestParam String mphone){
         System.out.println("MemberController.findId");
-        return memberService.findId(map);
+        return memberService.findId(mname , mphone);
     }
 
     // [4] 비밀번호찾기

@@ -44,7 +44,7 @@
                 </div>
                 <div class="input-group">
                     <label>휴대번호</label>
-                    <input type="text" onkeyup="phonecheck()"  name="mphone" class="mphone2" placeholder="-없이 숫자만 입력" />
+                    <input type="text" onkeyup="phoneCheck()"  name="mphone" class="mphone2" placeholder="-없이 숫자만 입력" />
                     <div class="phonechecks"></div> <!-- 전화번호 01부터 가능 123-123-123 안됨  -->
                 </div>
                 <div class="input-group">

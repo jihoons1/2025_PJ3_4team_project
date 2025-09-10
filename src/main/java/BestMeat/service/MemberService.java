@@ -57,16 +57,10 @@ public class MemberService {
 
 
     // [3] 아이디 찾기
-    public Map<String , String> findId(Map<String , String > map){
+    public String findId(String mname , String mphone){
         System.out.println("MemberService.findId");
-        String result = memberDao.findId(map);
-        Map<String , String > maps = new HashMap<>();
-        if (result == null) { // 만약에 result 가 null이면
-            maps.put("mid", ""); // 아이디 찾기 실패
-        }else { // 아니면
-            maps.put("mid", result); // 아이디 찾기 성공
-        }
-        return maps; // 반환
+        String result = memberDao.findId(mname , mphone);
+        return result; // 반환
     }
     // [4] 비밀번호 찾기
     public boolean findPwd(Map<String , String> map){

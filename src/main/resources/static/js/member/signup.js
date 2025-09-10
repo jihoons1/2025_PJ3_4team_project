@@ -118,7 +118,7 @@ const pwdcheck2 = async() => {
 }
 
 // 6. 
-const phonecheck = async() =>{
+const phoneCheck = async() =>{
     const phonebox =  document.querySelector('.mphone2');
     const phonechecks = document.querySelector('.phonechecks');
 
@@ -134,17 +134,33 @@ const phonecheck = async() =>{
         phonebox.value = hiphone.replace(/(\d{3})(\d{4})(\d{1,4})/, "$1-$2-$3");
     }
 
-    // 휴대폰 검사
+// 휴대폰 검사
     const phoneche = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 ^시작 01[0부터9까지]-[3~4자리]-[고정4자리] $끝
-
-    if(phoneche.test(phonebox.value)){
-        phonechecks.innerHTML = "사용가능한 휴대폰 번호";
-        test[4] = true;
-    }else{
-        phonechecks.innerHTML = "사용불가능";
+    if(!phoneche.test(phonebox.value)){
+        phonechecks.innerHTML ="정상적인 전화번호가 아닙니다."
         test[4] = false;
+        return;
     }
+
+    try{
+        const op = { method : "GET" };
+        const response = await fetch(`/member/check?type=mphone&data=${phonebox.value}` , op);
+        const data = await response.json();
+
+
+    if(data ==true){
+        phonechecks.innerHTML = "다른 사용자가 사용중인 번호입니다..";
+        test[4] = false;
+    }else{
+        phonechecks.innerHTML = "사용가능한 번호입니다.";
+        test[4] = true;
+    }
+
+    
+    }catch(error) {console.log(error); } 
 }
+
+
 
 // 7.
 const emailcheck = async() => {
