@@ -19,7 +19,7 @@ const getPlan = async() => {
                                 <h3 style="padding-left: 20px;">${data[i].cname}</h3>
                                 <div style="display: flex; justify-content: space-around; margin-top: 30px">
                                     <div style="width: 45%;">
-                                        <img src="${imgURL}" class="d-block w-40" alt="...">
+                                        <img src="${imgURL}" class="caimgBox" alt="...">
                                     </div>
                                     <div style="text-align: left; width: 45%;"><br/>
                                         <span>평점 : ${data[i].rrank}점</span><br/><br/>
@@ -40,7 +40,7 @@ const getPlan = async() => {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="qrBox">
+                                                <div class="qrBox${data[i].cno}">
 
                                                 </div>
                                             </div>
@@ -59,7 +59,7 @@ const getPlan = async() => {
                                 <h3 style="padding-left: 20px;">${data[i].cname}</h3>
                                 <div style="display: flex; justify-content: space-around; margin-top: 30px">
                                     <div style="width: 45%;">
-                                        <img src="${imgURL}" class="d-block w-40" alt="...">
+                                        <img src="${imgURL}" class="caimgBox" alt="...">
                                     </div>
                                     <div style="text-align: left; width: 45%;"><br/>
                                         <span>평점 : ${data[i].rrank}점</span><br/><br/>
@@ -69,7 +69,7 @@ const getPlan = async() => {
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                                 길찾기 QR Code [거주지 기준]
                                             </button>
-                                        </div>  
+                                        </div>   
                                     </div>
                                 </div>  
                                 <!-- QR Code 출력 staticBackdrop10 -->
@@ -81,7 +81,7 @@ const getPlan = async() => {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="qrBox">
+                                                <div class="qrBox${data[i].cno}">
 
                                                 </div>
                                             </div>
@@ -102,11 +102,11 @@ getPlan();
 
 // 2. 길찾기 QR Code 출력
 const buildQR = async(cno) => {
-    const cookie = document.cookie;
-    const qrbox = document.querySelector('.qrBox');
+    const qrbox = document.querySelector(`.qrBox${cno}`);
     try{
         const response = await fetch(`/company/qrcode?cno=${cno}`);
         const blob = await response.blob();
+        console.log(blob);
         if(blob.size < 500){
             alert('로그인 후 이용하실 수 있습니다.');
             location.href="/member/login.jsp";
