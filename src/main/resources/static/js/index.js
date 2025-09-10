@@ -82,7 +82,7 @@ const getPlan = async() => {
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="qrBox${data[i].cno}" >
+                                            <div class="qrBox${data[i].cno}">
 
                                             </div>
                                         </div>
@@ -271,7 +271,7 @@ const printPlanBanner = async ( ) => {
                             vertical-align: baseline !important;
                             width: 100%;
                             height: 100%;
-                            object-fit: cover;">
+                            object-fit: fill;">
                     </a>`
         // 4. print
         bannerBox_top.innerHTML = html;
