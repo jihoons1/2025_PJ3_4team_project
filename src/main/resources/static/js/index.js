@@ -30,9 +30,9 @@ const getPlan = async() => {
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR Code [거주지 기준]
                                         </button>
-                                    </div>  
+                                    </div>
                                 </div>
-                            </div>                                                              
+                            </div>
                             <div class="modal fade" id="staticBackdrop${data[i].cno}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -46,7 +46,7 @@ const getPlan = async() => {
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>                            
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
                                         </div>
                                     </div>
                                 </div>
@@ -70,9 +70,9 @@ const getPlan = async() => {
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR Code [거주지 기준]
                                         </button>
-                                    </div>  
+                                    </div>
                                 </div>
-                            </div>  
+                            </div>
                             <!-- QR Code 출력 staticBackdrop10 -->
                             <div class="modal fade" id="staticBackdrop${data[i].cno}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -87,7 +87,7 @@ const getPlan = async() => {
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>                            
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
                                         </div>
                                     </div>
                                 </div>
@@ -102,8 +102,7 @@ getPlan();
 
 // 2. 길찾기 QR Code 출력
 const buildQR = async(cno) => {
-    const cookie = document.cookie;
-    const qrbox = document.querySelector('.qrBox');
+    const qrbox = document.querySelector(`.qrBox${cno}`);
     try{
         const response = await fetch(`/company/qrcode?cno=${cno}`);
         const blob = await response.blob();

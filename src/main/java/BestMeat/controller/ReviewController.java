@@ -38,8 +38,9 @@ public class ReviewController {
      * 3km 이하만 작성가능하게 추가해야함
      */
     @PostMapping("/add")
-    public boolean addReview(ReviewDto dto , HttpSession session){
+    public int addReview(ReviewDto dto , HttpSession session){
         int mno = sessionService.getSessionNo("loginMno" , session);
+        if (mno == 0) return 0;
         dto.setMno(mno);
         MemberDto mdto = memberService.getMember( mno );
         String[] str = mdto.getMaddress().split(",");
@@ -49,18 +50,18 @@ public class ReviewController {
         double[] end = mapService.getLatLng(str1[0]);
         dto.setDistance(mapService.distance(start,end));
         if (dto.getDistance() > 3.0){
-            return false;
+            return 1;
         }// if end
         int result = reviewService.addReview(dto);
         if (result > 0 && !dto.getUploads().isEmpty() && !dto.getUploads().get(0).isEmpty()){
             for (MultipartFile file : dto.getUploads()){
                 String filename = fileService.fileUpload(file, tableName );
-                if (filename == null){ return false; }
+                if (filename == null){ return 3; }
                 boolean result2 = reviewService.addReviewImg(result,filename);
-                if (result2 == false){return result2; }
+                if (result2 == false){return 3; }
             }// for end
         }// if end
-        return true;
+        return 2;
     }// func end
 
     /**
