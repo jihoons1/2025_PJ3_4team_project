@@ -101,8 +101,7 @@
     </div>
 
     <!-- 리뷰 작성 staticBackdrop1 -->
-    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -111,16 +110,19 @@
                 </div>
                 <div class="modal-body">
                     <form class="reviewAddBox">
-                        <textarea name="rcontent"></textarea>
-                        <select name="rrank">
-                            <option value="0" selected disabled>평점</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
-                        <input type="file" multiple name="uploads" />
+                        <textarea name="rcontent" class="form-control" placeholder="솔직한 리뷰를 남겨주세요!"></textarea>
+                        
+                        <div class="review-options">
+                            <select name="rrank" class="form-select">
+                                <option value="0" selected disabled>평점</option>
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                            <input type="file" multiple name="uploads" class="form-control" />
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -173,7 +175,7 @@
                             <option value="2">2</option>
                             <option value="1">1</option>
                         </select>
-                        <input type="file" multiple name="uploads" />
+                        <input type="file" class="form-control" multiple name="uploads" />
                     </form>
                 </div>
                 <div class="modal-footer">
