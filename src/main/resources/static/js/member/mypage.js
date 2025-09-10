@@ -1,6 +1,6 @@
 //=============================================== 일반 로직 ================================================\\
 // [*] 입력값 유효성 검사
-const numCheckList = [ false ,false ,false];
+const numCheckList = [ false ];
 // 1. 숫자만 유효성 검사 - 알림등록
 const noticeAddCheck = (  ) => {
     const nprice = document.querySelector('.nprice').value;
