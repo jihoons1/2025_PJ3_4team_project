@@ -15,7 +15,7 @@ const getCompanySearch = async() => {
         const response = await fetch(`/company/get?page=${page}&order=${orderr}&key=${key}&keyword=${keyword}`);
         const data = await response.json();
         data.data.forEach((ser) => {
-            let img = '/upload/company'+encodeURIComponent(ser.cimg);
+            let img = '/img/company/' + ser.cimg;
             if(ser.cimg == null){
                 img = 'https://placehold.co/50x50';
             }// if end
