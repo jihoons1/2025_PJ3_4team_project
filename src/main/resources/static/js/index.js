@@ -18,7 +18,7 @@ const getPlan = async() => {
                             <div>
                                 <h3 style="padding-left: 20px;">${data[i].cname}</h3>
                                 <div style="display: flex; justify-content: space-around; margin-top: 30px">
-                                    <div style="width: 45%;">
+                                    <div class="caimgBox" style="width: 45%;">
                                         <img src="${imgURL}" class="d-block w-40" alt="...">
                                     </div>
                                     <div style="text-align: left; width: 45%;"><br/>
@@ -58,7 +58,7 @@ const getPlan = async() => {
                             <div>
                                 <h3 style="padding-left: 20px;">${data[i].cname}</h3>
                                 <div style="display: flex; justify-content: space-around; margin-top: 30px">
-                                    <div style="width: 45%;">
+                                    <div class="caimgBox" style="width: 45%;">
                                         <img src="${imgURL}" class="d-block w-40" alt="...">
                                     </div>
                                     <div style="text-align: left; width: 45%;"><br/>

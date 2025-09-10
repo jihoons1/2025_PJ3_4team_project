@@ -83,7 +83,7 @@ public class StockService {
         // 3-1. 제품번호에 해당하는 알림목록 가져오기
         List<NoticeDto> noticeList = noticeDao.getNoticeList( stockDto.getPno() );
         // 3-2. 제품번호에 해당하는 알림목록이 null이라면, 메소드 종료
-        if ( noticeList.isEmpty() ) return false;
+        if ( noticeList.isEmpty() ) return result;
         // 4. 알림목록에서 문자전송여부 확인하기
         for ( NoticeDto noticeDto : noticeList ){
             int ncheck = noticeDto.getNcheck();
