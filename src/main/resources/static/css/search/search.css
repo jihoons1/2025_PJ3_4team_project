@@ -166,13 +166,3 @@
     gap: 10px; /* 버튼들 사이의 간격 */
     padding: 15px 25px;
 }
-
-/* 닫기 버튼 (secondary) */
-#staticBackdrop1 .modal-footer .btn-secondary {
-    /* 부트스트랩 기본 스타일 사용 */
-}
-
-/* 알림등록 버튼 (primary) */
-#staticBackdrop1 .modal-footer .btn-primary {
-    /* 부트스트랩 기본 스타일 사용 */
-}

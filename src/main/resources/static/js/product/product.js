@@ -28,7 +28,7 @@ const getProduct = async() => {
                 pro.cno = '닭';
             }
             html += `<tr>
-                        <td><img src="${imgUrl}" style="width: 100px; height: 100px;"/></td>
+                        <td><img src="${imgUrl}" style="width: 75px; height: 75px;"/></td>
                         <td>${pro.cno}</td>
                         <td>${pro.pname}</td>                        
                     </tr>`

@@ -19,21 +19,27 @@
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
-        <h3> 제품 전체 조회 페이지 </h3>
-        <div>            
-            <table class="table table-striped table-hover">
-                <thead>
+        <div class="product-page-container">
+            <div class="product-page-title">
+                <h2>제품 목록</h2>
+            </div>
+
+            <table class="table table-hover">
+                <thead class="table-light">
                     <tr>
-                        <th>사진</th> <th>카테고리</th> <th>부위명</th> 
+                        <th>사진</th>
+                        <th>카테고리</th>
+                        <th>부위명</th>
                     </tr>
                 </thead>
-                <tbody id="productTbody">                    
-                </tbody>
-            </table>  
-            <div style="width: 380px;">
-                <ul class="pageBtnBox" style="display: flex; justify-content: space-between;"> 
-                </ul>
-            </div>          
+                <tbody id="productTbody">
+                    </tbody>
+            </table>
+
+            <div class="pagination-container">
+                <ul class="pageBtnBox pagination">
+                    </ul>
+            </div>
         </div>
     </div>
 

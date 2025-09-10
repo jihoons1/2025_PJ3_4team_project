@@ -1,0 +1,92 @@
+/* 전체 컨테이너 배경 및 기본 설정 */
+#container {
+    background-color: #f8f9fa; /* 부트스트랩 기본 배경색 */
+    padding: 40px 0;
+    min-height: calc(100vh - 160px);
+}
+
+.product-page-container {
+    max-width: 1100px; /* 콘텐츠 최대 너비 */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* 페이지 제목 스타일 */
+.product-page-title {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.product-page-title h2 {
+    font-weight: 600;
+}
+
+.product-page-title p {
+    color: #6c757d; /* 부트스트랩 secondary 색상 */
+}
+
+/* ============== 테이블 스타일 ============== */
+.table {
+    vertical-align: middle; /* 테이블 내용 세로 중앙 정렬 */
+}
+
+.table thead {
+    text-align: center;
+}
+
+.table tbody {
+    text-align: center;
+}
+
+#productTbody img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.375rem;
+}
+
+#productTbody td{
+    align-content: center;
+}
+/* ============== 페이지네이션 ============== */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* JS에서 생성하는 li와 a 태그에 부트스트랩 페이지네이션 스타일 적용 */
+.pageBtnBox.pagination .page-item {
+    margin: 0 2px;
+}
+
+.pageBtnBox.pagination .page-link {
+    border-radius: 0.25rem;
+    color: #0d6efd;
+}
+
+/* 활성화된 페이지 버튼 스타일 */
+.pageBtnBox.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+/* JS에서 color:red로 직접 스타일을 주는 부분을 CSS로 처리 */
+.pageBtnBox.pagination a[style*="color:red"] {
+    font-weight: bold;
+    color: #fff !important;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    margin: 0px;
+}
+
+.pageBtnBox a{
+    margin: 0px 15px;
+}
