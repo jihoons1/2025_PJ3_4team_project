@@ -93,11 +93,16 @@ const addReview = async() => {
     try{
         const response = await fetch('/review/add',option);
         const data = await response.json();
-        if(data == true){
+        if(data == 2){
             alert("리뷰가 등록되었습니다.");
             location.href=`/company/find.jsp?cno=${cno}`;
-        }else{
-            alert('리뷰 등록 실패!');
+        }else if(data == 1){
+            alert('3km 이상 위치는 작성이 불가능합니다.');
+        }else if(data == 3){
+            alert('이미지 등록이 실패하였습니다.');
+        }else if(data == 0){
+            alert('로그인 후 작성 가능합니다.');
+            location.href="/member/login.jsp";
         }// if end
     }catch(e){ console.log(e); }
 }// func end
