@@ -50,7 +50,6 @@ public class CompanyService {
         }else { // 검색 아닐때
             totalCount = companyDao.getTotalCompany();
             list = companyDao.getCompany(startRow,count,order);
-            System.out.println(list);
         } // if end
         PageDto dto = pageService.paging( page, new ArrayList<>(list), totalCount );    // 페이징처리 메소드화
 

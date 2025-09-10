@@ -51,7 +51,6 @@ public class MapController {
             list = new ArrayList<>();
             List<CompanyDto> clist = companyService.getCompanyList();
             for (CompanyDto dto : clist){
-                System.out.println(dto);
                 String[] str1 = dto.getCaddress().split(",");
                 double[] darray = mapService.getLatLng(str1[0]);
                 dto.setLat(darray[1]);
