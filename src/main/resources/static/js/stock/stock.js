@@ -29,7 +29,28 @@ const updateCheck = (  ) => {
     } // if end
 } // func end
 
-// 3. 카테고리별 상품 출력
+// 3. 카테고리 출력
+const getCategory = async ( ) => {
+    try {
+        // 1. fetch
+        const response = await fetch( "/category/get" );
+        const data = await response.json();
+        // 2. where
+        const cno = document.querySelector('.cno');
+        // 3. what
+        let html = '';
+        data.forEach( (category) => {
+            html += `<option value="${category.cno}">${category.cname}</option>`
+        })
+        // 4. print
+        cno.innerHTML += html;
+    } catch ( error ){
+        console.log( error );
+    } // try-catch end
+} // func end
+getCategory();
+
+// 4. 카테고리별 상품 출력
 const getCnoProduct = async ( ) => {
     // 1. Input value
     const cno = document.querySelector('.cno').value;
@@ -47,7 +68,7 @@ const getCnoProduct = async ( ) => {
     productBox.innerHTML = html;
 } // func end
 
-// 4. 재고등록 기능
+// 5. 재고등록 기능
 const addStock = async ( ) => {
     if ( checkList.includes(false) ){
         alert('올바른 정보를 입력해주세요.');
@@ -78,7 +99,7 @@ const addStock = async ( ) => {
     } // if end
 } // func end
 
-// 5. 재고조회 기능
+// 6. 재고조회 기능
 const getStock = async ( ) => {
     // 1. fetch
     const option = { method : "GET" };
@@ -110,7 +131,7 @@ const getStock = async ( ) => {
 } // func end
 getStock();
 
-// 6. 재고수정 버튼
+// 7. 재고수정 버튼
 const updateButton = async ( sno ) => {
     // 1. where
     const sprice = document.querySelector(`.spriceBox`);
@@ -135,7 +156,7 @@ const updateButton = async ( sno ) => {
     pnoBox.innerHTML = pno;
 } // func end
 
-// 7. 재고수정
+// 8. 재고수정
 const updateStock = async ( ) => {
     // 입력값 체크
     if ( checkList.includes(false) ){
@@ -165,7 +186,7 @@ const updateStock = async ( ) => {
     } // if end
 } // func end
 
-// 8. 재고삭제
+// 9. 재고삭제
 const deleteStock = async ( sno ) => {
     // 1. fetch
     const option = { method : "DELETE" };

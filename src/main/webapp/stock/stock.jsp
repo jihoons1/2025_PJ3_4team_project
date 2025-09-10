@@ -28,10 +28,6 @@
             <div class="add-stock-section">
                 <select name="category" class="cno form-select" onchange="getCnoProduct()">
                     <option disabled selected>카테고리 선택</option>
-                    <option value="20001">돼지</option>
-                    <option value="20002">소</option>
-                    <option value="20003">양</option>
-                    <option value="20004">오리</option>
                 </select>
                 <select name="product" class="product form-select">
                     <option disabled selected>고기 선택</option>
