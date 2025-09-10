@@ -1,4 +1,5 @@
 //=============================================== 일반 로직 ================================================\\
+const test = [false];
 // 1. 아이디 찾기
 const findid = async() => {
     const mname = document.querySelector('.mname').value;
@@ -7,12 +8,11 @@ const findid = async() => {
     try{
 
     const response = await fetch(`/member/findId?mname=${mname}&mphone=${mphoneid}`);
-    const data = await response.json();
-
-    if(data && data.mid){
-        alert(`조회결과 회원님의 아이디는 \n[${data.mid} ]\n입니다.`);
+    const data = await response.text();
+    if(data != null && data != "" ){
+        alert(`조회결과 회원님의 아이디는 \n[${data} ]\n입니다.`);
     }else{
-        alert('아이디를 찾지 못했습니다.');
+        alert('정보를 찾지못했습니다.');
     }
     }catch(error){console.log(error); }
 }

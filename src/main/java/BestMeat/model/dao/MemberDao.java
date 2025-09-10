@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -104,14 +105,14 @@ public class MemberDao extends Dao  {
 
 
     // [3] 아이디 찾기
-    public String findId(Map<String , String> map){
+    public String findId(String mname , String mphone){
         try{
-            String sql = "select * from member where mname = ? and mphone = ? ";
+            String sql = "select mid from member where mname = ? and mphone = ? and mcheck = true ";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, map.get("mname"));
-            ps.setString(2, map.get("mphone"));
+            ps.setString(1, mname);
+            ps.setString(2, mphone);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
+            if (rs.next()){
                 return rs.getString("mid");
             }
         }catch (Exception e){

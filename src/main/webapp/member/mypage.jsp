@@ -29,7 +29,7 @@
             <div class="mypage-section">
                 <h4>기본 정보</h4>
                 <div class="mInfoTop">
-                    <div class="mimg"></div>
+                    <from class="fmimg" ><div class="mimg"></div> </from>
                     <div class="mInfo-text">
                         <div><strong>아이디</strong> <span class="mid"></span></div>
                         <div><strong>이름</strong> <span class="mname"></span></div>
