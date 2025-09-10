@@ -200,6 +200,8 @@ public class MemberDao extends Dao  {
 
 
 
+
+
     // [6] 비밀번호 수정
     public boolean updatePwd(int mno, Map<String , String>map ){
         System.out.println("MemberDao.updatePwd");
