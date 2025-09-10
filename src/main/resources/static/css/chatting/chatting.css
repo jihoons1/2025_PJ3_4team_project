@@ -1,98 +1,169 @@
-.msgbox{
-    border : 3px solid #f9f9f9; /*테두리*/
-    height : 700px;  /* .높이 */
-    background-color : #b2c7d9; /*배경*/
-    overflow-y : scroll; /*하위 요소가 커지면 자동으로 세로 스크롤 사용*/
-    padding : 20px;
+/* 전체 컨테이너 배경 및 기본 설정 */
+#container {
+    background-color: #f8f9fa;
+    padding: 40px 0;
+    min-height: calc(100vh - 160px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.secontent{
+
+.chat-container {
+    width: 100%;
+    max-width: 480px; /* 채팅창 최대 너비 */
+    height: 80vh; /* 화면 높이의 80% */
+    max-height: 800px;
+    background-color: #b2c7d9; /* 카카오톡 배경색 */
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.roomTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* 메시지 출력 영역 */
+.msgbox {
+    flex-grow: 1; /* 남은 공간을 모두 차지 */
+    overflow-y: auto; /* 내용 많아지면 스크롤 */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* 메시지 사이 간격 */
+}
+
+/* 내가 보낸 메시지 */
+.secontent {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    margin-bottom: 15px;
+    gap: 0.5rem;
 }
-.secontent .content{
-    background-color : #ffeb33
+
+.secontent .content {
+    background-color: #ffeb33; /* 카카오톡 노란색 */
+    border-radius: 12px;
+    padding: 10px 14px;
+    max-width: 70%;
+    word-wrap: break-word;
 }
-.recontent{
-    text-align : left;  /* 가로 정렬 */
-    margin: 0px 0px 20px 10px;
+
+/* 상대방이 보낸 메시지 */
+.receiveBox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
 }
-.content{
-    background-color : #ffffff;
-    border-radius : 10px ;
-    padding : 10px;
-    display : inline-block;
-    font-size : 12px;
+
+.profileImg img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
-.date{
-    font-size : 10px;
-    text-align : center;
-    padding: 0px 5px;
+
+.recontent .memberNic {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
 }
-.profileImg > img {
-        width : 50px;
-        height : 50px;
-        border-radius : 30px;
-        object-fit : cover;
-}
-.receiveBox{
-    display : flex;
-}
-/* 알람 */
-.alarm{
-    background-color : #a9bdce;
-    text-align : center;
-    font-size : 11px;
-    padding : 5px;
-    width : 400px;
-    margin : 10px auto;
-}
-/* 입력상자 */
-.bottomBox{
-    display : flex;
-    margin-bottom : 100px;
-}
-.msginput{
-    width : 90%;
-    padding : 10px;
-    border: 1px solid #f1a5e7;
-}
-/* 전송 버튼 */
-.bottomBox > button{
-    width : 15%;
-    background-color : #ffeb33;
-    border : none;
-    border-radius: 10px;
-}
-.recontent > .subcontent{
-    display: flex ;
+
+.recontent .subcontent {
+    display: flex;
     align-items: flex-end;
-    margin-top: 5px;
+    gap: 0.5rem;
 }
-.roomList{
+
+.recontent .content {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 10px 14px;
+    max-width: 250px;
+    word-wrap: break-word;
+}
+
+/* 공통 날짜 스타일 */
+.date {
+    font-size: 0.75rem;
+    color: #6c757d;
+    flex-shrink: 0; /* 날짜가 줄어들지 않도록 */
+}
+
+/* 알림 메시지 */
+.alarm {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 4px 12px;
+    margin: 0 auto;
+}
+
+/* 메시지 입력 영역 */
+.bottomBox {
+    display: flex;
+    padding: 0.5rem;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+.msginput {
+    flex-grow: 1;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    outline: none;
+    resize: none;
+}
+
+.bottomBox > button {
+    width: 60px;
+    border: none;
+    background-color: #ffeb33;
+    color: #333;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.bottomBox > button:hover {
+    background-color: #fdd835;
+}
+
+
+/* 채팅방 목록 (Offcanvas) */
+.roomList {
     display: flex;
     flex-direction: column;
-    margin: 15px 10px;
+    gap: 10px;
+    padding: 0.5rem;
 }
-.roomList > a{
-    padding: 10px;
-    background-color: #b2c7d9;
-    border-radius: 10px;
-    width: 100px;
-    text-align: center;
-}
-a{
-    color: black;
+
+.rooms a {
+    display: block;
+    padding: 1rem;
+    border-radius: 8px;
     text-decoration: none;
+    color: #212529;
+    background-color: #f8f9fa;
+    transition: background-color 0.2s;
 }
-.roomTitle{
-    padding: 20px 0px;
-    text-align: center;
-}
-.rooms{
-    margin: 20px 0px;
-    border: 1px gray solid;
-    border-radius: 10px;
-    padding: 10px 15px;
+
+.rooms a:hover {
+    background-color: #e9ecef;
 }

@@ -20,20 +20,23 @@
     <jsp:include page="/header.jsp"></jsp:include>
 
     <div id="container">
-        <div class="roomTitle">
-            
-        </div>
-        <div>
-            <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onclick="getRoomList()" >
-                채팅방 목록 열기
-            </button>
-        </div>
-        <div class="msgbox" >
-            <!-- 사용자들의 메시지로 구성 -->
-        </div>
-        <div class="bottomBox">
-            <input onkeyup="if( event.keyCode == 13 ){ postMsgSend(); }" type="text" class="msginput"/>
-            <button type="button" onclick="postMsgSend()">전송</button>
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="roomTitle">
+                    </div>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" onclick="getRoomList()">
+                    채팅방 목록
+                </button>
+            </div>
+
+            <div class="msgbox">
+                
+            </div>
+
+            <div class="bottomBox">
+                <input onkeyup="if( event.keyCode == 13 ){ postMsgSend(); }" type="text" class="msginput" placeholder="메시지를 입력하세요..."/>
+                <button type="button" onclick="postMsgSend()">전송</button>
+            </div>
         </div>
     </div>
 
