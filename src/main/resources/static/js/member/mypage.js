@@ -301,23 +301,19 @@ const addUpdate = async() => {
 
  // 14. 회원정보 수정 [프로필 이미지 , 주소 , 휴대번호 ]
 const update = async() => {
-
     const mig = document.querySelector('#mig');
     const mphone2 = document.querySelector('.mphone2').value;
     const sample6_address = document.querySelector('#sample6_address').value;
     const sample6_detailAddress = document.querySelector('#sample6_detailAddress').value;
 
-
     let maddress = '';
-    maddress =  document.querySelector('#sample6_address').value +
-                "," +
-                document.querySelector('#sample6_detailAddress').value;
+    maddress =  sample6_address + "," + sample6_detailAddress;
 
 
-    if(mphone2 === '' || sample6_address === '' || sample6_detailAddress === ''){
+    if( mphone2 === '' || sample6_address === '' || sample6_detailAddress === '' ){
         alert('칸을 비어 두지 마세요.');
         return;
-    }
+    } // if end
 
     const mimg = new FormData(mig);
     mimg.append("maddress", maddress);

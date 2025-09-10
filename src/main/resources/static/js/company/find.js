@@ -353,23 +353,6 @@ const naverMap = async ( ) => {
             position: company
         });
 
-    // let cImgUrl = '/img/company/'+ companyData.cimg;
-    // if( companyData.cimg == null ){
-    //     cImgUrl = 'https://placehold.co/50x50';
-    // } // if end
-
-    // var contentString = `<div class="mapInfo">
-    //                         <h3>${companyData.cname}</h3>
-    //                         <p>
-    //                             ${companyData.caddress} <br>
-    //                             <img src="${cImgUrl}">
-    //                         </p>
-    //                     </div>`;
-
-    // var infowindow = new naver.maps.InfoWindow({
-    //     content: contentString
-    // });
-
     naver.maps.Event.addListener(marker, "click", function(e) {
         if (infowindow.getMap()) {
             infowindow.close();
