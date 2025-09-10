@@ -29,17 +29,17 @@
                 </div>
                 <div class="input-group">
                     <label>아이디</label>
-                    <input type="text" onkeyup="idcheck()" name="mid" class="mid2" placeholder="test123" />
+                    <input type="text" onkeyup="idcheck()" name="mid" class="mid2" placeholder="아이디 입력바랍니다." />
                     <div class="idchecks"></div> <!--아이디 유효성 [6글자~10글자]-->
                 </div>
                 <div class="input-group">
                     <label>비밀번호</label>
-                    <input type="password" onkeyup="pwdcheck()" name="mpwd" class="mpwd2" placeholder="test123" />
+                    <input type="password" onkeyup="pwdcheck()" name="mpwd" class="mpwd2" placeholder="비밀번호 입력바랍니다." />
                     <div class="Pwd"></div> <!--비밀번호 유효성 [6글자~13글자] -->
                 </div>
                 <div class="input-group">
                     <label>비밀번호 확인</label>
-                    <input type="password" onkeyup="pwdcheck2()" name="mpwd2" class="mpwd22" placeholder="입력하신 패스워드와 같아야 합니다" />
+                    <input type="password" onkeyup="pwdcheck2()" name="mpwd2" class="mpwd22" placeholder="입력하신 비밀번호와 같아야 합니다" />
                     <div class="Pwdd"></div> <!--비밀번호 재확인 유효성  -->
                 </div>
                 <div class="input-group">
