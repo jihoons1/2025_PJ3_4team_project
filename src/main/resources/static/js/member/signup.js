@@ -13,15 +13,15 @@ const signupbtn = async() => {
     const mig = document.querySelector('#mig');
     const emailname = document.querySelector('.emailname').value;
     const emailselect =document.querySelector('#emailselect').value;
-    const sample6_address = document.querySelector('#sample6_address');
-    const sample6_detailAddress= document.querySelector('#sample6_detailAddress');
+    const sample6_address = document.querySelector('#sample6_address').value;
+    const sample6_detailAddress= document.querySelector('#sample6_detailAddress').value;
     
-    let asd = sample6_address + sample6_detailAddress;
+    let maddress = sample6_address + "," + sample6_detailAddress;
 
     const memail = emailname + emailselect;
     const mimgupload = new FormData(mig);
     mimgupload.append("memail", memail);
-    mimgupload.append("maddress", asd);
+    mimgupload.append("maddress", maddress);
     try{
 
     const op = { method : "POST" , body : mimgupload }
@@ -31,7 +31,7 @@ const signupbtn = async() => {
         alert('회원가입 성공');
         location.href="/member/login.jsp"; 
         }else{
-        alert('회원가입 실패'); }
+        alert('회원가입 실패'); }   
     }catch(error){console.log(error+"회원가입 에러"); }
 }
 

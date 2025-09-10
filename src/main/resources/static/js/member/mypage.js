@@ -1,6 +1,6 @@
 //=============================================== 일반 로직 ================================================\\
 // [*] 입력값 유효성 검사
-const numCheckList = [ false ,false ];
+const numCheckList = [ false ,false ,false];
 // 1. 숫자만 유효성 검사 - 알림등록
 const noticeAddCheck = (  ) => {
     const nprice = document.querySelector('.nprice').value;
@@ -303,6 +303,9 @@ const addUpdate = async() => {
 const update = async() => {
 
     const mig = document.querySelector('#mig');
+    const mphone2 = document.querySelector('.mphone2').value;
+    const sample6_address = document.querySelector('#sample6_address').value;
+    const sample6_detailAddress = document.querySelector('#sample6_detailAddress').value;
 
 
     let maddress = '';
@@ -310,9 +313,15 @@ const update = async() => {
                 "," +
                 document.querySelector('#sample6_detailAddress').value;
 
-                console.log(maddress);
+
+    if(mphone2 === '' || sample6_address === '' || sample6_detailAddress === ''){
+        alert('칸을 비어 두지 마세요.');
+        return;
+    }
+
     const mimg = new FormData(mig);
     mimg.append("maddress", maddress);
+
     try{
         const op = { method : "PUT" , body : mimg }
 
@@ -378,7 +387,7 @@ const deleteReview = async(rno) => {
 }// func end
 
 // 17. 전화번호 하이폰
-const mphoneCC = () => {
+const mphoneCC = async() => {
     const mphone = document.querySelector('.mphone2');
     const mphone2CC = document.querySelector('.mphone2CC');
 
@@ -395,14 +404,23 @@ const mphoneCC = () => {
     }
 
     const hiphonecode = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 시작 01?-343 or 3424- 마지막 4자리 고정
-
-    if(hiphonecode.test(mphone.value)){
-    mphone2CC.innerHTML = "정상적";
-    numCheckList[1] = true;
-    }else{
-    mphone2CC.innerHTML = "사용불가능";
-    numCheckList[1] = false; 
+    if(!hiphonecode.test(mphone.value)){
+    mphone2CC.innerHTML = "전화번호 형식이 올바르지 않습니다..";
+    numCheckList[1] = false;
+    return;
     }
+try{
+        const response = await fetch(`/member/check?type=mphone&data=${mphone.value}`);
+        const data = await response.json();
+        
+        if(data == true){
+            mphone2CC.innerHTML = "사용자가 사용중인 번호입니다. (본인 포함)";
+            numCheckList[1] = false;
+        }else{
+            mphone2CC.innerHTML = "사용가능한 번호입니다.";
+            numCheckList[1] = true;
+            }
+   }catch(error) { }
 }
 
 // 18. mno별 채팅목록 가져오기
@@ -517,4 +535,26 @@ function sample6_execDaumPostcode() {
 
         }
     }).open();
+}
+
+// 회원정보 수정 유효성 주소
+const maddresscheck = async() => {
+    const sample6_postcode = document.querySelector('#sample6_postcode').value;
+    const sample6_detailAddress = document.querySelector('#sample6_detailAddress').value;
+    const maddressCheck = document.querySelector('.maddressCheck');
+
+
+    if (sample6_postcode === '' && sample6_detailAddress === '') {
+        maddressCheck.innerHTML = "주소와 상세주소를 모두 입력해주세요.";
+        numCheckList[2] = false;
+    } else if (sample6_postcode === '') {
+        maddressCheck.innerHTML = "주소를 입력해주세요.";
+        numCheckList[2] = false;
+    } else if (sample6_detailAddress === '') {
+        maddressCheck.innerHTML = "상세주소를 입력해주세요.";
+        numCheckList[2] = false;
+    } else {
+        maddressCheck.innerHTML = '';
+        numCheckList[2] = true;
+    }
 }

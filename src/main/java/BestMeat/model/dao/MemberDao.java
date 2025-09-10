@@ -50,7 +50,7 @@ public class MemberDao extends Dao  {
     // 중복값 여부 확인
     public boolean check(String type , String data) {
             try {
-                if (!(type.equals("mid") || type.equals("mphone") || type.equals("memail") || type.equals("mpwd") || type.equals("mname"))){
+                if (!(type.equals("mid") || type.equals("mphone") || type.equals("memail") || type.equals("mpwd") || type.equals("mname") || type.equals(("mphone")) ) ){
                     return false;
                 }
                 String sql = "select * from member where " + type + " = ? "; // type : 입력한 값
@@ -197,6 +197,7 @@ public class MemberDao extends Dao  {
         }
         return false;
     }
+
 
 
     // [6] 비밀번호 수정
