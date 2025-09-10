@@ -1,0 +1,61 @@
+/* 전체 컨테이너 배경 및 기본 설정 */
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 160px); /* 헤더, 푸터 높이를 제외한 전체 높이 */
+    background-color: #f8f9fa; /* 부트스트랩 기본 배경색 */
+    padding: 40px 0;
+}
+
+.find-page-container {
+    display: flex;
+    gap: 30px; /* 두 폼 사이의 간격 */
+    width: 100%;
+    max-width: 800px; /* 전체 컨테이너 최대 너비 */
+    justify-content: center;
+}
+
+/* 아이디/비밀번호 찾기 폼 공통 스타일 */
+.find-form {
+    flex: 1; /* 동일한 너비로 설정 */
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* 입력 필드(라벨 + input)를 묶는 그룹 */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-weight: 500;
+}
+
+/* 부트스트랩 form-control 클래스를 사용하므로 추가 스타일 최소화 */
+
+/* 유효성 검사 메시지 스타일 */
+.validation-message {
+    font-size: 0.875rem;
+    color: #dc3545; /* 부트스트랩 danger 색상 */
+    min-height: 1.2em; /* 메시지 공간 확보 */
+}
+
+/* 버튼 스타일 (w-100 클래스로 너비 100% 설정) */
+.btn {
+    margin-top: 0.5rem;
+}
