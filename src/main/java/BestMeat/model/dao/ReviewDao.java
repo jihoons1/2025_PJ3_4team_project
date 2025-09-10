@@ -235,5 +235,4 @@ public class ReviewDao extends Dao  {
         } catch (Exception e) { System.out.println("[review06-2] SQL 기재 실패" + e); }
         return false;
     }// func end
-
 }// class end

@@ -35,7 +35,7 @@
                 </select>
                 <select name="product" class="product form-select">
                     <option disabled selected>고기 선택</option>
-                    </select>
+                </select>
                 <div class="price-input-group">
                     <input type="text" placeholder="가격(100g) 입력" class="sprice form-control" onkeyup="numCheck()">
                     <span class="numCheck validation-message"></span>

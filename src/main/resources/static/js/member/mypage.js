@@ -212,7 +212,7 @@ const addNotice = async ( ) => {
     const data = await response.json();
     // 4. result
     if ( data > 0 ){
-        alert('재고등록 성공!');
+        alert('알림등록 성공!');
         location.reload();
     } else if ( data == -1 ){
         alert('포인트 잔액이 부족합니다.');

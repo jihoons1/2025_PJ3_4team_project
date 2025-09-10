@@ -144,10 +144,10 @@ const updateStock = async ( ) => {
     } // if end
     // 1. Input value
     const sprice = document.querySelector(`.spriceBox`).value;
-    const sno = document.querySelector('.snoBox').value;
-    const pno = document.querySelector('#pnoBox').value;
+    const sno = document.querySelector('.snoBox').innerText;
+    const pno = document.querySelector('#pnoBox').innerText;
     // 2. obj
-    const obj = { sno, sprice, pno };
+    const obj = { sno, sprice, pno };   console.log( obj );
     // 3. fetch
     const option = {
         method : "PUT",
