@@ -9,9 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Repository
 public class MemberDao extends Dao  {
@@ -101,8 +99,6 @@ public class MemberDao extends Dao  {
             }catch (Exception e) { System.out.println("로그인 발생 오류 " + e);  }
         return 0; // 로그인 실패시 0 반환
     }// func end
-
-
 
     // [3] 아이디 찾기
     public String findId(String mname , String mphone){
@@ -198,10 +194,6 @@ public class MemberDao extends Dao  {
         return false;
     }
 
-
-
-
-
     // [6] 비밀번호 수정
     public boolean updatePwd(int mno, Map<String , String>map ){
         System.out.println("MemberDao.updatePwd");
@@ -218,7 +210,6 @@ public class MemberDao extends Dao  {
         }
         return false;
     }
-
 
     // [member07-1] 회원정보 상세조회 - getMember()
     // 기능설명 : [ 회원번호(세션) ]를 받아, 해당하는 회원정보를 조회한다.
@@ -268,7 +259,7 @@ public class MemberDao extends Dao  {
         return 0;
     } // func end
 
-    // [member08] 회원 탈퇴 - resignMember()
+    // [member08-1] 회원 탈퇴 - resignMember()
     // 기능설명 : [ 회원번호(세션), 비밀번호 ]를 받아,  일치하면 회원활성화를 false로 변경한다.
     // 매개변수 : Map< String, String >
     // 반환타입 : boolean -> 성공 : true, 실패 : false
@@ -280,9 +271,63 @@ public class MemberDao extends Dao  {
             ps.setString( 2, (String) map.get("mpwd"));
             return ps.executeUpdate() == 1;
         } catch ( SQLException e ){
-            System.out.println("[member08] SQL 기재 실패" + e );
+            System.out.println("[member08-1] SQL 기재 실패" + e );
         } // try-catch end
         return false;
+    } // func end
+
+    // [member08-2] 회원 탈퇴일 기록하기 - resignMdate()
+    // 기능설명 : [ 회원번호, 비밀번호, 오늘 ]을 받아, 일치하면 탈퇴일을 기록한다.
+    // 매개변수 : Map< String, String >
+    // 반환타입 : boolean -> 성공 : true, 실패 : false
+    public boolean resignMdate( Map<String , String> map ){
+        try {
+            // 탈퇴한 회원의 날짜 변경이기에, mcheck = false;
+            String SQL = "update member set mdate = ? where mno = ? and mpwd = ? and mcheck = false";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setString( 1, map.get( "today" ) );
+            ps.setInt( 2, Integer.parseInt( map.get("mno") ) );
+            ps.setString( 3, (String) map.get("mpwd"));
+            return ps.executeUpdate() == 1;
+        } catch ( SQLException e ){
+            System.out.println("[member08-2] SQL 기재 실패" + e );
+        } // try-catch end
+        return false;
+    } // func end
+
+    // [member08-3] 탈퇴상태 회원조회 - getResignMember()
+    // 기능설명 : 탈퇴일로부터 100일이 지난 회원들을 조회한다.
+    // 매개변수 : String today
+    // 반환타입 : List< Integer >
+    public List<Integer> getResignMember( String today ){
+        List<Integer> list = new ArrayList<>();
+        try {
+            String SQL = "select mno from member where datediff( mdate, ? ) >= 100";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setString( 1, today );
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                list.add( rs.getInt("mno") );
+            } // while end
+        } catch ( SQLException e ){
+            System.out.println("[member08-3] SQL 기재 실패" + e );
+        } // try-catch end
+        return list;
+    } // func end
+
+    // [member08-4] 회원 최종탈퇴 - deleteMember()
+    // 기능설명 : [ 회원번호 ]를 받아, 해당 회원의 탈퇴를 진행한다.
+    // 매개변수 : int mno
+    // 반환타입 : void
+    public void deleteMember( int mno ){
+        try {
+            String SQL = "delete from member where mno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, mno );
+            ps.executeUpdate();
+        } catch ( SQLException e ){
+            System.out.println("[member08-4] SQL 기재 실패" + e );
+        } // try-catch end
     } // func end
 
     // [member10] 회원이름 반환 - getMname()

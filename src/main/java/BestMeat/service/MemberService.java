@@ -6,9 +6,10 @@ import BestMeat.model.dto.MemberDto;
 import BestMeat.model.dto.PointDto;
 import BestMeat.model.dto.ReviewDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -54,8 +55,6 @@ public class MemberService {
         return dto; // 반환
     }
 
-
-
     // [3] 아이디 찾기
     public String findId(String mname , String mphone){
         System.out.println("MemberService.findId");
@@ -82,7 +81,6 @@ public class MemberService {
         }
         return 0;
     }
-
 
     // [6] 비밀번호 수정
     public boolean updatePwd(int mno , Map<String , String> map){
@@ -112,13 +110,40 @@ public class MemberService {
         return memberDto;
     } // func end
 
-    // [member08] 회원 탈퇴 - resignMember()
-    // 기능설명 : [ 회원번호(세션), 비밀번호 ]를 받아,  일치하면 회원활성화를 false로 변경한다.
+    // [member08-1] 회원 탈퇴 - resignMember()
+    // 기능설명 : [ 회원번호(세션), 비밀번호 ]를 받아, 일치하면 회원활성화를 false로 변경한다.
     // 매개변수 : Map< String, String >, session
     // 반환타입 : boolean -> 성공 : true, 실패 : false
     public boolean resignMember( Map<String , String> map ){
-        // 1. Dao에게 매개변수 전달 후, 결과 반환하기
-        return memberDao.resignMember( map );
+        // 1. 회원탈퇴에 실패하면, 메소드 종료
+        if ( !memberDao.resignMember( map ) ) return false;
+        // 2. 탈퇴 후, Dao에게 전달할 탈퇴일 작성하기
+        String date = LocalDateTime.now().toString().split("T")[0];
+        String time = LocalDateTime.now().toString().split("T")[1].split("\\.")[0];
+        String today = date + " " + time;
+        map.put( "today", today );
+        // 3. 탈퇴일 수정하고 결과 반환하기
+        return memberDao.resignMdate( map );
+    } // func end
+
+    // [member08-2] 회원탈퇴 스케줄링 - deleteMember()
+    // 기능설명 : 탈퇴상태인 회원을 조회하여 해당 회원의 탈퇴일이 100일 지났다면, DB에서 삭제
+    // 매개변수 : X
+    // 반환타입 : void
+    @Scheduled( cron = "* * 0 * * *")
+    public void deleteMember(){
+        // 1. Dao에게 전달할 today 구성하기
+        String date = LocalDateTime.now().toString().split("T")[0];
+        String time = LocalDateTime.now().toString().split("T")[1].split("\\.")[0];
+        String today = date + " " + time;
+        // 2. Dao로부터 탈퇴상태인 회원의 리스트 받기
+        List<Integer> members = memberDao.getResignMember( today );
+        // 3. 탈퇴시킬 회원이 없으면, 메소드 종료
+        if ( members == null || members.isEmpty() ) return;
+        // 4. 리스트 순회하면서 최종 탈퇴 진행
+        for ( Integer mno : members ){
+            memberDao.deleteMember( mno );
+        } // for end
     } // func end
 
     // [member10] 회원이름 반환 - getMname()
@@ -129,5 +154,4 @@ public class MemberService {
         // 1. Dao에게 매개변수 전달 후, 결과 반환하기
         return memberDao.getMname( mno );
     } // func end
-
 } // class end
