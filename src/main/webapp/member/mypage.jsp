@@ -345,6 +345,8 @@
 
     <!-- footer JSP 불러오기 : webapp 이하 경로부터 작성 -->
     <jsp:include page="/footer.jsp"></jsp:include>
+    <!-- 우편번호 API -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- JS 불러오기 : static 이하 경로부터 작성 -->
     <script src="/js/member/mypage.js"></script>
 

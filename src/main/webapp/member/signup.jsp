@@ -56,9 +56,6 @@
                     
                     <div class="maddressCheck"></div>
                 </div>
-                <!-- 우편번호 API -->
-                <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 
                 <div class="input-group">
                     <label>이메일</label>
@@ -85,6 +82,8 @@
 
     <jsp:include page="/footer.jsp"></jsp:include>
 
+    <!-- 우편번호 API -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src='/js/member/signup.js'></script>
 </body>
 
