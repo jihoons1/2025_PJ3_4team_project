@@ -27,9 +27,12 @@ const getPlan = async() => {
                                 <div style="text-align: left; width: 45%;">
                                     <div>평점 ${data[i].rrank}  조회수 ${data[i].views}</div>
                                     <div> ${data[i].caddress} </div>
-                                    <div style="padding-left: 20px; margin-top: 30px;">
+                                    <div class="caBtnBox${data[i].cno}" style="padding-left: 20px; margin-top: 30px;">
                                         <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR
+                                        </button>
+                                        <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
+                                            문의하기
                                         </button>
                                     </div>
                                 </div>
@@ -72,6 +75,9 @@ const getPlan = async() => {
                                         <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR
                                         </button>
+                                        <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
+                                            문의하기
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -95,12 +101,41 @@ const getPlan = async() => {
                                 </div>
                             </div>
                         </div>`;               
-            }// if end            
-        }// for end        
-        carouselInner.innerHTML = html;        
+            }// if end
+        }// for end
+        carouselInner.innerHTML = html;
     }catch(e){ console.log(e); }
 }// func end
 getPlan();
+
+// 2. 채팅방 이동
+const printBtn = async ( cno ) => {
+    try {
+        // 1. fetch
+        const response = await fetch( "/member/get" );
+        const data = await response.json();
+        const response1 = await fetch( `/company/getMno?cno=${cno}` );
+        const sidemno = await response1.json();
+        // 2. result
+        if ( sidemno == data.mno ){
+            // 3. 해당 정육점이 내 정육점이라면, 방으로 안 들어가고 그냥 전체채팅방으로
+            location.href = `/chatting/chatting.jsp?mno=${data.mno}`;
+        } else {
+            // 4. 해당 정육점이 내 정육점이 아니라면, 해당 정육점과의 채팅방으로 이동
+            location.href = `/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}`;
+        } // if end        
+    } catch ( error ) {
+        // 5. 비로그인 상태라면, 전체채팅방으로 이동
+        publicRoom();
+    } // try-catch end
+} // func end
+
+// 3. 전체채팅방으로 이동
+const publicRoom = async ( ) => {
+    if ( confirm('비로그인 상태이므로, 전체채팅방으로 이동합니다.') ){
+        location.href='/chatting/chatting.jsp?room=0'
+    } // if end
+} // func end
 
 // 2. 길찾기 QR Code 출력
 const buildQR = async(cno) => {

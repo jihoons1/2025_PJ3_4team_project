@@ -91,7 +91,7 @@
     cursor: pointer;
 }
 .search-container button:hover {
-    background-color: #0b5ed7;
+    background-color: #143889;
 }
 
 
@@ -110,15 +110,25 @@
     display: flex;
     align-items: center;
     gap: 8px; /* 이름과 포인트 사이 간격 */
+}
+
+.log-info a {
+    text-decoration: none;
+    font-weight: 500;
     padding: 8px 12px;
     background-color: #f8f9fa; /* 밝은 배경색 */
     border-radius: 20px;
     border: 1px solid #dee2e6;
 }
 
-.log-info a {
-    text-decoration: none;
-    font-weight: 500;
+.log-info a:hover {
+    background-color: #143889;
+    color: #fff;
+    border-radius: 20px;
+    padding: 8px 12px;
+    border-color: #143889;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .log-info .username {

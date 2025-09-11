@@ -124,7 +124,9 @@ public class CompanyController {
         return companyService.getCompanyList();
     }// func end
 
-
-
-
+    // 정육점 회원번호 조회 - getMno()
+    @GetMapping("/getMno")
+    public int getMno( @RequestParam int cno ){
+        return companyService.getMno( cno );
+    } // func end
 } // class end

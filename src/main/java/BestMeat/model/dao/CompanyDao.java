@@ -185,4 +185,23 @@ public class CompanyDao extends Dao {
         } // try-catch end
         return null;
     } // func end
+
+    // 정육점 회원번호 조회 - getMno()
+    // 기능설명 : 정육점번호를 받아, 해당 정육점의 회원번호를 반환한다.
+    // 매개변수 : int cno
+    // 반환타입 : int mno
+    public int getMno( int cno ){
+        try {
+            String SQL = "select mno from company join member using ( mno ) where cno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, cno );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ){
+                return rs.getInt("mno");
+            } // if end
+        } catch ( SQLException e ){
+            System.out.println("[getMno] SQL 기재 실패" + e );
+        } // try-catch end
+        return 0;
+    } // func end
 } // class end
