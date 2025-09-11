@@ -222,9 +222,10 @@ const initMap = async () => {
             map: map,
             position: company
         });
-        const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
-        const data2 = await response2.json();        
-        naver.maps.Event.addListener(marker, "click", () => {
+     
+        naver.maps.Event.addListener(marker, "click", async () => {
+            const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
+            const data2 = await response2.json();   
             let html = "";
             let rimgUrl;
             if(data[i].cimg == null || data[i].cimg == ""){
@@ -314,42 +315,57 @@ const initMap = async () => {
 }// func end
 initMap();
 
-// 5. 멤버쉽 가입한 정육점의 배너 노출
-const printPlanBanner = async ( ) => {
+// 5. 멤버쉽 가입한 정육점 조회
+let planData;
+const getPlanBanner = async ( ) => {
     try {
         // 1. fetch
         const response = await fetch( "/plan/get" );
         const data = await response.json();
-        // 2. where
-        const bannerBox_top = document.querySelector('.banner_top');
-        const bannerBox_bot = document.querySelector('.banner_bot');
-        // 3. what
-        // 난수를 통해, 무작위 배너 노출
-        let randomNum = Math.round( Math.random() * ( data.length - 1 ) );
-        
-        let banner = data[randomNum].banner;
-        let cno = data[randomNum].cno;
-        if ( banner == null ){
-            // 등록한 배너가 없으면, 기본 배너 노출
-            banner = `/img/banner/adBanner.png`;
-        } else {
-            banner = `/upload/plan/${banner}`;
-        } // if end
-        let html = `<a href="/company/find.jsp?cno=${cno}">
-                        <img class="bimg" src="${banner}" alt="배너 이미지"
-                            style="display: block !important;
-                            vertical-align: baseline !important;
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;">
-                    </a>`
-        // 4. print
-        bannerBox_top.innerHTML = html;
-        bannerBox_bot.innerHTML = html;
-        // 5초마다 배너 노출 재실행 -> 배너 변경
-        setTimeout( printPlanBanner, 5000 );
+        planData = await data;
+        // 2. data 전달하기
+        printPlanBanner( planData, 0 );
     } catch ( error ){
         console.log( error );
     } // try-catch end
 } // func end
-printPlanBanner();
+getPlanBanner();
+
+// 6. 배너 출력
+let i = 0;
+// i와 planData를 전역으로 사용했기 때문에, 매개변수로 X
+const printPlanBanner = async (  ) => {
+    // 1. where
+    const bannerBox_top = document.querySelector('.banner_top');
+    const bannerBox_bot = document.querySelector('.banner_bot');
+    // 2. what
+    console.log( i );
+    console.log( planData[i] );
+    let banner = planData[i].banner;
+    let cno = planData[i].cno;
+    if ( banner == null ){
+        // 등록한 배너가 없으면, 기본 배너 노출
+        banner = `/img/banner/adBanner.png`;
+    } else {
+        banner = `/upload/plan/${banner}`;
+    } // if end
+    let html = `<a href="/company/find.jsp?cno=${cno}">
+                    <img class="bimg" src="${banner}" alt="배너 이미지"
+                        style="display: block !important;
+                        vertical-align: baseline !important;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;">
+                </a>`
+    // 3. print
+    bannerBox_top.innerHTML = html;
+    bannerBox_bot.innerHTML = html;
+    // 4. i 증가
+    i = i + 1;
+    if ( i > planData.length - 1 ){
+        i = 0;
+    } // if end
+} // func end
+
+// 6-1. setInterval로 5초마다 재실행하기
+setInterval( printPlanBanner, 5000 );
