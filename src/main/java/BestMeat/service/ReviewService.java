@@ -55,7 +55,7 @@ public class ReviewService {
         // 3. 정육점별 리뷰 개수 반환받기
         int totalCount = reviewDao.getReviewCount(cno);
         // 4. 정육점별 리뷰 반환받기
-        List<ReviewDto> reviewDtoList = reviewDao.getReview( cno, startRow, totalCount );
+        List<ReviewDto> reviewDtoList = reviewDao.getReview( cno, startRow, perCount );
         for (ReviewDto rdto : reviewDtoList){
             List<String> images = reviewDao.getReviewImg(rdto.getRno());
             rdto.setImages(images);

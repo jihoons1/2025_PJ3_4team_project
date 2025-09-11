@@ -112,7 +112,7 @@ const getReview = async() => {
     const reviewtbody = document.querySelector('.reviewTbody');    
     let html = "";    
     try{
-        const response = await fetch(`/review/get?cno=${cno}`);
+        const response = await fetch(`/review/get?cno=${cno}&page=${page}`);
         const data = await response.json(); 
         data.data.forEach((re) => {             
             let rimgUrl = "";

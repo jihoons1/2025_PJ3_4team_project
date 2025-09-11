@@ -87,7 +87,7 @@
                             </tbody>
                         </table>
                         <div class="pagination-container">
-                            <ul class="pageBtnBox pagination pagination-sm">
+                            <ul class="pageBtnBox pagination">
                             </ul>
                         </div>
                     </div>
