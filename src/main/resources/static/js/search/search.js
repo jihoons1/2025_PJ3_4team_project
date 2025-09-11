@@ -17,7 +17,7 @@ const getCompanySearch = async() => {
         data.data.forEach((ser) => {
             let img = '/img/company/' + ser.cimg;
             if(ser.cimg == null){
-                img = 'https://placehold.co/50x50';
+                img = '/img/company/default.png';
             }// if end
             html += `<tr>
                         <td><a href="/company/find.jsp?cno=${ser.cno}"><img src="${img}"/></a></td>

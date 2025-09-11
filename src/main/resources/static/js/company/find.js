@@ -18,13 +18,13 @@ const findCompany = async() => {
         naverMap();
         let imgUrl = '/img/company/' + data.cimg;
         if( data.cimg == null ){
-            imgUrl = 'https://placehold.co/50x50';
+            imgUrl = '/img/company/default.png';
         } // if end
         cimg.innerHTML = `<img src=${imgUrl}/>`;
-        html += `<div>정육점명 : ${data.cname}</div>
-                 <div>정육점주소 : ${data.caddress}</div>
-                 <div>리뷰평점 : ${data.rrank}</div>
-                 <div>조회수 : ${data.views}</div>`;
+        html += `<div>${data.cname}</div>
+                 <div>${data.caddress}</div>
+                 <div>평점 ${data.rrank}</div>
+                 <div>조회수 ${data.views}</div>`;
         cinfo.innerHTML = html;
         loginCheck();
     }catch(e){ console.log(e); }
@@ -113,16 +113,10 @@ const getReview = async() => {
     const reviewtbody = document.querySelector('.reviewTbody');    
     let html = "";    
     try{
-        const response = await fetch(`/review/get?cno=${cno}`);
+        const response = await fetch(`/review/get?cno=${cno}&page=${page}`);
         const data = await response.json(); 
         data.data.forEach((re) => {             
             let rimgUrl = "";
-            if(re.images == null || re.images == ""){
-                rimgUrl = 'https://placehold.co/50x50';
-                html += `<div class="rImgBox" >
-                                <div><img src=${rimgUrl}/></div>
-                        </div>`  
-            }// if end
             html += `<div class="rImgBox" style="display: flex;"> `  
             re.images.forEach((img) => {                           
                 rimgUrl = '/upload/review/'+encodeURIComponent(img);                   

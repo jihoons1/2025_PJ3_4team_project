@@ -34,7 +34,7 @@ const getMember = async ( ) => {
     let mimgURL = `/upload/member/${data.mimg}`
     // 이미지를 등록하지 않은 회원이면, placehold로 변경
     if ( data.mimg == null ){
-        mimgURL = 'https://placehold.co/100x100';
+        mimgURL = '/img/default.jpg';
     } // if end
 
     // 2. where + print
@@ -233,12 +233,6 @@ const getMnoReview = async ( ) => {
     let html = "";
     data.forEach( (review) => {        
         let reimg = "";
-        if(review.images == null || review.images == ""){
-            reimg = 'https://placehold.co/50x50';
-            html += `<div class="rImgBox" style="display: flex;">
-                                <div><img src=${reimg}/></div>
-                        </div>`
-        }// if end
         html += `<div class="rImgBox" style="display: flex;">`
         review.images.forEach((img) => {
             reimg = '/upload/review/'+encodeURIComponent(img);

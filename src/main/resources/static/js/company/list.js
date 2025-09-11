@@ -14,7 +14,7 @@ const getAllCompany = async() => {
         data.data.forEach((com) => {
             let imgUrl = '/img/company/'+ com.cimg;
             if( com.cimg == null){
-                imgUrl = 'https://placehold.co/50x50';
+                imgUrl = '/img/company/default.png';
             }// if end
             html += `<tr>
                         <td><a href="/company/find.jsp?cno=${com.cno}"><img src=${imgUrl}/></a></td>

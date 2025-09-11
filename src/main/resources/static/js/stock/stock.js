@@ -119,7 +119,7 @@ const getStock = async ( ) => {
                     <td>${stock.sprice}</td>
                     <td>${stock.sdate}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick="updateButton(${stock.sno})">
+                        <button type="button" style="background-color: #143889;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" onclick="updateButton(${stock.sno})">
                             수정
                         </button>
                         <button type="button" class="btn btn-danger" onclick="deleteStock(${stock.sno})"> 삭제 </button>

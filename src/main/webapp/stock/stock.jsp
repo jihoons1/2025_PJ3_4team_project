@@ -36,7 +36,7 @@
                     <input type="text" placeholder="가격(100g) 입력" class="sprice form-control" onkeyup="numCheck()">
                     <span class="numCheck validation-message"></span>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="addStock()">재고 등록</button>
+                <button type="button" style="background-color: #143889;" class="btn btn-primary" onclick="addStock()">재고 등록</button>
             </div>
 
             <table class="table table-hover">
@@ -86,7 +86,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" id="updateBtn" class="btn btn-primary" onclick="updateStock()"> 수정완료 </button>
+                    <button type="button" style="background-color: #143889;" id="updateBtn" class="btn btn-primary" onclick="updateStock()"> 수정완료 </button>
                 </div>
             </div>
         </div>

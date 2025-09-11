@@ -9,7 +9,7 @@ const getPlan = async() => {
         for(let i = 0; i < data.length; i++){
             let imgURL;
             if( data[i].cimg == null || data[i].cimg == "" ){
-                imgURL = 'https://placehold.co/100x100';
+                imgURL = '/img/company/default.png';
             } else {
                 imgURL = `/img/company/` + data[i].cimg;
             }// if end
@@ -31,24 +31,31 @@ const getPlan = async() => {
             }
             if(i == 0){                
                 html += `<div class="carousel-item active">
-                            <h3>
+                            <h3 style="padding-bottom: 20px;">
                                 <a href="/company/find.jsp?cno=${data[i].cno}">
                                     ${data[i].cname}
                                 </a>
                             </h3>
-                            <div style="display: flex; justify-content: space-around; margin-top: 30px">
-                                <div class="caimgBox" style="width: 45%;">
-                                    <img src="${imgURL}" class="d-block w-40" alt="...">
+                            <div class="carousel-content-wrapper">
+                                <div class="caimgBox">
+                                    <img src="${imgURL}" alt="...">
                                 </div>
-                                <div style="text-align: left; width: 45%;"><br/>
-                                    <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
-                                    <span style="padding-left:10px; font-size: 20px;">조회수  ${data[i].views} </span><br/><br/>
-                                    <div> ${data[i].caddress} </div>
-                                    <div class="caBtnBox${data[i].cno}" style="padding-left: 20px; margin-top: 30px;">
-                                        <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
+                                <div class="info-box">
+                                    <div class="stats-box">
+                                        <img class="rank-img" src="${rankImg}" alt="평점 이미지"/>
+                                        <div class="views">
+                                            <span class="label">조회수</span>
+                                            <span class="value">${data[i].views}</span>
+                                        </div>
+                                    </div>
+                                    <div class="address-box">
+                                        <span class="value">${data[i].caddress}</span>
+                                    </div>
+                                    <div class="button-group">
+                                        <button type="button" style="background-color: #143889;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR
                                         </button>
-                                        <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
+                                        <button type="button" style="background-color: #143889;" color: white;" onclick="printBtn(${data[i].cno})" class="btn btn-outline-primary">
                                             문의하기
                                         </button>
                                     </div>
@@ -76,24 +83,31 @@ const getPlan = async() => {
                 
             }else{
                 html += `<div class="carousel-item">
-                            <h3>
+                            <h3 style="padding-bottom: 20px;">
                                 <a href="/company/find.jsp?cno=${data[i].cno}">
                                     ${data[i].cname}
                                 </a>
                             </h3>
-                            <div style="display: flex; justify-content: space-around; margin-top: 30px">
-                                <div class="caimgBox" style="width: 45%;">
-                                    <img src="${imgURL}" class="d-block w-40" alt="...">
+                            <div class="carousel-content-wrapper">
+                                <div class="caimgBox">
+                                    <img src="${imgURL}" alt="...">
                                 </div>
-                                <div style="text-align: left; width: 45%;"><br/>
-                                    <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
-                                    <span style="padding-left:10px; font-size: 20px;">조회수  ${data[i].views} </span><br/><br/>
-                                    <div> ${data[i].caddress} </div>
-                                    <div class="caBtnBox${data[i].cno}" style="padding-left: 20px; margin-top: 30px;">
-                                        <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
+                                <div class="info-box">
+                                    <div class="stats-box">
+                                        <img class="rank-img" src="${rankImg}" alt="평점 이미지"/>
+                                        <div class="views">
+                                            <span class="label">조회수</span>
+                                            <span class="value">${data[i].views}</span>
+                                        </div>
+                                    </div>
+                                    <div class="address-box">
+                                        <span class="value">${data[i].caddress}</span>
+                                    </div>
+                                    <div class="button-group">
+                                        <button type="button" style="background-color: #143889;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR
                                         </button>
-                                        <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
+                                        <button type="button" style="background-color: #143889; color: white;" onclick="printBtn(${data[i].cno})" class="btn btn-outline-primary">
                                             문의하기
                                         </button>
                                     </div>
@@ -214,7 +228,7 @@ const initMap = async () => {
             let html = "";
             let rimgUrl;
             if(data[i].cimg == null || data[i].cimg == ""){
-                rimgUrl = 'https://placehold.co/50x50';
+                rimgUrl = '/img/company/default.png';
             } else {
                 rimgUrl = '/img/company/' + data[i].cimg;
             } // if end

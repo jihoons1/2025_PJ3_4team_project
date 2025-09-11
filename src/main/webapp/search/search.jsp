@@ -33,7 +33,7 @@
                     <option value="distance">가까운순</option>
                     <option value="views">조회수순</option>
                 </select>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                <button style="background-color: #143889;" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
                     알림 등록
                 </button>
             </div>
@@ -76,7 +76,7 @@
                     <input type="text" class="nprice form-control" placeholder="가격을 입력하세요."> </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary"  onclick="addNotice()">알림등록</button>
+                    <button type="button" style="background-color: #143889;" class="btn btn-primary"  onclick="addNotice()">알림등록</button>
                 </div>
             </div>
         </div>
