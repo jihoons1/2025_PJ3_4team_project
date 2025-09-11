@@ -50,7 +50,7 @@
                 <div class="input-group">
                     <label>주소</label>
                     <input type="text" id="sample6_postcode" placeholder="우편번호">
-                    <input type="button" style="border-radius: 0.375rem;" class="postInput" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                    <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                     <input type="text" onkeyup="maddresscheck()" class="maddress" id="sample6_address" placeholder="주소를 입력해주세요" />
                     <input type="text" name="mdetailaddress" id="sample6_detailAddress" placeholder="상세주소">
                     
@@ -66,19 +66,17 @@
                             <option value="@naver.com">@naver.com</option>
                             <option value="@gmail.com">@gmail.com</option>
                             <option value="@daum.net">@daum.net</option>
-                            
                         </select>
-                        <br>
                         </div>
-                        
                         <div class="emailCheck"></div> <!--이메일 유효성 -->
+                    
                 </div>
                 <div class="input-group">
                     <label>프로필</label>
                     <input type="file" name="upload" class="form-control w-100" />
                 </div>
 
-                <button type="button" style="background-color: #143889;" class="newmember" onclick="signupbtn()">회원가입</button>
+                <button type="button" class="newmember" onclick="signupbtn()">회원가입</button>
             </form>
         </div>
     </div>
