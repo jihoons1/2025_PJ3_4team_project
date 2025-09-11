@@ -47,10 +47,12 @@ public class StockController {
     public boolean updateStock( @RequestBody StockDto stockDto, HttpSession session ){
         System.out.println("StockController.updateStock");
 
-        // 1. 세션정보에서 정육점번호 가져오기 -> SessionService 메소드화
+        // 1. 세션정보에서 정육점번호, 회원번호 가져오기 -> SessionService 메소드화
         int cno = sessionService.getSessionNo( "loginCno", session );
-        // 2. 정육점번호를 Dto에 넣기
+        int mno = sessionService.getSessionNo( "loginMno", session );
+        // 2. 정육점번호, 회원번호를 Dto에 넣기
         stockDto.setCno( cno );
+        stockDto.setMno( mno );
         // 3. 현재날짜를 Dto에 넣기
         String today = LocalDateTime.now().toString();
         stockDto.setSdate( today );

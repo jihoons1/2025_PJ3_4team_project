@@ -69,4 +69,12 @@ public class CompanyService {
     public boolean addViews( int cno ){
         return companyDao.addViews(cno);
     }
+
+    // 정육점 이름 조회
+    // 기능설명 : 정육점번호를 받아, 해당 정육점이름을 반환한다.
+    // 매개변수 : int cno
+    // 반환타입 : String cname
+    public String getCname( int cno ){
+        return companyDao.getCname( cno );
+    } // func end
 } // class end

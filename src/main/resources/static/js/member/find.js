@@ -10,7 +10,7 @@ const findid = async() => {
     const response = await fetch(`/member/findId?mname=${mname}&mphone=${mphoneid}`);
     const data = await response.text();
     if(data != null && data != "" ){
-        alert(`조회결과 회원님의 아이디는 \n[${data} ]\n입니다.`);
+        alert(`조회결과 회원님의 아이디는 \n[ ${data} ]\n입니다.`);
     }else{
         alert('정보를 찾지못했습니다.');
     }
@@ -101,7 +101,7 @@ const findphone2 = async() => {
         findPhone2.innerHTML = "";
         btnpwd.disabled = false;
     }else{
-        findPhone2.innerHTML = "아이디 또는 전화번호가 다릅니다.";
+        findPhone2.innerHTML = "정상적인 전화번호가 아닙니다.";
         btnpwd.disabled = true  ;
     }
 }

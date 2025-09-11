@@ -166,4 +166,23 @@ public class CompanyDao extends Dao {
         } // try-catch end
         return false;
     } // func end
+
+    // 정육점 이름 조회 - getCname()
+    // 기능설명 : 정육점번호를 받아, 해당 정육점이름을 반환한다.
+    // 매개변수 : int cno
+    // 반환타입 : String cname
+    public String getCname( int cno ){
+        try {
+            String SQL = "select cname from company where cno = ?";
+            PreparedStatement ps = conn.prepareStatement( SQL );
+            ps.setInt( 1, cno );
+            ResultSet rs = ps.executeQuery();
+            if ( rs.next() ){
+                return rs.getString("cname");
+            } // if end
+        } catch ( SQLException e ){
+            System.out.println("[getCname] SQL 기재 실패" + e );
+        } // try-catch end
+        return null;
+    } // func end
 } // class end
