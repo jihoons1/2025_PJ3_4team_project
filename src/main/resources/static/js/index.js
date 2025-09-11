@@ -55,7 +55,7 @@ const getPlan = async() => {
                                         <button type="button" style="background-color: #143889;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
                                             길찾기 QR
                                         </button>
-                                        <button type="button" style="background-color: #143889;" color: white;" onclick="printBtn(${data[i].cno})" class="btn btn-outline-primary">
+                                        <button type="button" style="background-color: #143889; color: white;"  onclick="printBtn(${data[i].cno})" class="btn btn-outline-primary">
                                             문의하기
                                         </button>
                                     </div>
@@ -222,10 +222,9 @@ const initMap = async () => {
             map: map,
             position: company
         });
-     
         naver.maps.Event.addListener(marker, "click", async () => {
             const response2 = await fetch(`/stock/get/find?cno=${data[i].cno}`);
-            const data2 = await response2.json();   
+            const data2 = await response2.json();
             let html = "";
             let rimgUrl;
             if(data[i].cimg == null || data[i].cimg == ""){

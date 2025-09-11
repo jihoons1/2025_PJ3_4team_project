@@ -60,7 +60,7 @@ public class CompanyDao extends Dao {
     public List<CompanyDto> getCompanySearch( String key , String keyword , String order){
         List<CompanyDto> list = new ArrayList<>();
         try{
-            String sql = "select c.cno , c.mno , c.cname , c.caddress , c.cimg ,p.pname , c.views , s.sprice ,  round(avg(r.rrank), 1) as rrank " +
+            String sql = "select c.cno , c.mno , c.cname , c.caddress , c.cimg ,p.pname , c.views , s.sprice ,  ifnull(round(avg(r.rrank),1),0) as rrank " +
                     " from product p join stock s on p.pno = s.pno join company c on s.cno = c.cno join review r on c.cno = r.cno";
             if (key.equals("pname")){
                 sql += " where pname like ? ";

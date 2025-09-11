@@ -52,7 +52,6 @@ public class CompanyService {
             list = companyDao.getCompany(startRow,count,order);
         } // if end
         PageDto dto = pageService.paging( page, new ArrayList<>(list), totalCount );    // 페이징처리 메소드화
-
         return dto;
     }// func end
 
