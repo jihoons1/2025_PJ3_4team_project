@@ -1,14 +1,14 @@
 //=============================================== 일반 로직 ================================================\\
 // [*] 입력값 유효성 검사
-const numCheckList = [ false ];
+const numCheckList = [ false , false ];
 // 1. 숫자만 유효성 검사 - 알림등록
 const noticeAddCheck = (  ) => {
     const nprice = document.querySelector('.nprice').value;
     const regExp = /^[0-9]+$/;
     if ( !regExp.test( nprice ) ){
-        document.querySelector('.noticeAddCheck').innerHTML = '숫자만 입력해주세요.'
+        document.querySelector('.noticeAddCheck').innerHTML = '❗ 숫자만 입력 가능합니다.';
     } else {
-        document.querySelector('.noticeAddCheck').innerHTML = ''
+        document.querySelector('.noticeAddCheck').innerHTML = '';
         numCheckList[0] = true;
     } // if end
 } // func end
@@ -65,10 +65,10 @@ const resignMember = async ( ) => {
         const data = await response.json();
         // 4. result 
         if ( data == true ){
-            alert('회원탈퇴 성공!');
+            alert('✅ 회원탈퇴가 완료되었습니다.\n이용해주셔서 감사합니다.');
             location.href = `/index.jsp`;
         } else {
-            alert('회원탈퇴 실패! 다시 입력해주세요.');
+            alert('❌ 입력하신 비밀번호가 일치하지 않습니다.\n다시 시도해주세요.');
         } // if end
     } catch ( error ) {
         console.log( error );
@@ -148,10 +148,10 @@ const updateNotice = async ( nno ) => {
     const data = await response.json();
     // 4. result
     if ( data == true ){
-        alert('알림수정 성공!');
+        alert('✅ 알림 수정이 완료되었습니다.');
         location.reload();
     } else {
-        alert('알림수정 실패!');
+        alert('❌ 알림 수정에 실패했습니다. 다시 시도해주세요.');
     } // if end
 } // func end
 
@@ -163,10 +163,10 @@ const deleteNotice = async ( nno ) => {
     const data = await response.json();
     // 2. result
     if ( data == true ){
-        alert('알림삭제 성공!');
+        alert('✅ 알림이 삭제되었습니다.');
         location.reload();
     } else {
-        alert('알림삭제 실패!')
+        alert('❌ 알림 삭제에 실패했습니다.')
     } // if end
 } // func end
 
@@ -212,10 +212,10 @@ const addNotice = async ( ) => {
     const data = await response.json();
     // 4. result
     if ( data > 0 ){
-        alert('알림등록 성공!');
+        alert('✅ 알림 등록이 완료되었습니다.');
         location.reload();
     } else if ( data == -1 ){
-        alert('포인트 잔액이 부족합니다.');
+        alert('❌ 포인트가 부족합니다. 충전 후 다시 시도해주세요.');
     } else {
         alert('재고등록 실패!\n다시 입력해주세요.');
     } // if end
@@ -360,9 +360,9 @@ const update = async() => {
         
 
         if(data == 0){
-            alert(' 수정실패');
+            alert('✅ 회원정보가 성공적으로 수정되었습니다.');
         }else{
-            alert('수정 성공');
+            alert('❌ 회원정보 수정에 실패했습니다. 입력 내용을 확인해주세요.');
             location.href="/member/mypage.jsp";
         }
 
@@ -372,12 +372,11 @@ const update = async() => {
 
 // 15. 비밀번호 수정 [기존 , 임시]  
 const passup = async() => {
-    const mpwd = document.querySelector('.mpwd').value;
-    const mpwd2 = document.querySelector('.mpwd2').value;
+    const mpwd = document.querySelector('#mpwd').value;
+    const mpwd2 = document.querySelector('#mpwd2').value;
     
     const obj = {oldmpwd : mpwd , newmpwd : mpwd2 }
 
-    let html = '';
     try{
         const option = { 
             method : "PUT" ,
@@ -386,33 +385,45 @@ const passup = async() => {
         };
         const response = await fetch('/member/update/Pwd' , option);
         const data = await response.json();
-    
-
-        
-
-        if(data==true){
-            alert('비밀번호 수정완료');
+ 
+        if(mpwd2.length >= 6 == true){
+            alert('✅ 비밀번호가 성공적으로 변경되었습니다.');
             location.href="/index.jsp";
-        }else{
-            alert('비밀번호 수정실패')
+        }else if(mpwd2 == ''){
+            alert('❌ 비밀번호 변경에 실패했습니다. 최소 6자리 이상 입력해주세요.')
         }
-    }catch(error){console.log(error) ; }
-    
+    }catch(error){console.log(error) ; }  
+}
+
+// 비밀번호 유효성
+const passad = async() => {
+    const mpwd2 = document.querySelector('#mpwd2').value;
+    const asd = document.querySelector('.asd');
+if(mpwd2 == '' ){
+        asd.innerHTML = "비밀번호를 비워두지마시오."
+        numCheckList[1] = false;
+    }else if(mpwd2.length < 6){
+        asd.innerHTML = "비밀번호는 6글자 이상 입력바랍니다.";
+        numCheckList[1] = false;
+    }else{
+        asd.innerHTML = '';
+        numCheckList[2] = true;
+    }
 }
 
 // 16. 리뷰 삭제 
 const deleteReview = async(rno) => {
-    let result = confirm('삭제 하시겠습니까?');
+    let result = confirm('⚠️ 정말 리뷰를 삭제하시겠습니까?');
     if(result == false){ return; }    
     const option = { method : "DELETE" }
     try{
         const response = await fetch(`/review/delete?rno=${rno}`,option);
         const data = await response.json();
         if(data == true){
-            alert('리뷰 삭제성공');
+            alert('✅ 리뷰가 삭제되었습니다.');
             location.href="/member/mypage.jsp";
         }else{
-            alert('리뷰 삭제실패');
+            alert('❌ 리뷰 삭제에 실패했습니다.');
         }// if end
     }catch(e){ console.log(e); }
 }// func end
@@ -436,7 +447,7 @@ const mphoneCC = async() => {
 
     const hiphonecode = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 시작 01?-343 or 3424- 마지막 4자리 고정
     if(!hiphonecode.test(mphone.value)){
-    mphone2CC.innerHTML = "전화번호 형식이 올바르지 않습니다..";
+    mphone2CC.innerHTML = "❌ 전화번호 형식이 올바르지 않습니다.";
     numCheckList[1] = false;
     return;
     }
@@ -445,10 +456,10 @@ try{
         const data = await response.json();
         
         if(data == true){
-            mphone2CC.innerHTML = "사용자가 사용중인 번호입니다. (본인 포함)";
+            mphone2CC.innerHTML = "❌ 이미 사용 중인 번호입니다. 본인 번호가 맞는지 확인해주세요.";
             numCheckList[1] = false;
         }else{
-            mphone2CC.innerHTML = "사용가능한 번호입니다.";
+            mphone2CC.innerHTML = "✅ 사용 가능한 번호입니다.";
             numCheckList[1] = true;
             }
    }catch(error) { }
@@ -551,7 +562,7 @@ function sample6_execDaumPostcode() {
                 }
                 // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
                 if(extraAddr !== ''){
-                    extraAddr = ', (' + extraAddr + ')';
+                    extraAddr = '(' + extraAddr + ')';
                 }
                 // 조합된 참고항목을 해당 필드에 넣는다.
                 
@@ -576,15 +587,15 @@ const maddresscheck = async() => {
 
 
     if (sample6_postcode === '' && sample6_detailAddress === '') {
-        maddressCheck.innerHTML = "주소와 상세주소를 모두 입력해주세요.";
+        maddressCheck.innerHTML = "❗ 주소와 상세주소를 모두 입력해주세요.";
         numCheckList[2] = false;
     } else if (sample6_postcode === '') {
-        maddressCheck.innerHTML = "주소를 입력해주세요.";
+        maddressCheck.innerHTML = "❗ 주소를 입력해주세요.";
         numCheckList[2] = false;
     } else if (sample6_detailAddress === '') {
-        maddressCheck.innerHTML = "상세주소를 입력해주세요.";
+        maddressCheck.innerHTML = "❗ 상세주소를 입력해주세요";
         numCheckList[2] = false;
-    } else {
+    } else {    
         maddressCheck.innerHTML = '';
         numCheckList[2] = true;
     }
@@ -634,7 +645,7 @@ const payment = async ( ) => {
                 // 결제에 성공했다면
                 if ( data.data == true ){
                     // 결제금액이 결제에 성공했다는 알림
-                    if ( confirm(`${pointDot} point 결제에 성공하였습니다.`) ){
+                    if ( confirm(`✅ ${pointDot} point 결제에 성공하였습니다.`) ){
                         // 확인을 눌러야 새로고침됨.
                         location.reload();
                     } // if end
@@ -642,7 +653,7 @@ const payment = async ( ) => {
             })
             } else {
                 // 실패했다면, 실패 알림 및 에러 내용 표시
-                alert(`결제에 실패하였습니다. 에러 내용: ${rsp.error_msg}`);
+                alert(`❌ 결제에 실패하였습니다. ${rsp.error_msg}`);
             }
         } // func end
     ); // 결제 프롬프트 end

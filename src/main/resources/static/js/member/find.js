@@ -10,9 +10,9 @@ const findid = async() => {
     const response = await fetch(`/member/findId?mname=${mname}&mphone=${mphoneid}`);
     const data = await response.text();
     if(data != null && data != "" ){
-        alert(`조회결과 회원님의 아이디는 \n[${data} ]\n입니다.`);
+        alert(`조회 결과, 회원님의 아이디는 \n[${data}]\n입니다.`);
     }else{
-        alert('정보를 찾지못했습니다.');
+        alert('입력하신 정보로 회원을 찾지 못했습니다.');
     }
     }catch(error){console.log(error); }
 }
@@ -31,9 +31,9 @@ const findpwd = async() => {
     const data = await response.json();
 
     if(data){
-        alert(`임시 발급 완료 입니다.`);
+        alert(`임시 비밀번호가 정상적으로 발급되었습니다.`);
     }else{
-        alert('정보를 찾지못했습니다.');
+        alert('입력하신 정보로 회원을 찾지 못했습니다.');
     }
     }catch(error){console.log(error) ;} 
 }
@@ -67,7 +67,7 @@ const findphone = async() => {
         findPhone.innerHTML = "";
         btnid.disabled = false;
     }else{
-        findPhone.innerHTML = "정상적인 전화번호가 아닙니다.";
+        findPhone.innerHTML = "유효하지 않은 전화번호입니다. 다시 확인해주세요.";
         btnid.disabled = true  ;
     }
 }
@@ -95,13 +95,11 @@ const findphone2 = async() => {
     }
     const phoneche = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 ^시작 01[0부터9까지]-[3~4자리]-[고정4자리] $끝
     
-    
-
     if(phoneche.test(mphonepwd.value)){
         findPhone2.innerHTML = "";
         btnpwd.disabled = false;
     }else{
-        findPhone2.innerHTML = "아이디 또는 전화번호가 다릅니다.";
+        findPhone2.innerHTML = "아이디 또는 전화번호가 올바르지 않습니다.";
         btnpwd.disabled = true  ;
     }
 }

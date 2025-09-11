@@ -17,10 +17,12 @@ const loginbtn = async() => {
     const data = await response.json();
 
     if(data > 0 ){
-        alert('로그인 성공\n' + `\n어서오세요`);
+        const response2 = await fetch(`/member/get?mid=${mid}`);
+        const data2 = await response2.json();
+        alert(`✅ 로그인 성공!\n\n${data2.mname}님, 어서 오세요 😊`);
         location.href="/index.jsp";
     }else{
-        alert('로그인 실패');
+        alert('❌ 아이디 또는 비밀번호가 올바르지 않습니다.\n다시 확인해주세요.');
         
         
     }
@@ -38,6 +40,8 @@ const loginCheck = async () => {
         loginCheck.innerHTML = ' 아이디를 입력해주세요.';
     }else if(mid != '' && mpwd == ''){
         loginCheck.innerHTML = '비밀번호를 입력해주세요. ';
+    }else if(mid == '' && mpwd == ''){
+        loginCheck.innerHTML = '아이디와 비밀번호를 입력해주세요.';
     }else{
         loginCheck.innerHTML = '';
     }

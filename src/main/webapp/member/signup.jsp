@@ -66,9 +66,12 @@
                             <option value="@naver.com">@naver.com</option>
                             <option value="@gmail.com">@gmail.com</option>
                             <option value="@daum.net">@daum.net</option>
+                            
                         </select>
+                        <br>
+                        </div>
+                        
                         <div class="emailCheck"></div> <!--이메일 유효성 -->
-                    </div>
                 </div>
                 <div class="input-group">
                     <label>프로필</label>
