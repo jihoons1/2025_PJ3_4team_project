@@ -204,11 +204,12 @@
                 <div class="modal-body">
                     <div class="input-group">
                         <label>기존 비밀번호</label>
-                        <input style="width: 100%;" type="password" class="mpwd form-control" />
+                        <input style="width: 100%;" type="password" class="mpwd form-control" id="mpwd"/>
                     </div>
                     <div class="input-group">
                         <label>변경하실 비밀번호</label>
-                        <input style="width: 100%;" type="password" class="mpwd2 form-control" />
+                        <input style="width: 100%;" onkeyup="passad()" type="password" class="mpwd2 form-control" id="mpwd2"/>
+                        <div class="asd"></div>
                     </div>
                 </div>
                 <div class="modal-footer">

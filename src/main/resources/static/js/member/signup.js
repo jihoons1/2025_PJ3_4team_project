@@ -6,7 +6,7 @@ const test = [false,false,false,false,false] // 7개 mname/mid/mwd/mwd확인/mph
 const signupbtn = async() => {
     // 회원버튼 클릭시 일치x 이면
     if(test.includes(false)){
-        alert('올바른 정보 입력해주십시오');
+        alert('모든 항목을 올바르게 입력해주세요.');
         return;
     }
  // 아나면 통과
@@ -28,10 +28,10 @@ const signupbtn = async() => {
     const response = await fetch('/member/signup' , op);
     const data = await response.json();
     if(data > 0 ){
-        alert('회원가입 성공');
+        alert('🎉 회원가입이 성공적으로 완료되었습니다.');
         location.href="/member/login.jsp"; 
         }else{
-        alert('회원가입 실패'); }   
+        alert('⚠️ 회원가입에 실패했습니다. 입력 내용을 확인 후 다시 시도해주세요.'); }   
     }catch(error){console.log(error+"회원가입 에러"); }
 }
 
@@ -41,10 +41,10 @@ const mnamecheck = async () =>{
     const mnameCheck =document.querySelector('.mnameCheck');
     
     if(mname2.length < 3 || mname2.length > 10){
-        mnameCheck.innerHTML = "명은 3글자 부터 10글자 이하 까지 가능합니다.";
+        mnameCheck.innerHTML = "❗ 이름은 3~10글자로 입력해주세요.";
         test[3] = false;
     }else{
-        mnameCheck.innerHTML = `사용가능한 회원명입니다.`;
+        mnameCheck.innerHTML = `✅ 사용 가능한 이름입니다.`;
         test[3] = true; 
     }
 }
@@ -57,7 +57,7 @@ const idcheck = async () => {
     const idchecks = document.querySelector('.idchecks');
 
     if(mid.length < 6 || mid.length > 10) {
-        idchecks.innerHTML = "6글자 이상 10글자 이하로 가능합니다.";
+        idchecks.innerHTML = "❗ 아이디는 6~10글자로 입력해주세요.";
         test[0] = false; // test[0] < id 
         return; 
     }
@@ -67,10 +67,10 @@ const idcheck = async () => {
         const data = await response.json();
 
         if(data==true){
-            idchecks.innerHTML = '사용중인 아이디 입니다,';
+            idchecks.innerHTML = '❌ 이미 사용 중인 아이디입니다.';
             test[0] = false; // 유효성 실패
         }else{
-            idchecks.innerHTML = '사용 가능한 아이디 입니다.';
+            idchecks.innerHTML = '✅ 사용 가능한 아이디입니다.';
             test[0] = true; // 유효성 성공
         }
     }catch(error){console.log(error) ; }
@@ -83,7 +83,7 @@ const pwdcheck = async() => {
     const Pwd = document.querySelector('.Pwd');
 
     if(mpwd.length <6 || mpwd.length > 13){
-        Pwd.innerHTML = "비밀번호는 6글자 이상 13글자 이하로 가능합니다.";
+        Pwd.innerHTML = "❗ 비밀번호는 6~13글자로 입력해주세요.";
         test[1] = false; // test[1] mpwd;
         return;
     }
@@ -93,10 +93,10 @@ const pwdcheck = async() => {
         const data = await response.json();
 
         if(data==true){
-            Pwd.innerHTML = "사용 불가능";
+            Pwd.innerHTML = "❌ 사용 불가한 비밀번호입니다.";
             test[1] = false; // 비번 실패
         }else{
-            Pwd.innerHTML = "사용 가능";
+            Pwd.innerHTML = "✅ 사용 가능한 비밀번호입니다.";
             test[1] = true;
         }
     }catch(error){console.log(error);}
@@ -109,10 +109,10 @@ const pwdcheck2 = async() => {
     const Pwdd = document.querySelector('.Pwdd');
     
     if(mpwd22 !== mpwd2 ){
-        Pwdd.innerHTML = "일치XX";
+        Pwdd.innerHTML = "❌ 비밀번호가 일치하지 않습니다.";
         test[2] = false;
     }else{
-        Pwdd.innerHTML = "일치OO";
+        Pwdd.innerHTML = "✅ 비밀번호가 일치합니다.";
         test[2] = true;
     }
 }
@@ -137,7 +137,7 @@ const phoneCheck = async() =>{
 // 휴대폰 검사
     const phoneche = /^01[0-9]-\d{3,4}-\d{4}$/; // 휴대폰 ^시작 01[0부터9까지]-[3~4자리]-[고정4자리] $끝
     if(!phoneche.test(phonebox.value)){
-        phonechecks.innerHTML ="정상적인 전화번호가 아닙니다."
+        phonechecks.innerHTML ="❗ 올바른 전화번호 형식이 아닙니다.";
         test[4] = false;
         return;
     }
@@ -149,10 +149,10 @@ const phoneCheck = async() =>{
 
 
     if(data ==true){
-        phonechecks.innerHTML = "다른 사용자가 사용중인 번호입니다..";
+        phonechecks.innerHTML = "❌ 이미 사용 중인 번호입니다.";
         test[4] = false;
     }else{
-        phonechecks.innerHTML = "사용가능한 번호입니다.";
+        phonechecks.innerHTML = "✅ 사용 가능한 번호입니다.";
         test[4] = true;
     }
 
@@ -162,7 +162,7 @@ const phoneCheck = async() =>{
 
 
 
-// 7.
+// 7. 이메일 유효성 
 const emailcheck = async() => {
     const emailCheck = document.querySelector('.emailCheck');
     const emailname = document.querySelector('.emailname').value;
@@ -180,8 +180,9 @@ const emailcheck = async() => {
     }else{
         emailselect.disabled = false;
 
-        if(emailname == '' ||  emailsel == "이메일 선택"){
-            emailCheck.innerHTML = "이메일 선택해주십시오.";
+        if(emailname === '' ||  emailsel === "이메일 선택"){
+            emailCheck.innerHTML = "❗ 이메일을 입력해주세요.";
+            test[5] = false;
             return;
         }
         memail = emailname + emailsel;
@@ -189,10 +190,10 @@ const emailcheck = async() => {
 
     if(memailtext.test(memail) &&
         (memail.endsWith("@naver.com") || memail.endsWith("@gmail.com") || memail.endsWith("@daum.net") )){
-        emailCheck.innerHTML = "사용 가능.";
+        emailCheck.innerHTML = "✅ 사용 가능한 이메일입니다.";
         test[5] = true;
     }else{
-        emailCheck.innerHTML = "사용 불가능.";
+        emailCheck.innerHTML = "❌ 사용 불가한 이메일입니다.";
         test[5] = false;
     }
 }
