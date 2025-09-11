@@ -57,9 +57,9 @@
     transition: all 0.2s ease-in-out;
 }
 .menu .nav-link:hover, .menu .nav-link.active {
-    background-color: #0d6efd;
+    background-color: #143889;
     color: #fff;
-    border-color: #0d6efd;
+    border-color: #143889;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -74,7 +74,7 @@
 .searchBox {
     height: 40px;
     width: 250px;
-    border: 2px solid #0d6efd;
+    border: 2px solid #143889;
     border-right: none;
     padding: 5px 15px;
     border-radius: 20px 0 0 20px;
@@ -85,7 +85,7 @@
     width: 50px;
     height: 40px;
     border: none;
-    background-color: #0d6efd;
+    background-color: #143889;
     color: white;
     border-radius: 0 20px 20px 0;
     cursor: pointer;
