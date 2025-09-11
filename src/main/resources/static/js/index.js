@@ -42,7 +42,7 @@ const getPlan = async() => {
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
                                     <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
-                                    <span style="padding-left:10px; font-size: 20px">조회수  ${data[i].views} </span><br/><br/>
+                                    <span style="padding-left:10px; font-size: 20px;">조회수  ${data[i].views} </span><br/><br/>
                                     <span>주소 : ${data[i].caddress} </span>
                                     <div style="padding-left: 20px; margin-top: 30px;">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
@@ -84,7 +84,7 @@ const getPlan = async() => {
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
                                     <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
-                                    <span style="padding-left:10px; font-size: 20px">조회수  ${data[i].views} </span><br/><br/>
+                                    <span style="padding-left:10px; font-size: 20px;">조회수  ${data[i].views} </span><br/><br/>
                                     <span>주소 : ${data[i].caddress} </span>
                                     <div style="padding-left: 20px; margin-top: 30px;">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
