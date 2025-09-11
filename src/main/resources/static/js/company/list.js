@@ -17,9 +17,9 @@ const getAllCompany = async() => {
                 imgUrl = 'https://placehold.co/50x50';
             }// if end
             html += `<tr>
-                        <td><img src=${imgUrl}/></td>
+                        <td><a href="/company/find.jsp?cno=${com.cno}"><img src=${imgUrl}/></a></td>
                         <td><a href="/company/find.jsp?cno=${com.cno}">${com.cname}</a></td>
-                        <td>${com.caddress}</td>
+                        <td><a href="/company/find.jsp?cno=${com.cno}">${com.caddress}</a></td>
                         <td>${com.views}</td>
                         <td>${com.rrank}</td>
                     </tr>`;

@@ -12,6 +12,22 @@ const getPlan = async() => {
                 imgURL = 'https://placehold.co/100x100';
             } else {
                 imgURL = `/img/company/` + data[i].cimg;
+            }// if end
+            let str1 = String(data[i].rrank);
+            let str = str1.slice(0,1);
+            let rankImg = "";
+            if(str == '5'){
+                rankImg = "/upload/star/별점5.png";
+            }else if(str == '4'){
+                rankImg = "/upload/star/별점4.png";
+            }else if(str == '3'){
+                rankImg = "/upload/star/별점3.png";
+            }else if(str == '2'){
+                rankImg = "/upload/star/별점2.png";
+            }else if(str == '1'){
+                rankImg = "/upload/star/별점1.png";
+            }else if(str == '0'){
+                rankImg = "/upload/star/별점0.png";
             }
             if(i == 0){                
                 html += `<div class="carousel-item active">
@@ -24,15 +40,16 @@ const getPlan = async() => {
                                 <div class="caimgBox" style="width: 45%;">
                                     <img src="${imgURL}" class="d-block w-40" alt="...">
                                 </div>
-                                <div style="text-align: left; width: 45%;">
-                                    <div>평점 ${data[i].rrank}  조회수 ${data[i].views}</div>
+                                <div style="text-align: left; width: 45%;"><br/>
+                                    <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
+                                                                        <span style="padding-left:10px; font-size: 20px;">조회수  ${data[i].views} </span><br/><br/>
                                     <div> ${data[i].caddress} </div>
-                                    <div class="caBtnBox${data[i].cno}" style="padding-left: 20px; margin-top: 30px;">
-                                        <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
-                                            길찾기 QR
-                                        </button>
-                                        <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
-                                            문의하기
+                                                                        <div class="caBtnBox${data[i].cno}" style="padding-left: 20px; margin-top: 30px;">
+                                                                            <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
+                                                                                길찾기 QR
+                                                                            </button>
+                                                                            <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
+                                                                                문의하기
                                         </button>
                                     </div>
                                 </div>
@@ -69,14 +86,12 @@ const getPlan = async() => {
                                     <img src="${imgURL}" class="d-block w-40" alt="...">
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
-                                    <div>평점 ${data[i].rrank}  조회수 ${data[i].views}</div>
-                                    <div> ${data[i].caddress} </div>
+                                    <span>평점 : ${data[i].rrank}점</span><br/><br/>
+                                    <span>조회수 : ${data[i].views} </span><br/><br/>
+                                    <span>주소 : ${data[i].caddress} </span>
                                     <div style="padding-left: 20px; margin-top: 30px;">
-                                        <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
-                                            길찾기 QR
-                                        </button>
-                                        <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
-                                            문의하기
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
+                                            길찾기 QR Code [거주지 기준]
                                         </button>
                                     </div>
                                 </div>
@@ -123,7 +138,7 @@ const printBtn = async ( cno ) => {
         } else {
             // 4. 해당 정육점이 내 정육점이 아니라면, 해당 정육점과의 채팅방으로 이동
             location.href = `/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}`;
-        } // if end        
+        } // if end
     } catch ( error ) {
         // 5. 비로그인 상태라면, 전체채팅방으로 이동
         publicRoom();
