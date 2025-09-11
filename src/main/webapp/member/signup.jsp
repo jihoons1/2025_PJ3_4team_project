@@ -34,7 +34,7 @@
                 </div>
                 <div class="input-group">
                     <label>비밀번호</label>
-                    <input type="password" onkeyup="pwdcheck()" name="mpwd" class="mpwd2" placeholder="비밀번호 입력바랍니다." />
+                    <input type="password" onkeyup="pwdcheck(); pwdcheck2()"  name="mpwd" class="mpwd2" placeholder="비밀번호 입력바랍니다." />
                     <div class="Pwd"></div> <!--비밀번호 유효성 [6글자~13글자] -->
                 </div>
                 <div class="input-group">
