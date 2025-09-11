@@ -43,14 +43,14 @@ const printBtn = async ( ) => {
         // 2. result
         if ( sidemno == data.mno ){
             // 3. 해당 정육점이 내 정육점이라면, 방으로 안 들어가고 그냥 전체채팅방으로
-            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}'" class="btn btn-primary">문의하기</button>`;
+            chatBtn.innerHTML = `<button type="button" style="background-color: #143889;"  onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}'" class="btn btn-primary">문의하기</button>`;
         } else {
             // 4. 해당 정육점이 내 정육점이 아니라면, 해당 정육점과의 채팅방으로 이동
-            chatBtn.innerHTML = `<button type="button" onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">문의하기</button>`;
+            chatBtn.innerHTML = `<button type="button" style="background-color: #143889;"  onclick="location.href='/chatting/chatting.jsp?mno=${data.mno}&cno=${sidemno}&room=${data.mno}_${sidemno}'" class="btn btn-primary">문의하기</button>`;
         } // if end        
     } catch ( error ) {
         // 5. 비로그인 상태라면, 전체채팅방으로 이동
-        chatBtn.innerHTML = `<button type="button" onclick="publicRoom()" class="btn btn-primary">문의하기</button>`;
+        chatBtn.innerHTML = `<button type="button" style="background-color: #143889;"  onclick="publicRoom()" class="btn btn-primary">문의하기</button>`;
     } // try-catch end
 } // func end
 printBtn();
@@ -137,7 +137,7 @@ const getReview = async() => {
                             <td>${re.rdate}</td>
                             <td>${re.rrank}</td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onclick="getRnoReview(${re.rno})">
+                                <button type="button" style="background-color: #143889;"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" onclick="getRnoReview(${re.rno})">
                                     수정
                                 </button>
                                 <button type="button" class="btn btn-danger" onclick="deleteReview(${re.rno})"> 삭제 </button>

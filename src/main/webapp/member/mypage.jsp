@@ -84,7 +84,7 @@
             <div class="mypage-section">
                 <div class="section-header">
                     <h4>가격 알림</h4>
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
+                    <button type="button" style="background-color: #143889;"  class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
                         새 알림 등록
                     </button>
                 </div>
@@ -144,7 +144,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="payment()">포인트 결제</button>
+                    <button type="button" style="background-color: #143889;" class="btn btn-primary" onclick="payment()">포인트 결제</button>
                 </div>
             </div>
         </div>
@@ -186,7 +186,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="update()">회원정보 수정</button>
+                    <button type="button" style="background-color: #143889;" class="btn btn-primary" onclick="update()">회원정보 수정</button>
                 </div>
             </div>
         </div>
@@ -213,7 +213,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                    <button type="button" class="btn btn-primary" onclick="passup()">비밀번호 수정</button>
+                    <button type="button" style="background-color: #143889;" class="btn btn-primary" onclick="passup()">비밀번호 수정</button>
                 </div>
             </div>
         </div>
@@ -246,7 +246,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="addUpdate()">리뷰 수정</button>
+                    <button type="button" style="background-color: #143889;" class="btn btn-primary" onclick="addUpdate()">리뷰 수정</button>
                 </div>
             </div>
         </div>
@@ -271,7 +271,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="addNotice()">알림등록</button>
+                    <button type="button" style="background-color: #143889;" class="btn btn-primary" onclick="addNotice()">알림등록</button>
                 </div>
             </div>
         </div>
@@ -315,8 +315,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" data-bs-target="#staticBackdrop3"
-                        data-bs-toggle="modal">탈퇴 진행하기</button>
+                    <button type="button" style="background-color: #143889;" class="btn btn-primary" data-bs-target="#staticBackdrop3" data-bs-toggle="modal">탈퇴 진행하기</button>
                 </div>
             </div>
         </div>
@@ -339,7 +338,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="resignMember()">회원탈퇴</button>
+                    <button type="button" style="background-color: #143889;" class="btn btn-primary" onclick="resignMember()">회원탈퇴</button>
                 </div>
             </div>
         </div>

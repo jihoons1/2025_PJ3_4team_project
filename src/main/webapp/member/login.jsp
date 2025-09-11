@@ -35,7 +35,7 @@
                     <a href="/member/find.jsp">아이디 | 비밀번호 찾기</a>
                 </div>
 
-                <button type="button" onclick="loginbtn()"> 로그인 </button>
+                <button type="button" style="background-color: #143889;" onclick="loginbtn()"> 로그인 </button>
             </div>
         </div>
     </div>

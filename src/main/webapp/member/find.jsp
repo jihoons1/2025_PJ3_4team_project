@@ -26,7 +26,7 @@
                     <input onkeyup="findphone()" style="width: 100%;" type="text" class="mphoneid form-control" placeholder="가입 시 등록한 휴대번호를 입력하세요.">
                     <div class="findPhone validation-message"></div>
                 </div>
-                <button class="btnid btn btn-primary w-100" type="button" onclick="findid()"> 아이디 찾기 </button>
+                <button style="background-color: #143889;" class="btnid btn btn-primary w-100" type="button" onclick="findid()"> 아이디 찾기 </button>
             </div>
             
             <div class="find-form">
@@ -40,7 +40,7 @@
                     <input onkeyup="findphone2()" style="width: 100%;" type="text" class="mphonepwd form-control" placeholder="가입 시 등록한 휴대번호를 입력하세요.">
                     <div class="findPhone2 validation-message"></div>
                 </div>
-                <button class="btnpwd btn btn-primary w-100" type="button" onclick="findpwd()"> 비밀번호 찾기 </button>
+                <button style="background-color: #143889;" class="btnpwd btn btn-primary w-100" type="button" onclick="findpwd()"> 비밀번호 찾기 </button>
             </div>
         </div>
     </div>

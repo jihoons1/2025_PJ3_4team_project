@@ -104,7 +104,7 @@ const getNotice = async ( ) => {
                     <td>${notice.ndate}</td>
                     <td>${ncheck}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop4" onclick="updatePrint(${notice.nno})"> 수정 </button>
+                        <button type="button" style="background-color: #143889;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop4" onclick="updatePrint(${notice.nno})"> 수정 </button>
                         <button type="button" class="btn btn-danger" onclick="deleteNotice(${notice.nno})"> 삭제 </button>
                     </td>
                  </tr>`
@@ -122,7 +122,7 @@ const updatePrint = async ( nno ) => {
             document.querySelector('.oldPname').innerHTML = `${noticeData[i].pname}`;
             document.querySelector('.NewNprice').value = `${noticeData[i].nprice}`;
             document.querySelector('#updateInput').innerHTML = `<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                                                                <button type="button" class="btn btn-primary"  onclick="updateNotice(${nno})">알림수정</button>`
+                                                                <button type="button" style="background-color: #143889;" class="btn btn-primary"  onclick="updateNotice(${nno})">알림수정</button>`
         } // if end
     } // for end
 } // func end
@@ -252,7 +252,7 @@ const getMnoReview = async ( ) => {
                     <td>${review.rrank}</td>
                     <td>${review.rdate}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop6" onclick="getRnoReview(${review.rno})">
+                        <button type="button" style="background-color: #143889;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop6" onclick="getRnoReview(${review.rno})">
                                     수정
                                 </button>
                         <button type="button" class="btn btn-danger" onclick="deleteReview(${review.rno})"> 삭제 </button>

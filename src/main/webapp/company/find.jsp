@@ -126,7 +126,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="addReview()">리뷰 등록</button>
+                    <button type="button" style="background-color: #143889;"  class="btn btn-primary" onclick="addReview()">리뷰 등록</button>
                 </div>
             </div>
         </div>
@@ -181,7 +181,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="saveReview()">리뷰 수정</button>
+                    <button type="button" style="background-color: #143889;"  class="btn btn-primary" onclick="saveReview()">리뷰 수정</button>
                 </div>
             </div>
         </div>
@@ -211,7 +211,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> 닫기 </button>
-                    <button type="button" class="btn btn-primary" onclick="addPlan()">멤버십 등록</button>
+                    <button type="button" style="background-color: #143889;"  class="btn btn-primary" onclick="addPlan()">멤버십 등록</button>
                 </div>
             </div>
         </div>
