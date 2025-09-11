@@ -12,6 +12,22 @@ const getPlan = async() => {
                 imgURL = 'https://placehold.co/100x100';
             } else {
                 imgURL = `/img/company/` + data[i].cimg;
+            }// if end
+            let str1 = String(data[i].rrank);
+            let str = str1.slice(0,1);
+            let rankImg = "";
+            if(str == '5'){
+                rankImg = "/upload/star/별점5.png";
+            }else if(str == '4'){
+                rankImg = "/upload/star/별점4.png";
+            }else if(str == '3'){
+                rankImg = "/upload/star/별점3.png";
+            }else if(str == '2'){
+                rankImg = "/upload/star/별점2.png";
+            }else if(str == '1'){
+                rankImg = "/upload/star/별점1.png";
+            }else if(str == '0'){
+                rankImg = "/upload/star/별점0.png";
             }
             if(i == 0){                
                 html += `<div class="carousel-item active">
@@ -25,8 +41,8 @@ const getPlan = async() => {
                                     <img src="${imgURL}" class="d-block w-40" alt="...">
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
-                                    <span>평점 : ${data[i].rrank}점</span><br/><br/>
-                                    <span>조회수 : ${data[i].views} </span><br/><br/>
+                                    <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
+                                    <span style="padding-left:10px; font-size: 20px">조회수  ${data[i].views} </span><br/><br/>
                                     <span>주소 : ${data[i].caddress} </span>
                                     <div style="padding-left: 20px; margin-top: 30px;">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
@@ -67,8 +83,8 @@ const getPlan = async() => {
                                     <img src="${imgURL}" class="d-block w-40" alt="...">
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
-                                    <span>평점 : ${data[i].rrank}점</span><br/><br/>
-                                    <span>조회수 : ${data[i].views} </span><br/><br/>
+                                    <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
+                                    <span style="padding-left:10px; font-size: 20px">조회수  ${data[i].views} </span><br/><br/>
                                     <span>주소 : ${data[i].caddress} </span>
                                     <div style="padding-left: 20px; margin-top: 30px;">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
