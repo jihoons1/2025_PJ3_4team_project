@@ -42,14 +42,14 @@ const getPlan = async() => {
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
                                     <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
-                                                                        <span style="padding-left:10px; font-size: 20px;">조회수  ${data[i].views} </span><br/><br/>
+                                    <span style="padding-left:10px; font-size: 20px;">조회수  ${data[i].views} </span><br/><br/>
                                     <div> ${data[i].caddress} </div>
-                                                                        <div class="caBtnBox${data[i].cno}" style="padding-left: 20px; margin-top: 30px;">
-                                                                            <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
-                                                                                길찾기 QR
-                                                                            </button>
-                                                                            <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
-                                                                                문의하기
+                                    <div class="caBtnBox${data[i].cno}" style="padding-left: 20px; margin-top: 30px;">
+                                        <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
+                                            길찾기 QR
+                                        </button>
+                                        <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
+                                            문의하기
                                         </button>
                                     </div>
                                 </div>
@@ -86,12 +86,15 @@ const getPlan = async() => {
                                     <img src="${imgURL}" class="d-block w-40" alt="...">
                                 </div>
                                 <div style="text-align: left; width: 45%;"><br/>
-                                    <span>평점 : ${data[i].rrank}점</span><br/><br/>
-                                    <span>조회수 : ${data[i].views} </span><br/><br/>
-                                    <span>주소 : ${data[i].caddress} </span>
-                                    <div style="padding-left: 20px; margin-top: 30px;">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
-                                            길찾기 QR Code [거주지 기준]
+                                    <span><img style="width:190px; height: 40px;" src=${rankImg}/></span>
+                                    <span style="padding-left:10px; font-size: 20px;">조회수  ${data[i].views} </span><br/><br/>
+                                    <div> ${data[i].caddress} </div>
+                                    <div class="caBtnBox${data[i].cno}" style="padding-left: 20px; margin-top: 30px;">
+                                        <button type="button" class="btn btn-primary" style="background-color: #143889;" data-bs-toggle="modal" data-bs-target="#staticBackdrop${data[i].cno}" onclick="buildQR(${data[i].cno})">
+                                            길찾기 QR
+                                        </button>
+                                        <button type="button" style="background-color: #143889;" onclick="printBtn(${data[i].cno})" class="btn btn-primary">
+                                            문의하기
                                         </button>
                                     </div>
                                 </div>
