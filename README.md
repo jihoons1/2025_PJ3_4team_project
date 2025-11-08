@@ -68,7 +68,7 @@
 - Lombok Library
 - Bootstrap( 5.3.8 )
 - NaverMap API
-- Zxing API
+- Zxing Library
 - Geocoder API
 - PortOne API
 - Daum Postcode API
