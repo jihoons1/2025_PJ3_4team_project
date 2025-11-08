@@ -11,6 +11,8 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Component  // 스프링 컨테이너에 bean 등록
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
     private final MemberService memberService;
 
     // 0. 채팅방 모음
-    private static final Map< String, List< WebSocketSession > > users = new HashMap<>();
+    private static final Map< String, List< WebSocketSession > > users = new ConcurrentHashMap<>();
     // key : 방번호, value : 방에 접속한 클라이언트들
 
 
@@ -45,11 +47,8 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
         } // try-catch end
         // 2. 만약 방번호와 회원번호가 일치하는 데이터가 채팅방에 존재한다면 -> null이 아니라는 것은 존재한다는 의미
         if ( room != null || mno != null ){
-            // 3. 해당 방의 접속목록을 꺼내서
             List< WebSocketSession > list = users.get( room );
-            // 4. 해당 세션을 삭제한다.
             list.remove( session );
-            // 5. 클라이언트가 방에서 나갔다고 알림
             alarmMessage( room, mname + "님이 채팅을 종료했습니다.");
         } // if end
     } // func end
@@ -82,11 +81,8 @@ public class ChattingSocketHandler extends TextWebSocketHandler {
                 // 5. 해당 방에 세션 추가
                 users.get( room ).add( session );
             } else { // 6. 접속한 방이 생성 전이라면
-                // 7. 세션이 들어갈 방을 생성하고
-                List< WebSocketSession > list = new ArrayList<>();
-                // 8. 생성된 방에 세션 추가
+                List< WebSocketSession > list = new CopyOnWriteArrayList<>();
                 list.add( session );
-                // 9. 채팅방 모음에 생성된 방 추가
                 users.put( room, list );
             } // if end
             // 10. 접속한 회원을 알림을 통해 보내기
